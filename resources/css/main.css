@@ -1,0 +1,67 @@
+#content {
+    font-size: 0.8rem;
+    line-height: 1.7rem;
+}
+#content::first-line {
+    font-weight: bold;
+    /* color: blue; */
+    line-height: 1.7rem;
+  }
+#content h1 {
+    font-weight: bold;
+    margin-bottom: 3px;
+    font-size: 1.25rem;
+    line-height: 1.7rem;
+    text-decoration: underline;
+}
+#content li {
+    font-style: italic;
+    font-size: 0.7rem;
+    line-height: 1.7rem;
+
+}
+#content p {
+    font-size: 0.8rem;
+    line-height: 1.7rem;
+    /* background-color: red; */
+}
+#content h2, h3 {
+    font-size: 1rem;
+    line-height: 1rem;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(73, 73, 187); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  /* ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  } */
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background:  rgb(2, 2, 155); 
+  }
+
+#suggestionList li{
+    padding: 3px;
+}
+#suggestionList li:hover {
+  background-color: #ebeef6;
+}

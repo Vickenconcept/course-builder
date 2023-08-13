@@ -1,0 +1,10 @@
+{
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret",
+    "developer_token": "your_developer_token",
+    "refresh_token": "your_refresh_token",
+    "login_customer_id": "your_login_customer_id",
+    "endpoint": "https://googleads.googleapis.com/",
+    "version": "v8"
+  }
+  
