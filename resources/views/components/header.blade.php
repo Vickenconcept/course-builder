@@ -1,4 +1,4 @@
-<div class="fixed w-full z-30 flex bg-white dark:bg-[#0F172A] p-2 items-center justify-center h-16 pl-10 pr-5 shadow">
+<div class="fixed w-full z-30 flex bg-white  p-2 items-center justify-center h-16 pl-10 pr-5 shadow">
     <div class="logo ml-12 text-gray-700 font-semibold  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center capitalize">
         <a href="{{ route('dashboard.index') }}" class="text-left py-2  {{ request()->routeIs('dashboard.index') ? '' : 'hidden' }}">Dashboard</a>
         <a href="{{ route('books.index') }}" class=" {{ request()->routeIs('books.index') ? '' : 'hidden' }}">Books</a>
