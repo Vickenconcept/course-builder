@@ -58,7 +58,7 @@
                     </h1>
                     <div class="w-full overflow-hidden bg-cover bg-opacity-10 bg-no-repeat object-contain p-2 relative">
                         <canvas id="lineChart" class="w-full z-10"></canvas>
-                        <img src="{{ asset('images/chart.jpg') }}" style="opacity: 0.2; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;" alt="Image">
+                        {{-- <img src="{{ asset('images/chart.jpg') }}" style="opacity: 0.2; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;" alt="Image"> --}}
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
 
                     if (inputVal !== '') {
                         debounceTimer = setTimeout(function() {
-                            axios.get('/fetch-suggestions', {
+                            axios.get('/suggestions', {
                                     params: {
                                         keyword: inputVal
                                     }
@@ -151,7 +151,7 @@
                                 .catch(function(error) {
                                     console.log(error);
                                 });
-                        }, 600); // 500ms debounce delay (adjust as needed)
+                        }, 500); // 500ms debounce delay (adjust as needed)
                     }
                 });
 

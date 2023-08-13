@@ -11,7 +11,7 @@ class SuggestionController extends Controller
 {
     protected $cacheDuration = 60;
     
-    public function fetchSuggestions(Request $request)
+    public function suggestions(Request $request)
     {
         $defaultQuery = 'kids art book';
         $keyword = $request->input('keyword',$defaultQuery);

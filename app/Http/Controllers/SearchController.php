@@ -22,7 +22,7 @@ class SearchController extends Controller
 
     public function index()
     {
-        return view('pages.users.search');
+        return view('users.search');
     }
 
     /**
@@ -39,7 +39,7 @@ class SearchController extends Controller
         $total_search = $result[1];
         $trend = $this->bookService->googleTrend($query);
         $request->session()->put('query', $query);
-        return view('pages.users.search', compact('titles', 'total_search','trend'));
+        return view('users.search', compact('titles', 'total_search','trend'));
     }
 
     /**

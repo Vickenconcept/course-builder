@@ -1,12 +1,12 @@
 <x-app-layout>
     <div class="p-2 md:px-10 text-gray-700">
-        <form action="{{ route('platform-research.create') }}" method="get">
+        <form action="{{ route('research.create') }}" method="get">
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mt-10 " x-data="{ firstOption: '', isSecondSelectDisabled: true }">
                 @csrf
 
                 <div class="w-full col-span-1">
                     <label for="countries" class="block mb-2 bg-yellow-800/50 text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select platform</label>
-                    <select id="countries" x-model="firstOption" @change="isSecondSelectDisabled = (firstOption === '')" name="platform" class="bg-white border mt-3 border-white  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-blue-700 dark:border-blue-600 dark:placeholder-blue-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="countries" x-model="firstOption" @change="isSecondSelectDisabled = (firstOption === '')" name="platform" class="bg-white border mt-3 border-white  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-blue-600 dark:placeholder-blue-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected  class="bg-gray-100 text-white">Udamy</option>
                         <option value="Udamy">Udamy</option>
                         <option value="Amazon KDP">Amazon KDP</option>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="w-full col-span-1">
                     <label for="countries" class="block mb-2 bg-yellow-800/50 text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select Category</label>
-                    <select id="countries" :disabled="isSecondSelectDisabled" onchange="this.closest('form').submit()" name="category" class="bg-white border mt-3 border-white  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-blue-700 dark:border-blue-600 dark:placeholder-blue-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="countries" :disabled="isSecondSelectDisabled" onchange="this.closest('form').submit()" name="category" class="bg-white border mt-3 border-white  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-blue-600 dark:placeholder-blue-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected disabled class="bg-gray-100 text-white">Design</option>
                         <option value="Design">Design</option>
                         <option value="Computer Science">Computer Science</option>

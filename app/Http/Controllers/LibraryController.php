@@ -21,7 +21,7 @@ class LibraryController extends Controller
         $books = Book::whereHas('user', function ($query) use ($user) {
             $query->where('id', $user->id);
         })->latest()->get();
-        return view('pages.users.book-library', compact('books'));
+        return view('users.book-library', compact('books'));
     }
 
     /**
@@ -29,7 +29,7 @@ class LibraryController extends Controller
      */
     public function create()
     {
-        return view('pages.users.create-course');
+        return view('users.create-course');
     }
 
     /**
@@ -59,7 +59,7 @@ class LibraryController extends Controller
             ->where('user_id', $user->id)
             ->firstOrFail();
             
-        return view('pages.users.create-course', compact('library'));
+        return view('users.create-course', compact('library'));
     }
 
    

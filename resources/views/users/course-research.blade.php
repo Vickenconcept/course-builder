@@ -4,7 +4,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 py-4">
             <div class=" w-full  col-span-1 rounded">
                 <div class="shadow ">
-                    <form action="{{ route('course-research.create') }}" method="get">
+                    <form action="{{ route('courses.create') }}" method="get">
                         @csrf
                         <div class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
                             <div class="grid place-items-center h-full w-12 text-gray-300">
@@ -169,7 +169,7 @@
 
                     </x-slot>
                 </x-dropdown> -->
-
+ 
                 <!-- <x-dropdown align="right">
                     <x-slot name="trigger">
                         <x-main-button class="">Price</x-main-button>
@@ -255,7 +255,7 @@
             <!-- <button class="bg-blue-800 text-blue-100 px-3 rounded shadow hover:shadow-lg hover:text-white transition duration-300 py-2 text-xs">Pre-set filter</button> -->
             <form action="{{ route('export.books') }}" method="get" class="inline">
                 @csrf
-                <button class="bg-yellow-500 text-white px-3  shadow hover:shadow-lg transition duration-300 py-2 text-xs mx-3">Export as CSV</button>
+                <button class="bg-yellow-500 text-white px-3  shadow hover:shadow-lg transition duration-300 py-2 text-xs">Export as CSV</button>
             </form>
         </div>
         <section class="py-2 overflow-x-auto ">

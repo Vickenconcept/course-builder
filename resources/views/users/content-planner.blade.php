@@ -28,7 +28,7 @@
                         <x-main-modal>
                             <h2 class="first-letter:uppercase font-semibold text-sm border-t py-2 text-center ">Are you sure you want to delete this course?</h2>
                             <div class="flex justify-center gap-2">
-                                <form method="POST" :action="'{{ route('lesson-architect.destroy', '') }}/' + libraryId" x-bind:id="'form-' + libraryId">
+                                <form method="POST" :action="'{{ route('library.destroy', '') }}/' + libraryId" x-bind:id="'form-' + libraryId">
                                     @csrf
                                     @method('DELETE')
                                     <x-main-button type="submit" class="">DELETE</x-main-button>

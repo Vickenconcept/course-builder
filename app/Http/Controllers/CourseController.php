@@ -8,7 +8,7 @@ use App\Services\BookService;
 // use App\Exports\BookExport;
 // use Maatwebsite\Excel\Facades\Excel;
 
-class CourseresearchController extends Controller
+class CourseController extends Controller
 {
 
     protected $bookService;
@@ -23,7 +23,7 @@ class CourseresearchController extends Controller
      */
     public function index()
     {
-        return view('pages.users.course-research');
+        return view('users.course-research');
     }
 
     /**
@@ -41,7 +41,7 @@ class CourseresearchController extends Controller
         $trend = $this->bookService->googleTrend($query);
         $request->session()->put('query', $query);
         // dd($trend);
-        return view('pages.users.course-research', compact('books', 'query', 'trend'));
+        return view('users.course-research', compact('books', 'query', 'trend'));
     }
 
     // public function export(Request $request)
@@ -77,7 +77,7 @@ class CourseresearchController extends Controller
      */
     public function edit(Courseresearch $courseresearch)
     {
-        return view('pages.users.edit-course');
+        return view('users.edit-course');
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Models\PlatformResearch;
 use App\Services\BookService;
 use Illuminate\Http\Request;
 
-class PlatformResearchController extends Controller
+class ResearchController extends Controller
 {
 
     protected $bookService;
@@ -20,7 +20,7 @@ class PlatformResearchController extends Controller
      */
     public function index()
     {
-        return view('pages.users.platform-research');
+        return view('users.research');
     }
 
     /**
@@ -39,7 +39,7 @@ class PlatformResearchController extends Controller
         
         $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
         // dd($books);
-        return view('pages.users.platform-research', compact('books', 'query','platform'));
+        return view('users.research', compact('books', 'query','platform'));
     }
     /**
      * Store a newly created resource in storage.

@@ -21,7 +21,7 @@
             </div>
             <div></div>
             <div class="text-right">
-            <button class="bg-yellow-400 rounded-lg hover:shadow-md text-white shadow py-2 px-4 text-xs"><a href="{{ route('lesson-architect.index') }}">Books Library</a></button>
+            <button class="bg-yellow-400 rounded-lg hover:shadow-md text-white shadow py-2 px-4 text-xs"><a href="{{ route('library.index') }}">Books Library</a></button>
             </div>
         </div>
 

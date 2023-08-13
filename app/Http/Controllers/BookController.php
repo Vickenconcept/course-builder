@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\BookService;
 use App\Exports\BookExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Http;
 
 class BookController extends Controller
@@ -23,7 +24,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('pages.users.books');
+        return view('users.books');
     }
 
     /**
@@ -35,17 +36,17 @@ class BookController extends Controller
         $query = $request->input('query', $defaultQuery);
         $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
         $maxResults = $request->input('maxResults', 30); // Default maxResults is 30
-    
+
         // Ensure $query is set in the session
         $request->session()->put('query', $query);
-    
+
         // Fetch books based on the provided query
         $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
-    
+
         // Pass the data to the view
-        return view('pages.users.books', compact('books', 'query'));
+        return view('users.books', compact('books', 'query'));
     }
-    
+
 
     public function export(Request $request)
     {
@@ -63,15 +64,15 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'image' => 'required'
-   
+
         ]);
         // dd($validatedData);
-    
+
         $library = auth()->user()->book()->create($validatedData);
 
         return back()->with('success', 'Book save successfully');
@@ -82,7 +83,13 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        
+        $$user = Auth::user();
+
+        // $books = Book::where('id', $lesson_architect->id)
+        //     ->where('user_id', $user->id)
+            // ->firstOrFail();
+            $books = $user->books;
+        return view('users.book-library', compact('books'));
     }
 
     /**

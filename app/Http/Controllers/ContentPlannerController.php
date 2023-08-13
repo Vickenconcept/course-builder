@@ -25,16 +25,17 @@ class ContentPlannerController extends Controller
         $libraries = Library::whereHas('user', function ($query) use ($user) {
             $query->where('id', $user->id);
         })->latest()->get();
+
         $contents = ContentPlanner::whereHas('user', function ($query) use ($user) {
             $query->where('id', $user->id);
         })->latest()->get();
-        return view('pages.users.content-planner', compact('libraries', 'contents'));
+        return view('users.content-planner', compact('libraries', 'contents'));
     }
 
 
     public function create()
     {
-        return view('pages.users.create-course');
+        return view('users.create-course');
     }
 
 
@@ -43,7 +44,7 @@ class ContentPlannerController extends Controller
         $mytextarea = $request->input('mytextarea');
         $content = auth()->user()->contentPlanner()->create(['content' => $mytextarea]);
         $request->session()->put('content', $content);
-        // return view('pages.users.content-planner');
+        // return view('users.content-planner');
 
         return redirect('content-planner')->with('success', 'Course save successfully');
         // return back()->with('success', 'Course save successfully');
@@ -80,7 +81,7 @@ class ContentPlannerController extends Controller
     // public function show(ContentPlanner $content_planner)
     // {
     //     $content = ContentPlanner::findOrFail($content_planner->id);
-    //     return view('pages.users.shared.show', compact('content'));
+    //     return view('users.shared.show', compact('content'));
     // }
 
     public function show($hashedId)
@@ -88,7 +89,7 @@ class ContentPlannerController extends Controller
         $hashids = new Hashids();
         $contentId = $hashids->decode($hashedId)[0]; // Get the first decoded ID
         $content = ContentPlanner::findOrFail($contentId);
-        return view('pages.users.shared.show', compact('content'));
+        return view('users.shared.show', compact('content'));
     }
 
     /**

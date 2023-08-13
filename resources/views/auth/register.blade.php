@@ -1,8 +1,7 @@
 <x-guest-layout>
     
-    <div class="relative">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpIPKAIdz6p4WYQDW22q0YjSP17ysWhG_-BQ&usqp=CAU" class="absolute inset-0 object-cover w-full h-full" alt="" />
-        <div class="relative bg-gray-900 bg-opacity-75">
+    <div class="relative h-screen bg-cover bg-no-repeat" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpIPKAIdz6p4WYQDW22q0YjSP17ysWhG_-BQ&usqp=CAU')">
+        <div class="relative bg-gray-900 h-screen bg-opacity-75">
             <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                 <div class="flex flex-col items-center justify-between xl:flex-row">
                     <div class="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
