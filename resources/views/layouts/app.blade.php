@@ -13,14 +13,13 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="{{ asset('build/assets/app-7cac587f.css') }}" rel='stylesheet'>
-    <link href="{{ asset('build/assets/app-a461d729.css') }}" rel='stylesheet'>
 
     <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     
     <!-- Scripts -->
-    {{-- <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) --> --}}
-    
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{ asset('build/assets/app-361e2763.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
     @livewireStyles
 </head>
 
@@ -105,7 +104,6 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         
         @livewireScripts
-        <!-- <script src="/build/main.js"></script> -->
         <script src="{{ asset('build/assets/app-dd6eec69.js') }}"></script>
     </body>
     

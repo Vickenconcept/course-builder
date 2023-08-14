@@ -11,13 +11,13 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-    <link href="{{ asset('build/assets/app-7cac587f.css') }}" rel='stylesheet'>
-    <link href="{{ asset('build/assets/app-a461d729.css') }}" rel='stylesheet'>
+    <link rel="stylesheet" href="{{ asset('build/assets/app-361e2763.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
 
     
 </head>
 
-<body class="antialiased " x-data="{ openNav: false}" >
+<body class="antialiased  " x-data="{ openNav: false}" >
     <div class="bg-white bg-cover bg-no-repeat h-screen " style="background-image:url('https://media.istockphoto.com/id/1452604857/photo/businessman-touching-the-brain-working-of-artificial-intelligence-automation-predictive.jpg?s=612x612&w=0&k=20&c=GkAOxzduJbUKpS2-LX_l6jSKtyhdKlnPMo2ito4xpR4=')">
         <header class="absolute inset-x-0 top-0 z-50">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -93,8 +93,8 @@
                 </div>
             </header>
             
-            <div class="relative isolate px-6 pt-14 lg:px-8  bg-gray-900 bg-opacity-75">
-                <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div class="relative  px-6 pt-0 lg:px-8 h-screen  bg-gray-900 bg-opacity-75">
+                <div class="mx-auto max-w-2xl py-32 sm:py-0 lg:py-0">
                     <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                         <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-white ring-1 ring-white hover:ring-gray-900/20">
                             Announcing our next round of funding. <a href="#" class="font-semibold text-white"><span class="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>

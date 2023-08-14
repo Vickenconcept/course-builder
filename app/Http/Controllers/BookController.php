@@ -34,16 +34,13 @@ class BookController extends Controller
     {
         $defaultQuery = 'kids art book';
         $query = $request->input('query', $defaultQuery);
-        $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
-        $maxResults = $request->input('maxResults', 30); // Default maxResults is 30
+        $startIndex = $request->input('startIndex', 0); 
+        $maxResults = $request->input('maxResults', 30); 
 
-        // Ensure $query is set in the session
         $request->session()->put('query', $query);
 
-        // Fetch books based on the provided query
         $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
 
-        // Pass the data to the view
         return view('users.books', compact('books', 'query'));
     }
 

@@ -11,59 +11,18 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function __invoke()
     {
+        
+        $userStats = User::selectRaw('
+            COUNT(*) AS total_users,
+            SUM(CASE WHEN email_verified_at IS NOT NULL THEN 1 ELSE 0 END) as verified_users,
+            SUM(CASE WHEN email_verified_at IS NULL THEN 1 ELSE 0 END) as unverified_users
+        ')->first();
+
         $users = User::latest()->get();
-        $verifiedUsers = $users->whereNotNull('email_verified_at');
-        $numberOfVerifiedUsers = $verifiedUsers->count();
-        return view('dashboard', compact('users','numberOfVerifiedUsers'));
+
+        return view('dashboard', compact('users','userStats'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Dashboard $dashboard)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Dashboard $dashboard)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Dashboard $dashboard)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Dashboard $dashboard)
-    {
-        //
-    }
 }

@@ -30,21 +30,5 @@ class Handler extends ExceptionHandler
             //
         });
     }
-
-    public function render($request, Throwable $exception)
-    {
-        // if (
-        //     $exception instanceof \Illuminate\Database\QueryException ||
-        //     $exception instanceof \GuzzleHttp\Exception\ConnectException ||
-        //     $exception instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException ||
-        //     $exception instanceof ConnectionException||
-        //     $exception instanceof FatalError && strpos($exception->getMessage(), 'Maximum execution time') !== false
-        // ) {
-        //     // Customize the error message
-        //     return response()->view('errors.custom_error', [], 500);
-        // }
-
-        // return parent::render($request, $exception);
-    }
     
 }

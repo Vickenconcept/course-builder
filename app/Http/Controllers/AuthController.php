@@ -11,17 +11,17 @@ use App\Http\Controllers\Controller;
 class AuthController extends Controller
 {
     public function register(Request $request): RedirectResponse
-{
-    $data = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-    ]);
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
 
-    User::create($data);
+        User::create($data);
         return to_route('login');
     }
-    
+
 
     public function login(Request $request): RedirectResponse
     {
@@ -29,13 +29,12 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        
-      
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/dashboard');
-        } else {
+
+
+        if(!Auth::attempt($credentials)) 
             return back()->withErrors(['email' => 'Invalid credentials']);
-        }
+
+       return to_route('dashboard');
     }
 
     public function destroy(Request $request): RedirectResponse

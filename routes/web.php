@@ -34,46 +34,35 @@ Route::middleware('guest')->group(function(){
 Route::controller(AuthController::class)->name('auth.')->group(function(){
     Route::post('login', 'login')->name('login');
     Route::post('register', 'register')->name('register');
-    // Route::post('logout', 'destroy')->name('logout');
+    Route::post('logout', 'destroy')->middleware('auth')->name('logout');
 });
 
 
 
 
 Route::middleware('auth')->group(function () {
-    
-    Route::resource('lesson-architect', LibraryController::class);
-    
 
-    Route::get('export-books', [BookController::class, 'export'])->name('export.books');
-    Route::get('/export-text', [ContentPlannerController::class,'exportText'])->name('export.text');
-    Route::post('logout', [AuthController::class, 'destroy'])
-    ->name('logout');
-    
-});
-
-
-Route::middleware('auth')->group(function () {
-
-    Route::resource('/dashboard', DashboardController::class)->middleware('admin');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
     Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::resource('library', LibraryController::class);
     Route::view('index','user.content-planner');
     Route::view('coming-soon','pages.users.coming-soon')->name('coming-soon');
-
     Route::resource('books', BookController::class);
     Route::resource('courses', CourseController::class);
     Route::get('lessons', LessonArchitect::class)->name('lessons.store');
     Route::resource('research', ResearchController::class);
     Route::resource('search', SearchController::class);
     Route::resource('content-planner', ContentPlannerController::class);
-
+    
+    Route::resource('lesson-architect', LibraryController::class);
+    Route::get('export-books', [BookController::class, 'export'])->name('export.books');
+    Route::get('/export-text', [ContentPlannerController::class,'exportText'])->name('export.text');
     
     Route::get('/suggestions', [SuggestionController::class,'suggestions']);
 //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
     
 });
-
+ 
 
 

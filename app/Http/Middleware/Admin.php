@@ -15,9 +15,9 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user()->is_admin) {
-            return redirect()->route('courses.index');
-        }
+        // if (!$request->user()->is_admin) {
+        //     return to_route('courses.index');
+        // }
 
         return $next($request);
     }
