@@ -23,12 +23,12 @@ class LessonArchitect extends Component
     public $inputData;
     // public $modifiedOutline = [];
 
-     // foreach ($outline as $subtopic) {
-        //     // $prefixedSubtopic = "Explain $subtopic in detail";
-        //     $prefixedSubtopic = "for this topic '$this->topic' please provide the actual content or write-ups for $subtopic , What I need is the real course not the draft or outline give at list six long paragraphs for $subtopic";
-        //     $detailedExplanation = $chatGptService->generateContent($prefixedSubtopic);
-        //     $detailedExplanations[] = $detailedExplanation;
-        // }
+    // foreach ($outline as $subtopic) {
+    //     // $prefixedSubtopic = "Explain $subtopic in detail";
+    //     $prefixedSubtopic = "for this topic '$this->topic' please provide the actual content or write-ups for $subtopic , What I need is the real course not the draft or outline give at list six long paragraphs for $subtopic";
+    //     $detailedExplanation = $chatGptService->generateContent($prefixedSubtopic);
+    //     $detailedExplanations[] = $detailedExplanation;
+    // }
 
     public function store(Request $request, ChatGptService $chatGptService)
     {
@@ -43,6 +43,9 @@ class LessonArchitect extends Component
 
     public function generateFinalResponse(Request $request, ChatGptService $chatGptService)
     {
+
+        $maxRequestsPerMinute = 45; // Example rate limit: 45 requests per minute
+        $throttlePeriod = 60 / $maxRequestsPerMinute;
         $modifiedOutline = $request->all();
         $this->outline =  $modifiedOutline["serverMemo"]["data"]["outline"];
 
@@ -58,20 +61,21 @@ class LessonArchitect extends Component
         // }
 
         foreach ($outline as $subtopic) {
-            $subtopic = $subtopic;
-            $prefixedSubtopic = "for this topic '$this->topic' please provide the actual write-ups, at least four long paragraphs for $subtopic , What I need is the real course not the draft or outline ";
+            $prefixedSubtopic = "for this topic '$this->topic' please provide the actual content or write-ups for $subtopic , What I need is the real course not the draft or outline give at least six long paragraphs for $subtopic";
 
-            dispatch(function () use ($chatGptService, $prefixedSubtopic) {
+            dispatch(function () use ($chatGptService, $prefixedSubtopic, $subtopic) {
                 $detailedExplanation = $chatGptService->generateContent($prefixedSubtopic);
-                event(new JobCompleted($subtopic, $detailedExplanation));
+
+                // Dispatch the JobCompleted event
+                event(new \App\Events\JobCompleted($subtopic, $detailedExplanation, true));
+
                 // Store the result or perform any other desired actions
                 $detailedExplanations[] = $detailedExplanation;
-                // dd($detailedExplanations);
-
             });
         }
-        
-        dd($detailedExplanations);
+        return response()->json(['message' => 'Jobs are being processed.']);
+
+
         // Compile the responses and send to the view
         $compiledContent = [
             'modifiedOutline' => $modifiedOutline,
