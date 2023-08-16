@@ -21,8 +21,8 @@ class BookService
             return Cache::get($cacheKey);
         }
         $url = $this->baseUrl . '?q=' . urlencode($query) . '&startIndex=' . $startIndex . '&maxResults=' . $maxResults;
-        // $response = Http::get($url);
-        $response = Http::timeout(10)->get($url);
+        $response = Http::get($url);
+        // $response = Http::timeout(10)->get($url);
 
 
         if ($response->ok()) {

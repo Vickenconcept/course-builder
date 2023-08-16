@@ -26,6 +26,7 @@ class ContentPlannerController extends Controller
             $query->where('id', $user->id);
         })->latest()->get();
 
+        
         $contents = ContentPlanner::whereHas('user', function ($query) use ($user) {
             $query->where('id', $user->id);
         })->latest()->get();

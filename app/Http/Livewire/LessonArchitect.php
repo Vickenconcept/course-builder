@@ -6,6 +6,8 @@ namespace App\Http\Livewire;
 use App\Services\ChatGptService;
 use Livewire\Component;
 use Illuminate\Http\Request;
+use App\Events\JobCompleted;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Session;
 
 class LessonArchitect extends Component
@@ -19,16 +21,68 @@ class LessonArchitect extends Component
     public $formatting;
     public $time;
     public $inputData;
+    // public $modifiedOutline = [];
+
+     // foreach ($outline as $subtopic) {
+        //     // $prefixedSubtopic = "Explain $subtopic in detail";
+        //     $prefixedSubtopic = "for this topic '$this->topic' please provide the actual content or write-ups for $subtopic , What I need is the real course not the draft or outline give at list six long paragraphs for $subtopic";
+        //     $detailedExplanation = $chatGptService->generateContent($prefixedSubtopic);
+        //     $detailedExplanations[] = $detailedExplanation;
+        // }
 
     public function store(Request $request, ChatGptService $chatGptService)
     {
-        $this->inputData = ' Generate a html formated response for a comprehensive '. $this->topic .' course that covers '. $this->presentation . ', suitable for '.($this->level ?? ''). ' learners. The course will run for '. ($this->time ?? '') .' and include '. ($this->modules ?? '') .'. the html formatting will exclude (doctype,html,head,body) tags.';
-                   
-        $this->content = $chatGptService->generateContent($this->inputData);
-        // session(json_encode(['content' =>  $this->content]));
-        $request->session()->put('content', json_encode(['content' => $this->content]));
-        $sessionContent = session('content');
+        $initialOutline = "Generate 10 array of ten subheadings starting from Introduction and ending with conclusion on the topic " .
+            $this->topic . "  return the response in one dimensional array of the format []. do say anything else just all i need is the array";
+
+        $generatedOutline = $chatGptService->generateContent($initialOutline);
+
+        $this->outline = $generatedOutline;
     }
+
+
+    public function generateFinalResponse(Request $request, ChatGptService $chatGptService)
+    {
+        $modifiedOutline = $request->all();
+        $this->outline =  $modifiedOutline["serverMemo"]["data"]["outline"];
+
+        $outline = json_decode($this->outline);
+        $detailedExplanations = [];
+
+        // foreach ($outline as $subtopic) {
+        //     // $prefixedSubtopic = "Explain $subtopic in detail";
+        //     $prefixedSubtopic = "for this topic '$this->topic' please provide the actual content or write-ups for $subtopic , What I need is the real course not the draft or outline give at list six long paragraphs for $subtopic";
+        //     $detailedExplanation = $chatGptService->generateContent($prefixedSubtopic);
+        //     $detailedExplanations[] = $detailedExplanation;
+        //     return $this->content = json_encode($detailedExplanations); 
+        // }
+
+        foreach ($outline as $subtopic) {
+            $subtopic = $subtopic;
+            $prefixedSubtopic = "for this topic '$this->topic' please provide the actual write-ups, at least four long paragraphs for $subtopic , What I need is the real course not the draft or outline ";
+
+            dispatch(function () use ($chatGptService, $prefixedSubtopic) {
+                $detailedExplanation = $chatGptService->generateContent($prefixedSubtopic);
+                event(new JobCompleted($subtopic, $detailedExplanation));
+                // Store the result or perform any other desired actions
+                $detailedExplanations[] = $detailedExplanation;
+                // dd($detailedExplanations);
+
+            });
+        }
+        
+        dd($detailedExplanations);
+        // Compile the responses and send to the view
+        $compiledContent = [
+            'modifiedOutline' => $modifiedOutline,
+            'detailedExplanations' => $detailedExplanations,
+        ];
+
+
+        $request->session()->put('compiledContent', $compiledContent);
+    }
+
+
 
     public function generateExportLink()
     {
@@ -41,7 +95,6 @@ class LessonArchitect extends Component
 
     public function render()
     {
-
         return view('livewire.lesson-architect');
     }
 }

@@ -17,41 +17,10 @@ class ChatGptService
         $this->apiKey = env('OPENAI_API_KEY');
     }
 
-    // public function generateContent($inputData)
-    // {
-    //     $url = 'https://api.openai.com/v1/chat/completions';
-    //     // dd($inputData);
-    //     $response = $this->httpClient->post($url, [
-    //         'headers' => [
-    //             'Authorization' => 'Bearer ' . $this->apiKey,
-    //             'Content-Type' => 'application/json',
-    //         ],
-    //         'json' => [
-    //             'model' => 'gpt-3.5-turbo',
-    //             'messages' => [
-    //                 ['role' => 'system', 'content' => 'You are'],
-    //                 ['role' => 'user', 'content' => $inputData],
-    //             ],
-    //         ],
-    //     ]);
-        
-    //     $content = json_decode($response->getBody(), true)['choices'][0]['message']['content'];
-        
-    //     return $content;
-    // }
-
     public function generateContent($inputData)
     {
-        // Use the input data as the cache key
-        $cacheKey = 'openai_response_' . md5($inputData);
-
-        // Check if the response is cached
-        if (Cache::has($cacheKey)) {
-            return Cache::get($cacheKey);
-        }
-
         $url = 'https://api.openai.com/v1/chat/completions';
-
+        // dd($inputData);
         $response = $this->httpClient->post($url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->apiKey,
@@ -59,19 +28,54 @@ class ChatGptService
             ],
             'json' => [
                 'model' => 'gpt-3.5-turbo',
+                'max_tokens'=>3500,  
+                'temperature'=>0.8, 
                 'messages' => [
-                    ['role' => 'system', 'content' => 'You are'],
+                    ['role' => 'system', 'content' => 'You are a knowledgeable assistant that provides detailed explanations about topics.'],
                     ['role' => 'user', 'content' => $inputData],
                 ],
+                // 'stream' => True,
             ],
         ]);
 
         $content = json_decode($response->getBody(), true)['choices'][0]['message']['content'];
 
-        $cacheDuration = 60;
-        // Cache the response for a specified duration (in minutes)
-        Cache::put($cacheKey, $content, $cacheDuration);
-
+        // dd($content);
         return $content;
     }
+
+    //     public function generateContent($inputData)
+    //     {
+
+    //         $cacheKey = 'openai_response_' . md5($inputData);
+
+
+    //         if (Cache::has($cacheKey)) {
+    //             return Cache::get($cacheKey);
+    //         }
+
+    //         $url = 'https://api.openai.com/v1/chat/completions';
+
+    //         $response = $this->httpClient->post($url, [
+    //             'headers' => [
+    //                 'Authorization' => 'Bearer ' . $this->apiKey,
+    //                 'Content-Type' => 'application/json',
+    //             ],
+    //             'json' => [
+    //                 'model' => 'gpt-3.5-turbo',
+    //                 'messages' => [
+    //                     ['role' => 'system', 'content' => 'You are'],
+    //                     ['role' => 'user', 'content' => $inputData],
+    //                 ],
+    //             ],
+    //         ]);
+
+    //         $content = json_decode($response->getBody(), true)['choices'][0]['message']['content'];
+
+    //         $cacheDuration = 60;
+
+    //         Cache::put($cacheKey, $content, $cacheDuration);
+
+    //         return $content;
+    //     }
 }

@@ -30,9 +30,11 @@ class ResearchController extends Controller
     {
         $category = $request->input('category');
         $platform = $request->input('platform');
+        session(['last_selected_option1' => $platform]);
+        session(['last_selected_option2' => $category]);
         // $query = $platform .' '. $category;
         $query = 'books for ' . $category . ' in '. $platform;
-        // dd($query);
+        // dd( session('last_selected_option1'));
         // $query = $request->input('query');
         $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
         $maxResults = $request->input('maxResults', 40); // Default maxResults is 30

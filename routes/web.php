@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Livewire\LessonArchitect;
+use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/test', function (){
+    ChatGptService::generateContent('what is PHP?');
+
+    return 'running...';
+});
 
 Route::view('/','welcome')->name('home');
 

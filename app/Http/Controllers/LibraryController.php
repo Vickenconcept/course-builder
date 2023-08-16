@@ -83,12 +83,10 @@ class LibraryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Library $library, $id)
+    public function destroy(Library $library)
     {
-        $library = Library::find($id);
         $library->delete();
 
-        // Additional code or redirect if needed
 
         return redirect()->back()->with('success', 'course deleted successfully.');
     }
