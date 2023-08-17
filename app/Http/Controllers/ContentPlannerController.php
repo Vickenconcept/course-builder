@@ -22,14 +22,24 @@ class ContentPlannerController extends Controller
     {
         $user = Auth::user();
 
-        $libraries = Library::whereHas('user', function ($query) use ($user) {
-            $query->where('id', $user->id);
-        })->latest()->get();
+        // $libraries = Library::whereHas('user', function ($query) use ($user) {
+        //     $query->where('id', $user->id);
+        // })->latest()->get();
+        // $user = Auth::user();
+
+        // Retrieve the libraries belonging to the user with their corresponding course and topic
+        // $libraries = Library::with(['course.topic'])
+        //     ->where('user_id', $user->id) // Filter libraries by user ID
+        //     ->get();
+            $libraries = Library::whereHas('course', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->with(['course.library'])->get();
 
         
         $contents = ContentPlanner::whereHas('user', function ($query) use ($user) {
             $query->where('id', $user->id);
         })->latest()->get();
+        // return view('users.content-planner', compact( 'contents'));
         return view('users.content-planner', compact('libraries', 'contents'));
     }
 
@@ -61,8 +71,8 @@ class ContentPlannerController extends Controller
 
         $content = $data['content'] ?? null;
 
-        $textData = strip_tags($content); // Remove HTML tags
-        $textData = html_entity_decode($textData); // Convert HTML entities to characters
+        $textData = strip_tags($content); 
+        $textData = html_entity_decode($textData); 
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
@@ -76,14 +86,7 @@ class ContentPlannerController extends Controller
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show(ContentPlanner $content_planner)
-    // {
-    //     $content = ContentPlanner::findOrFail($content_planner->id);
-    //     return view('users.shared.show', compact('content'));
-    // }
+    
 
     public function show($hashedId)
     {

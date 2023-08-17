@@ -61,7 +61,6 @@ class ChatGptService
                     ],
                     'json' => [
                         'model' => 'gpt-3.5-turbo',
-                        'temperature' => 0.8,
                         'messages' => [
                             ['role' => 'system', 'content' => 'You are a knowledgeable assistant that provides detailed explanations about topics.'],
                             ['role' => 'user', 'content' => $inputData],
@@ -89,7 +88,8 @@ class ChatGptService
             }
         }
 
-        return null; // Failed to generate content after retries
+        return 'system busy'; 
+        // return null; 
     }
 
 

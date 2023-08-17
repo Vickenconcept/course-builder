@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Library;
+use App\Models\Course;
 use App\Models\Book;
 
 class User extends Authenticatable
@@ -59,5 +60,9 @@ class User extends Authenticatable
     public function Book() {
         
         return $this->hasMany(Book::class);
+    }
+    public function Course() {
+        
+        return $this->hasMany(Course::class);
     }
 }

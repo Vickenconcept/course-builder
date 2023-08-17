@@ -38,6 +38,7 @@ class LibraryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            // 'content' => 'required',
             'content' => 'required'
 
         ]);
@@ -51,18 +52,29 @@ class LibraryController extends Controller
     /**
      * Display the specified resource.
      */
+    // public function show(Library $lesson_architect)
+    // {
+    //     $user = Auth::user();
+
+    //     $library = Library::where('id', $lesson_architect->id)
+    //         ->where('user_id', $user->id)
+    //         ->firstOrFail();
+
+    //     return view('users.create-course', compact('library'));
+    // }
+
     public function show(Library $lesson_architect)
     {
         $user = Auth::user();
 
-        $library = Library::where('id', $lesson_architect->id)
-            ->where('user_id', $user->id)
-            ->firstOrFail();
-            
+        $library = Library::whereHas('course.user', function ($query) use ($user) {
+            $query->where('id', $user->id);
+        })->where('id', $lesson_architect->id)->firstOrFail();
+
         return view('users.create-course', compact('library'));
     }
 
-   
+
 
     /**
      * Show the form for editing the specified resource.

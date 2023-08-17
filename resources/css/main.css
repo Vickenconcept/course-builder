@@ -1,10 +1,9 @@
-#content {
+/* #content {
     font-size: 0.8rem;
     line-height: 1.7rem;
 }
 #content::first-line {
     font-weight: bold;
-    /* color: blue; */
     line-height: 1.7rem;
   }
 #content h1 {
@@ -23,14 +22,13 @@
 #content p {
     font-size: 0.8rem;
     line-height: 1.7rem;
-    /* background-color: red; */
 }
 #content h2, h3 {
-    font-size: 1rem;
+    font-size: 1.5rem;
     line-height: 1rem;
     font-weight: bold;
     text-decoration: underline;
-}
+} */
 
 /* width */
 ::-webkit-scrollbar {

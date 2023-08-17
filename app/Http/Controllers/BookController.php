@@ -70,7 +70,7 @@ class BookController extends Controller
         ]);
         // dd($validatedData);
 
-        $library = auth()->user()->book()->create($validatedData);
+         auth()->user()->book()->create($validatedData);
 
         return back()->with('success', 'Book save successfully');
     }
@@ -81,10 +81,6 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $$user = Auth::user();
-
-        // $books = Book::where('id', $lesson_architect->id)
-        //     ->where('user_id', $user->id)
-            // ->firstOrFail();
             $books = $user->books;
         return view('users.book-library', compact('books'));
     }

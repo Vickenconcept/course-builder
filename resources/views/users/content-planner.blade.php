@@ -40,7 +40,17 @@
                     </div>
 
                     <div class=" px-2 h-full mt-3"  :class="seeMore ? 'line-clamp-4 pb-3' : ''">
-                        {!! $library->content !!}
+                       <h1 class="font-bold text-2xl uppercase ">Topic: {{ $library->course->topic}}</h1>
+                        <br>
+                        <h3 class="font-semibold underline py-3">Course overview</h3>
+                        <p class=" text-sm italic">
+
+                           " {{ $library->course->overview}} "
+                        </p>
+                        <br>
+                        <br>
+                        <br>
+                        {{ $library->course->library->content}}
                     </div>
                     <button @click="seeMore = !seeMore" x-text="seeMore ? 'Show more..' : 'See less'" class="hover:underline px-5 py-1 bg-white absolute bottom-0 right-0 text-xs text-blue-700 "></button>
 

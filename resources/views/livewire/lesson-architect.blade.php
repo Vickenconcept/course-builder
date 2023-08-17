@@ -142,9 +142,6 @@
             class="shadow-lg py-3 bg-white col-span-1 rounded px-10 text-sm  h-[100vh] overflow-y-auto my-10 md:my-0">
             <div class="flex flex-row ">
                 <!-- <input type="text" value="hello"> -->
-                @php
-                    echo ini_get('max_execution_time');
-                @endphp
                 @if (isset($content))
                     <form action="{{ route('library.store') }}" method="post">
                         @csrf
@@ -162,14 +159,14 @@
             </div>
 
 
-            <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content">
+            <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content" >
                 @if (isset($outline))
                     <div class="container">
 
                         <form  wire:submit.prevent="generateFinalResponse" id="outline-form">
                             {{-- @foreach (json_decode($outlineResponse[0]) as $index => $subtopic) --}}
 
-                            @foreach (json_decode($outline) as $index => $subtopic)
+                            @foreach ($outline as $index => $subtopic)
                                 <div class="mb-3">
                                     <label for="subtopic{{ $index }}" class="form-label">Subtopic
                                         {{ $index + 1 }}</label>
@@ -177,7 +174,7 @@
                                         <input class=" shadow-sm rounded-lg w-full p-2" name="modified_outline[]"
                                             type="text" class="form-control" id="subtopic{{ $index }}"
                                             name="modified_outline[]" value="{{ $subtopic }}">
-                                        <button type="button" class="btn btn-danger"
+                                        <button type="button" class="bg-red-200 px-2 py-1"
                                             onclick="this.parentNode.parentNode.remove()">Remove</button>
                                     </div>
                                 </div>
@@ -208,7 +205,9 @@
                     });
                 </script> --}}
                 {{-- @endpush --}}
-
+                <div id="content-placeholder">
+                    <!-- Content will be displayed here -->
+                </div>
 
 
                 @if (isset($content))
@@ -230,7 +229,6 @@
     </div>
 
     <script>
-        // for coping text
         function toCopy(copyData) {
             var range = document.createRange();
             range.selectNode(copyData);
