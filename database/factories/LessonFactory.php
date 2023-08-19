@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Course>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lesson>
  */
-class CourseFactory extends Factory
+class LessonFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +18,11 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence(10);
+        
         return [
             'title' => $title,
             'slug' => Str::slug($title),
-            'description' => $this->faker->sentence(100)
+            'content' => $this->faker->sentence(200)
         ];
     }
 }

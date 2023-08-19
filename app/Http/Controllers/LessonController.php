@@ -2,38 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Courseresearch;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
-use App\Services\BookService;
-// use App\Exports\BookExport;
-// use Maatwebsite\Excel\Facades\Excel;
 
-class CourseController extends Controller
+class LessonController extends Controller
 {
-
-    protected $bookService;
-
-    public function __construct(BookService $bookService)
-    {
-        $this->bookService = $bookService;
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-       
+        //
     }
-
-   
 
     /**
      * Store a newly created resource in storage.
@@ -46,7 +34,7 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Courseresearch $courseresearch)
+    public function show(Lesson $lesson)
     {
         //
     }
@@ -54,15 +42,15 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Courseresearch $courseresearch)
+    public function edit(Lesson $lesson)
     {
-        return view('users.edit-course');
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Courseresearch $courseresearch)
+    public function update(Request $request, Lesson $lesson)
     {
         //
     }
@@ -70,7 +58,7 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Courseresearch $courseresearch)
+    public function destroy(Lesson $lesson)
     {
         //
     }

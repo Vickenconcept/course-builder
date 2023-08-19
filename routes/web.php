@@ -14,6 +14,7 @@ use App\Http\Livewire\LessonArchitect;
 use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
 use App\Events\JobCompleted;
+use App\Http\Controllers\ScoreController;
 use App\Http\Livewire\CourseContent;
 use App\Listeners\JobCompletedListener;
 
@@ -59,7 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::view('index','user.content-planner');
     Route::view('coming-soon','pages.users.coming-soon')->name('coming-soon');
     Route::resource('books', BookController::class);
-    Route::resource('courses', CourseController::class);
+    // Route::resource('courses', CourseController::class);
+    Route::resource('course-validation', ScoreController::class);
     Route::get('lessons', LessonArchitect::class)->name('lessons.store');
     Route::get('content-outline', CourseContent::class);
     Route::resource('research', ResearchController::class);

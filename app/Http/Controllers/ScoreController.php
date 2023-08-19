@@ -8,7 +8,7 @@ use App\Services\BookService;
 // use App\Exports\BookExport;
 // use Maatwebsite\Excel\Facades\Excel;
 
-class CourseController extends Controller
+class ScoreController extends Controller
 {
 
     protected $bookService;
@@ -23,6 +23,7 @@ class CourseController extends Controller
      */
     public function index()
     {
+        return view('users.course-research');
     }
 
     /**
@@ -30,10 +31,30 @@ class CourseController extends Controller
      */
     public function create(Request $request)
     {
-       
+        $defaultQuery = 'kids art book';
+        $query = $request->input('query', $defaultQuery);
+        $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
+        $maxResults = $request->input('maxResults', 30); // Default maxResults is 30
+        // dd($defaultQuery);
+        
+        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
+        $trend = $this->bookService->googleTrend($query);
+        $request->session()->put('query', $query);
+        // dd($trend);
+        return view('users.course-research', compact('books', 'query', 'trend'));
     }
 
-   
+    // public function export(Request $request)
+    // {
+    //     // $query = $request->input('query');
+    //     $query = $request->session()->get('query');
+    //     $startIndex = $request->input('startIndex', 0);
+    //     $maxResults = $request->input('maxResults', 30);
+
+    //     $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
+
+    //     return Excel::download(new BookExport($books), 'books.xlsx');
+    // }
 
     /**
      * Store a newly created resource in storage.

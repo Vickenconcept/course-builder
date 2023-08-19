@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Library;
+use App\Models\Lesson;
 
 class Course extends Model
 {
     use HasFactory;
-    protected $fillable = ['topic','overview'];
+    protected $fillable = [
+        'topic',
+        'description',
+        'slug'
+    ];
     
     public function library()
     {
@@ -20,5 +25,9 @@ class Course extends Model
     public function user() {
 
         return $this->belongsTo(User::class);
+    }
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
     }
 }

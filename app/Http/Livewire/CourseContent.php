@@ -12,19 +12,23 @@ class CourseContent extends Component
     public $cachedCourseOutline = [];
     public $action  = '';
     public $subheading = '';
+    public $content;
 
     public function mount()
     {
         $this->cachedCourseOutline = session('courseOutline');
+        dd($this->cachedCourseOutline);
 
     }
     public function aiCourseGenerator(Request $request, ChatGptService $chatGptService)
     {
         $this->subheading ;
         $this->action ;
-        $query = '';
-        dd($this->action  , $this->subheading );
-        $generatedOutline = $chatGptService->generateContent($query);
+        $query = $this->action . " '" . $this->subheading . "' ";
+        dd($query);
+        $response = $chatGptService->generateContent($query);
+        $this->content = $response;
+
         
     }
     public function render()
