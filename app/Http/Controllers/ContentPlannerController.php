@@ -21,19 +21,9 @@ class ContentPlannerController extends Controller
     public function index()
     {
         $user = Auth::user();
-
-        // $libraries = Library::whereHas('user', function ($query) use ($user) {
-        //     $query->where('id', $user->id);
-        // })->latest()->get();
-        // $user = Auth::user();
-
-        // Retrieve the libraries belonging to the user with their corresponding course and topic
-        // $libraries = Library::with(['course.topic'])
-        //     ->where('user_id', $user->id) // Filter libraries by user ID
-        //     ->get();
             $libraries = Library::whereHas('course', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->with(['course.library'])->get();
+            })->with(['course.library'])->latest()->get();
 
         
         $contents = ContentPlanner::whereHas('user', function ($query) use ($user) {

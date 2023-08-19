@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dashboard;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Events\JobCompleted;
 
 class DashboardController extends Controller
 {
@@ -21,7 +22,6 @@ class DashboardController extends Controller
         ')->first();
 
         $users = User::latest()->get();
-
         return view('dashboard', compact('users','userStats'));
     }
 

@@ -35,6 +35,8 @@ class SearchController extends Controller
 
         
         $result = $this->keyWordSearch->keyWordSearch($query);
+        // $stats = $this->keyWordSearch->stats($query);
+        // dd($stats);
         $titles = $result[0];
         $total_search = $result[1];
         $trend = $this->bookService->googleTrend($query);

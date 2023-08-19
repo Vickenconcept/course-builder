@@ -1,4 +1,4 @@
-<div class=" pt-10 md:px-10 text-gray-700" x-data="{ loading: '' }">
+<div class=" pt-10 md:px-10 text-gray-700" x-data="{ loading: '', loaded: false }">
     <x-notification />
     <div class=" grid grid-cols-1 md:grid-cols-3 ">
         <section class=" col-span-2 mr-0 md:mr-10  px-5 pt-2 pb-5 bg-white rounded-xl">
@@ -142,7 +142,7 @@
             class="shadow-lg py-3 bg-white col-span-1 rounded px-10 text-sm  h-[100vh] overflow-y-auto my-10 md:my-0">
             <div class="flex flex-row ">
                 <!-- <input type="text" value="hello"> -->
-                @if (isset($content))
+                {{-- @if (isset($content))
                     <form action="{{ route('library.store') }}" method="post">
                         @csrf
                         <input type="text" name="content" value="{{ $content }}" hidden>
@@ -155,18 +155,17 @@
                             <i class='bx bxs-file-export text-xl  hover:text-blue-800 cursor-pointer'></i>
                         </a>
                     </button>
-                @endif
+                @endif --}}
             </div>
 
 
-            <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content" >
-                @if (isset($outline))
+            <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content">
+                @if (isset($content))
                     <div class="container">
 
-                        <form  wire:submit.prevent="generateFinalResponse" id="outline-form">
-                            {{-- @foreach (json_decode($outlineResponse[0]) as $index => $subtopic) --}}
-
-                            @foreach ($outline as $index => $subtopic)
+                        <form wire:submit.prevent="generateFinalResponse" id="outline-form">
+                          
+                            @foreach ($content as $index => $subtopic)
                                 <div class="mb-3">
                                     <label for="subtopic{{ $index }}" class="form-label">Subtopic
                                         {{ $index + 1 }}</label>
@@ -184,37 +183,20 @@
                                 Generate
                             </x-main-button>
                         </form>
-                    </div>
-                @endif
-
-
-                {{-- @push('scripts') --}}
-                {{-- <script>
-                    document.addEventListener('livewire:load', function() {
-                        var form = document.getElementById('outline-form');
-                        Livewire.hook('element.initialized', (el, component) => {
-                            if (el.id === 'outline-form') {
-                                console.log(el);
-                                el.addEventListener('submit', function(event) {
-                                    event.preventDefault();
-
-                                    Livewire.emit('generateFinalResponse'); // Emit Livewire event
-                                });
-                            }
-                        });
-                    });
-                </script> --}}
-                {{-- @endpush --}}
-                <div id="content-placeholder">
+                    </div> 
+                {{-- <div id="content-placeholder">
                     <!-- Content will be displayed here -->
                 </div>
 
 
                 @if (isset($content))
-                    {!! $content !!}
+                    @foreach ($content as $content)
+                        <li>{{ $content }}</li>
+                    @endforeach
+                    {{-- {!! $content !!} --}}
                 @else
-                    <!-- <span :class=" loading ? 'hidden' : ''">No content available.</span>
-                    <span x-text="loading"></span> -->
+                    {{-- <!-- <span :class=" loading ? 'hidden' : ''">No content available.</span> --}}
+                    <span x-text="loading"></span> 
                     <div wire:loading.remove class="w-full text-center">No content</div>
                     <div wire:loading class="text-center w-full">
                         <div class="mt-[50%]">
@@ -222,7 +204,6 @@
                             <p class="mt-2 ">Generating Content...</p>
                         </div>
                     </div>
-                    <span wire:offline>You are offline</span>
                 @endif
             </div>
         </section>
@@ -237,4 +218,17 @@
             document.execCommand("copy");
         }
     </script>
+
+    <div>
+        <!-- Button to trigger the preloader -->
+        {{-- <button @click="loaded = true">Start Loading</button> --}}
+
+        <!-- Preloader -->
+        <div x-show="loaded"
+            class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white">
+            <div class="h-32 w-24 animate-spin rounded-full">
+                <img src="images/loading-black.png" class="h-32 w-32" alt="" style="opacity: 0.7;">
+            </div>
+        </div>
+    </div>
 </div>

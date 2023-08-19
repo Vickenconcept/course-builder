@@ -13,6 +13,9 @@ use App\Http\Controllers\SuggestionController;
 use App\Http\Livewire\LessonArchitect;
 use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
+use App\Events\JobCompleted;
+use App\Http\Livewire\CourseContent;
+use App\Listeners\JobCompletedListener;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +28,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function (){
-    ChatGptService::generateContent('what is PHP?');
+// Route::get('/test', function (){
+//     ChatGptService::generateContent('what is PHP?');
 
-    return 'running...';
-});
+//     return 'running...';
+// });
 
 Route::view('/','welcome')->name('home');
 
@@ -58,6 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('books', BookController::class);
     Route::resource('courses', CourseController::class);
     Route::get('lessons', LessonArchitect::class)->name('lessons.store');
+    Route::get('content-outline', CourseContent::class);
     Route::resource('research', ResearchController::class);
     Route::resource('search', SearchController::class);
     Route::resource('content-planner', ContentPlannerController::class);
@@ -70,6 +74,22 @@ Route::middleware('auth')->group(function () {
 //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
     
 });
+Route::get('test',function(){
+    // event(new JobCompleted());
+    // $cachedCourseOutline = Cache::get('course_outline', []);
+    $cachedCourseOutline = session('courseOutline');
+    dd($cachedCourseOutline);
+    return '<div>@foreach ($cachedCourseOutline as $index => $subheading)
+    <h2>{{ $subheading }}</h2>
+    {{-- <textarea name="subheadings[{{ $index }}]"></textarea> --}}
+    <textarea id="mytextarea" name="mytextarea" class="w-[50%] mx-auto">
+        
+        
+    </textarea>
+    @endforeach</div>';
+    // return response('Event dispatched manually');
+});
+
  
 
 

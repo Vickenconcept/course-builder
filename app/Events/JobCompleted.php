@@ -9,25 +9,34 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+
+
 
 class JobCompleted
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, SerializesModels;
 
-    public $subtopic;
-    public $detailedExplanation;
-    public $success;
-    public $errorMessage;
+    public $completedJobs;
+    public $totalJobs;
 
     /**
      * Create a new event instance.
+     *
+     * @param int $completedJobs
+     * @param int $totalJobs
      */
-    public function __construct($subtopic, $detailedExplanation, $success = true, $errorMessage = null)
+    // public function __construct($completedJobs, $totalJobs)
+    // {
+    //     $this->completedJobs = $completedJobs;
+    //     $this->totalJobs = $totalJobs;
+
+    // }
+    public function __construct()
     {
-        $this->subtopic = $subtopic;
-        $this->detailedExplanation = $detailedExplanation;
-        $this->success = $success;
-        $this->errorMessage = $errorMessage;
+        Log::info('JobCompleted event dispatched');
+ 
     }
 
     /**
@@ -35,11 +44,11 @@ class JobCompleted
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
-    {
-        return [
-            new PrivateChannel('job-completed'),
-            
-        ];
-    }
+    // public function broadcastOn(): array
+    // {
+    //     return [
+    //         new PrivateChannel('job-completed'),
+
+    //     ];
+    // }
 }

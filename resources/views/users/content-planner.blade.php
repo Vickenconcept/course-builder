@@ -48,9 +48,9 @@
                            " {{ $library->course->overview}} "
                         </p>
                         <br>
-                        <br>
-                        <br>
-                        {{ $library->course->library->content}}
+                        <div>
+                            {!! nl2br( $library->course->library->content) !!}
+                        </div>
                     </div>
                     <button @click="seeMore = !seeMore" x-text="seeMore ? 'Show more..' : 'See less'" class="hover:underline px-5 py-1 bg-white absolute bottom-0 right-0 text-xs text-blue-700 "></button>
 

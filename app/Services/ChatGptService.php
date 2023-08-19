@@ -65,6 +65,7 @@ class ChatGptService
                             ['role' => 'system', 'content' => 'You are a knowledgeable assistant that provides detailed explanations about topics.'],
                             ['role' => 'user', 'content' => $inputData],
                         ],
+                        'temperature' => 0.2, // Adjust as needed
                     ],
                 ]);
 
@@ -88,8 +89,7 @@ class ChatGptService
             }
         }
 
-        return 'system busy'; 
-        // return null; 
+        return null; 
     }
 
 

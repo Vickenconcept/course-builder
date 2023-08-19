@@ -19,8 +19,8 @@
 
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    <link rel="stylesheet" href="{{ asset('build/assets/app-361e2763.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-13d2effa.css') }}">
     @livewireStyles
 </head>
 
@@ -30,6 +30,9 @@
         <img src="{{ asset('images/open-book.jpg') }}" alt="Loading" class="w-20 h-20 animate-spin">
         <p class="mt-2 text-white">Loading...</p>
     </div>
+    
+
+
 
     <div class="min-h-screen bg-gray-50">
         @if (isset($header))
@@ -39,46 +42,24 @@
                 </div>
             </header>
         @endif
-        <!-- <x-pre-loader /> -->
+         <x-pre-loader /> 
         <x-header />
         <x-sidebar />
         <div class="content ml-12  ease-in-out duration-500 pt-20 pb-4 ">
 
             <main>
                 {{ $slot }}
+                {{-- <div class="fixed top-0 right-0 h-screen w-screen z-999999 flex justify-center items-center">
+                    <div class="animate-spin rounded-full h-32 w-32 border-t border-b border-gray-900"> this is</div>
+                 </div> --}}
+
             </main>
         </div>
 
 
-        <script>
-            // Add a delay before showing the preloader
-            setTimeout(function() {
-                document.getElementById('preloader').style.display = 'none';
-                
-                // Remove the animate-spin class after a duration
-                setTimeout(function() {
-                    var image = preloader.querySelector('img');
-                    image.classList.remove('animate-spin');
-                }, 500); // Adjust the duration time in milliseconds (e.g., 5000ms = 5 seconds)
-            }, 5000); // Adjust the initial delay time in milliseconds
-        </script>
+       
         
         <script>
-            // window.onload = function() {
-            //     // Hide the preloader
-            //     document.getElementById('preloader').style.display = 'none';
-            // };
-
-            //  window.onload = function() {
-            //     // Delay before hiding the preloader (e.g., 2 seconds)
-            //     setTimeout(function() {
-            //         var preloader = document.getElementById('preloader');
-            //         preloader.style.display = 'none';
-            //     }, 5000); // Adjust the delay time in milliseconds
-            // };
-
-
-
             const sidebar = document.querySelector("aside");
             const maxSidebar = document.querySelector(".max")
             const miniSidebar = document.querySelector(".mini")
