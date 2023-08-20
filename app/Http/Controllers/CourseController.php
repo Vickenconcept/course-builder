@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Courseresearch;
 use Illuminate\Http\Request;
 use App\Services\BookService;
@@ -30,10 +31,9 @@ class CourseController extends Controller
      */
     public function create(Request $request)
     {
-       
     }
 
-   
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,9 +54,12 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Courseresearch $courseresearch)
+    public function edit($id)
     {
-        return view('users.edit-course');
+        $course = Course::findOrFail($id); // Replace with your actual model
+        // dd($course);
+        // Load your edit view and pass the $item to it
+        return view('users.index', compact('course'));
     }
 
     /**

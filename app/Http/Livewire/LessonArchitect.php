@@ -49,7 +49,7 @@ class LessonArchitect extends Component
         $courseOverviewString = implode("\n", $courseOverview);
 
         $user = auth()->user();
-        $user->course()->create([
+        $user->courses()->create([
             'topic' => $this->topic ?? 'topic',
             'overview' => $courseOverviewString,
         ]);

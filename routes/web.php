@@ -11,12 +11,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Livewire\LessonArchitect;
+use App\Http\Livewire\Course;
 use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
 use App\Events\JobCompleted;
 use App\Http\Controllers\ScoreController;
 use App\Http\Livewire\CourseContent;
 use App\Listeners\JobCompletedListener;
+// use App\Models\Course;
+use App\Models\User;
+use PHPUnit\Event\TestSuite\Loaded;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,10 +64,11 @@ Route::middleware('auth')->group(function () {
     Route::view('index','user.content-planner');
     Route::view('coming-soon','pages.users.coming-soon')->name('coming-soon');
     Route::resource('books', BookController::class);
-    // Route::resource('courses', CourseController::class);
+    Route::get('course/{id}/edit', [CourseController::class, 'edit'])->name('course.edit');
     Route::resource('course-validation', ScoreController::class);
     Route::get('lessons', LessonArchitect::class)->name('lessons.store');
     Route::get('content-outline', CourseContent::class);
+    Route::get('course', Course::class)->name('course');
     Route::resource('research', ResearchController::class);
     Route::resource('search', SearchController::class);
     Route::resource('content-planner', ContentPlannerController::class);
@@ -76,21 +81,15 @@ Route::middleware('auth')->group(function () {
 //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
     
 });
-Route::get('test',function(){
-    // event(new JobCompleted());
-    // $cachedCourseOutline = Cache::get('course_outline', []);
-    $cachedCourseOutline = session('courseOutline');
-    dd($cachedCourseOutline);
-    return '<div>@foreach ($cachedCourseOutline as $index => $subheading)
-    <h2>{{ $subheading }}</h2>
-    {{-- <textarea name="subheadings[{{ $index }}]"></textarea> --}}
-    <textarea id="mytextarea" name="mytextarea" class="w-[50%] mx-auto">
-        
-        
-    </textarea>
-    @endforeach</div>';
-    // return response('Event dispatched manually');
+
+Route::get('test/{id}/courses',function($id){
+    $usersWithCoursesAndLessons = User::with(['courses.lessons'])->get();
+    
+    return $usersWithCoursesAndLessons->find($id)->load('courses');
+
 });
+
+
 
  
 

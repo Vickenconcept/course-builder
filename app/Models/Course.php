@@ -7,27 +7,40 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Library;
 use App\Models\Lesson;
+use App\Models\Scopes\courseRetriever;
+use App\Models\Trait\CourseSluggable;
 
 class Course extends Model
 {
-    use HasFactory;
+    use HasFactory, CourseSluggable;
+
+    
     protected $fillable = [
-        'topic',
+        'title',
         'description',
         'slug'
     ];
-    
+
     public function library()
     {
         return $this->hasOne(Library::class);
     }
-    
-    public function user() {
 
-        return $this->belongsTo(User::class);
-    }
     public function lessons()
     {
         return $this->hasMany(Lesson::class);
     }
+    
+    public function user()
+    {
+
+        return $this->belongsTo(User::class);
+    }
+
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::addGlobalScope(new courseRetriever);
+    // }
 }

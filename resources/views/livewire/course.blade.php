@@ -128,8 +128,12 @@
                     </div>
 
                     <div class=" grid grid-cols-1 sm:grid-cols-2 gap-5 col-span-1  w-full ml-0 lg:ml-5 pr-0 lg:pr-5">
-                        <x-main-button type="submit" x-click="loading = 'Loading...'" wire:disabled="emptyInputs"
-                            class="uppercase justify-center">Generate</x-main-button>
+                        <x-main-button type="submit" x-click="loading = 'Loading...'" wire:disabled="emptyInput"
+                            class="uppercase justify-center" wire:target="store">
+                            <span wire:loading.remove>Generate</span>
+                            <span wire:loading>Loading...</span>
+                            {{-- Generate --}}
+                        </x-main-button>
                         <button type="button" x-click="document.getElementById('myForm').reset()"
                             class="uppercase justify-center border border-yellow-900 text-xs rounded hover:shadow-lg font-medium bg-transparent text-gray-700 px-2 py-3">Clear
                             Input</button>
@@ -160,51 +164,40 @@
 
 
             <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content">
-                @if (isset($content))
-                    <div class="container">
+                <div wire:target="store">
+                    <span wire:loading.remove class="w-full">
+                        @if (isset($content))
+                        <div class="container">
 
-                        <form wire:submit.prevent="generateFinalResponse" id="outline-form">
-                          
-                            @foreach ($content as $index => $subtopic)
-                                <div class="mb-3">
-                                    <label for="subtopic{{ $index }}" class="form-label">Subtopic
-                                        {{ $index + 1 }}</label>
-                                    <div class="input-group">
-                                        <input class=" shadow-sm rounded-lg w-full p-2" name="modified_outline[]"
-                                            type="text" class="form-control" id="subtopic{{ $index }}"
-                                            name="modified_outline[]" value="{{ $subtopic }}">
-                                        <button type="button" class="bg-red-200 px-2 py-1"
-                                            onclick="this.parentNode.parentNode.remove()">Remove</button>
+                            <form wire:submit.prevent="generateFinalResponse" id="outline-form">
+    
+                                @foreach ($content as $index => $subtopic)
+                                    <div class="mb-3">
+                                        <label for="subtopic{{ $index }}" class="form-label">Subtopic
+                                            {{ $index + 1 }}</label>
+                                        <div class="input-group">
+                                            <input class=" shadow-sm rounded-lg w-full p-2" name="modified_outline[]"
+                                                type="text" class="form-control" id="subtopic{{ $index }}"
+                                                name="modified_outline[]" value="{{ $subtopic }}">
+                                            <button type="button" class="bg-red-200 px-2 py-1 rounded"
+                                                onclick="this.parentNode.parentNode.remove()">Remove</button>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
-                            <x-main-button type="submit" wire:disabled="emptyInputs"
-                                class="uppercase justify-center mt-3 text-center">
-                                Generate
-                            </x-main-button>
-                        </form>
-                    </div> 
-                {{-- <div id="content-placeholder">
-                    <!-- Content will be displayed here -->
-                </div>
-
-
-                @if (isset($content))
-                    @foreach ($content as $content)
-                        <li>{{ $content }}</li>
-                    @endforeach
-                    {{-- {!! $content !!} --}}
-                @else
-                    {{-- <!-- <span :class=" loading ? 'hidden' : ''">No content available.</span> --}}
-                    <span x-text="loading"></span> 
-                    <div wire:loading.remove class="w-full text-center">No content</div>
-                    <div wire:loading class="text-center w-full">
-                        <div class="mt-[50%]">
-                            <i class='bx bx-loader-alt animate-spin text-4xl '></i>
-                            <p class="mt-2 ">Generating Content...</p>
+                                @endforeach
+                            </form>
+                            <a href="{{ route('course.edit', ['id' => $courseId]) }}">
+                                <x-main-button type="submit" wire:disabled="emptyInputs"
+                                    class="uppercase justify-center mt-3 text-center">
+                                    Generate
+                                </x-main-button>
+                            </a>
                         </div>
-                    </div>
-                @endif
+                        @else
+                            No content
+                        @endif
+                    </span>
+                    <span wire:loading class="w-full text-center">Generating Content...</span>
+                </div>
             </div>
         </section>
     </div>

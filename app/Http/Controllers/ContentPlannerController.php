@@ -42,12 +42,12 @@ class ContentPlannerController extends Controller
 
     public function store(Request $request, ChatGptService $chatGptService)
     {
-        $mytextarea = $request->input('mytextarea');
+        $mytextarea = $request->input('mytextarea') ?? '';
         $content = auth()->user()->contentPlanner()->create(['content' => $mytextarea]);
         $request->session()->put('content', $content);
         // return view('users.content-planner');
 
-        return redirect('content-planner')->with('success', 'Course save successfully');
+        // return redirect('content-planner')->with('success', 'Course save successfully');
         // return back()->with('success', 'Course save successfully');
     }
 
