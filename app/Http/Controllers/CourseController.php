@@ -46,9 +46,11 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Courseresearch $courseresearch)
+    public function show($slug)
     {
-        //
+        // $course = Course::findOrFail($slug); 
+        $course = Course::where('slug', $slug)->firstOrFail();
+        return view('pages.courses.preview', compact('course'));
     }
 
     /**
@@ -56,10 +58,9 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $course = Course::findOrFail($id); // Replace with your actual model
-        // dd($course);
-        // Load your edit view and pass the $item to it
-        return view('users.index', compact('course'));
+        $course = Course::findOrFail($id); 
+
+        return view('pages.courses.index', compact('course'));
     }
 
     /**

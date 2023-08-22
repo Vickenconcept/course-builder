@@ -1,5 +1,4 @@
 <div>
-    <x-notification />
     <div class="  " x-data="{ isOpen: false, inputData: '', action: '' }" wire:poll.visible="updateDatabase" wire:poll.15s>
 
 
@@ -30,7 +29,6 @@
                                     <button
                                         class="  border-yellow-700 border-4 bg-white rounded-lg px-2 py-1  shadow-sm text-xs text-right">
                                         <span class=""> AI</span>
-
                                     </button>
                                 </x-slot>
                                 <x-slot name="content">
@@ -73,7 +71,7 @@
                                                 {{-- <span wire:loading>Loading...</span> --}}
                                             </x-main-button>
                                         @else
-                                            <x-main-button class="text" wire:click="aiCourseGenerator" wire:click="resetContent"
+                                            <x-main-button class="text"  wire:click="regenerate"
                                                 wire:loading.attr="disabled" type="submit"
                                                 wire:target="aiCourseGenerator">
                                                 {{-- <span wire:loading.remove>Regenerate</span> --}}
@@ -118,7 +116,7 @@
 </div>
 <script>
     tinymce.init({
-        selector: '#myTextareai',
+        selector: '#myTextarea',
         plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',

@@ -167,39 +167,45 @@
                 <div wire:target="store">
                     <span wire:loading.remove class="w-full">
                         @if (isset($content))
-                        <div class="container">
+                            <div class="container">
 
-                            <form wire:submit.prevent="generateFinalResponse" id="outline-form">
-    
-                                @foreach ($content as $index => $subtopic)
-                                    <div class="mb-3">
-                                        <label for="subtopic{{ $index }}" class="form-label">Subtopic
-                                            {{ $index + 1 }}</label>
-                                        <div class="input-group">
-                                            <input class=" shadow-sm rounded-lg w-full p-2" name="modified_outline[]"
-                                                type="text" class="form-control" id="subtopic{{ $index }}"
-                                                name="modified_outline[]" value="{{ $subtopic }}">
-                                            <button type="button" class="bg-red-200 px-2 py-1 rounded"
-                                                onclick="this.parentNode.parentNode.remove()">Remove</button>
+                                <form wire:submit.prevent="generateFinalResponse" id="outline-form">
+
+                                    @foreach ($content as $index => $subtopic)
+                                        <div class="mb-3">
+                                            <label for="subtopic{{ $index }}" class="form-label">Subtopic
+                                                {{ $index + 1 }}</label>
+                                            <div class="input-group">
+                                                <input disabled class=" shadow-sm rounded-lg w-full p-2"
+                                                    name="modified_outline[]" type="text" class="form-control"
+                                                    id="subtopic{{ $index }}" name="modified_outline[]"
+                                                    value="{{ $subtopic }}">
+                                                <button type="button" class="bg-red-200 px-2 py-1 rounded"
+                                                    onclick="this.parentNode.parentNode.remove()">Remove</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </form>
-                            <a href="{{ route('course.edit', ['id' => $courseId]) }}">
-                                <x-main-button type="submit" wire:disabled="emptyInputs"
-                                    class="uppercase justify-center mt-3 text-center">
-                                    Generate
-                                </x-main-button>
-                            </a>
-                        </div>
+                                    @endforeach
+                                </form>
+                                <a href="{{ route('courses.edit', ['course' => $courseId]) }}">
+                                    <x-main-button type="submit" wire:disabled="emptyInputs"
+                                        class="uppercase justify-center mt-3 text-center">
+                                        Generate
+                                    </x-main-button>
+                                </a>
+                            </div>
                         @else
                             No content
+
+                           
+
+
                         @endif
                     </span>
                     <span wire:loading class="w-full text-center">Generating Content...</span>
                 </div>
             </div>
         </section>
+        
     </div>
 
     <script>

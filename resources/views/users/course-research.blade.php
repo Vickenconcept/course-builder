@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class=" overflow-auto p-2 md:px-10 text-gray-700" x-data="{ isOpen: false}">
+    <div class=" overflow-auto p-2 md:px-10 text-gray-700" x-data="{ isOpen: false , }">
         <h1 class="font-bold   py-5">What course topic are you interested in?</h1>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 py-4">
             <div class=" w-full  col-span-1 rounded">
@@ -316,12 +316,12 @@
         </section>
 
 
-        <!-- <x-main-modal>
+        <x-main-modal>
             <div class="h-96">
                 <h2 class="text-gray-700 first-letter:uppercase font-semibold text-md border-t py-3">Add New Category</h2>
 
             </div>
-        </x-main-modal> -->
+        </x-main-modal>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -17,9 +17,12 @@ class CourseContent extends Component
     public $title;
     public $courseId;
     public $course;
-    public $textareaData = '';
     public $isLoading = false; 
+    public $textareaData = '';
+    
+    // dd( $response);
     // public $textareaInputValue = '';
+    
 
 
     public function mount($course)
@@ -27,6 +30,7 @@ class CourseContent extends Component
         $this->courseId = $this->course->id;
         $this->title = $this->course->title;
         $this->course = $course;
+        $this->textareaData = $this->course::where('id', $this->courseId)->firstOrFail()->content;
     }
     public function setButtonValue($action)
     {
@@ -38,7 +42,7 @@ class CourseContent extends Component
         $this->textareaData .= $this->content;
         
     }
-    public function resetContent(ChatGptService $chatGptService){
+    public function regenerate(ChatGptService $chatGptService){
         $this->content = '';
         // $this-> isLoading = true;
         $this->subheading  = $this->title;
@@ -65,9 +69,13 @@ class CourseContent extends Component
 
     public function updateDatabase()
     {
-        // dd($this->courseId);
-        $this->course->where('id', $this->courseId)
-        ->update(['content' => $this->textareaData]);
+       
+        if(! empty($this->textareaData)){
+            $this->course->where('id', $this->courseId)
+            ->update(['content' => $this->textareaData]);
+            
+        }
+
     }
     public function render()
     {
