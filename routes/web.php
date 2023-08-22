@@ -56,8 +56,11 @@ Route::controller(AuthController::class)->name('auth.')->group(function(){
 
 
 
-Route::middleware('auth')->group(function () {
+Route::get('/share/courses/{course_slug}', [CourseController::class, 'share'])->name('courses.share');
+Route::resource('courses', CourseController::class);
 
+Route::middleware('auth')->group(function () {
+    
     Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
     Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -65,8 +68,6 @@ Route::middleware('auth')->group(function () {
     Route::view('index','user.content-planner');
     Route::view('coming-soon','pages.users.coming-soon')->name('coming-soon');
     Route::resource('books', BookController::class);
-    // Route::get('course/{id}/edit', [CourseController::class, 'edit'])->name('course.edit');
-    Route::resource('courses', CourseController::class);
     Route::resource('course-validation', ScoreController::class);
     Route::get('lessons', LessonArchitect::class)->name('lessons.store');
     Route::get('content-outline', CourseContent::class);

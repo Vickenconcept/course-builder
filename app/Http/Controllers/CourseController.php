@@ -12,11 +12,9 @@ use App\Services\BookService;
 class CourseController extends Controller
 {
 
-    protected $bookService;
-
-    public function __construct(BookService $bookService)
+    public function __construct()
     {
-        $this->bookService = $bookService;
+        // $this->middleware('auth')->except('share');
     }
 
     /**
@@ -52,6 +50,12 @@ class CourseController extends Controller
         $course = Course::where('slug', $slug)->firstOrFail();
         return view('pages.courses.preview', compact('course'));
     }
+    public function share($slug)
+    {
+        // $course = Course::findOrFail($slug); 
+        $course = Course::where('slug', $slug)->firstOrFail();
+        return view('pages.courses.embed_show', compact('course'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -60,7 +64,7 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id); 
 
-        return view('pages.courses.index', compact('course'));
+        return view('pages.courses.edit', compact('course'));
     }
 
     /**

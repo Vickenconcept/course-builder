@@ -168,7 +168,7 @@
                     <span wire:loading.remove class="w-full">
                         @if (isset($content))
                             <div class="container">
-
+                                <h3 class="font-semibold">Course outline</h3>
                                 <form wire:submit.prevent="generateFinalResponse" id="outline-form">
 
                                     @foreach ($content as $index => $subtopic)
@@ -180,8 +180,8 @@
                                                     name="modified_outline[]" type="text" class="form-control"
                                                     id="subtopic{{ $index }}" name="modified_outline[]"
                                                     value="{{ $subtopic }}">
-                                                <button type="button" class="bg-red-200 px-2 py-1 rounded"
-                                                    onclick="this.parentNode.parentNode.remove()">Remove</button>
+                                                {{-- <button type="button" class="bg-red-200 px-2 py-1 rounded"
+                                                    onclick="this.parentNode.parentNode.remove()">Remove</button> --}}
                                             </div>
                                         </div>
                                     @endforeach

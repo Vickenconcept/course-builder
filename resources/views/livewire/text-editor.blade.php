@@ -3,7 +3,7 @@
         <x-dropdown align="right">
             <x-slot name="trigger">
                 <button
-                    class="  bg-yellow-700 border-4 text-white rounded-lg px-2 py-1  shadow-sm text-xs text-right">
+                    class="  bg-yellow-700 border-4  rounded-lg px-2 py-1  shadow-sm text-xs text-right">
                     <span class=""> AI</span>
                 </button>
             </x-slot>
@@ -14,12 +14,6 @@
                         write an intro summary for this module based on this title
                     </button>
                 </x-dropdown-link>
-                {{-- <x-dropdown-link class="cursor-pointer">
-                    <button @click="isOpen = true ; "
-                        wire:click="sendData('{{ $action2 }}')">
-                        Generate key ideas (below) for this module
-                    </button>
-                </x-dropdown-link> --}}
             </x-slot>
         </x-dropdown>
     </div>

@@ -22,15 +22,10 @@ class Modal extends Component
         $this->modalData = $data['message'];
 
     }
-
-    // public function addToTextarea()
-    // {
-    //     $this->textareaData .= $this->content;
-    // }
     
     public function regenerate( ChatGptService $chatGptService){
         
-        $query  = "generate a course body for this subtopic $this->title. dont exceed fifty seconds while executing";
+        $query  = "write an intro about this subtopic " .$this->title ;
         $response = $chatGptService->generateContent($query);
         $this->generatedResponse = $response;
 
@@ -40,7 +35,7 @@ class Modal extends Component
     {
         // $query = $this->modalData . " '" . $this->title . "' ";
         // $query  = "generate a course body for this subtopic $this->title. dont exceed fifty seconds while executing";
-        $query  = "write an intro abiut this subtopic " .$this->title ;
+        $query  = "write an intro about this subtopic " .$this->title." , return the response in a html format, add <br> where needed . remember to remove the htm, head, and body tag." ;
         $response = $chatGptService->generateContent($query);
  
         $this->generatedResponse = $response;
@@ -48,7 +43,6 @@ class Modal extends Component
     }
     public function sendModalResponse()
     {
-        // dd($this->lesson->id);
        $this->emit('addToTextarea',  $this->generatedResponse, $this->lesson->id);
    
     }
