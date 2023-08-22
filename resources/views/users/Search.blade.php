@@ -3,7 +3,7 @@
         <section class="flex flex-wrap my-5 -mx-2">
             <div class=" w-full lg:w-1/3 p-2 ">
                 <div class="w-full md:w-1/2 lg:w-full  col-span-1 shadow rounded">
-                    <form action="{{ route('search.create') }}" method="get">
+                    <form action="{{ route('search.store') }}" method="POST">
                         @csrf
                         <div class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
                             <div class="grid place-items-center h-full w-12 text-gray-300">

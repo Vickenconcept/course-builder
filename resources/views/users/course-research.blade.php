@@ -4,7 +4,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 py-4">
             <div class=" w-full  col-span-1 rounded">
                 <div class="shadow ">
-                    <form action="{{ route('course-validation.create') }}" method="get">
+                    <form action="{{ route('course-validation.store') }}" method="POST">
                         @csrf
                         <div
                             class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">

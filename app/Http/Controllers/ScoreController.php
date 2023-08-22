@@ -29,19 +29,9 @@ class ScoreController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-        $defaultQuery = 'kids art book';
-        $query = $request->input('query', $defaultQuery);
-        $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
-        $maxResults = $request->input('maxResults', 30); // Default maxResults is 30
-        // dd($defaultQuery);
-        
-        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
-        $trend = $this->bookService->googleTrend($query);
-        $request->session()->put('query', $query);
-        // dd($trend);
-        return view('users.course-research', compact('books', 'query', 'trend'));
+    
     }
 
     // public function export(Request $request)
@@ -61,7 +51,17 @@ class ScoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $defaultQuery = 'kids art book';
+        $query = $request->input('query', $defaultQuery);
+        $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
+        $maxResults = $request->input('maxResults', 30); // Default maxResults is 30
+        // dd($defaultQuery);
+        
+        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
+        $trend = $this->bookService->googleTrend($query);
+        $request->session()->put('query', $query);
+        // dd($trend);
+        return view('users.course-research', compact('books', 'query', 'trend'));
     }
 
     /**
