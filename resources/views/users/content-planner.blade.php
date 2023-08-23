@@ -1,146 +1,201 @@
 <x-app-layout>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-2 md:px-10 text-gray-700" x-data="{ isOpen: false , formType: false}">
-        <div class="w-full">
-            <h1 class=" first-letter:uppercase font-semibold py-5"><i class="bx bx-book ml-1"></i> My saved courses</h1>
-            <section class="" id="content">
-                @if(isset($libraries))
-                @forelse($libraries as $library)
-                <div class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out"  x-data="{ seeMore: true, isOpen: false, libraryId: {{ $library->id }} }">
-                    <div class="flex justify-between">
-                        <span class="text-gray-300 text-xs">{{ $library->created_at->toFormattedDayDateString() }}</span>
-                        <div class="">
-                            <x-dropdown align="right">
-                                <x-slot name="trigger">
-                                    <button class=""><i class='bx bx-dots-vertical-rounded'></i></button>
-                                </x-slot>
-                                <x-slot name="content">
-                                    <x-dropdown-link class="cursor-pointer" @click="isOpen = true; formType = false">
-                                        {{ __('Delete') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href=" route('lesson-architect.show', ['lesson_architect' => $library->id]) ">
-                                        {{ __('Edit') }}
-                                    </x-dropdown-link>
-
-                                </x-slot>
-                            </x-dropdown>
-                        </div>
-
-                        <x-main-modal>
-                            <h2 class="first-letter:uppercase font-semibold text-sm border-t py-2 text-center ">Are you sure you want to delete this course?</h2>
-                            <div class="flex justify-center gap-2">
-                                <form method="POST" :action="'{{ route('library.destroy', '') }}/' + libraryId" x-bind:id="'form-' + libraryId">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-main-button type="submit" class="">DELETE</x-main-button>
-                                </form>
-                                <x-main-button class="bg-transparent " @click="isOpen = false">CANCEL</x-main-button>
+    <div class="grid grid-cols-1 md:grid-cols-3  gap-8 p-2 md:px-10 text-gray-700" x-data="{ isOpen: false, isOpen2: false }">
+        <div class="w-full" x-data="{ research: '' }">
+            <h1 class=" capitalize text-md font-semibold mt-5"><i class="bx bx-book ml-1"></i> My saved Courses</h1>
+            <section class="">
+                @if (isset($researches))
+                    @forelse($researches as $research)
+                        <div class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out cursor-pointer"
+                            @click=" isOpen2= true; research = @js($research)">
+                            <div class="flex justify-between">
+                                <span
+                                    class="text-gray-300 text-xs">{{ $research->created_at->toFormattedDayDateString() }}</span>
                             </div>
 
-                        </x-main-modal>
-                    </div>
+                            <div class="">
+                                <h2 class="mb-3 font-bold text-sm text-gray-500"> {{ $research->title }}</h2>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="truncate text-gray-500 text-sm">{{ $research->description }}</p>
+                                        <p class=" text-gray-500 text-sm">{{ $research->author }}</p>
+                                    </div>
 
-                    <div class=" px-2 h-full mt-3"  :class="seeMore ? 'line-clamp-4 pb-3' : ''">
-                       <h1 class="font-bold text-2xl uppercase ">Topic: {{ $library->course->topic}}</h1>
-                        <br>
-                        <h3 class="font-semibold underline py-3">Course overview</h3>
-                        <p class=" text-sm italic">
+                                </div>
+                            </div>
 
-                           " {{ $library->course->overview}} "
-                        </p>
-                        <br>
-                        <div>
-                            {!! nl2br( $library->course->library->content) !!}
                         </div>
-                    </div>
-                    <button @click="seeMore = !seeMore" x-text="seeMore ? 'Show more..' : 'See less'" class="hover:underline px-5 py-1 bg-white absolute bottom-0 right-0 text-xs text-blue-700 "></button>
 
-                </div>
-                @empty
-                <div class="bg-white shadow-md border-b rounded p-3 my-2">
-                    <p class="text-gray-300">welcome</p>
-                    <div class="text-gray-300 py-3">
-                        <h1 class="font-semibold text-md capitalize mb-5">No content Available</h1>
-                    </div>
-                </div>
-                @endforelse
-                @endif
-            </section>
-        </div>
-        <div class="w-full">
-            <div class="flex flex-row justify-between py-5">
-                <h1 class=" first-letter:uppercase font-semibold "><i class="bx bx-book ml-1"></i> My content ideas</h1>
-            </div>
-            @php
-            $hashids = new \Hashids\Hashids();
-            @endphp
-            <section class="text-xs" id="content">
-                @if(isset($contents))
-                @forelse($contents as $content)
-                <div class="bg-white shadow-md border-b relative rounded p-3 my-4 overflow-hidden transition duration-300 ease-in-out " x-data="{ seeMore: true, isOpen: false }">
-                <!-- <div class="bg-white shadow-md border-b relative rounded p-3 my-4 overflow-hidden transition duration-300 ease-in-out" :class="seeMore ? 'h-32 pb-5' : ''" x-data="{ seeMore: true, isOpen: false }"> -->
-                    <div class="flex justify-between">
-                        <span class=" text-gray-300 text-xs">{{ $content->created_at->toFormattedDayDateString() }}</span>
-                        <div class="flex flex-row" x-data="{ openShare: false}">
-                            <button @click="openShare = true" class=" bg-yellow-500 text-white shadow-sm hover:shadow:md px-3 mr-2">
-                                Share
-                            </button>
-                            <x-dropdown align="right">
-                                <x-slot name="trigger">
-                                    <button class=""><i class='bx bx-dots-vertical-rounded'></i></button>
-                                </x-slot>
-                                <x-slot name="content">
-                                    <x-dropdown-link class="cursor-pointer" @click="isOpen = true">
-                                        {{ __('Delete') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href=" route('content-planner.show', ['content_planner' => $hashids->encode($content->id)]) " target="_blank">
-                                        {{ __('Preview') }}
-                                    </x-dropdown-link>
-                                </x-slot>
-                            </x-dropdown>
-                            <div x-show="openShare" class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 " style="display: none;">
-                                <div class="flex items-center justify-center min-h-screen px-10">
-                                    <div class="bg-white w-[90%] md:w-[50%] rounded-lg overflow-hidden pb-6 transition-all relative duration-700" @click.away="openShare = false">
-                                        <div class="p-5">
-                                            <h1 class="text-gray-700">Share Link</h1>
-                                            <p class="mb-10">Get link to share</p>
-                                            <p id="{{$content->id}}" class="w-full rounded-lg p-3 border text-sm border-gray-700 ">{{ route('content-planner.show', ['content_planner' => $hashids->encode($content->id)]) }}</p>
-                                            <button onclick="toCopy(document.getElementById('{{$content->id}}'))" class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy Clipboard</button>
+                        <div x-show="isOpen2"
+                            class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 -full"
+                            style="display: none;">
+                            <div class="flex items-center justify-center min-h-screen px-10">
+                                <div class="bg-white w-[90%] rounded overflow-hidden pb-6 transition-all relative duration-700"
+                                    @click.away="isOpen2 = false">
+                                    <div>
+                                        <button type="button" class=" px-4 pt-3" @click="isOpen2 = false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+
+                                        </button>
+                                    </div>
+                                    <div class="p-5 overflow-y-auto">
+                                        <form :id="research.id" 
+                                            action="{{ route('course-validation.destroy', ['course_validation' => $research->id]) }}" 
+                                            method="POST">
+                                          @csrf
+                                          @method('DELETE')
+                                      </form>
+                                        <div class="h-96">
+                                            </h2>
+                                            <x-main-button onClick="document.getElementById('myForm').submit('research.id')">Remove From
+                                                Libray</x-main-button>
+                                            <a :href="research.infolink" target="_blank">
+                                                <h3 class="my-3 underline text-2xl font-bold" x-text="research.title"></h3>
+                                            </a>
+                                           
+                                            <p x-text="research.description" class="text-gray-400 text-sm truncate w-[80%]"></p>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 py-10">
+                                                <div>
+                                                    <h4 class="font-semibold mb-3">Details</h4>
+                                                    <p class=" text-gray-700 my-2"> Instructor: <span class="ml-5 "
+                                                            x-text="research.author"></span></p>
+                                                    <p class=" text-gray-700 my-2"> Subcategory: <span class="ml-5 "
+                                                            x-text="research.category"></span></p>
+                                                    {{-- <p class=" text-gray-700 my-2"> Platform: <span class="ml-5 " x-text ="research.author"></span></p> --}}
+                                                    <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 " x-text="research.category"></span>
+                                                    </p>
+                                                    <p class=" text-gray-700 my-2"> Topic: <span class="ml-5 " x-text="research.title"></span>
+                                                    </p>
+                                                    <p class=" text-gray-700 my-2"> Subtitle: <span class="ml-5 "
+                                                            x-text="research.subtitle"></span></p>
+                                                    <p class=" text-gray-700 my-2"> Price: <span class="ml-5 " x-text="research.price"></span>
+                                                    </p>
+                                                    <p class=" text-gray-700 my-2"> Rating: <span class="ml-5 " x-text="research.rating"></span>
+                                                    </p>
+                                                    <p class=" text-gray-700 my-2"> ISBN: <span class="ml-5 " x-text="research.isbn"></span></p>
+                                                    <p class=" text-gray-700 my-2"> Pages: <span class="ml-5 "
+                                                            x-text="research.page_count"></span></p>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold mb-3">Description</h4>
+                                                    <p class=" text-gray-700 my-2"x-text="research.description"></p>
+                                                </div>
+                                                <div>
+                                                </div>
+                                            </div>
+                            
                                         </div>
+                            
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Modal for deletion confirmation -->
-                        <x-main-modal>
-                            <h2 class="first-letter:uppercase font-semibold text-sm border-t py-2 text-center ">Are you sure you want to delete this course?</h2>
-                            <div class="flex justify-center gap-2">
-                                <form method="POST" :action="'{{ route('content-planner.destroy', '') }}/' + {{ $content->id }}" id="form-{{ $content->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-main-button type="submit" class="">DELETE</x-main-button>
-                                </form>
-                                <x-main-button class="bg-transparent " @click="isOpen = false">CANCEL</x-main-button>
+                    @empty
+                        <div class="bg-white shadow-md border-b rounded p-3 my-2">
+                            <p class="text-gray-300">welcome</p>
+                            <div class="text-gray-300 py-3">
+                                <h1 class="font-semibold text-md capitalize mb-5">No content Available</h1>
                             </div>
-                        </x-main-modal>
-                    </div>
-
-                    <div class=" px-2 h-full mt-3"  :class="seeMore ? 'line-clamp-4 pb-3' : ''">
-                        {!! $content->content !!}
-                    </div>
-                    <button @click="seeMore = !seeMore" x-text="seeMore ? 'Show more..' : 'See less'" class="hover:underline px-5 py-1 bg-white absolute bottom-0 right-0 text-xs text-blue-700"></button>
-                </div>
-                @empty
-                <div class="bg-white shadow-md border-b rounded p-3 my-2">
-                    <p class="text-gray-300">welcome</p>
-                    <div class="text-gray-300 py-3">
-                        <h1 class="font-semibold text-md capitalize mb-5">No content Available</h1>
-                    </div>
-                </div>
-                @endforelse
+                        </div>
+                    @endforelse
                 @endif
             </section>
+        </div>
 
+        {{-- books --}}
+        <div class="w-full" x-data="{ bookData: '' }">
+            <h1 class=" capitalize text-md font-semibold mt-5"><i class="bx bx-book ml-1"></i> My Books</h1>
+            <section class="">
+                @if (isset($books))
+                    @forelse($books as $book)
+                        <div class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out cursor-pointer"
+                            @click=" isOpen= true;  bookData = @js($book)">
+                            <div class="flex justify-between">
+                                <span
+                                    class="text-gray-300 text-xs mb-3">{{ $book->created_at->toFormattedDayDateString() }}</span>
+                            </div>
+
+                            <div class="">
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="overflow-hidden h-32 ">
+                                        <img src="{{ $book->image }}" alt="{{ $book->title }}"
+                                            class="w-[80%]  object-contain">
+                                    </div>
+                                    <div class="col-span-2">
+                                        <h2 class=" font-bold text-sm text-gray-500"> {{ $book->title }}</h2>
+                                        <p class="truncate text-gray-500 text-sm">{{ $book->description }}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <x-main-modal>
+
+                            <h1>hello</h1>
+                            <span x-text=" bookData.title"></span>
+
+                        </x-main-modal>
+                    @empty
+                        <div class="bg-white shadow-md border-b rounded p-3 my-2">
+                            <p class="text-gray-300">welcome</p>
+                            <div class="text-gray-300 py-3">
+                                <h1 class="font-semibold text-md capitalize mb-5">No content Available</h1>
+                            </div>
+                        </div>
+                    @endforelse
+                @endif
+            </section>
+        </div>
+
+        {{-- courses --}}
+        <div class="w-full">
+            <h1 class=" capitalize text-md font-semibold mt-5"><i class="bx bx-book ml-1"></i> My Content Idea</h1>
+            <section class="">
+                @if (isset($courses))
+                    @forelse($courses as $course)
+                        <a href="{{ route('courses.edit', ['course' => $course->id]) }}" target="_blank">
+                            <div
+                                class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out">
+                                <div class="flex justify-between">
+                                    <span
+                                        class="text-gray-300 text-xs">{{ $course->created_at->toFormattedDayDateString() }}</span>
+                                    <div class="">
+                                        Edit
+                                    </div>
+
+                                </div>
+
+                                <div class="">
+                                    <h2 class="mb-3 font-bold text-sm text-gray-500"> {{ $course->title }}</h2>
+                                    <div class="">
+                                        <div class="overflow-hidden h-24 line-clamp-3">
+                                            @foreach ($course->lessons as $lesson)
+                                                <p class="truncate text-gray-500 text-sm">{{ $loop->iteration }}.
+                                                    {{ $lesson->title }}</p>
+                                            @endforeach
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                    @empty
+                        <div class="bg-white shadow-md border-b rounded p-3 my-2">
+                            <p class="text-gray-300">welcome</p>
+                            <div class="text-gray-300 py-3">
+                                <h1 class="font-semibold text-md capitalize mb-5">No content Available</h1>
+                            </div>
+                        </div>
+                    @endforelse
+                @endif
+            </section>
         </div>
     </div>
     <x-notification />

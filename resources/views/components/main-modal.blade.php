@@ -1,8 +1,8 @@
-<div x-show="isOpen" x-data="{ data: }"
+<div x-show="isOpen" 
     class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 -full"
     style="display: none;">
     <div class="flex items-center justify-center min-h-screen px-10">
-        <div class="bg-white w-[90%] rounded overflow-y-auto pb-6 transition-all relative duration-700"
+        <div class="bg-white w-[90%] rounded overflow-hidden pb-6 transition-all relative duration-700"
             @click.away="isOpen = false">
             <div>
                 <button type="button" class=" px-4 pt-3"
@@ -13,7 +13,7 @@
                   
             </button>
         </div>
-        <div class="p-5">
+        <div class="p-5 overflow-y-auto">
             {{ $slot }}
           
             </div>

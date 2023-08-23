@@ -37,10 +37,10 @@ class Course extends Model
         return $this->belongsTo(User::class);
     }
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
+    protected static function boot()
+    {
+        parent::boot();
 
-    //     static::addGlobalScope(new courseRetriever);
-    // }
+        static::addGlobalScope(new courseRetriever);
+    }
 }

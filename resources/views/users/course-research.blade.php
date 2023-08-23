@@ -1,10 +1,11 @@
 <x-app-layout>
+    <x-notification />
     <div class=" overflow-auto p-2 md:px-10 text-gray-700" x-data="{ isOpen: false, bookData: '' }">
         <h1 class="font-bold   py-5">What course topic are you interested in?</h1>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 py-4">
             <div class=" w-full  col-span-1 rounded">
                 <div class="shadow ">
-                    <form action="{{ route('course-validation.store') }}" method="POST">
+                    <form action="{{ route('course-validation.create') }}" method="get">
                         @csrf
                         <div
                             class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
@@ -346,10 +347,24 @@
 
 
         <x-main-modal x-data="{ data: bookData }">
+
+            <form action="{{ route('course-validation.store') }}" method="POST" id="myForm" class="hidden">
+                @csrf
+                <input type="text" :value="bookData.title" name="title">
+                <input type="text" :value="bookData.author" name="author">
+                <input type="text" :value="bookData.description" name="description">
+                <input type="text" :value="bookData.category" name="category">
+                <input type="text" :value="bookData.rating" name="rating">
+                <input type="text" :value="bookData.subtitle" name="subtitle">
+                <input type="text" :value="bookData.isbn" name="isbn">
+                <input type="text" :value="bookData.page_count" name="pages">
+                <input type="text" :value="bookData.infoLink" name="infolink">
+            </form>
             <div class="h-96">
                 <h2 class="text-gray-700 first-letter:uppercase font-semibold text-md border-t py-3">Add New Category
                 </h2>
-                <x-main-button>Save Course To Libray</x-main-button>
+                <x-main-button onClick="document.getElementById('myForm').submit()">Save Course To
+                    Libray</x-main-button>
                 <a :href="bookData.infoLink" target="_blank">
                     <h3 class="my-3 underline text-2xl font-bold" x-text="bookData.title"></h3>
                 </a>
@@ -357,20 +372,28 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 py-10">
                     <div>
                         <h4 class="font-semibold mb-3">Details</h4>
-                        <p class=" text-gray-700 my-2"> Instructor: <span class="ml-5 " x-text ="bookData.author"></span></p>
-                        <p class=" text-gray-700 my-2"> Subcategory: <span class="ml-5 " x-text ="bookData.category"></span></p>
-                        <p class=" text-gray-700 my-2"> Platform: <span class="ml-5 " x-text ="bookData.author"></span></p>
-                        <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 " x-text ="bookData.category"></span></p>
-                        <p class=" text-gray-700 my-2"> Topic: <span class="ml-5 " x-text ="bookData.title"></span></p>
-                        <p class=" text-gray-700 my-2"> Subtitle: <span class="ml-5 " x-text ="bookData.subtitle"></span></p>
-                        <p class=" text-gray-700 my-2"> Price: <span class="ml-5 " x-text ="bookData.price"></span></p>
-                        <p class=" text-gray-700 my-2"> Rating: <span class="ml-5 " x-text ="bookData.rating"></span></p>
-                        <p class=" text-gray-700 my-2"> ISBN: <span class="ml-5 " x-text ="bookData.isbn"></span></p>
-                        <p class=" text-gray-700 my-2"> Pages: <span class="ml-5 " x-text ="bookData.page_count"></span></p>
+                        <p class=" text-gray-700 my-2"> Instructor: <span class="ml-5 "
+                                x-text="bookData.author"></span></p>
+                        <p class=" text-gray-700 my-2"> Subcategory: <span class="ml-5 "
+                                x-text="bookData.category"></span></p>
+                        {{-- <p class=" text-gray-700 my-2"> Platform: <span class="ml-5 " x-text ="bookData.author"></span></p> --}}
+                        <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 " x-text="bookData.category"></span>
+                        </p>
+                        <p class=" text-gray-700 my-2"> Topic: <span class="ml-5 " x-text="bookData.title"></span>
+                        </p>
+                        <p class=" text-gray-700 my-2"> Subtitle: <span class="ml-5 "
+                                x-text="bookData.subtitle"></span></p>
+                        <p class=" text-gray-700 my-2"> Price: <span class="ml-5 " x-text="bookData.price"></span>
+                        </p>
+                        <p class=" text-gray-700 my-2"> Rating: <span class="ml-5 " x-text="bookData.rating"></span>
+                        </p>
+                        <p class=" text-gray-700 my-2"> ISBN: <span class="ml-5 " x-text="bookData.isbn"></span></p>
+                        <p class=" text-gray-700 my-2"> Pages: <span class="ml-5 "
+                                x-text="bookData.page_count"></span></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-3" >Description</h4>
-                        <p class=" text-gray-700 my-2"x-text ="bookData.description"></p>
+                        <h4 class="font-semibold mb-3">Description</h4>
+                        <p class=" text-gray-700 my-2"x-text="bookData.description"></p>
                     </div>
                     <div>
                     </div>

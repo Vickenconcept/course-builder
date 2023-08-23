@@ -29,9 +29,24 @@ class ScoreController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function store( Request $request)
     {
-    
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'author' => 'required',
+            'category' => 'required',
+            'rating' => 'required',
+            'subtitle' => 'required',
+            'isbn' => 'required',
+            'pages' => 'required',
+            'infolink' => 'required',
+
+        ]);
+
+         auth()->user()->courseresearches()->create($validatedData);
+
+        return back()->with('success', 'course added successfully');
     }
 
     // public function export(Request $request)
@@ -49,7 +64,7 @@ class ScoreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $defaultQuery = 'kids art book';
         $query = $request->input('query', $defaultQuery);
@@ -91,8 +106,11 @@ class ScoreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Courseresearch $courseresearch)
+    public function destroy($id)
     {
-        //
+        $content = Courseresearch::find($id);
+        $content->delete();
+
+        return redirect()->back()->with('success', 'Course deleted successfully.');
     }
 }

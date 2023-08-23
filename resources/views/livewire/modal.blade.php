@@ -1,5 +1,7 @@
 @props(['modalData','title'])
-<div class="flex items-center justify-center absolute top-0 left-0 mx-auto w-full h-full bg-gray-400 bg-opacity-20 z-10"
+<div 
+{{-- x-data="{ isOpen : false }" --}}
+ class="flex items-center justify-center absolute top-0 left-0 mx-auto w-full h-full bg-gray-400 bg-opacity-20 z-10"
     x-show="isOpen" style="display: none;" >
     <div
         class="bg-white w-[90%] shadow-sm border rounded overflow-auto h-full pb-6 transition-all relative duration-700">
@@ -8,7 +10,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
-                  
             </button>
             {{-- {{ $title }}
             {{ $modalData }} --}}

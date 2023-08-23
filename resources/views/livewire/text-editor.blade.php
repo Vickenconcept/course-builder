@@ -1,27 +1,8 @@
 <div wire:poll.visible="updateDatabase"wire:poll.10s>
-    <div class="flex justify-end">
-        <x-dropdown align="right">
-            <x-slot name="trigger">
-                <button
-                    class="  bg-yellow-700 border-4  rounded-lg px-2 py-1  shadow-sm text-xs text-right">
-                    <span class=""> AI</span>
-                </button>
-            </x-slot>
-            <x-slot name="content">
-                <x-dropdown-link class="cursor-pointer">
-                    <button  @click="isOpen = true ; "
-                    wire:click="sendData('{{ $action1 }}')">
-                        write an intro summary for this module based on this title
-                    </button>
-                </x-dropdown-link>
-            </x-slot>
-        </x-dropdown>
-    </div>
-   
         <div wire:ignore  >
             <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content" wire:model="content"  wire:poll>{{ $content }}</textarea>
         </div>
-    @push('script')
+    {{-- @push('script') --}}
         <script>
             $(document).ready(() => {
                 $('#content-{{ $lesson->id }}').summernote({
@@ -37,5 +18,5 @@
             });
             })
         </script>
-    @endpush
+    {{-- @endpush --}}
 </div>

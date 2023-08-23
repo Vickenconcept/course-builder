@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\ContentPlanner;
+use App\Models\Course;
+use App\Models\Courseresearch;
 use App\Models\Library;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -20,17 +23,10 @@ class ContentPlannerController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-            $libraries = Library::whereHas('course', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->with(['course.library'])->latest()->get();
-
-        
-        $contents = ContentPlanner::whereHas('user', function ($query) use ($user) {
-            $query->where('id', $user->id);
-        })->latest()->get();
-        // return view('users.content-planner', compact( 'contents'));
-        return view('users.content-planner', compact('libraries', 'contents'));
+            $researches = Courseresearch::latest()->get();
+            $books = Book::latest()->get();
+            $courses = Course::latest()->get();
+        return view('users.content-planner', compact('courses', 'researches','books'));
     }
 
 
@@ -107,11 +103,8 @@ class ContentPlannerController extends Controller
      */
     public function destroy($id)
     {
-        // dd($id);
         $content = ContentPlanner::find($id);
         $content->delete();
-
-        // Additional code or redirect if needed
 
         return redirect()->back()->with('success', 'Course deleted successfully.');
     }

@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-706f5e96.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-7a8564fd.css') }}">
     @livewireStyles
 </head>
 
@@ -94,15 +94,15 @@
             }
         </script>
 
+@livewireScripts
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-        <script src="{{ asset('build/assets/app-4c5a09cd.js') }}"></script>
-        @livewireScripts
-        @stack('script')
+        <script src="{{ asset('build/assets//app-dd6eec69.js') }}"></script>
+        {{-- @stack('script') --}}
 </body>
 
 </html>

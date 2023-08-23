@@ -19,10 +19,6 @@
                     @endif
                 </form>
             </div>
-            <div></div>
-            <div class="text-right">
-            <button class="bg-yellow-400 rounded-lg hover:shadow-md text-white shadow py-2 px-4 text-xs"><a href="{{ route('library.index') }}">Books Library</a></button>
-            </div>
         </div>
 
         <section class="pt-10 overflow-x-auto">
@@ -95,6 +91,12 @@
         <input type="text" value="${ book['title'] }" name="title">
         <input type="text" value="${ book['description'] ?book['description']: 'no description' }" name="description">
         <input type="text" value="${ book['thumbnail'] ? book['thumbnail'] : '/images/book-cover.jpg' }" name="image">
+        <input type="text" value="${ book['category'] }" name="category">
+        <input type="text" value="${ book['rating']}" name="rating">
+        <input type="text" value="${ book['author']}" name="author">
+        <input type="text" value="${ book['pages'] }" name="pages">
+        <input type="text" value="${ book['previewLink']}" name="infolink">
+        <input type="text" value="${ book['published_date']}" name="published_date">
         </form>
             <div h-full>
             

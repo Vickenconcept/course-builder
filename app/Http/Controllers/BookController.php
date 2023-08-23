@@ -65,11 +65,17 @@ class BookController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'image' => 'required'
-
+            'image' => 'required',
+            'category' => 'required',
+            'rating' => 'required',
+            'author' => 'required',
+            'pages' => 'required',
+            'published_date' => 'required',
+            'infolink' => 'required',
+            
         ]);
-        // dd($validatedData);
-
+        
+        // dd('hello');
          auth()->user()->book()->create($validatedData);
 
         return back()->with('success', 'Book save successfully');

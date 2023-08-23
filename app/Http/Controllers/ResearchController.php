@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Courseresearch;
 use App\Models\PlatformResearch;
 use App\Services\BookService;
 use Illuminate\Http\Request;
@@ -79,8 +80,8 @@ class ResearchController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Platformresearch $platformresearch)
+    public function destroy($id)
     {
-        //
+       
     }
 }
