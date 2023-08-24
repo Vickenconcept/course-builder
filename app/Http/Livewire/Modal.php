@@ -35,7 +35,7 @@ class Modal extends Component
     {
         // $query = $this->modalData . " '" . $this->title . "' ";
         // $query  = "generate a course body for this subtopic $this->title. dont exceed fifty seconds while executing";
-        $query  = "write an brief intro about this subtopic " .$this->title." , return the response in a html format, add </br> after every <p> and  where needed . remember to remove the htm, head, and body tag." ;
+        $query  = "write an brief intro about this subtopic " .$this->title." , return the response in a html format without head tag, html tag abd body tag, add </br> after every <p> and  where needed ." ;
         $response = $chatGptService->generateContent($query);
  
         $this->generatedResponse = $response;

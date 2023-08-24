@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1",
+        "mailchimp/marketing": "^3.0",
         "openai-php/laravel": "^0.6.3",
         "phpoffice/phpword": "^1.1",
         "spatie/laravel-sluggable": "^3.5",

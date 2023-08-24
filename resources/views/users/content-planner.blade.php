@@ -10,6 +10,15 @@
                             <div class="flex justify-between">
                                 <span
                                     class="text-gray-300 text-xs">{{ $research->created_at->toFormattedDayDateString() }}</span>
+                                <div class="text-xs ">
+                                    <form :id="research.id"
+                                        action="{{ route('course-validation.destroy', ['course_validation' => $research->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="font-bold text-xs">Delete</button>
+                                    </form>
+                                </div>
                             </div>
 
                             <div class="">
@@ -25,12 +34,13 @@
 
                         </div>
 
+                        {{-- modal --}}
                         <div x-show="isOpen2"
                             class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 -full"
                             style="display: none;">
                             <div class="flex items-center justify-center min-h-screen px-10">
                                 <div class="bg-white w-[90%] rounded overflow-hidden pb-6 transition-all relative duration-700"
-                                    @click.away="isOpen2 = false">
+                                   >
                                     <div>
                                         <button type="button" class=" px-4 pt-3" @click="isOpen2 = false">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -42,21 +52,15 @@
                                         </button>
                                     </div>
                                     <div class="p-5 overflow-y-auto">
-                                        <form :id="research.id" 
-                                            action="{{ route('course-validation.destroy', ['course_validation' => $research->id]) }}" 
-                                            method="POST">
-                                          @csrf
-                                          @method('DELETE')
-                                      </form>
                                         <div class="h-96">
                                             </h2>
-                                            <x-main-button onClick="document.getElementById('myForm').submit('research.id')">Remove From
-                                                Libray</x-main-button>
                                             <a :href="research.infolink" target="_blank">
-                                                <h3 class="my-3 underline text-2xl font-bold" x-text="research.title"></h3>
+                                                <h3 class="my-3 underline text-2xl font-bold" x-text="research.title">
+                                                </h3>
                                             </a>
-                                           
-                                            <p x-text="research.description" class="text-gray-400 text-sm truncate w-[80%]"></p>
+
+                                            <p x-text="research.description"
+                                                class="text-gray-400 text-sm truncate w-[80%]"></p>
                                             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 py-10">
                                                 <div>
                                                     <h4 class="font-semibold mb-3">Details</h4>
@@ -65,17 +69,22 @@
                                                     <p class=" text-gray-700 my-2"> Subcategory: <span class="ml-5 "
                                                             x-text="research.category"></span></p>
                                                     {{-- <p class=" text-gray-700 my-2"> Platform: <span class="ml-5 " x-text ="research.author"></span></p> --}}
-                                                    <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 " x-text="research.category"></span>
+                                                    <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 "
+                                                            x-text="research.category"></span>
                                                     </p>
-                                                    <p class=" text-gray-700 my-2"> Topic: <span class="ml-5 " x-text="research.title"></span>
+                                                    <p class=" text-gray-700 my-2"> Topic: <span class="ml-5 "
+                                                            x-text="research.title"></span>
                                                     </p>
                                                     <p class=" text-gray-700 my-2"> Subtitle: <span class="ml-5 "
                                                             x-text="research.subtitle"></span></p>
-                                                    <p class=" text-gray-700 my-2"> Price: <span class="ml-5 " x-text="research.price"></span>
+                                                    <p class=" text-gray-700 my-2"> Price: <span class="ml-5 "
+                                                            x-text="research.price"></span>
                                                     </p>
-                                                    <p class=" text-gray-700 my-2"> Rating: <span class="ml-5 " x-text="research.rating"></span>
+                                                    <p class=" text-gray-700 my-2"> Rating: <span class="ml-5 "
+                                                            x-text="research.rating"></span>
                                                     </p>
-                                                    <p class=" text-gray-700 my-2"> ISBN: <span class="ml-5 " x-text="research.isbn"></span></p>
+                                                    <p class=" text-gray-700 my-2"> ISBN: <span class="ml-5 "
+                                                            x-text="research.isbn"></span></p>
                                                     <p class=" text-gray-700 my-2"> Pages: <span class="ml-5 "
                                                             x-text="research.page_count"></span></p>
                                                 </div>
@@ -86,9 +95,9 @@
                                                 <div>
                                                 </div>
                                             </div>
-                            
+
                                         </div>
-                            
+
 
                                     </div>
                                 </div>
@@ -117,6 +126,15 @@
                             <div class="flex justify-between">
                                 <span
                                     class="text-gray-300 text-xs mb-3">{{ $book->created_at->toFormattedDayDateString() }}</span>
+                                    <div class="text-xs ">
+                                        <form id=""
+                                            action="{{ route('books.destroy', ['book' => $book->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="font-bold text-xs">Delete</button>
+                                        </form>
+                                    </div>
                             </div>
 
                             <div class="">
@@ -137,8 +155,53 @@
 
                         <x-main-modal>
 
-                            <h1>hello</h1>
-                            <span x-text=" bookData.title"></span>
+                            <div h-full>
+
+                                <button
+                                    class="bg-yellow-400 py-2 my-3 px-4 rounded-lg hover:shadow-md text-white shadow text-xs"
+                                    onClick="document.getElementById('myForm').submit()">Save to Library</button>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 h-full">
+                                    <div class="h-full shadow">
+                                        <a :href="bookData.infolink" target="_blank"
+                                            class=" first-letter:uppercase font-extrabold text-sm underline mt-2 inline "
+                                            id="myTitle"><span x-text="bookData.title"></span></a><button
+                                            onclick="toCopy(document.getElementById('myTitle')); "><i
+                                                class='bx bx-copy ml-1 text-gray-300'></i></button>
+                                        <div class="w-20 h-28 overflow-hidden shadow-sm">
+                                            <img :src="bookData.image" alt="bookData.title"
+                                                class="h-full  object-cover ">
+                                        </div>
+                                        <div class="grid grid-cols-2">
+                                            <div class="grid grid-cols-2 col-span-1 gap-1 py-1">
+                                                <div class=" text-xs capitalize">Rating</div>
+                                                <div class=" text-xs" x-text="bookData.rating"></div>
+                                                <div class=" text-xs capitalize">Publisher</div>
+                                                <div class=" text-xs" x-text="bookData.author"></div>
+                                                <div class=" text-xs capitalize">publissed Date</div>
+                                                <div class=" text-xs" x-text="bookData.published_date"></div>
+                                                <div class=" text-xs capitalize">Pages</div>
+                                                <div class=" text-xs" x-text="bookData.pages"></div>
+                                                <div class=" text-xs capitalize">Category</div>
+                                                <div class=" text-xs" x-text="bookData.category"></div>
+                                            </div>
+                                        </div>
+                                        <h2 class=" first-letter:uppercase font-extrabold text-sm  my-1 inline ">
+                                            Description</h2>
+                                        <button onclick="toCopy(document.getElementById('myDesc'))"><i
+                                                class='bx bx-copy ml-1 text-gray-300'></i></button>
+                                        <div class="h-40 overflow-auto">
+                                            <p class=" first-letter:uppercase text-xs " id="myDesc"
+                                                x-text="bookData.description"></p>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden px-10 overflow-y-auto shadow">
+                                        <div w-[80%] h-[100px]>
+                                            <img :src="bookData.image" alt="bookData.title"
+                                                class="w-[80%]  object-contain shadow-md transform duration-700  hover:opacity-90 ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </x-main-modal>
                     @empty
@@ -208,6 +271,7 @@
             window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
             document.execCommand("copy");
+            alert("copied!" );
         }
     </script>
 </x-app-layout>

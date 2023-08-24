@@ -8,6 +8,8 @@
                 class=" hover:bg-yellow-100 transition duration-300 py-2  px-5 border border-yellow-800/100 rounded-md text-xs">
                 Show saved content
             </a>
+            <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank">Settings</a>
+            {{-- <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank">Settings</a> --}}
         </div>
 
 
@@ -94,6 +96,7 @@
             window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
             document.execCommand("copy");
+            alert("copied!" );
         }
     </script>
 </x-app-layout>

@@ -48,13 +48,16 @@ class CourseController extends Controller
     {
         // $course = Course::findOrFail($slug); 
         $course = Course::where('slug', $slug)->firstOrFail();
+        // $freeLessonCount = $course->settings->free_lessons_count;
         return view('pages.courses.preview', compact('course'));
     }
     public function share($slug)
     {
-        // $course = Course::findOrFail($slug); 
-        $course = Course::where('slug', $slug)->firstOrFail();
-        return view('pages.courses.embed_show', compact('course'));
+        // $course = Course::where('slug', $slug)->firstOrFail();
+        $course = Course::where('slug', $slug)
+            ->firstOrFail();
+        $freeCourse = $course->coursesettings->free_lessons_count;
+        return view('pages.courses.embed_show', compact('course', 'freeCourse'));
     }
 
     /**
@@ -62,7 +65,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $course = Course::findOrFail($id); 
+        $course = Course::findOrFail($id);
 
         return view('pages.courses.edit', compact('course'));
     }

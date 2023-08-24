@@ -70,6 +70,10 @@ class Course extends Component
                 // 'description' => $textareainputvalue,
             ]);
         }
+        $course->courseSettings()->create([
+            'course_id' => $course->id,
+        ]);
+
         
     }
    

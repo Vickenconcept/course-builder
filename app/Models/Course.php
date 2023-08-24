@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Library;
 use App\Models\Lesson;
+use App\Models\CourseSettings;
 use App\Models\Scopes\courseRetriever;
 use App\Models\Trait\CourseSluggable;
 
@@ -29,6 +30,10 @@ class Course extends Model
     public function lessons()
     {
         return $this->hasMany(Lesson::class);
+    }
+    public function courseSettings()
+    {
+        return $this->hasOne(CourseSettings::class);
     }
     
     public function user()

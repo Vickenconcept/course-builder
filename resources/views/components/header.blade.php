@@ -4,7 +4,7 @@
         <a href="{{ route('books.index') }}" class=" {{ request()->routeIs('books.index') ? '' : 'hidden' }}">Books</a>
         <a href="{{ route('course-validation.index') }}" class=" {{ request()->routeIs('course-validation.index') ? '' : 'hidden' }}">Course-research</a>
         <a href="{{ route('content-planner.index') }}" class=" {{ request()->routeIs('content-planner.index') ? '' : 'hidden' }}">Content-planner</a>
-        <a href="{{ route('lessons.store') }}" class=" {{ request()->routeIs('lesson.store') ? '' : 'hidden' }}">Lesson-architect</a>
+        <a href="{{ route('course') }}" class=" {{ request()->routeIs('course') ? '' : 'hidden' }}">Lesson-architect</a>
         <a href="{{ route('research.index') }}" class=" {{ request()->routeIs('research.index') ? '' : 'hidden' }}">Platform-research</a>
         <a href="{{ route('search.index') }}" class=" {{ request()->routeIs('search.index') ? '' : 'hidden' }}">Title Rank(SEO)</a>
     </div>

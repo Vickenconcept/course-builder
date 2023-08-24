@@ -169,6 +169,7 @@
                 window.getSelection().removeAllRanges();
                 window.getSelection().addRange(range);
                 document.execCommand("copy");
+                alert("copied!" );
             } 
         </script>
     </div>

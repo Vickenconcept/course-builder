@@ -2,7 +2,10 @@
 
 <div class="  mt-0.5 ">
 
-    <div {{-- x-data="{ childIsOpen }"   --}} x-data="{ open: false, isOpen:false }" class="">
+    <div x-data="{ open: false, isOpen:false }" class="">
+        {{-- <div id="refreshDiv">
+            Initial content.
+        </div> --}}
         <div class="relative ">
             <div class="border p-2 shadow text-gray-500 font-semibold flex items-center justify-between">
                 <div class="pl-2 flex">
@@ -43,11 +46,23 @@
                     </x-slot>
                 </x-dropdown>
             </div>
-
-                <livewire:modal :title="$lesson->title" :lesson="$lesson" />
-                <livewire:text-editor :lesson="$lesson" />
+            <livewire:modal :title="$lesson->title" :lesson="$lesson" />
+                <div id="refreshDiv">
+                    <livewire:text-editor :lesson="$lesson" />
+                </div>
 
             </div>
         </div>
     </div>
 </div>
+<script>
+    function refreshDivContent() {
+        // Modify the content of the div here
+        var currentTime = new Date().toLocaleTimeString();
+        // document.getElementById('refreshDiv')
+        // // .innerHTML = "Refreshed at: " + currentTime;
+    }
+
+    // Call the refreshDivContent function every 5 seconds
+    setInterval(refreshDivContent, 10000)
+</script>

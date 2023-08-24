@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Library;
 use App\Models\Course;
 use App\Models\Book;
+use App\Models\Setting;
 use App\Models\Courseresearch ;
 
 class User extends Authenticatable
@@ -69,5 +70,9 @@ class User extends Authenticatable
     public function courseresearches() {
         
         return $this->hasMany(Courseresearch::class);
+    }
+    public function setting() {
+        
+        return $this->hasOne(Setting::class);
     }
 }

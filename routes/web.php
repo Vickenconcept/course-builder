@@ -15,7 +15,10 @@ use App\Http\Livewire\Course;
 use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
 use App\Events\JobCompleted;
+use App\Http\Controllers\CourseSettingsController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Livewire\CourseContent;
 use App\Listeners\JobCompletedListener;
 // use App\Models\Course;
@@ -69,47 +72,46 @@ Route::middleware('auth')->group(function () {
     Route::view('coming-soon','pages.users.coming-soon')->name('coming-soon');
     Route::resource('books', BookController::class);
     Route::resource('course-validation', ScoreController::class);
-    Route::get('lessons', LessonArchitect::class)->name('lessons.store');
-    Route::get('content-outline', CourseContent::class);
     Route::get('course', Course::class)->name('course');
+    Route::resource('course-setting' , CourseSettingsController::class);
     Route::resource('research', ResearchController::class);
     Route::resource('search', SearchController::class);
     Route::resource('content-planner', ContentPlannerController::class);
-    
     Route::resource('lesson-architect', LibraryController::class);
     Route::get('export-books', [BookController::class, 'export'])->name('export.books');
     Route::get('/export-text', [ContentPlannerController::class,'exportText'])->name('export.text');
-    
     Route::get('/suggestions', [SuggestionController::class,'suggestions']);
+    Route::resource('/setting', SettingController::class);
+    Route::resource('subscribe',SubscribeController::class);
 //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
     
 });
 
 Route::get('test',function(){
    
-        $question = 'write about the evolution of man';
+        // $question = 'write about the evolution of man';
     
-        $response = OpenAI::completion()->create([
-            'model' => 'gpt-3.5-turbo',
-            'max_tokens' => 3000,
-            'temperature' => 0.8,
-            'messages' => [
-                ["role" => "system", "content" => "You are a knowledgeable assistant that provides detailed explanations about topics."],
-                ["role" => "user", "content" => $question]
-            ]
-        ]);
+        // $response = OpenAI::completion()->create([
+        //     'model' => 'gpt-3.5-turbo',
+        //     'max_tokens' => 3000,
+        //     'temperature' => 0.8,
+        //     'messages' => [
+        //         ["role" => "system", "content" => "You are a knowledgeable assistant that provides detailed explanations about topics."],
+        //         ["role" => "user", "content" => $question]
+        //     ]
+        // ]);
     
-        $completionText = $response['choices'][0]['text'];
+        // $completionText = $response['choices'][0]['text'];
     
-        return response()->stream(function () use ($completionText) {
-            echo "data: " . $completionText . "\n\n";
-            ob_flush();
-            flush();
-        }, 200, [
-            'Cache-Control' => 'no-cache',
-            'X-Accel-Buffering' => 'no',
-            'Content-Type' => 'text/event-stream',
-        ]);
+        // return response()->stream(function () use ($completionText) {
+        //     echo "data: " . $completionText . "\n\n";
+        //     ob_flush();
+        //     flush();
+        // }, 200, [
+        //     'Cache-Control' => 'no-cache',
+        //     'X-Accel-Buffering' => 'no',
+        //     'Content-Type' => 'text/event-stream',
+        // ]);
 
 });
 

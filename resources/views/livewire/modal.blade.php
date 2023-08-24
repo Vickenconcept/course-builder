@@ -32,10 +32,26 @@
                         @click="isOpen = false" wire:click="sendModalResponse">Add Content to
                         Textarea
                     </button>
+                    <button onclick="toCopy(document.getElementById('content'))">
+                        <i class="bx bx-copy ml-2 text-gray-700"></i>
+                    </button>
                 </div>
-                {!! nl2br($generatedResponse) !!}
+                <div id="content">
+                    {!! nl2br($generatedResponse) !!}
+                </div>
             @endif
 
         </div>
     </div>
 </div>
+<script>
+    // for coping text
+    function toCopy(copyDiv) {
+        var range = document.createRange();
+        range.selectNode(copyDiv);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("copied!" );
+    }
+</script>

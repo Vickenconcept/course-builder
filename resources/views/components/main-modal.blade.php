@@ -3,7 +3,7 @@
     style="display: none;">
     <div class="flex items-center justify-center min-h-screen px-10">
         <div class="bg-white w-[90%] rounded overflow-hidden pb-6 transition-all relative duration-700"
-            @click.away="isOpen = false">
+            >
             <div>
                 <button type="button" class=" px-4 pt-3"
                 @click="isOpen = false">
