@@ -23,6 +23,21 @@ class AuthController extends Controller
     }
 
 
+    // public function login(Request $request): RedirectResponse
+    // {
+    //     $credentials = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+
+    //     if(!Auth::attempt($credentials)) 
+    //         return back()->withErrors(['email' => 'Invalid credentials']);
+
+    //    return to_route('dashboard');
+    // }
+
+
     public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -30,12 +45,24 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-
-        if(!Auth::attempt($credentials)) 
+        if (!Auth::attempt($credentials)) {
             return back()->withErrors(['email' => 'Invalid credentials']);
+        }
 
-       return to_route('dashboard');
+        $redirectRoute = session('pending_subscription_route');
+        // dd($redirectRoute);
+
+        if ($redirectRoute) {
+            // Clear the stored subscription route from session
+            session()->forget('pending_subscription_route');
+
+            // Redirect the user to the pending subscription route
+            return redirect($redirectRoute);
+        }
+
+        return redirect()->route('dashboard');
     }
+
 
     public function destroy(Request $request): RedirectResponse
     {

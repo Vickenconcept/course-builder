@@ -58,7 +58,7 @@ class CourseSettingsController extends Controller
         $course = $user->courses()->findorfail($id);
         $freeLessonCount = $course->courseSettings->free_lessons_count;
 
-        return view('pages.courses.settings', compact('freeLessonCount', 'id'));
+        return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course'));
     }
 
     /**
@@ -82,7 +82,9 @@ class CourseSettingsController extends Controller
         ]);
 
         $newFreeLessonsCount = 9;
-        $course = Course::find($courseId); 
+        // $course = Course::find($courseId);
+        $user = auth()->user();
+        $course = $user->courses()->findOrFail($courseId); 
 
         // $lesson  =$this->lesson->update([
         //     'content' => $this->content,

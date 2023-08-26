@@ -1,22 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Embeded</title>
-
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-7a8564fd.css') }}">
-</head>
-
-<body class="text-gray-700">
-    <div class=" mx-auto bg-white pt-5">
+<x-guest-layout>
+    <div class="w-[70%] mx-auto bg-white pt-5" x-data="{ isOpen: false }">
         <div class="m-20   px-1 text-gray-700">
 
             <section class="  py-5 capitalize">
@@ -42,38 +25,48 @@
                 </section>
             @endforeach --}}
 
+
+
+
+
+            @if ($isSubscribed)
+                @foreach ($course->lessons as $lesson)
+                        <section class="my-5 py-10">
+                            <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}.
+                                {{ $lesson->title }}
+                            </h3>
+                            {!! $lesson->content !!}
+                        </section>
+                @endforeach
+            @else
             @foreach ($course->lessons as $lesson)
                 @if ($loop->iteration <= $freeCourse)
                     <section class="my-5 py-10">
-                        <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}. {{ $lesson->title }}
+                        <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}.
+                            {{ $lesson->title }}
                         </h3>
                         {!! $lesson->content !!}
                     </section>
                 @endif
-            @endforeach
+                @endforeach
+                {{-- Show the regular content for non-subscribed users --}}
+                @if (count($course->lessons) > $freeCourse)
+                    <!-- Add a section or button to show all lessons -->
+                    <section class=" ">
+                        <a href="{{ route('subscribe.show', ['subscribe' => $course->id]) }}">
+                            <x-main-button id="showAllLessonsButton" class="">
+                                Show All Lessons
+                            </x-main-button>
+                        </a>
 
-            @if (count($course->lessons) > $freeCourse)
-                <!-- Add a section or button to show all lessons -->
-                <section class=" ">
-                    <button id="showAllLessonsButton"
-                        class="bg-blue-500 text-black py-2 px-4 rounded hover:bg-blue-600">
-                        Show All Lessons
-                    </button>
-                </section>
-                <script>
-                    document.getElementById('showAllLessonsButton').addEventListener('click', function() {
-                        // Code to display all lessons, you can use a modal, accordion, etc.
-                    });
-                </script>
+
+                    </section>
+                @endif
             @endif
+            <div>
 
 
-        </div>
-    </div>
-
-    <div>
-
-        {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+                {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
         <main class="grid min-h-screen w-full place-content-center bg-gray-900">
@@ -112,7 +105,7 @@
             </div>
         </main> --}}
 
-        {{-- <script>
+                {{-- <script>
             document.addEventListener("alpine:init", () => {
                 Alpine.data("lessonSlider", () => ({
                     currentIndex: 1,
@@ -137,11 +130,12 @@
                 }));
             });
         </script> --}}
+            </div>
+
+            <!-- component -->
+
+            
+        </div>
     </div>
 
-   
-
-        <script src="{{ asset('build/assets/app-dd6eec69.js') }}" defer></script>
-</body>
-
-</html>
+</x-guest-layout>

@@ -39,7 +39,7 @@ class Course extends Model
     public function user()
     {
 
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     protected static function boot()

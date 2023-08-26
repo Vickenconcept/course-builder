@@ -15,4 +15,10 @@ class courseRetriever implements Scope
     {
         $builder->where('user_id', auth()->id());
     }
+ 
+
+    // public function apply(Builder $builder, Model $model)
+    // {
+    //      $builder->where($model->getTable() .'.users_id', auth()->user()->users_id);
+    // }
 }

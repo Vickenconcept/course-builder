@@ -23,10 +23,15 @@ class ContentPlannerController extends Controller
      */
     public function index()
     {
-            $researches = Courseresearch::latest()->get();
-            $books = Book::latest()->get();
-            $courses = Course::latest()->get();
-        return view('users.content-planner', compact('courses', 'researches','books'));
+        $researches = Courseresearch::latest()->get();
+        $books = Book::latest()->get();
+        // $courses = Course::latest()->get();
+        $user = auth()->user();
+
+        // Retrieve the course associated with the user by its ID
+        $courses = $user->courses()->latest()->get();
+
+        return view('users.content-planner', compact('courses', 'researches', 'books'));
     }
 
 
@@ -57,8 +62,8 @@ class ContentPlannerController extends Controller
 
         $content = $data['content'] ?? null;
 
-        $textData = strip_tags($content); 
-        $textData = html_entity_decode($textData); 
+        $textData = strip_tags($content);
+        $textData = html_entity_decode($textData);
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
@@ -72,7 +77,7 @@ class ContentPlannerController extends Controller
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 
-    
+
 
     public function show($hashedId)
     {

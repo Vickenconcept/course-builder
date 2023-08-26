@@ -10,6 +10,11 @@ class Setting extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'mailchimp_api_key',
+        'mailchimp_prefix_key',
+    ];
+
 
     public function user()
     {

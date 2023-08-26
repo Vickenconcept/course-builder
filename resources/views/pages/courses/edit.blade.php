@@ -8,7 +8,7 @@
                 class=" hover:bg-yellow-100 transition duration-300 py-2  px-5 border border-yellow-800/100 rounded-md text-xs">
                 Show saved content
             </a>
-            <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank">Settings</a>
+           
             {{-- <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank">Settings</a> --}}
         </div>
 
@@ -61,6 +61,7 @@
                     <button>
                         <i class='bx bxs-file-doc pl-1 text-xl'></i>
                     </button>
+                    <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank"><i class='bx bx-cog text-xl'></i></a>
                 </div>
             </div>
 
@@ -87,6 +88,21 @@
             </div>
 
         </section>
+
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="{{ $course->title }}" />
+        <meta property="og:description" content="{{ $course->description }}" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW52aXJvbm1lbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" />
+        <meta property="og:url" content="{{ url("/courses/{$course->id}") }}" />
+        
+        {{-- <a href="{{ Share::page('https://eureka.vixblock.com.ng')->linkedin()->getRawLinks() }}" class="social-button" id="" title="" rel="" target="_blank"> --}}
+        <a href="{{ Share::currentPage()->whatsapp()->getRawLinks() }}" class="social-button" id="" title="" rel="" target="_blank">
+            facebook
+        </a> 
+        <br>
+  
+
+    
     </div>
     <script>
         // for coping text

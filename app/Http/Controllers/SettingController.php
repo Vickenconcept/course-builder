@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class SettingController extends Controller
 {
 
     public function index()
     {
-        return view('users.setting');;
+        $formSubmitted = true;
+        return view('users.setting',compact( 'formSubmitted'));
     }
 
     /**
@@ -29,21 +31,44 @@ class SettingController extends Controller
         $validatedData = $request->validate([
             'mailchimp_api_key' => 'required',
             'mailchimp_prefix_key' => 'required',
-
+        ]);
+        
+        $encryptedApiKey = Crypt::encryptString($validatedData['mailchimp_api_key']);
+       
+        $user = auth()->user();
+        
+        $user->setting()->create([
+            'mailchimp_api_key' => $encryptedApiKey,
+            'mailchimp_prefix_key' => $validatedData['mailchimp_prefix_key'],
         ]);
 
-        $user = auth()->user();
-
-
-         $user->setting()->create($validatedData);
-
-        // $user->courses()->first()->courseSettings()->create($validatedData);
-        // $user->courses->courseSettings()->updateOrCreate([], $validatedData);
-        // foreach ($user->courses as $course) {
-        //     $course->courseSettings()->updateOrCreate([], $validatedData);
-        // }
-
         return back()->with('success', 'created successfully');
+    }
+    public function edit($id)
+    {
+        $course = Course::findOrFail($id);
+       
+
+        return view('pages.courses.edit', compact('course'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Courseresearch $courseresearch)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $content = Course::find($id);
+        $content->delete();
+
+        return redirect()->to('course')->with('success', 'Course deleted successfully.');
     }
 
 }
