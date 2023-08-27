@@ -40,49 +40,31 @@ class SubscribeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     $courseId = $request->input('courseId');
-    //     // $request->validate([
-    //     //     'email' => 'required|email',
-    //     // ]);
-
-    //     $email = $request->input('email');
-    //     $user = User::where('email', $email)->first();
-    //     $course = Course::find($courseId);
-
-    //     $response = $this->mailchimpService->subscribe($email);
-
-    //     if ($course) {
-    //         $course->newQueryWithoutScopes()->update([
-    //             'user_id' => $user->id,
-    //         ]);
-    //     } else {
-    //     }
-    // }
 
 
     public function store(Request $request)
     {
         $courseId = $request->input('courseId');
         $email = $request->input('email');
+        $list_id = $request->input('list_id');
         $user = User::where('email', $email)->first();
         $courseModel = new Course;
 
         $course = $courseModel->newQueryWithoutScopes()->find($courseId);
-
+        
+        // dd($user);
         if ($user && $course) {
-
+            
             $courseCreator = $course->user;
-
+            
             if ($courseCreator->first()->setting) {
                 $response = $this->mailchimpService
-                    ->subscribe($email, $courseCreator
-                        ->first()->setting->mailchimp_api_key, $courseCreator
-                        ->first()->setting->mailchimp_prefix_key);
-
-                // $course->user()->attach($user->id);
+                ->subscribe($email, $courseCreator
+                ->first()->setting->mailchimp_api_key, $courseCreator
+                ->first()->setting->mailchimp_prefix_key, $list_id);
+                
                 $course->user()->sync([$user->id], false);
+                // dd($courseCreator->first()->setting);
 
                 return redirect()->route('courses.share', ['course_slug' => $course->slug]);
             } else {
@@ -106,8 +88,11 @@ class SubscribeController extends Controller
         if (!$course) {
             abort(404);
         }
+        $list_id = $course->list_id;
 
-        return view('pages.courses.subscribe', compact('course'));
+        // dd( $course->list_id);
+
+        return view('pages.courses.subscribe', compact('course' ,'list_id'));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseSettings;
+use App\Services\MailChimpService;
 use Illuminate\Http\Request;
 
 class CourseSettingsController extends Controller
@@ -11,6 +12,14 @@ class CourseSettingsController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public $mailChimpService;
+
+     public function __construct(MailChimpService $mailChimpService)
+     {
+         $this->mailChimpService = $mailChimpService;
+     }
+     
     public function index()
     {
         return view('pages.courses.settings');
@@ -58,7 +67,25 @@ class CourseSettingsController extends Controller
         $course = $user->courses()->findorfail($id);
         $freeLessonCount = $course->courseSettings->free_lessons_count;
 
-        return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course'));
+        $lists = $this->mailChimpService
+            ->getAllLists($user
+                ->setting->mailchimp_api_key, $user
+                ->setting->mailchimp_prefix_key);
+                
+                // dd($lists->lists[0]->id);
+
+        return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course','lists'));
+    }
+
+    public function saveSetting(Request $request, $courseId)
+    {
+        $list_id = $request->input('list_id');
+        
+        $user = auth()->user();
+        $course = $user->courses()->where('courses.id', $courseId)->update(['list_id' => $list_id]);
+        return redirect()->back()->with('success', 'List Updated');
+
+
     }
 
     /**

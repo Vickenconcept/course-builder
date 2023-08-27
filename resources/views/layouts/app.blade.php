@@ -26,7 +26,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-6e6e500d.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-1e9435d8.css ') }}">
 
 
     @livewireStyles

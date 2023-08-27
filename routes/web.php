@@ -42,7 +42,6 @@ Route::view('/', 'welcome')->name('home');
 Route::middleware('guest')->group(function () {
     Route::view('register', 'auth.register')->name('register');
     Route::view('login', 'auth.login')->name('login');
-    
 });
 
 Route::controller(AuthController::class)->name('auth.')->group(function () {
@@ -55,9 +54,27 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 Route::get('/share/courses/{course_slug}', [CourseController::class, 'share'])->name('courses.share');
 Route::resource('courses', CourseController::class);
+Route::delete('lesson/{id}', function($id) { // <-- Pass $id as a parameter
+    $user = auth()->user();
+    $course = $user->courses()->whereHas('lessons', function ($query) use ($id) {
+        $query->where('lessons.id', $id);
+    })->first();
+
+    if ($course) {
+        $lesson = $course->lessons()->find($id);
+
+        if ($lesson) {
+            $lesson->delete();
+            return redirect()->back()->with('success', 'Lesson deleted successfully.');
+        }
+    }
+
+    return redirect()->route('course')->with('error', 'Lesson not found.');
+})->name('lesson.delete');
+
 
 Route::middleware('auth')->group(function () {
-    
+
     Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
     Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -68,23 +85,24 @@ Route::middleware('auth')->group(function () {
     Route::resource('course-validation', ScoreController::class);
     Route::get('course', Course::class)->name('course');
     Route::resource('course-setting', CourseSettingsController::class);
+    Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
     Route::resource('research', ResearchController::class);
     Route::resource('search', SearchController::class);
     Route::resource('content-planner', ContentPlannerController::class);
-    Route::resource('lesson-architect', LibraryController::class);
+    // Route::resource('lesson-architect', LibraryController::class);
     Route::get('export-books', [BookController::class, 'export'])->name('export.books');
     Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
     Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
     Route::resource('/setting', SettingController::class);
     Route::resource('/subscribe', SubscribeController::class);
     //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
-    
+
 });
 
 Route::get('test', function () {
-    
+
     // $question = 'write about the evolution of man';
-    
+
     // $response = OpenAI::completion()->create([
     //     'model' => 'gpt-3.5-turbo',
     //     'max_tokens' => 3000,
@@ -129,12 +147,15 @@ Route::get('test', function () {
     // ]);
     // dd($response);
 
-    // $client = new MailchimpMarketing\ApiClient();
-    // $client->setConfig([
-    //     'apiKey' => 'e1f7a2e06cf128d61784d6b0db1a24f0-us21',
-    //     'server' => 'us21',
-    // ]);
+    $client = new MailchimpMarketing\ApiClient();
+    $client->setConfig([
+        'apiKey' => 'e1f7a2e06cf128d61784d6b0db1a24f0-us21',
+        'server' => 'us21',
+    ]);
 
-    // $response = $client->lists->getListMembersInfo("3c54a618ea");
-    // dd($response);
+    $response = $client->lists->getListMembersInfo("3c54a618ea");
+    dd($response);
+
+
+   
 });

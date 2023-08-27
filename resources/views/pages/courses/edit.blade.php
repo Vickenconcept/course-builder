@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="bg-white px-10 pt-10" x-data="{ childIsOpen: false }">
-        <div class=" w-ful md:w-[80%]">
+        <div class=" w-full md:w-[80%]">
             <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 ">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
             </a>
@@ -13,7 +13,7 @@
         </div>
 
 
-        <section class="mt-20 w-[70%] mx-auto">
+        <section class="mt-20 w-full md:w-[70%] mx-auto">
             <div class="flex justify-between py-3">
                 <div>
                     <a href="{{ route('courses.edit', ['course' => $course->id]) }}">
@@ -104,6 +104,8 @@
 
     
     </div>
+    <x-notification />
+    
     <script>
         // for coping text
         function toCopy(copyDiv) {

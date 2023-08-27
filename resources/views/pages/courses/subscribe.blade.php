@@ -1,7 +1,6 @@
 <x-guest-layout>
+    {{-- <div class=" w-full h-screen flex  items-center justify-center">
 
-    {{-- 
-    <div class=" w-full h-screen flex  items-center justify-center">
         <div class="text-gray-100 bg-gray-800 w-[80%] mx-auto">
             <div class="w-full py-5">
                 <h1 class="text-center font-semibold text-xl lg:text-4xl capitalize">Subscribe To Grab The Course</h1>
@@ -17,52 +16,31 @@
                                     <input type="text" value="{{ $course->id }}" name="courseId" hidden>
                                     <input type="email"
                                         class="m-1 p-3 md:w-[24rem] guestearance-none border-none text-gray-700 text-sm font-medium focus:outline-none focus:border-white focus:rounded focus:placeholder-transparent"
-                                        placeholder="Enter your email" aria-label="Enter your email"
-                                        name="email">
+                                        placeholder="Enter your email" aria-label="Enter your email" name="email">
                                     <button type="submit"
                                         class="w-full text-sm m-1 p-2 bg-gray-800 rounded-lg font-semibold lg:w-auto hover:bg-gray-700">
                                         Subscribe
                                     </button>
                                 </div>
-                            </form> 
+                            </form>
                         </div>
                         <p class="text-sm ml-1 mt-2 font-light text-gray-300 text-center">Enjoy the move!!</p>
                     </div>
                 </div>
                 <hr class="h-px mt-6 bg-gray-500 border-none">
                 <div class="flex flex-col items-center justify-between mt-6 md:flex-row">
+                </div>
             </div>
-        </div> --}}
 
-    {{-- <div class="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
-        <a href="#" class="text-2xl font-bold text-gray-800">sneekpeeks</a>
-        <div class="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
-            <div class="relative">
-                <ul class="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
-                    <li class="flex items-center space-x-3 text-left sm:space-x-4">
-                        <a class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-200 text-xs font-semibold text-emerald-700"
-                            href="#"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                            </svg></a>
-                        <span class="font-semibold text-gray-900">Shop</span>
-                    </li>
+<div></div> --}}
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                    <li class="flex items-center space-x-3 text-left sm:space-x-4">
-                        <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-400 text-xs font-semibold text-white"
-                            href="#">3</a>
-                        <span class="font-semibold text-gray-500">Payment</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div> --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 ">
-        <div class="col-span-1 bg-gray-50 px-4 pt-8 mt-10 text-gray-700">
+
+
+
+
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 ">
+        <div class="col-span-1 bg-gray-50 px-4 pt-8 mt-10 text-gray-700 py-10">
             <img src="{{ asset('images/book-cover.jpg') }}" alt="" class="w-40 ">
             <h1 class="text-xl font-bold my-3 capitalize">{{ $course->title }}</h1>
             <p class="text-sm  my-3 capitalize truncate w-36">{{ $course->description }}</p>
@@ -78,10 +56,35 @@
         <div class="col-span-2">
             {{-- <div class="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32"> --}}
 
-                <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
-                    <p class="text-xl font-medium">Payment Details</p>
-                    <p class="text-gray-400">Complete your order by providing your payment details.</p>
-                    <div class="">
+            <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+                <p class="text-xl font-medium">Subscribe To Grab The Course</p>
+                <p class="text-gray-400">Enjoy the move!!</p>
+                <div class="">
+                    @if ($course->courseSettings->checkout_option === 'email')
+                        <div class="py-10">
+                            <form action="{{ route('subscribe.store') }}" method="post">
+                                @csrf
+                                <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                                <div class="relative">
+                                    <input type="text" value="{{ $course->id }}" name="courseId" hidden>
+                                    <input type="text" value="{{ $list_id }}" name="list_id" hidden>
+                                    <input type="text" id="email" name="email"
+                                        class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                        placeholder="your.email@gmail.com" name="email" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <button
+                                    class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Subscribe</button>
+                            </form>
+                        </div>
+                    @else
                         <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
                         <div class="relative">
                             <input type="text" id="email" name="email"
@@ -132,7 +135,8 @@
                                 class="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                 placeholder="CVC" />
                         </div>
-                        <label for="billing-address" class="mt-4 mb-2 block text-sm font-medium">Billing Address</label>
+                        <label for="billing-address" class="mt-4 mb-2 block text-sm font-medium">Billing
+                            Address</label>
                         <div class="flex flex-col sm:flex-row">
                             <div class="relative flex-shrink-0 sm:w-7/12">
                                 <input type="text" id="billing-address" name="billing-address"
@@ -169,11 +173,13 @@
                             <p class="text-sm font-medium text-gray-900">Total</p>
                             <p class="text-2xl font-semibold text-gray-900">$408.00</p>
                         </div>
-                    </div>
-                    <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place
-                        Order</button>
+
                 </div>
+                <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place
+                    Order</button>
+                @endif
             </div>
+        </div>
 
     </div>
 

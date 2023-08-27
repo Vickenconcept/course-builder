@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Services\MailChimpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class SettingController extends Controller
 {
+  
 
     public function index()
     {
-        $formSubmitted = true;
-        return view('users.setting',compact( 'formSubmitted'));
+       
+       
+        return view('users.setting');
     }
 
     /**
@@ -32,11 +35,12 @@ class SettingController extends Controller
             'mailchimp_api_key' => 'required',
             'mailchimp_prefix_key' => 'required',
         ]);
-        
+
+
         $encryptedApiKey = Crypt::encryptString($validatedData['mailchimp_api_key']);
-       
+
         $user = auth()->user();
-        
+
         $user->setting()->create([
             'mailchimp_api_key' => $encryptedApiKey,
             'mailchimp_prefix_key' => $validatedData['mailchimp_prefix_key'],
@@ -47,7 +51,7 @@ class SettingController extends Controller
     public function edit($id)
     {
         $course = Course::findOrFail($id);
-       
+
 
         return view('pages.courses.edit', compact('course'));
     }
@@ -70,5 +74,4 @@ class SettingController extends Controller
 
         return redirect()->to('course')->with('success', 'Course deleted successfully.');
     }
-
 }

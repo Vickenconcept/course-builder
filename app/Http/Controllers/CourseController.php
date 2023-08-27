@@ -114,20 +114,27 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $course)
+    // $data = $request->validate([
+    //     'checkout_option' => 'required|in:email,payment',
+    // ]);
+    public function update(Request $request, $courseId)
     {
-        $data = $request->validate([
-            'checkout_option' => 'required|in:email,payment', // Validate the checkout option
-        ]);
+
         $user = auth()->user();
 
-        $course = $user->courses()->find($course);
-        dd($course->setting);
-    
-        $course->setting->update($data);
-        dd('success');
-    
+        $course = $user->courses()->find($courseId);
+
+        if ($course) {
+           $course->courseSettings->checkout_option = $request->input('checkout_option');
+           $course->courseSettings->update();
+
+            return redirect()->back()->with('success', ' updated successfully');
+        } else {
+            return redirect()->route('courses.index')->with('error', 'Course not found');
+        }
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -142,4 +149,6 @@ class CourseController extends Controller
 
         return redirect()->to('course')->with('success', 'Course deleted successfully.');
     }
+   
+    
 }
