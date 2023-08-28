@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/app-1e9435d8.css ') }}">
 
+    @yield('styles')
+
 
     @livewireStyles
 </head>

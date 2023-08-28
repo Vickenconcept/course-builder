@@ -47,29 +47,6 @@ class CourseController extends Controller
         // $freeLessonCount = $course->settings->free_lessons_count;
         return view('pages.courses.preview', compact('course'));
     }
-    // public function share($slug)
-    // {
-
-    //     $course = Course::where('slug', $slug)->firstOrFail();
-    //     $freeCourse = $course->coursesettings->free_lessons_count;
-    //     return view('pages.courses.embed_show', compact('course', 'freeCourse'));
-    // }
-
-    // public function share($slug)
-    // {
-    //     // Create an instance of the Course model
-    //     $courseModel = new Course;
-
-    //     // Create a fresh query builder instance without any global scopes
-    //     $query = $courseModel->newQueryWithoutScopes()
-    //         ->where('slug', $slug);
-
-    //     // Retrieve the course
-    //     $course = $query->firstOrFail();
-
-    //     $freeCourse = $course->coursesettings->free_lessons_count;
-    //     return view('pages.courses.embed_show', compact('course', 'freeCourse'));
-    // }
 
     public function share($slug)
     {
@@ -114,9 +91,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    // $data = $request->validate([
-    //     'checkout_option' => 'required|in:email,payment',
-    // ]);
+
     public function update(Request $request, $courseId)
     {
 
@@ -125,8 +100,8 @@ class CourseController extends Controller
         $course = $user->courses()->find($courseId);
 
         if ($course) {
-           $course->courseSettings->checkout_option = $request->input('checkout_option');
-           $course->courseSettings->update();
+            $course->courseSettings->checkout_option = $request->input('checkout_option');
+            $course->courseSettings->update();
 
             return redirect()->back()->with('success', ' updated successfully');
         } else {
@@ -134,7 +109,23 @@ class CourseController extends Controller
         }
     }
 
-    
+    // public function purchase(Request $request, Product $product)
+    // {
+    //     $user          = $request->user();
+    //     $paymentMethod = $request->input('payment_method');
+
+    //     try {
+    //         $user->createOrGetStripeCustomer();
+    //         $user->updateDefaultPaymentMethod($paymentMethod);
+    //         $user->charge($product->price * 100, $paymentMethod);
+    //     } catch (\Exception $exception) {
+    //         return back()->with('error', $exception->getMessage());
+    //     }
+
+    //     return back()->with('message', 'Product purchased successfully!');
+    // }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -149,6 +140,4 @@ class CourseController extends Controller
 
         return redirect()->to('course')->with('success', 'Course deleted successfully.');
     }
-   
-    
 }

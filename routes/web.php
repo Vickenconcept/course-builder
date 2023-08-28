@@ -11,11 +11,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Livewire\LessonArchitect;
+use App\Http\Controllers\PayPalPaymentController;
 use App\Http\Livewire\Course;
 use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
 use App\Events\JobCompleted;
 use App\Http\Controllers\CourseSettingsController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubscribeController;
@@ -54,7 +56,8 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 Route::get('/share/courses/{course_slug}', [CourseController::class, 'share'])->name('courses.share');
 Route::resource('courses', CourseController::class);
-Route::delete('lesson/{id}', function($id) { // <-- Pass $id as a parameter
+// Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
+Route::delete('lesson/{id}', function ($id) { // <-- Pass $id as a parameter
     $user = auth()->user();
     $course = $user->courses()->whereHas('lessons', function ($query) use ($id) {
         $query->where('lessons.id', $id);
@@ -97,6 +100,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('/subscribe', SubscribeController::class);
     //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
 
+
+    // Route::get('handle-payment',[ PayPalPaymentController::class ,'handlePayment'])->name('make.payment');
+    // Route::get('cancel-payment',[ PayPalPaymentController::class ,'paymentCancel'] )->name('cancel.payment');
+    // Route::get('payment-success', [ PayPalPaymentController::class ,'paymentSuccess'])->name('success.payment');
+
+    Route::get('payment', [ PayPalPaymentController::class ,'payment'])->name('payment');
+    Route::get('cancel',[ PayPalPaymentController::class ,'cancel'] )->name('payment.cancel');
+    Route::get('payment/success', [ PayPalPaymentController::class ,'success'])->name('payment.success');
 });
 
 Route::get('test', function () {
@@ -155,7 +166,4 @@ Route::get('test', function () {
 
     $response = $client->lists->getListMembersInfo("3c54a618ea");
     dd($response);
-
-
-   
 });

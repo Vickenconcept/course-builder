@@ -82,6 +82,7 @@ class SubscribeController extends Controller
      */
     public function show($id)
     {
+        $intent = auth()->user()->createSetupIntent();
         $courseModel = new Course;
         $course = $courseModel->newQueryWithoutScopes()
             ->find($id);
@@ -92,7 +93,7 @@ class SubscribeController extends Controller
 
         // dd( $course->list_id);
 
-        return view('pages.courses.subscribe', compact('course' ,'list_id'));
+        return view('pages.courses.subscribe', compact('course' ,'list_id', 'intent'));
     }
 
     /**

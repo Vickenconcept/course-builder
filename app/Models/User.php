@@ -13,10 +13,12 @@ use App\Models\Course;
 use App\Models\Book;
 use App\Models\Setting;
 use App\Models\Courseresearch ;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Billable;
 
     /**
      * The attributes that are mass assignable.
