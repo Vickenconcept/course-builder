@@ -8,6 +8,7 @@
                 <div class="container mx-auto">
                     <div class="inputs w-full max-w-2xl p-6 mx-auto">
                         <h2 class="text-2xl text-gray-900"><i class='bx bxs-cog text-4xl'></i>Course Setting</h2>
+                        <p class="text-gray-700 font-bold text-sm bg-gray-100 p-2 w-full rounded">Course price: ${{ $course->price }}</p>
                         <div class="mt-6 border-t border-gray-400 pt-4">
                             {{-- <div x-data="{ isOpen: false }"
                                 class=" w-48  text-gray-700   transition-transform duration-300 transform -translate-x-full">
@@ -92,6 +93,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -129,11 +131,10 @@
                                     </form>
                                     <div class='w-full md:w-1/2 px-3 mb-6'>
                                         <label
-                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>last
-                                            name</label>
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Course price</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                            type='text' required>
+                                            type='text' value="">
                                     </div>
                                 </div>
                                 {{-- <div class='w-full md:w-full px-3 mb-6'>
@@ -158,7 +159,47 @@
                                 </div>
                             </div> --}}
                         </div>
-                        {{-- </form> --}}
+                        <div class='w-full md:w-full px-3 mb-6'>
+                            <label
+                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Pick your Audience</label>
+                            <div class="flex-shrink w-full inline-block relative">
+                                <form action="{{ route('courses.coursePrice', ['course' => $course]) }}" method="POST">
+                                    {{-- @method('PUT') --}}
+                                    @csrf
+                                    <div x-data="{ customPriceEnabled: false }" class="price-selector p-4">
+                                        <label class=" mb-2">
+                                          <input type="radio" name="price-option" value="50" checked class="mr-2">
+                                          $50
+                                        </label>
+                                        <label class=" mb-2">
+                                          <input type="radio" name="price-option" value="100" class="mr-2">
+                                          $100
+                                        </label>
+                                        <label class=" mb-2">
+                                          <input type="radio" name="price-option" value="200" class="mr-2">
+                                          $200
+                                        </label>
+                                        <label class=" mb-2 ">
+                                          <input type="radio" name="price-option" value="custom" class="mr-2" x-on:click="customPriceEnabled = true">
+                                          Custom: $
+                                          {{-- <input type="number" id="custom-price" step="10" min="0" class="w-20"> --}}
+                                          <input
+                                          id="custom-price"
+                                          step="10"
+                                          min="0"
+                                          class="appearance-none bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none focus:border-gray-500"
+                                          type="number"
+                                          name="custom-price"
+                                          x-bind:disabled="!customPriceEnabled"
+                                      >
+                                        </label>
+                                        <button type="submit" class="underline">save</button>   
+                                      </div>
+                                      
+                                </form>
+                               
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

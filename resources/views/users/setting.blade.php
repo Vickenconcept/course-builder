@@ -45,10 +45,10 @@
                                             class='bx bxs-envelope mr-1'></i>ESP </button>
                                     <div x-show="isOpen" class="p-4 w-full">
                                         <ul class="list-none p-0 text-gray-700 w-full">
-                                            <a href="#" class=" no-underline hover:bg-yellow-900 w-full block rounded translate duration-300 p-3" class=""
+                                            <a href="#" class=" no-underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3" class=""
                                                     @click="openMailChimp = !openMailChimp"><i
                                                         class='bx bx-envelope mr-1'></i>MailChimp</a>
-                                            <a href="#" class=" no-underline hover:bg-yellow-900 w-full block rounded translate duration-300 p-3"><i
+                                            <a href="#" class=" no-underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"><i
                                                         class='bx bx-envelope mr-1'></i>About</a>
                                         </ul>
                                     </div>

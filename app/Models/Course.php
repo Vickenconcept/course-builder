@@ -19,7 +19,9 @@ class Course extends Model
     protected $fillable = [
         'title',
         'description',
-        'slug'
+        'slug',
+        'list_id',
+        'price'
     ];
 
     public function library()

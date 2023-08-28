@@ -46,18 +46,22 @@
 
 
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 ">
-        <div class="col-span-1 bg-gray-50 px-4 pt-8 mt-10 text-gray-700 py-10">
-            <img src="{{ asset('images/book-cover.jpg') }}" alt="" class="w-40 ">
-            <h1 class="text-xl font-bold my-3 capitalize">{{ $course->title }}</h1>
-            <p class="text-sm  my-3 capitalize truncate w-36">{{ $course->description }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 w-full  md:w-[80%] mx-auto">
+        <div class="col-span-1 bg-gray-50 px-4  text-gray-700 py-10 grid grid-cols-3 gap-2">
+            <div>
+                <img src="{{ asset('images/book-cover.jpg') }}" alt="" class="w-32 ">
+            </div>
+            <div>
+                <h1 class="text-xl font-bold mb-3 capitalize">{{ $course->title }}</h1>
+                <p class="text-sm  my-3 capitalize line-clamp-3 w-36">{{ $course->description }}</p>
 
-            <div class="text-yellow-500">
-                <i class='bx bxs-star '></i>
-                <i class='bx bxs-star '></i>
-                <i class='bx bxs-star '></i>
-                <i class='bx bxs-star-half'></i>
-                <i class='bx bx-star '></i>
+                <div class="text-yellow-500">
+                    <i class='bx bxs-star '></i>
+                    <i class='bx bxs-star '></i>
+                    <i class='bx bxs-star '></i>
+                    <i class='bx bxs-star-half'></i>
+                    <i class='bx bx-star '></i>
+                </div>
             </div>
         </div>
         <div class="col-span-2">
@@ -92,7 +96,44 @@
                             </form>
                         </div>
                     @else
-                        {{-- <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                        <div class="flex-center position-ref full-height">
+
+                            <div class="content">
+
+                                <table border="0" cellpadding="10" cellspacing="0" align="center">
+                                    <tr>
+                                        <td align="center"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><a href="https://www.paypal.com/in/webapps/mpp/paypal-popup"
+                                                title="How PayPal Works"
+                                                onclick="javascript:window.open('https://www.paypal.com/in/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img
+                                                    src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png"
+                                                    border="0" alt="PayPal Logo"></a></td>
+                                    </tr>
+                                </table>
+
+                                {{-- <a href="{{ route('payment', ['course_id' => $course->id]) }}" class="btn btn-success">
+                                    <button
+                                        class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Pay
+                                        $100 from Paypal</button></a> --}}
+
+                                <form action="{{ route('payment') }}" method="get">
+                                    @csrf
+                                    <div class="flex-shrink w-full inline-block relative">
+                                        <input type="text" name="title" value="{{ $course->title }}" hidden>
+                                        <input type="text" name="price" value="{{ $course->price }}" hidden>
+                                        <input type="text" name="courseId" value="{{ $course->id }}" hidden>
+                                        
+                                    </div>
+                                    <button type="submit"
+                                        class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
+                                        Pay ${{ $course->price }} from Paypal
+                                    </button>
+                                </form>
+
+                            </div>
+                            {{-- <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
                         <div class="relative">
                             <input type="text" id="email" name="email"
                                 class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
@@ -185,9 +226,12 @@
                 <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place
                     Order</button> --}}
 
-                    {{-- for strip --}}
 
-                        {{-- <form method="POST" action="{{ route('products.purchase', $course->id) }}"
+
+
+                            {{-- for strip --}}
+
+                            {{-- <form method="POST" action="{{ route('products.purchase', $course->id) }}"
                             class="card-form mt-3 mb-3">
                             @csrf
                             <input type="hidden" name="payment_method" class="payment-method">

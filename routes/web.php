@@ -55,9 +55,10 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 
 Route::get('/share/courses/{course_slug}', [CourseController::class, 'share'])->name('courses.share');
+Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::resource('courses', CourseController::class);
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
-Route::delete('lesson/{id}', function ($id) { // <-- Pass $id as a parameter
+Route::delete('lesson/{id}', function ($id) {
     $user = auth()->user();
     $course = $user->courses()->whereHas('lessons', function ($query) use ($id) {
         $query->where('lessons.id', $id);
@@ -79,35 +80,35 @@ Route::delete('lesson/{id}', function ($id) { // <-- Pass $id as a parameter
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
-    Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
     Route::resource('library', LibraryController::class);
     Route::view('index', 'user.content-planner');
     Route::view('coming-soon', 'pages.users.coming-soon')->name('coming-soon');
+    Route::get('export-books', [BookController::class, 'export'])->name('export.books');
     Route::resource('books', BookController::class);
     Route::resource('course-validation', ScoreController::class);
     Route::get('course', Course::class)->name('course');
-    Route::resource('course-setting', CourseSettingsController::class);
     Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
+    Route::resource('course-setting', CourseSettingsController::class);
     Route::resource('research', ResearchController::class);
     Route::resource('search', SearchController::class);
-    Route::resource('content-planner', ContentPlannerController::class);
-    // Route::resource('lesson-architect', LibraryController::class);
-    Route::get('export-books', [BookController::class, 'export'])->name('export.books');
     Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
+    Route::resource('content-planner', ContentPlannerController::class);
     Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
     Route::resource('/setting', SettingController::class);
     Route::resource('/subscribe', SubscribeController::class);
     //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
 
+    // Route::get('payment', [ PayPalPaymentController::class ,'payment'])->name('payment');
+    // Route::get('cancel',[ PayPalPaymentController::class ,'cancel'] )->name('payment.cancel');
+    // Route::get('payment/success', [ PayPalPaymentController::class ,'success'])->name('payment.success');
 
-    // Route::get('handle-payment',[ PayPalPaymentController::class ,'handlePayment'])->name('make.payment');
-    // Route::get('cancel-payment',[ PayPalPaymentController::class ,'paymentCancel'] )->name('cancel.payment');
-    // Route::get('payment-success', [ PayPalPaymentController::class ,'paymentSuccess'])->name('success.payment');
-
-    Route::get('payment', [ PayPalPaymentController::class ,'payment'])->name('payment');
-    Route::get('cancel',[ PayPalPaymentController::class ,'cancel'] )->name('payment.cancel');
-    Route::get('payment/success', [ PayPalPaymentController::class ,'success'])->name('payment.success');
+    Route::controller(PayPalPaymentController::class)->group(function () {
+        Route::get('payment', 'payment')->name('payment');
+        Route::get('cancel','cancel' )->name('payment.cancel');
+        Route::get('payment/success','success')->name('payment.success');
+    });
 });
 
 Route::get('test', function () {

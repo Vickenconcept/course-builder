@@ -12,9 +12,6 @@ use App\Services\BookService;
 class CourseController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
     }
@@ -28,17 +25,13 @@ class CourseController extends Controller
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($slug)
     {
         // $course = Course::findOrFail($slug); 
@@ -50,17 +43,13 @@ class CourseController extends Controller
 
     public function share($slug)
     {
-        // Create an instance of the Course model
         $courseModel = new Course;
 
-        // Create a fresh query builder instance without any global scopes
         $query = $courseModel->newQueryWithoutScopes()
             ->where('slug', $slug);
 
-        // Retrieve the course
         $course = $query->firstOrFail();
 
-        // Check if the user is authenticated
         $isSubscribed = false;
         $user = auth()->user();
         if ($user) {
@@ -73,24 +62,18 @@ class CourseController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
 
     public function edit($id)
     {
-        // Retrieve the authenticated user
         $user = auth()->user();
 
-        // Retrieve the course associated with the user by its ID
         $course = $user->courses()->findOrFail($id);
 
         return view('pages.courses.edit', compact('course'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
 
     public function update(Request $request, $courseId)
     {
@@ -108,6 +91,33 @@ class CourseController extends Controller
             return redirect()->route('courses.index')->with('error', 'Course not found');
         }
     }
+
+    public function coursePrice(Request $request, $course)
+    {
+
+        $selectedOption = $request->input('price-option');
+        $user = auth()->user();
+        
+        $course = $user->courses()->find($course);
+        
+        if ($selectedOption === 'custom') {
+            $customPrice = $request->input('custom-price');
+            // dd($customPrice);
+            
+            
+            $course->price = $customPrice;
+            $course->update();
+        }else{
+            $course->price = $selectedOption;
+            $course->update();
+
+        }
+        
+        // dd($selectedOption);
+
+        return redirect()->back()->with('success', 'Price updated successfully.');
+    }
+    
 
     // public function purchase(Request $request, Product $product)
     // {
@@ -127,9 +137,7 @@ class CourseController extends Controller
 
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($id)
     {
         // $content = Course::find($id);

@@ -22,7 +22,7 @@
                     <x-slot name="content">
                         <div class="p-3 text-blue-700"></div>
                         @if (Auth::user())
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link >
                             {{ __('Profile') }}
                         </x-dropdown-link>
                         <!-- Authentication -->
