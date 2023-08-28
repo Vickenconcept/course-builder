@@ -96,14 +96,14 @@
                 </div>
             </div>
         </a>
-        <!-- <a href="{{ route('coming-soon') }}">
+        <a href="{{ route('setting.index') }}">
             <div class="hover:ml-4 text-xs w-full cursor-pointer text-blue-50 hover:text-yellow-400  bg-yellow-900 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
-                <i class='text-xs bx bxs-graduation'></i>
+                <i class='bx bxs-cog'></i>
                 <div>
-                    Graph
+                    Setting
                 </div>
             </div>
-        </a> -->
+        </a> 
     </div>
     <!-- MINI SIDEBAR-->
     <div class="mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
@@ -133,9 +133,9 @@
 
             <i class='text-xs bx  bx-brain'></i>
         </a>
-        <!-- <a href="{{ route('coming-soon') }}" class="hover:ml-4 justify-end pr-5 text-blue-50 hover:text-yellow-400  w-full bg-yellow-900 p-2 rounded-full transform ease-in-out duration-300 flex">
-            <i class='text-xs bx  bxs-graduation'></i>
-        </a> -->
+        <a href="{{ route('setting.index') }}" class="hover:ml-4 justify-end pr-5 text-blue-50 hover:text-yellow-400  w-full bg-yellow-900 p-2 rounded-full transform ease-in-out duration-300 flex">
+            <i class='bx bxs-cog'></i>
+        </a> 
     </div>
 
 </aside>
