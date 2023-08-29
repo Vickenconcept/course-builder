@@ -182,7 +182,6 @@
                                         <label class=" mb-2 ">
                                           <input type="radio" name="price-option" value="custom" class="mr-2" x-on:click="customPriceEnabled = true">
                                           Custom: $
-                                          {{-- <input type="number" id="custom-price" step="10" min="0" class="w-20"> --}}
                                           <input
                                           id="custom-price"
                                           step="10"
@@ -193,7 +192,7 @@
                                           x-bind:disabled="!customPriceEnabled"
                                       >
                                         </label>
-                                        <button type="submit" class="underline">save</button>   
+                                        <x-main-button type="submit" class="underline ">save</x-main-button>   
                                       </div>
                                       
                                 </form>

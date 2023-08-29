@@ -22,6 +22,7 @@
                         </div>
                     </form>
                 </div>
+               
                 @if (isset($query))
                     <p class="text-xs  mt-1"><span class="font-bold">Latest search: </span>
                         @if (isset($trend) && is_array($trend))
@@ -33,6 +34,47 @@
                 @endif
             </div>
             <div class="flex flex-row gap-2">
+                <form action="{{ route('course-validation.create') }}" method="GET">
+                    @if (isset($query))
+                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
+                    @endif
+                    
+                    <input type="hidden" name="sortBy" value="title">
+                    <x-main-button type="submit" class="whitespace-nowrap">Sort by Title</x-main-button>
+                </form>
+                <form action="{{ route('course-validation.create') }}" method="GET">
+                    @if (isset($query))
+                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
+                    @endif
+                    <input type="hidden" name="sortBy" value="author">
+                    <x-main-button type="submit" class="whitespace-nowrap">Sort by Author</x-main-button>
+                </form>
+
+                <form action="{{ route('course-validation.create') }}" method="GET">
+                    @if (isset($query))
+                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
+                    @endif
+                    <select name="filterBy" onchange="this.form.submit()"  class="bg-yellow-500 rounded shadow-sm text-white hover:shadow-md border-transparent appearance-none">
+                        <option class="bg-white py-2 text-gray-700" value="" selected disabled>Categories</option>
+                        <option class="bg-white py-2 text-gray-700" value="">All Categories</option>
+                        <option class="bg-white py-2 text-gray-700" value="Juvenile Nonfiction">Fiction</option>
+                        <option class="bg-white py-2 text-gray-700" value="non-fiction">Non-Fiction</option>
+                    </select>
+                    
+                </form>
+                <form action="{{ route('course-validation.create') }}" method="GET">
+                    @if (isset($query))
+                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
+                    @endif
+                    <select  name="rating" onchange="this.form.submit()" class="bg-yellow-500 rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none">
+                        <option class="bg-white text-gray-700"value="" selected disabled>Rating</option>
+                        <option class="bg-white text-gray-700"value="1">1</option>
+                        <option class="bg-white text-gray-700"value="2">2</option>
+                        <option class="bg-white text-gray-700"value="3">3</option>
+                        <option class="bg-white text-gray-700"value="4">4</option>
+                        <option class="bg-white text-gray-700"value="5">5</option>
+                    </select>
+                </form>
                 <!-- <x-main-button>Niche </x-main-button>
                 <x-main-button>Topic Area</x-main-button>
                 <x-main-button>Platform</x-main-button>
@@ -302,7 +344,7 @@
                                     {{-- <button class="group flex relative " x-on:click="isOpen = true"> --}}
                                     <button class="group flex relative "
                                         x-on:click="isOpen = true ; bookData = @js($book)">
-                xt-blue-400 mr-1 '></i> About {{ $book['title'] }}
+                <i class=' bx bx-edit text-blue-400 mr-1 '></i> About {{ $book['title'] }}
                                         <!-- <span class="bg-red-400 text-white px-2 py-1">Button</span> -->
                                         <span
                                             class="group-hover:opacity-100 transition-opacity -top-6 bg-gray-800 px-1 text-xs text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto">
@@ -326,10 +368,12 @@
                                 <!-- <td class=" whitespace-nowrap text-xs py-2 px-6  truncate w-[120px]  pr-10"><i class='bx bxs-color font-bold text-red-500 text-xl'></i></td> -->
                             </tr>
                         @empty
-                            <tr>
-                                <td class=" whitespace-nowrap text-xs py-2 px-6  truncate w-[120px] " colspan="3">
-                                    no data</td>
-                            </tr>
+                        <tr class="text-left border-b-2 shadow bg-white ">
+                            <td colspan="10"
+                                class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">
+                                No Data found!</td>
+
+                        </tr>
                         @endforelse
                     @endif
 

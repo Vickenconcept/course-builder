@@ -22,9 +22,9 @@
                     <x-slot name="content">
                         <div class="p-3 text-blue-700"></div>
                         @if (Auth::user())
-                        <x-dropdown-link >
+                        {{-- <x-dropdown-link >
                             {{ __('Profile') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link> --}}
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('auth.logout') }}">
                             @csrf

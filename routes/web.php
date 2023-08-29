@@ -21,6 +21,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\userController;
 use App\Http\Livewire\CourseContent;
 use App\Listeners\JobCompletedListener;
 // use App\Models\Course;
@@ -98,11 +99,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
     Route::resource('/setting', SettingController::class);
     Route::resource('/subscribe', SubscribeController::class);
+    Route::resource('/user-dashboard', userController::class);
     //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
-
-    // Route::get('payment', [ PayPalPaymentController::class ,'payment'])->name('payment');
-    // Route::get('cancel',[ PayPalPaymentController::class ,'cancel'] )->name('payment.cancel');
-    // Route::get('payment/success', [ PayPalPaymentController::class ,'success'])->name('payment.success');
 
     Route::controller(PayPalPaymentController::class)->group(function () {
         Route::get('payment', 'payment')->name('payment');

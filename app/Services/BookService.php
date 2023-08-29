@@ -13,9 +13,9 @@ class BookService
     protected $baseUrl = 'https://www.googleapis.com/books/v1/volumes';
     protected $cacheDuration = 60;
 
-    public function searchBooks($query, $startIndex = 0, $maxResults = 10)
+    public function searchBooks($query, $startIndex = 0, $maxResults = 10, $sortBy = null, $filterBy = null , $rating = null)
     {
-        $cacheKey = 'book_search_' . md5($query . $startIndex . $maxResults);
+        $cacheKey = 'book_search_' . md5($query . $startIndex . $maxResults . $sortBy . $filterBy .$rating);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
@@ -52,6 +52,20 @@ class BookService
                 $books[] = $book;
             }
             // dd($books);
+
+            if ($sortBy) {
+                $books = collect($books)->sortBy($sortBy);
+            }
+            if ($filterBy) {
+                $books = array_filter($books, function ($book) use ($filterBy) {
+                    return $book['category'] === $filterBy;
+                });
+            }
+            if ($rating) {
+                $books = array_filter($books, function ($book) use ($rating) {
+                    return $book['rating'] === $rating;
+                });
+            }
             Cache::put($cacheKey, $books, $this->cacheDuration);
             return $books;
         }

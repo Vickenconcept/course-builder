@@ -1,4 +1,5 @@
-@props(['modalData','title'])
+<div>
+    @props(['modalData','title'])
 <div 
 {{-- x-data="{ isOpen : false }" --}}
  class="flex items-center justify-center absolute top-0 left-0 mx-auto w-full h-full bg-gray-400 bg-opacity-20 z-10"
@@ -55,3 +56,5 @@
         alert("copied!" );
     }
 </script>
+
+</div>

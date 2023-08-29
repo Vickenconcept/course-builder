@@ -40,9 +40,7 @@ class Admin
                 // Redirect the user to the intended course share page
                 return redirect()->route('courses.share', ['course_slug' => $pendingCourseSlug]);
             } else {
-                // Handle the case where there's no pending_course_slug
-                // For example, redirect to a default page
-                return redirect('/'); // Or any other default page
+                return redirect()->route('user-dashboard.index'); // Or any other default page
             }
         }
     }

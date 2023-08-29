@@ -1,21 +1,29 @@
 <x-app-layout>
-    <div class=" p-2 md:px-10 text-gray-700" x-data="{ isOpen: false}">
+    <div class=" p-2 md:px-10 text-gray-700" x-data="{ isOpen: false }">
         <x-notification />
-        <h1 class="font-bold   py-5">What course topic are you interested in? <i class='bx bx-question-mark rounded-full bg-gray-300 text-white'></i></h1>
+        <h1 class="font-bold   py-5">What course topic are you interested in? <i
+                class='bx bx-question-mark rounded-full bg-gray-300 text-white'></i></h1>
         <div class="grid grid-cols-1 md:grid-cols-3">
             <div class=" w-full  col-span-1">
                 <form action="{{ route('books.create') }}" method="get">
                     @csrf
-                    <div class="relative flex items-center w-full h-10 rounded-lg overflow-hidden focus-within:shadow-lg bg-white ">
+                    <div
+                        class="relative flex items-center w-full h-10 rounded-lg overflow-hidden focus-within:shadow-lg bg-white ">
                         <div class="grid place-items-center h-full w-12 text-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
-                        <input autocomplete="off" class="peer h-full w-full outline-none border-none focus:none focus:border-none focus:ring-white  text-sm  pr-2 placeholder-gray-200" type="text" name="query" id="query" placeholder="Search..." />
+                        <input autocomplete="off"
+                            class="peer h-full w-full outline-none border-none focus:none focus:border-none focus:ring-white  text-sm  pr-2 placeholder-gray-200"
+                            type="text" name="query" id="query" placeholder="Search..." />
                     </div>
-                    @if(isset($query))
-                    <p class="text-xs text~-blue-900 mt-1"><span class="font-bold">Last search: </span> {{ $query }}</p>
+                    @if (isset($query))
+                        <p class="text-xs text~-blue-900 mt-1"><span class="font-bold">Last search: </span>
+                            {{ $query }}</p>
+                            
                     @endif
                 </form>
             </div>
@@ -24,40 +32,63 @@
         <section class="pt-10 overflow-x-auto">
             <form action="{{ route('export.books') }}" method="get">
                 @csrf
-            <button type="submit" class="bg-transparent text-xs  px-3 shadow hover:shadow-lg transition duration-300 py-2 border border-yellow-900 rounded ">Export as CSV</button>
+                <button type="submit"
+                    class="bg-transparent text-xs  px-3 shadow hover:shadow-lg transition duration-300 py-2 border border-yellow-900 rounded ">Export
+                    as CSV</button>
 
             </form>
-            <p class=" text-xs font-bold mt-5">Total books: 
-                @if(isset($books))
-                <span>{{ count($books) }} +</span>
+            <p class=" text-xs font-bold mt-5">Total books:
+                @if (isset($books))
+                    <span>{{ count($books) }} +</span>
                 @endif
             </p>
+
+            <!-- ... Other sorting links ... -->
+
             <table class=" mt-3 bg-white w-full table-fixed">
                 <thead>
                     <tr class="text-left border-b-2 shadow bg-white ">
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 pl-10 ">Thumbnail</th>
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Title</th>
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Sub_Ttitle</th>
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Description</th>
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Category</th>
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[100px] pt-4 px-6 text-center ">Rating</th>
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Author</th>
-                        <th scope="col" class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Published Date</th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 pl-10 ">
+                            Thumbnail</th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Title
+                        </th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">
+                            Sub_Ttitle</th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">
+                            Description</th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Category
+                        </th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[100px] pt-4 px-6 text-center ">
+                            Rating</th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">Author
+                        </th>
+                        <th scope="col"
+                            class=" font-semibold firstletter:uppercase text-sm  truncate w-[120px] pt-4 px-6 ">
+                            Published Date</th>
                     </tr>
                 </thead>
-                @if(isset($books))
-                <tbody id="childArrayContainer">
-                    
-                </tbody>
+                @if (isset($books))
+                    <tbody id="childArrayContainer">
+
+                    </tbody>
                 @endif
-                @if(!isset($books)) 
-                <tbody>
-                <tr class="text-left border-b-2 shadow bg-white ">
-                        <td colspan="10" class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">No Book Search Yet!</td>
+                @if (!isset($books))
+                    <tbody>
+                        <tr class="text-left border-b-2 shadow bg-white ">
+                            <td colspan="10"
+                                class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">
+                                No Book Search Yet!</td>
                         </tr>
-                </tbody>
-                        @endif
-                
+                    </tbody>
+                @endif
+
             </table>
 
         </section>
@@ -72,17 +103,18 @@
 
             </div>
         </x-main-modal>
-        
+
 
         <script>
             const childArrayContainer = document.getElementById("childArrayContainer");
             const clickedBookContainer = document.getElementById("clickedBookContainer");
 
-                const books = @if(isset($books)) 
-                    {!!json_encode($books) !!}
+            const books =
+                @if (isset($books))
+                    {!! json_encode($books) !!}
                 @else
-                null
-                @endif;
+                    null
+                @endif ;
 
             function showBook(book) {
                 clickedBookContainer.innerHTML = ` 
@@ -142,7 +174,8 @@
                 childElement.style.borderBottom = '1px solid #eee';
                 childElement.style.boxShadow = "0 2px 4px 0 rgba(0, 0, 0, 0.1)";
 
-                childElement.innerHTML = `
+                childElement.innerHTML =
+                    `
                     <td class=" whitespace-nowrap text-xs py-2 px-3  w-20 h-24  cursor-pointer"  x-on:click="isOpen = true">
                         <i class='bx bx-edit text-blue-400 mr-1' ></i>
                         <img src="${ book['thumbnail'] ? book['thumbnail'] : '/images/book-cover.jpg' }" alt="${ book['title'] }" class="w-20 h-24 transform duration-300 inline hover:opacity-90 hover:rotate-[5deg]">
@@ -169,8 +202,8 @@
                 window.getSelection().removeAllRanges();
                 window.getSelection().addRange(range);
                 document.execCommand("copy");
-                alert("copied!" );
-            } 
+                alert("copied!");
+            }
         </script>
     </div>
 

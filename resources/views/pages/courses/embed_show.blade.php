@@ -31,28 +31,28 @@
 
             @if ($isSubscribed)
                 @foreach ($course->lessons as $lesson)
-                        <section class="my-5 py-10">
-                            <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}.
-                                {{ $lesson->title }}
-                            </h3>
-                            {!! $lesson->content !!}
-                        </section>
-                @endforeach
-            @else
-            @foreach ($course->lessons as $lesson)
-                @if ($loop->iteration <= $freeCourse)
                     <section class="my-5 py-10">
                         <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}.
                             {{ $lesson->title }}
                         </h3>
                         {!! $lesson->content !!}
                     </section>
-                @endif
+                @endforeach
+            @else
+                @foreach ($course->lessons as $lesson)
+                    @if ($loop->iteration <= $freeCourse)
+                        <section class="my-5 py-10">
+                            <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}.
+                                {{ $lesson->title }}
+                            </h3>
+                            {!! $lesson->content !!}
+                        </section>
+                    @endif
                 @endforeach
                 {{-- Show the regular content for non-subscribed users --}}
                 @if (count($course->lessons) > $freeCourse)
                     <!-- Add a section or button to show all lessons -->
-                    <section class=" ">
+                    <section class=" py-10 flex justify-center">
                         <a href="{{ route('subscribe.show', ['subscribe' => $course->id]) }}">
                             <x-main-button id="showAllLessonsButton" class="">
                                 Show All Lessons
@@ -134,7 +134,7 @@
 
             <!-- component -->
 
-            
+
         </div>
     </div>
 

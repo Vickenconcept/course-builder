@@ -36,10 +36,11 @@ class BookController extends Controller
         $query = $request->input('query', $defaultQuery);
         $startIndex = $request->input('startIndex', 0); 
         $maxResults = $request->input('maxResults', 30); 
+        $sortBy = $request->input('sortBy'); 
 
         $request->session()->put('query', $query);
 
-        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
+        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults,$sortBy);
 
         return view('users.books', compact('books', 'query'));
     }

@@ -25,8 +25,10 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+    <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-1e9435d8.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-5ae69888.css ') }}">
 
     @yield('styles')
 
@@ -115,7 +117,7 @@
         <script src="{{ asset('js/share.js') }}"></script>
 
         <script src="{{ asset('build/assets//app-dd6eec69.js') }}"></script>
-        {{-- @stack('script') --}}
+        @stack('script')
 </body>
 
 </html>

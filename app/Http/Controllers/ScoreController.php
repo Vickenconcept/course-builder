@@ -67,12 +67,16 @@ class ScoreController extends Controller
     public function create(Request $request)
     {
         $defaultQuery = 'kids art book';
-        $query = $request->input('query', $defaultQuery);
+        // $query = $request->input('query', $defaultQuery);
+        $query = $request->input('query');
         $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
-        $maxResults = $request->input('maxResults', 30); // Default maxResults is 30
-        // dd($defaultQuery);
+        $maxResults = $request->input('maxResults', 40); // Default maxResults is 30
+        $sortBy = $request->input('sortBy'); 
+        $filterBy = $request->input('filterBy');
+        $rating = (int) $request->input('rating');
+        // dd($query);
         
-        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
+        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults,$sortBy,$filterBy, $rating);
         $trend = $this->bookService->googleTrend($query);
         $request->session()->put('query', $query);
         // dd($trend);

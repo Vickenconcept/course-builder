@@ -39,48 +39,21 @@
                                 {{--  --}}
 
                                 {{--  --}}
-                                <div x-data="{ isOpen: false }" class=" my-5 bg-white w-full rounded">
+                                <div x-data="{ isOpen: true }" class=" my-5 bg-white w-full rounded">
                                     <button @click="isOpen = !isOpen"
                                         class="bg-transparent border-none text-gray-700 py-2 px-4 cursor-pointer font-bold underline"><i
                                             class='bx bxs-envelope mr-1'></i>ESP </button>
                                     <div x-show="isOpen" class="p-4 w-full">
                                         <ul class="list-none p-0 text-gray-700 w-full">
-                                            <a href="#" class=" no-underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3" class=""
+                                            <a href="#" class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3" class=""
                                                     @click="openMailChimp = !openMailChimp"><i
                                                         class='bx bx-envelope mr-1'></i>MailChimp</a>
-                                            <a href="#" class=" no-underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"><i
+                                            <a href="#" class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"><i
                                                         class='bx bx-envelope mr-1'></i>About</a>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class='w-full md:w-full px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>pick
-                                        your Audience</label>
-                                    <div class="flex-shrink w-full inline-block relative">
-                                        <form action="">
-                                            <select
-                                                class="block appearance-none text-gray-600 w-full bg-white border border-gray-400 shadow-inner px-4 py-2 pr-8 rounded">
-                                                <option disabled selected>choose ...</option>
-                                                {{-- @foreach ($lists as $list) --}}
-                                                
-                                                <option value="">France</option>
-                                                <option>Spain</option>
-                                                <option>UK</option>
-                                                {{-- @endforeach --}}
-                                            </select>
-                                        </form>
-                                        <div
-                                            class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='w-full md:w-full px-3 mb-6'>
+                                {{-- <div class='w-full md:w-full px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>fav
                                         language</label>
@@ -101,7 +74,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -152,21 +125,21 @@
                             </div>
                             {{--  --}}
                             <div class='flex flex-wrap -mx-3 mb-6'>
-                                <div class='w-full md:w-full px-3 mb-6'>
+                                {{-- <div class='w-full md:w-full px-3 mb-6'>
                                     <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
                                         for='grid-text-1'>email address</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                         id='grid-text-1' type='text' placeholder='Enter email'>
-                                </div>
-                                <div class='w-full md:w-full px-3 mb-6 '>
+                                </div> --}}
+                                {{-- <div class='w-full md:w-full px-3 mb-6 '>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>password</label>
                                     <button
                                         class="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md ">change
                                         your password</button>
-                                </div>
-                                <div class='w-full md:w-full px-3 mb-6'>
+                                </div> --}}
+                                {{-- <div class='w-full md:w-full px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>pick
                                         your country</label>
@@ -188,8 +161,8 @@
                                             </svg>
                                         </div>
                                     </div>
-                                </div>
-                                <div class='w-full md:w-full px-3 mb-6'>
+                                </div> --}}
+                                {{-- <div class='w-full md:w-full px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>fav
                                         language</label>
@@ -210,46 +183,46 @@
                                             </svg>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="personal w-full border-t border-gray-400 pt-4">
+                                </div> --}}
+                                <div class="personal w-full pt-4">
                                     <h2 class="text-2xl text-gray-900">Personal info:</h2>
                                     <div class="flex items-center justify-between mt-4">
                                         <div class='w-full md:w-1/2 px-3 mb-6'>
                                             <label
-                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>first
-                                                name</label>
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
+                                                Name</label>
                                             <input
-                                                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                                type='text'>
+                                                class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                type='text' value="{{ auth()->user()->name }}" disabled>
                                         </div>
                                         <div class='w-full md:w-1/2 px-3 mb-6'>
                                             <label
-                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>last
-                                                name</label>
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
+                                                Email Address</label>
                                             <input
-                                                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                                type='text'>
+                                                class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                type='text' value="{{ auth()->user()->email }}" disabled>
                                         </div>
                                     </div>
-                                    <div class='w-full md:w-full px-3 mb-6'>
+                                    {{-- <div class='w-full md:w-full px-3 mb-6'>
                                         <label
                                             class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>user
                                             name</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                             type='text'>
-                                    </div>
-                                    <div class='w-full md:w-full px-3 mb-6'>
+                                    </div> --}}
+                                    {{-- <div class='w-full md:w-full px-3 mb-6'>
                                         <label
                                             class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Bio</label>
                                         <textarea
                                             class='bg-gray-100 rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 font-medium placeholder-gray-700 focus:outline-none focus:bg-white'></textarea>
-                                    </div>
-                                    <div class="flex justify-end">
+                                    </div> --}}
+                                    {{-- <div class="flex justify-end">
                                         <button
                                             class="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md mr-3"
                                             type="submit">save changes</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

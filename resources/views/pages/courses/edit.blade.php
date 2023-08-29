@@ -1,17 +1,19 @@
 <x-app-layout>
-    <div class="bg-white px-10 pt-10" x-data="{ childIsOpen: false }">
+    <div class="bg-white px-10 pt-10" x-data="{ childIsOpen: false, openShare: false }">
         <div class=" w-full md:w-[80%]">
             <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 ">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
             </a>
-            <a href="{{ route('content-planner.index') }}"
+            {{-- <a href="{{ route('content-planner.index') }}"
                 class=" hover:bg-yellow-100 transition duration-300 py-2  px-5 border border-yellow-800/100 rounded-md text-xs">
                 Show saved content
-            </a>
-           
+            </a> --}}
+
             {{-- <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank">Settings</a> --}}
         </div>
 
+
+        
 
         <section class="mt-20 w-full md:w-[70%] mx-auto">
             <div class="flex justify-between py-3">
@@ -25,7 +27,7 @@
                     <a href="{{ route('courses.show', ['course' => $course->slug]) }}" target="_blank">
                         <button
                             class=" hover:bg-yellow-100 transition duration-300 py-2 px-5 border border-yellow-800/100 rounded-md text-xs">
-                            Doc view
+                            Preview
                         </button>
                     </a>
                 </div>
@@ -43,7 +45,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit"
-                        class="py-1 px-4 rounded-md bg-transparent border mx-3 text-red-500 border-red-500">
+                        class="py-1 px-4 rounded-md bg-transparent border mx-3 text-red-500 border-red-500 hover:bg-red-300 transition duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -53,15 +55,19 @@
                 </form>
                 <div class="text-gray-700">
                     <button onclick="toCopy(document.getElementById('formContent'))">
-                        <i class='bx bx-copy pl-1 text-xl'></i>
+                        <i class='bx bx-copy pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
                     <button>
-                        <i class='bx bxs-file-export pl-1 text-xl'></i>
+                        <i class='bx bxs-file-export pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
                     <button>
-                        <i class='bx bxs-file-doc pl-1 text-xl'></i>
+                        <i class='bx bxs-file-doc pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
-                    <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank"><i class='bx bx-cog text-xl'></i></a>
+                    <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank"><i
+                            class='bx bx-cog text-xl hover:text-gray-500 transition duration-300'></i></a>
+                    <button @click="openShare = true">
+                        <i class='bx bxs-share text-xl hover:text-gray-500 transition duration-300'></i>
+                    </button>
                 </div>
             </div>
 
@@ -92,20 +98,54 @@
         <meta property="og:type" content="article">
         <meta property="og:title" content="{{ $course->title }}" />
         <meta property="og:description" content="{{ $course->description }}" />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW52aXJvbm1lbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" />
+        <meta property="og:image"
+            content="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW52aXJvbm1lbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" />
         <meta property="og:url" content="{{ url("/courses/{$course->id}") }}" />
-        
-        {{-- <a href="{{ Share::page('https://eureka.vixblock.com.ng')->linkedin()->getRawLinks() }}" class="social-button" id="" title="" rel="" target="_blank"> --}}
-        <a href="{{ Share::currentPage()->whatsapp()->getRawLinks() }}" class="social-button" id="" title="" rel="" target="_blank">
-            facebook
-        </a> 
-        <br>
-  
 
-    
+        {{-- <a href="{{ Share::page('https://eureka.vixblock.com.ng')->linkedin()->getRawLinks() }}" class="social-button" id="" title="" rel="" target="_blank"> --}}
+        {{-- <a href="{{ Share::currentPage()->whatsapp()->getRawLinks() }}" class="social-button" id=""
+            title="" rel="" target="_blank">
+            facebook
+        </a> --}}
+        <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]) )->whatsapp()->getRawLinks() }}" class="social-button" id=""
+            title="" rel="" target="_blank">
+            facebook
+        </a>
+        <br>
+
+{{-- mmodal --}}
+
+        <div x-show="openShare"
+            class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 "
+            style="display: none">
+            <div class="flex items-center justify-center min-h-screen px-10">
+                <div class="bg-white w-[90%] md:w-[50%] rounded-lg overflow-hidden pb-6 transition-all relative duration-700"
+                    @click.away="openShare = false">
+                    <div class="p-5">
+                        <h1 class="text-gray-700">Share Link</h1>
+                        <p class="mb-10">Get link to share</p>
+                        <p id="{{ $course->id }}" class="w-full rounded-lg p-3 border text-sm border-gray-700 ">
+                            {{ route('courses.share', ['course_slug' => $course->slug]) }}</p>
+                        <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
+                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            Clipboard</button>
+                        <xmp id="{{ $course->slug }}"
+                            class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
+                            style="visbility:hidden">
+                            <iframe src="{{ route('courses.share', ['course_slug' => $course->slug]) }}" width="600"
+                                height="400">
+                            </iframe>
+                        </xmp>
+                        <button onclick="toCopy(document.getElementById('{{ $course->slug }}'))"
+                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            Copy embeaded code</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <x-notification />
-    
+
     <script>
         // for coping text
         function toCopy(copyDiv) {
@@ -114,7 +154,7 @@
             window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
             document.execCommand("copy");
-            alert("copied!" );
+            alert("copied!");
         }
     </script>
 </x-app-layout>
