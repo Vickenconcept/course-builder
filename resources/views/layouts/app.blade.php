@@ -16,7 +16,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
     <title>without bootstrap</title>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -110,11 +110,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
         <script src="{{ asset('js/share.js') }}"></script>
+        <script src="{{ asset('turnjs4/turnjs4/lib/turn.js')}}"></script>
+        <script src="{{ asset('turnjs4/turnjs4/changelog.txt')}}"></script>
 
         <script src="{{ asset('build/assets//app-dd6eec69.js') }}"></script>
         @stack('script')

@@ -56,7 +56,7 @@
             <div class="hover:ml-4 text-xs w-full cursor-pointer text-blue-50 hover:text-yellow-400  bg-yellow-900 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                 <i class='text-xs bx bxs-rectangle'></i>
                 <div>
-                    Course Dynamo
+                    Course research
                 </div>
             </div>
         </a>
@@ -92,7 +92,7 @@
 
                 <i class='text-xs bx bx-brain'></i>
                 <div>
-                    Lesson Architecture
+                    Create Course
                 </div>
             </div>
         </a>

@@ -2,11 +2,12 @@
     <div class="logo ml-12 text-gray-700 font-semibold  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center capitalize">
         <a href="{{ route('dashboard') }}" class="text-left py-2  {{ request()->routeIs('dashboard') ? '' : 'hidden' }}">Dashboard</a>
         <a href="{{ route('books.index') }}" class=" {{ request()->routeIs('books.index') ? '' : 'hidden' }}">Books</a>
-        <a href="{{ route('course-validation.index') }}" class=" {{ request()->routeIs('course-validation.index') ? '' : 'hidden' }}">Course-research</a>
+        <a href="{{ route('course-validation.index') }}" class=" {{ request()->routeIs('course-validation.index') ? '' : 'hidden' }}">Validate Your Idea</a>
         <a href="{{ route('content-planner.index') }}" class=" {{ request()->routeIs('content-planner.index') ? '' : 'hidden' }}">Content-planner</a>
-        <a href="{{ route('course') }}" class=" {{ request()->routeIs('course') ? '' : 'hidden' }}">Lesson-architect</a>
-        <a href="{{ route('research.index') }}" class=" {{ request()->routeIs('research.index') ? '' : 'hidden' }}">Platform-research</a>
+        <a href="{{ route('course') }}" class=" {{ request()->routeIs('course') ? '' : 'hidden' }}">Create Course</a>
+        <a href="{{ route('research.index') }}" class=" {{ request()->routeIs('research.index') ? '' : 'hidden' }}">Course-research</a>
         <a href="{{ route('search.index') }}" class=" {{ request()->routeIs('search.index') ? '' : 'hidden' }}">Title Rank(SEO)</a>
+        <a href="{{ route('setting.index') }}" class=" {{ request()->routeIs('setting.index') ? '' : 'hidden' }}">Setting</a>
     </div>
     <!-- SPACER -->
     <div class="grow h-full flex items-center justify-center"></div>
