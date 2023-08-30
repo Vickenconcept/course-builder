@@ -157,9 +157,9 @@
 
                             <div h-full>
 
-                                <button
+                                {{-- <button
                                     class="bg-yellow-400 py-2 my-3 px-4 rounded-lg hover:shadow-md text-white shadow text-xs"
-                                    onClick="document.getElementById('myForm').submit()">Save to Library</button>
+                                    onClick="document.getElementById('myForm').submit()">Save to Library</button> --}}
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 h-full">
                                     <div class="h-full shadow">
                                         <a :href="bookData.infolink" target="_blank"
@@ -228,7 +228,7 @@
                                 <div class="flex justify-between">
                                     <span
                                         class="text-gray-300 text-xs">{{ $course->created_at->toFormattedDayDateString() }}</span>
-                                    <div class="">
+                                    <div class="text-xs">
                                         Edit
                                     </div>
 

@@ -28,8 +28,6 @@ class Admin
             // Content creator access
             return to_route('course-validation.index');
         } elseif ($request->user()->is_admin === 'user') {
-            // Regular user access
-            // return response('Access Denied', 403);
 
             $pendingCourseSlug = $request->session()->get('pending_course_slug');
 

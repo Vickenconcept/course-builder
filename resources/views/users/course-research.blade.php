@@ -50,7 +50,7 @@
                     <x-main-button type="submit" class="whitespace-nowrap">Sort by Author</x-main-button>
                 </form>
 
-                <form action="{{ route('course-validation.create') }}" method="GET">
+                {{-- <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
                     <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
                     @endif
@@ -61,12 +61,12 @@
                         <option class="bg-white py-2 text-gray-700" value="non-fiction">Non-Fiction</option>
                     </select>
                     
-                </form>
+                </form> --}}
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
                     <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
                     @endif
-                    <select  name="rating" onchange="this.form.submit()" class="bg-yellow-500 rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none">
+                    <select  name="rating" onchange="this.form.submit()" class="bg-yellow-500 rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none text-xs">
                         <option class="bg-white text-gray-700"value="" selected disabled>Rating</option>
                         <option class="bg-white text-gray-700"value="1">1</option>
                         <option class="bg-white text-gray-700"value="2">2</option>
@@ -75,12 +75,7 @@
                         <option class="bg-white text-gray-700"value="5">5</option>
                     </select>
                 </form>
-                <!-- <x-main-button>Niche </x-main-button>
-                <x-main-button>Topic Area</x-main-button>
-                <x-main-button>Platform</x-main-button>
-                <x-main-button>Enrollment</x-main-button>
-                <x-main-button>Rating</x-main-button> -->
-                <!-- <x-main-button>Price</x-main-button> -->
+               
 
                 <!-- <x-dropdown align="right">
                     <x-slot name="trigger">

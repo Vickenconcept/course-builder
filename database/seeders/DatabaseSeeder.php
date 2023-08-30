@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,7 +23,12 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->has(
         //     Course::factory(5)->hasLessons(10)
         // )->create();
-        User::factory();
+        DB::table('users')->insert([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('12345678'),
+            'is_admin' => 'super_admin',
+        ]);
 
 
 

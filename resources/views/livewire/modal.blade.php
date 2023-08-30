@@ -29,15 +29,16 @@
         <div class="p-5 overflow-y-auto">
             @if (isset($generatedResponse))
                 <div class="flex justify-end">
-                    <button class="  bg-yellow-700 text-white rounded-lg px-2 py-1  shadow-sm text-xs"
+                    {{-- <button class="  bg-yellow-700 text-white rounded-lg px-2 py-1  shadow-sm text-xs"
                         @click="isOpen = false" wire:click="sendModalResponse">Add Content to
                         Textarea
-                    </button>
-                    <button onclick="toCopy(document.getElementById('content'))">
+                    </button> --}}
+                    <button onclick="toCopy(document.getElementById('title_{{ $uniqueId }}'))">
                         <i class="bx bx-copy ml-2 text-gray-700"></i>
                     </button>
                 </div>
-                <div id="content">
+                
+                <div id="title_{{ $uniqueId }}">
                     {!! nl2br($generatedResponse) !!}
                 </div>
             @endif

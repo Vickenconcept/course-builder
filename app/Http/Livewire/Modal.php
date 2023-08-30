@@ -11,11 +11,13 @@ class Modal extends Component
 
      public $modalData, $title , $action ,$generatedResponse,$lesson;
      protected $listeners = ['showModal' => 'accepDataValue'];
+     public $uniqueId;
 
      public function mount($title,$lesson )
      {
          $this->title = $title;
          $this->lesson = $lesson;
+         $this->uniqueId = uniqid();
      }
      public function accepDataValue($data)
      {

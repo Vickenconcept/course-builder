@@ -79,34 +79,40 @@ Route::delete('lesson/{id}', function ($id) {
 
 
 Route::middleware('auth')->group(function () {
-
-    Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
-    Route::resource('library', LibraryController::class);
-    Route::view('index', 'user.content-planner');
-    Route::view('coming-soon', 'pages.users.coming-soon')->name('coming-soon');
-    Route::get('export-books', [BookController::class, 'export'])->name('export.books');
-    Route::resource('books', BookController::class);
-    Route::resource('course-validation', ScoreController::class);
-    Route::get('course', Course::class)->name('course');
-    Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
-    Route::resource('course-setting', CourseSettingsController::class);
-    Route::resource('research', ResearchController::class);
-    Route::resource('search', SearchController::class);
-    Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
-    Route::resource('content-planner', ContentPlannerController::class);
-    Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
-    Route::resource('/setting', SettingController::class);
-    Route::resource('/subscribe', SubscribeController::class);
-    Route::resource('/user-dashboard', userController::class);
-    //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
-
+    Route::group(['middleware' => 'restrictUserRole:user'], function () {
+        Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
+    });
+    Route::group(['middleware' => 'restrictUserRole:admin'], function () {
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
+        Route::resource('library', LibraryController::class);
+        Route::view('index', 'user.content-planner');
+        Route::view('coming-soon', 'pages.users.coming-soon')->name('coming-soon');
+        Route::get('export-books', [BookController::class, 'export'])->name('export.books');
+        Route::resource('books', BookController::class);
+        Route::resource('course-validation', ScoreController::class);
+        Route::get('course', Course::class)->name('course');
+        Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
+        Route::resource('course-setting', CourseSettingsController::class);
+        Route::resource('research', ResearchController::class);
+        Route::resource('search', SearchController::class);
+        Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
+        Route::resource('content-planner', ContentPlannerController::class);
+        Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
+        Route::resource('/setting', SettingController::class);
+        Route::resource('/subscribe', SubscribeController::class);
+        //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
+    });
+    
+    Route::group(['middleware' => 'restrictUserRole:user'], function () {
+        Route::resource('/user-dashboard', userController::class);
+    });
     Route::controller(PayPalPaymentController::class)->group(function () {
         Route::get('payment', 'payment')->name('payment');
-        Route::get('cancel','cancel' )->name('payment.cancel');
-        Route::get('payment/success','success')->name('payment.success');
+        Route::get('cancel', 'cancel')->name('payment.cancel');
+        Route::get('payment/success', 'success')->name('payment.success');
     });
+
 });
 
 Route::get('test', function () {
