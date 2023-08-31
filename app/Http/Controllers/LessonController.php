@@ -36,7 +36,6 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        //
     }
 
     /**
@@ -50,16 +49,35 @@ class LessonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Lesson $lesson)
+    public function update(Request $request, $lesson)
     {
-        //
+        
+        $lesson = Lesson::findOrFail($lesson);
+        $newData = $request->input('lesson');
+        
+        $lesson->update(['title' => $newData]);
+        return redirect()->back()->with('success', 'updated succesfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lesson $lesson)
+    public function destroy($lesson)
     {
-        //
+        $user = auth()->user();
+        $course = $user->courses()->whereHas('lessons', function ($query) use ($lesson) {
+            $query->where('lessons.id', $lesson);
+        })->first();
+
+        if ($course) {
+            $lesson = $course->lessons()->find($lesson);
+
+            if ($lesson) {
+                $lesson->delete();
+                return redirect()->back()->with('success', 'Lesson deleted successfully.');
+            }
+        }
+
+        return redirect()->route('course')->with('error', 'Lesson not found.');
     }
 }

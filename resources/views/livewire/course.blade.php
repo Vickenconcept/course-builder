@@ -162,30 +162,50 @@
                 @endif --}}
             </div>
 
-
             <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content">
                 <div wire:target="store">
                     <span wire:loading.remove class="w-full">
                         @if (isset($content))
                             <div class="container">
                                 <h3 class="font-semibold">Course outline</h3>
-                                <form wire:submit.prevent="generateFinalResponse" id="outline-form">
 
-                                    @foreach ($content as $index => $subtopic)
-                                        <div class="mb-3">
-                                            <label for="subtopic{{ $index }}" class="form-label">Subtopic
-                                                {{ $index + 1 }}</label>
-                                            <div class="input-group">
-                                                <input disabled class=" shadow-sm rounded-lg w-full p-2"
+                                @foreach ($content as $index => $subtopic)
+                                    <div class="mb-3">
+                                        <label for="subtopic{{ $index }}" class="form-label">Subtopic
+                                            {{ $index + 1 }}</label>
+                                        <div class="input-group">
+                                            <input disable class=" shadow-sm rounded-lg w-full p-2" name="modified_outline[]"
+                                                type="text" class="form-control" id="subtopic{{ $index }}"
+                                                name="modified_outline" value="{{ $subtopic }}">
+                                        </div>
+                                    </div>
+                                @endforeach
+
+
+                                {{-- 
+                                @foreach ($content as $index => $lesson)
+                                    <div class="mb-3">
+                                        <label for="subtopic{{ $index }}" class="form-label">Subtopic
+                                            {{ $index + 1 }}</label>
+                                        <div class="input-group">
+                                            <form id="updateForm{{ $index }}"
+                                                data-lesson-id="{{ $lesson['id'] }}">
+                                                @csrf
+                                                @method('PUT')
+                                                <input class="shadow-sm rounded-lg w-full p-2"
                                                     name="modified_outline[]" type="text" class="form-control"
                                                     id="subtopic{{ $index }}" name="modified_outline[]"
-                                                    value="{{ $subtopic }}">
-                                                {{-- <button type="button" class="bg-red-200 px-2 py-1 rounded"
-                                                    onclick="this.parentNode.parentNode.remove()">Remove</button> --}}
-                                            </div>
+                                                    value="{{ $lesson['title'] }}">
+                                                <button type="button" class="submit-button"
+                                                    data-form-id="updateForm{{ $index }}">Submit</button>
+                                            </form>
                                         </div>
-                                    @endforeach
-                                </form>
+                                    </div>
+                                @endforeach --}}
+
+
+
+
                                 <a href="{{ route('courses.edit', ['course' => $courseId]) }}">
                                     <x-main-button type="submit" wire:disabled="emptyInputs"
                                         class="uppercase justify-center mt-3 text-center">
@@ -196,7 +216,7 @@
                         @else
                             No content
 
-                           
+
 
 
                         @endif
@@ -205,7 +225,7 @@
                 </div>
             </div>
         </section>
-        
+
     </div>
 
     <script>
@@ -215,20 +235,7 @@
             window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
             document.execCommand("copy");
-             alert("copied!" );
+            alert("copied!");
         }
     </script>
-
-    <div>
-        <!-- Button to trigger the preloader -->
-        {{-- <button @click="loaded = true">Start Loading</button> --}}
-
-        <!-- Preloader -->
-        <div x-show="loaded"
-            class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white">
-            <div class="h-32 w-24 animate-spin rounded-full">
-                <img src="images/loading-black.png" class="h-32 w-32" alt="" style="opacity: 0.7;">
-            </div>
-        </div>
-    </div>
 </div>

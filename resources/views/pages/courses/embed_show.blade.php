@@ -1,10 +1,10 @@
 <x-guest-layout>
-    <div class="w-[70%] mx-auto bg-white pt-5" x-data="{ isOpen: false }">
+    {{-- <div class="w-[70%] mx-auto bg-white pt-5" x-data="{ isOpen: false }">
         <div class="m-20   px-1 text-gray-700">
 
             <section class="  py-5 capitalize">
                 <h1 class="font-bold text-2xl my-5 capitalize"> Title: {{ $course->title }}</h1>
-                <h4 class="font-semibold my-5 text-xl"> Introduce:</h4>
+                <h4 class="font-semibold my-5 text-md"> Introduce:</h4>
                 <p class="  text-md  text-justify my-3">
                     {{ $course->description }}
                 </p>
@@ -17,22 +17,13 @@
             </section>
 
 
-            {{-- @foreach ($course->lessons as $lesson)
-                <section class="  my-5 py-10 ">
-                    <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}. {{ $lesson->title }}</h3>
-
-                    {!! $lesson->content !!}
-                </section>
-            @endforeach --}}
-
-
 
 
 
             @if ($isSubscribed)
                 @foreach ($course->lessons as $lesson)
                     <section class="my-5 py-10">
-                        <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}.
+                        <h3 class="font-semibold capitalize py-5 text-md">{{ $loop->iteration }}.
                             {{ $lesson->title }}
                         </h3>
                         {!! $lesson->content !!}
@@ -42,16 +33,16 @@
                 @foreach ($course->lessons as $lesson)
                     @if ($loop->iteration <= $freeCourse)
                         <section class="my-5 py-10">
-                            <h3 class="font-semibold capitalize py-5 text-xl">{{ $loop->iteration }}.
+                            <h3 class="font-semibold capitalize py-5 text-md">{{ $loop->iteration }}.
                                 {{ $lesson->title }}
                             </h3>
                             {!! $lesson->content !!}
                         </section>
                     @endif
                 @endforeach
-                {{-- Show the regular content for non-subscribed users --}}
+ 
                 @if (count($course->lessons) > $freeCourse)
-                    <!-- Add a section or button to show all lessons -->
+
                     <section class=" py-10 flex justify-center">
                         <a href="{{ route('subscribe.show', ['subscribe' => $course->id]) }}">
                             <x-main-button id="showAllLessonsButton" class="">
@@ -65,77 +56,95 @@
             @endif
             <div>
 
-
-                {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-        <main class="grid min-h-screen w-full place-content-center bg-gray-900">
-            <div x-data="lessonSlider"
-                class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 sm:p-4 p-5">
-                <div class="absolute right-5 top-5 z-10 rounded-full bg-gray-600 px-2 text-center text-sm">
-                    <span x-text="currentIndex"></span>/<span x-text="lessons.length"></span>
-                </div>
-                <div class="  mb-10 flex justify-between">
-
-                    <button @click="previous()"
-                        class="z-10 ">
-                        <i class="fas fa-chevron-left text-2xl font-bold text-gray-500"></i> 
-                    </button>
-
-                    <button @click="forward()"
-                        class=" z-10 ">
-                        <i class="fas fa-chevron-right text-2xl font-bold text-gray-500"></i> 
-                    </button>
-                </div>
-
-                <div class="relative mt-10 h-80" style="width: 30rem">
-                    <template x-for="(lesson, index) in lessons">
-                        <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300"
-                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                            x-transition:leave="transition transform duration-300"
-                            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                            class="absolute top-0">
-                            <span x-text="lesson.title" class="text-2xl font-bold"></span>
-                            <span x-html="lesson.content"></span>
-                        </div>
-                    </template>
-                </div>
-                
-               
-            </div>
-        </main> --}}
-
-                {{-- <script>
-            document.addEventListener("alpine:init", () => {
-                Alpine.data("lessonSlider", () => ({
-                    currentIndex: 1,
-                    lessons: @json($course->lessons),
-                    freeCourse: @json($freeCourse),
-                    previous() {
-                        if (this.currentIndex > 1) {
-                            this.currentIndex = this.currentIndex - 1;
-                        }
-                    },
-                    forward() {
-                        if (this.currentIndex < this.lessons.length) {
-                            this.currentIndex = this.currentIndex + 1;
-                        }
-                    },
-                    showLesson(index) {
-                        return this.isSubscribed() || index < this.freeCourse;
-                    },
-                    isSubscribed() {
-                       
-                    },
-                }));
-            });
-        </script> --}}
             </div>
 
-            <!-- component -->
+            
 
 
         </div>
-    </div>
+    </div> --}}
+    <div>
+        <div class=" py-10 flex justify-center">
+            {{--  --}}
+            <div id="flipbook" class="">
+                <div
+                    class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700 shadow-md object-cover overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1553530979-7ee52a2670c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8bmF0dXJhbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="image" class="w-full h-full">
+                </div>
+                <div class="hard  bg-gray-500 rounded-tl-lg rounded-bl-lg shadow-md"></div>
 
+                <section class="  py-2 capitalize bg-white px-5 transition duration-700 shadow-md">
+                    <h1 class="font-bold text-xl my-5 capitalize"> Title: {{ $course->title }}</h1>
+                    <h4 class="font-semibold my-5 text-md"> Introduce:</h4>
+                    <p class="  text-xs  text-justify my-3">
+                        {{ $course->description }}
+                    </p>
+
+                </section>
+                <section class="  py-2 capitalize bg-white px-5 transition duration-700 shadow-md">
+                    <h3 class="font-semibold my-5">Outline:</h3>
+                    <ol class="text-xs">
+                        @foreach ($course->lessons as $lesson)
+                            <li class="py-2"> {{ $loop->iteration }}. {{ $lesson->title }}</li>
+                        @endforeach
+                    </ol>
+                </section>
+                @if ($isSubscribed)
+                    @foreach ($course->lessons as $lesson)
+                        <section class=" py-2 bg-white px-5 transition duration-700">
+                            <h3 class="font-semibold capitalize py-2 text-sm">{{ $loop->iteration }}.
+                                {{ $lesson->title }}
+                            </h3>
+                            <p class="text-xs">{!! $lesson->content !!}</p>
+                        </section>
+                    @endforeach
+                @else
+                    @foreach ($course->lessons as $lesson)
+                        @if ($loop->iteration <= $freeCourse)
+                            <section class=" py-2 bg-white px-5 transition duration-700">
+                                <h3 class="font-semibold capitalize py-2 text-sm">{{ $loop->iteration }}.
+                                    {{ $lesson->title }}
+                                </h3>
+                                <p class="text-xs">{!! $lesson->content !!}</p>
+                            </section>
+                        @endif
+                    @endforeach
+                    {{-- Show the regular content for non-subscribed users --}}
+                    @if (count($course->lessons) > $freeCourse)
+                        <!-- Add a section or button to show all lessons -->
+                        <section class=" py-2 flex justify-center items-center bg-white px-5">
+                           <div class=" text-center">
+                            <h1 class="text-xl font-bold my-5">Love the Course</h1>
+                            {{-- <p class="animate-bounce py-2"><i class='bx bx-chevrons-down'></i></p> --}}
+                            <a href="{{ route('subscribe.show', ['subscribe' => $course->id]) }}">
+                                <x-main-button id="showAllLessonsButton" class=" inline-flex">
+                                    Click to read more <i class='bx bx-chevrons-right animate-pulse'></i>
+                                </x-main-button>
+                                <x-main-button id="showAllLessonsButton" class=" inline-flex">
+                                    Click to read more <i class='bx bx-chevrons-right animate-ping'></i>
+                                </x-main-button>
+                            </a>
+                           </div>
+
+
+                        </section>
+                    @endif
+                @endif
+                <section
+                    class="hard bg-gray-500 flex j items-center  justify-center  text-white rounded-tr-lg rounded-br-lg">
+                    Powered By @vicxblock</section>
+                <section
+                    class="hard bg-gray-500 flex j items-center  justify-center  text-white rounded-tr-lg rounded-br-lg">
+                    Powered By @vicxblock</section>
+                {{-- <div class="hard bg-gray-500 rounded-tr-lg rounded-br-lg"></div> --}}
+                <div class=" hard back-cover bg-gray-300  text-gray-700 text-center rounded-tr-lg rounded-bl-lg">
+                    Back Cover Content
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button id="previousButton" class="bg-yellow-500 text-gray-700 shadow-sm hover:shadow-md rounded-full py-1 px-2 "><i class='bx bx-chevron-left text-4xl'></i></button>
+            <button id="nextButton" class="bg-yellow-500 text-gray-700 shadow-sm hover:shadow-md rounded-full py-1 px-2 ronded"><i class='bx bx-chevron-right text-4xl'></i></button>
+        </div>
+    </div>
 </x-guest-layout>

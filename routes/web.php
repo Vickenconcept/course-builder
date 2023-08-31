@@ -17,6 +17,7 @@ use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
 use App\Events\JobCompleted;
 use App\Http\Controllers\CourseSettingsController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingController;
@@ -59,23 +60,23 @@ Route::get('/share/courses/{course_slug}', [CourseController::class, 'share'])->
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::resource('courses', CourseController::class);
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
-Route::delete('lesson/{id}', function ($id) {
-    $user = auth()->user();
-    $course = $user->courses()->whereHas('lessons', function ($query) use ($id) {
-        $query->where('lessons.id', $id);
-    })->first();
+// Route::delete('lesson/{id}', function ($id) {
+//     $user = auth()->user();
+//     $course = $user->courses()->whereHas('lessons', function ($query) use ($id) {
+//         $query->where('lessons.id', $id);
+//     })->first();
 
-    if ($course) {
-        $lesson = $course->lessons()->find($id);
+//     if ($course) {
+//         $lesson = $course->lessons()->find($id);
 
-        if ($lesson) {
-            $lesson->delete();
-            return redirect()->back()->with('success', 'Lesson deleted successfully.');
-        }
-    }
+//         if ($lesson) {
+//             $lesson->delete();
+//             return redirect()->back()->with('success', 'Lesson deleted successfully.');
+//         }
+//     }
 
-    return redirect()->route('course')->with('error', 'Lesson not found.');
-})->name('lesson.delete');
+//     return redirect()->route('course')->with('error', 'Lesson not found.');
+// })->name('lesson.delete');
 
 
 Route::middleware('auth')->group(function () {
@@ -94,6 +95,7 @@ Route::middleware('auth')->group(function () {
         Route::get('course', Course::class)->name('course');
         Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
         Route::resource('course-setting', CourseSettingsController::class);
+        Route::put('course-setting/{courseId}', [CourseSettingsController::class, 'updateCheckout'])->name('course-setting.updateCheckout');
         Route::resource('research', ResearchController::class);
         Route::resource('search', SearchController::class);
         Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
@@ -101,6 +103,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
         Route::resource('/setting', SettingController::class);
         Route::resource('/subscribe', SubscribeController::class);
+        Route::resource('lesson', LessonController::class);
         //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
     });
     

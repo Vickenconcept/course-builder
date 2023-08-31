@@ -78,18 +78,13 @@ class CourseController extends Controller
     public function update(Request $request, $courseId)
     {
 
-        $user = auth()->user();
+       $user = auth()->user();
+        $course = $user->courses()->findOrFail($courseId);
+        $newData = $request->input('updateTitle');
 
-        $course = $user->courses()->find($courseId);
-
-        if ($course) {
-            $course->courseSettings->checkout_option = $request->input('checkout_option');
-            $course->courseSettings->update();
-
-            return redirect()->back()->with('success', ' updated successfully');
-        } else {
-            return redirect()->route('courses.index')->with('error', 'Course not found');
-        }
+        $course->update(['title' => $newData]);
+        return redirect()->back()->with('success', 'updated succesfully');
+        
     }
 
     public function coursePrice(Request $request, $course)
@@ -102,8 +97,6 @@ class CourseController extends Controller
         
         if ($selectedOption === 'custom') {
             $customPrice = $request->input('custom-price');
-            // dd($customPrice);
-            
             
             $course->price = $customPrice;
             $course->update();

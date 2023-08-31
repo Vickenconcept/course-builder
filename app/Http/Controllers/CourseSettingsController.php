@@ -108,20 +108,30 @@ class CourseSettingsController extends Controller
 
         ]);
 
-        $newFreeLessonsCount = 9;
-        // $course = Course::find($courseId);
         $user = auth()->user();
         $course = $user->courses()->findOrFail($courseId); 
-
-        // $lesson  =$this->lesson->update([
-        //     'content' => $this->content,
-        // ]);
-        // dd($num);
 
         $course->courseSettings()->update([
             'free_lessons_count' => $num,
         ]);
         return back()->with('success', 'updated successfully');
+    }
+
+    public function updateCheckout(Request $request, $courseId)
+    {
+
+        $user = auth()->user();
+
+        $course = $user->courses()->find($courseId);
+
+        if ($course) {
+            $course->courseSettings->checkout_option = $request->input('checkout_option');
+            $course->courseSettings->update();
+
+            return redirect()->back()->with('success', ' updated successfully');
+        } else {
+            return redirect()->route('courses.index')->with('error', 'Course not found');
+        }
     }
 
     /**

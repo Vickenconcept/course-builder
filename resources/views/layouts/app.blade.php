@@ -16,24 +16,27 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>without bootstrap</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
+    </script> --}}
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-    <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-5ae69888.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-3756aa42.css ') }}">
 
     @yield('styles')
 
 
     @livewireStyles
+    @livewireScripts
+
 </head>
 
 <body class="font-sans antialiased">
@@ -50,7 +53,7 @@
 
 
 
-
+       
         <script>
             const sidebar = document.querySelector("aside");
             const maxSidebar = document.querySelector(".max")
@@ -106,20 +109,23 @@
             }
         </script>
 
-        @livewireScripts
+        {{-- @livewireScripts --}}
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script> --}}
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
         <script src="{{ asset('js/share.js') }}"></script>
-        <script src="{{ asset('turnjs4/turnjs4/lib/turn.js')}}"></script>
-        <script src="{{ asset('turnjs4/turnjs4/changelog.txt')}}"></script>
+        {{-- <script src="{{ asset('js/turnjs4/lib/hash.js') }}"></script> --}}
+        <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
         <script src="{{ asset('build/assets//app-dd6eec69.js') }}"></script>
         @stack('script')
+
 </body>
 
 </html>

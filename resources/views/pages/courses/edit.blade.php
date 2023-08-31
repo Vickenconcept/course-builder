@@ -13,7 +13,7 @@
         </div>
 
 
-        
+
 
         <section class="mt-20 w-full md:w-[70%] mx-auto">
             <div class="flex justify-between py-3">
@@ -31,25 +31,7 @@
                         </button>
                     </a>
                 </div>
-                {{--  --}}
-                <div id="flipbook">
-                    <div class="hard"> Turn.js </div>
-                    <div class="hard"></div>
-                    <div> Page 1 </div>
-                    <div> Page 2 </div>
-                    <div> Page 3 </div>
-                    <div> Page 4 </div>
-                    <div class="hard"></div>
-                    <div class="hard"></div>
-                </div>
-                <script type="text/javascript">
-                    $("#flipbook").turn({
-                        width: 400,
-                        height: 300,
-                        autoCenter: true
-                    });
-                </script>
-                {{--  --}}
+
             </div>
             <div class="flex  mb-3">
                 <x-main-button class=" py-1 px-4" class="">
@@ -88,9 +70,14 @@
 
             <div id="formContent">
                 <div>
-                    <input type="text text-2xl font-bold text-gray-700 uppercase"
-                        class="w-full shadow-md focus:ring-0 border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
-                        value="{{ $course->title }}">
+                    <form action="{{ route('courses.update', ['course' => $course->id]) }}" method="POST"
+                        class="w-full">
+                        @csrf
+                        @method('PUT')
+                        <input type="text text-2xl font-bold text-gray-700 uppercase"
+                            class="w-full shadow-md focus:ring-0 border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
+                            value="{{ $course->title }}" name="updateTitle">
+                    </form>
                 </div>
 
                 <div class="flex justify-end my-5">
@@ -122,13 +109,14 @@
             title="" rel="" target="_blank">
             facebook
         </a> --}}
-        <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]) )->whatsapp()->getRawLinks() }}" class="social-button" id=""
-            title="" rel="" target="_blank">
+        <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->whatsapp()->getRawLinks() }}"
+            class="social-button" id="" title="" rel="" target="_blank">
             facebook
         </a>
         <br>
+       
 
-{{-- mmodal --}}
+        {{-- mmodal --}}
 
         <div x-show="openShare"
             class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 "
@@ -171,5 +159,26 @@
             document.execCommand("copy");
             alert("copied!");
         }
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     // Initialize the flipbook
+
+        //     $("#flipbook").turn({
+        //         width: 400,
+        //         height: 300,
+        //         autoCenter: true
+        //     });
+        // });
+
+
+
+
+        // jQuery(document).ready(function($) {
+        //     // Now you can use the $ symbol as an alias for jQuery
+        //     $('#flipbook').turn();
+        // });
+
+
+        
     </script>
 </x-app-layout>

@@ -222,7 +222,7 @@
             <section class="">
                 @if (isset($courses))
                     @forelse($courses as $course)
-                        <a href="{{ route('courses.edit', ['course' => $course->id]) }}" target="_blank">
+                        <a href="{{ route('courses.edit', ['course' => $course->id]) }}" >
                             <div
                                 class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out">
                                 <div class="flex justify-between">

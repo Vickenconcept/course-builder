@@ -39,7 +39,7 @@
                                         your password</button>
                                 </div> --}}
                                 <div class='w-full md:w-full px-3 mb-6'>
-                                    <form action="{{ route('courses.update', ['course' => $course]) }}" method="POST">
+                                    <form action="{{ route('course-setting.updateCheckout', ['courseId' => $course]) }}" method="POST">
                                         @method('PUT')
                                         @csrf
                                         <label

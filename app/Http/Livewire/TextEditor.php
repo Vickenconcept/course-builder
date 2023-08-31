@@ -15,7 +15,7 @@ class TextEditor extends Component
 
 
    
-    public function mount($lesson)
+    public function mount($lesson = null)
     {
         $this->lesson = $lesson;
         $this->content = $lesson->content;
@@ -24,6 +24,8 @@ class TextEditor extends Component
 
     public function updateDatabase()
     {
+        if(!$this->lesson) return;
+
         if (
             $this->lesson->content === $this->content ||
             $this->content === null || $this->content === ""
@@ -43,9 +45,9 @@ class TextEditor extends Component
     public function addToTextarea( $data, $lessonId)
     { 
         // dd($lessonId);
-        if ($this->lesson->id == $lessonId) {
-            $this->content .= $data;
-        }
+        // if ($this->lesson->id == $lessonId) {
+        //     $this->content .= $data;
+        // }
         
     }
   
