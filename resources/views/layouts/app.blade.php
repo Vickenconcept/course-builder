@@ -2,6 +2,16 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <x-seo::meta />
+
+    @seo([
+    'title' => 'Course Dynamo',
+    'description' => 'A comprehensive app for Ai course generator',
+    'image' => asset('images/book-cover.jpg'),
+    'type' => 'article', // You can set this to 'article', 'website', 'video', etc. depending on the type of content
+    'url' => '', // Replace with the actual route for viewing the course
+    'site_name' => config('app.name'),
+])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,11 +27,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
     <title>without bootstrap</title>
-    {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
@@ -29,7 +39,7 @@
         referrerpolicy="origin"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-3756aa42.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-4475b13f.css  ') }}">
 
     @yield('styles')
 
@@ -53,8 +63,9 @@
 
 
 
-       
+
         <script>
+
             const sidebar = document.querySelector("aside");
             const maxSidebar = document.querySelector(".max")
             const miniSidebar = document.querySelector(".mini")
@@ -121,7 +132,7 @@
 
         <script src="{{ asset('js/share.js') }}"></script>
         {{-- <script src="{{ asset('js/turnjs4/lib/hash.js') }}"></script> --}}
-        <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
+        
 
         <script src="{{ asset('build/assets//app-dd6eec69.js') }}"></script>
         @stack('script')

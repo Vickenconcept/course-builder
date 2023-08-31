@@ -86,6 +86,17 @@ class CourseController extends Controller
         return redirect()->back()->with('success', 'updated succesfully');
         
     }
+    public function courseImage(Request $request, $image)
+    {
+
+       $user = auth()->user();
+        $course = $user->courses()->findOrFail($image);
+        $courseImage = $request->input('courseImage');
+
+        $course->update(['courseImage' => $courseImage]);
+        return redirect()->back()->with('success', 'Book Cover updated');
+        
+    }
 
     public function coursePrice(Request $request, $course)
     {

@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <x-seo::meta />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,11 +16,13 @@
 
     <!-- Scripts -->
     {{-- <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) --> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-3756aa42.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-4475b13f.css  ') }}">
 
 
 </head>
@@ -50,12 +53,8 @@
             turnCorners: 'bl,br',
         });
 
-        // $("#nextButton").click(function() {
-        //     console.log('wowow');
-        //     $("#flipbook").turn("next");
-        //   });
+
         jQuery(document).ready(function($) {
-            console.log($("#flipbook"));
 
             $(window).bind('keydown', function(e) {
                 if (e.keyCode == 37) {
@@ -76,6 +75,30 @@
                 });
             });
         });
+
+        const controls = document.getElementById('controls');
+        const flipbook = document.getElementById('flipbook');
+
+        gsap.set(controls, {
+            y: '100%',
+            opacity: 0
+        });
+
+        flipbook.addEventListener('mouseenter', () => {
+            gsap.to(controls, {
+                y: '0%',
+                opacity: 1,
+                duration: 0.3
+            });
+        });
+
+        // flipbook.addEventListener('mouseleave', () => {
+        //     gsap.to(controls, {
+        //         y: '100%',
+        //         opacity: 0,
+        //         duration: 0.3
+        //     });
+        // });
     </script>
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script src="{{ asset('build/assets/app-dd6eec69.js') }}"></script>

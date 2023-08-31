@@ -31,6 +31,16 @@
                         </button>
                     </a>
                 </div>
+                <div>
+                    <form action="{{ route('courses.courseImage', ['image' => $course->id]) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="text "
+                            class="  focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-yellow-800/100 rounded-md"
+                            value="" name="courseImage" placeholder="image url">
+                    </form>
+                </div>
+
 
             </div>
             <div class="flex  mb-3">
@@ -74,7 +84,7 @@
                         class="w-full">
                         @csrf
                         @method('PUT')
-                        <input type="text text-2xl font-bold text-gray-700 uppercase"
+                        <input type="text"
                             class="w-full shadow-md focus:ring-0 border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
                             value="{{ $course->title }}" name="updateTitle">
                     </form>
@@ -97,24 +107,10 @@
 
         </section>
 
-        <meta property="og:type" content="article">
-        <meta property="og:title" content="{{ $course->title }}" />
-        <meta property="og:description" content="{{ $course->description }}" />
-        <meta property="og:image"
-            content="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW52aXJvbm1lbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" />
-        <meta property="og:url" content="{{ url("/courses/{$course->id}") }}" />
 
-        {{-- <a href="{{ Share::page('https://eureka.vixblock.com.ng')->linkedin()->getRawLinks() }}" class="social-button" id="" title="" rel="" target="_blank"> --}}
-        {{-- <a href="{{ Share::currentPage()->whatsapp()->getRawLinks() }}" class="social-button" id=""
-            title="" rel="" target="_blank">
-            facebook
-        </a> --}}
-        <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->whatsapp()->getRawLinks() }}"
-            class="social-button" id="" title="" rel="" target="_blank">
-            facebook
-        </a>
-        <br>
-       
+
+
+        {{--  --}}
 
         {{-- mmodal --}}
 
@@ -159,26 +155,5 @@
             document.execCommand("copy");
             alert("copied!");
         }
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     // Initialize the flipbook
-
-        //     $("#flipbook").turn({
-        //         width: 400,
-        //         height: 300,
-        //         autoCenter: true
-        //     });
-        // });
-
-
-
-
-        // jQuery(document).ready(function($) {
-        //     // Now you can use the $ symbol as an alias for jQuery
-        //     $('#flipbook').turn();
-        // });
-
-
-        
     </script>
 </x-app-layout>

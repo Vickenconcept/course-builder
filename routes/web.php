@@ -58,26 +58,9 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 Route::get('/share/courses/{course_slug}', [CourseController::class, 'share'])->name('courses.share');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
+Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
 Route::resource('courses', CourseController::class);
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
-// Route::delete('lesson/{id}', function ($id) {
-//     $user = auth()->user();
-//     $course = $user->courses()->whereHas('lessons', function ($query) use ($id) {
-//         $query->where('lessons.id', $id);
-//     })->first();
-
-//     if ($course) {
-//         $lesson = $course->lessons()->find($id);
-
-//         if ($lesson) {
-//             $lesson->delete();
-//             return redirect()->back()->with('success', 'Lesson deleted successfully.');
-//         }
-//     }
-
-//     return redirect()->route('course')->with('error', 'Lesson not found.');
-// })->name('lesson.delete');
-
 
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'restrictUserRole:user'], function () {
