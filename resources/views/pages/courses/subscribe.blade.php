@@ -5,51 +5,15 @@
     @if (session('error'))
         <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
     @endif
-    {{-- <div class=" w-full h-screen flex  items-center justify-center">
-
-        <div class="text-gray-100 bg-gray-800 w-[80%] mx-auto">
-            <div class="w-full py-5">
-                <h1 class="text-center font-semibold text-xl lg:text-4xl capitalize">Subscribe To Grab The Course</h1>
-                <p class="text-center px-20 py-1">Sign up to the newsletter and be the first one to know about new
-                    product or
-                    special offers.</p>
-                <div class="flex justify-center mt-6">
-                    <div class="flex-row">
-                        <div class="bg-white rounded-lg">
-                            <form action="{{ route('subscribe.store') }}" method="post">
-                                @csrf
-                                <div class="flex flex-warp justify-between md:flex-row">
-                                    <input type="text" value="{{ $course->id }}" name="courseId" hidden>
-                                    <input type="email"
-                                        class="m-1 p-3 md:w-[24rem] guestearance-none border-none text-gray-700 text-sm font-medium focus:outline-none focus:border-white focus:rounded focus:placeholder-transparent"
-                                        placeholder="Enter your email" aria-label="Enter your email" name="email">
-                                    <button type="submit"
-                                        class="w-full text-sm m-1 p-2 bg-gray-800 rounded-lg font-semibold lg:w-auto hover:bg-gray-700">
-                                        Subscribe
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        <p class="text-sm ml-1 mt-2 font-light text-gray-300 text-center">Enjoy the move!!</p>
-                    </div>
-                </div>
-                <hr class="h-px mt-6 bg-gray-500 border-none">
-                <div class="flex flex-col items-center justify-between mt-6 md:flex-row">
-
-                </div>
-            </div>
-
-<div></div> --}}
-
-
+   
 
 
 
 
     <div class="grid grid-cols-1 md:grid-cols-3 w-full  md:w-[80%] mx-auto">
-        <div class="col-span-1 bg-gray-50 px-4  text-gray-700 py-10 grid grid-cols-3 gap-2">
-            <div>
-                <img src="{{ asset('images/book-cover.jpg') }}" alt="" class="w-32 ">
+        <div class="col-span-1 bg-gray-50 px-4  text-gray-700 py-10 grid grid-cols-2 gap-2">
+            <div class=" object-cover overflow-hidden border-r-4 border-b-4">
+                <img src="{{ asset($course->course_image) }}" alt="" class="w-full h-full ">
             </div>
             <div>
                 <h1 class="text-xl font-bold mb-3 capitalize">{{ $course->title }}</h1>

@@ -37,7 +37,8 @@
                         @method('PUT')
                         <input type="text "
                             class="  focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-yellow-800/100 rounded-md"
-                            value="" name="courseImage" placeholder="image url">
+                            value="{{ $course->course_image }}" name="courseImage" placeholder="image url" autocomplete="off">
+                            <x-main-button type="submit" class="py-3">update</x-main-button>
                     </form>
                 </div>
 

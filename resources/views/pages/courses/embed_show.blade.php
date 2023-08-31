@@ -4,7 +4,7 @@
         @seo([
             'title' => $course->title,
             'description' => $course->description,
-            'image' => asset('images/Spinner-sm.gif'), // Assuming $course->image_path holds the image URL or path
+            'image' =>  asset($course->course_image) , // Assuming $course->image_path holds the image URL or path
             'type' => 'article', // You can set this to 'article', 'website', 'video', etc. depending on the type of content
             'url' => route('courses.share', ['course_slug' => $course->slug]), // Replace with the actual route for viewing the course
         ])
@@ -12,8 +12,7 @@
         <div id="flipbook" class="">
             <div
                 class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700 shadow-md object-cover overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1553530979-7ee52a2670c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8bmF0dXJhbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60"
-                    alt="image" class="w-full h-full">
+                <img src="{{ asset($course->course_image) }}" alt="image" class="w-full h-full">
             </div>
             <div class="hard  bg-gray-500 rounded-tl-lg rounded-bl-lg shadow-md"></div>
 
@@ -82,26 +81,14 @@
             </div>
         </div>
         <div class="  text-center" id="controls">
-            <button id="previousButton "
+            <button id="previousButton"
                 class="bg-yellow-500 text-white shadow-sm hover:shadow-md rounded-full py-1 px-2 "><i
                     class='bx bx-chevron-left text-2xl'></i></button>
-            <button id="nextButton "
+            <button id="nextButton"
                 class="bg-yellow-500 text-white shadow-sm hover:shadow-md rounded-full py-1 px-2 ronded"><i
                     class='bx bx-chevron-right text-2xl'></i></button>
         </div>
 
-
-
-
-        {{-- <a href="{{ Share::page('https://eureka.vixblock.com.ng')->linkedin()->getRawLinks() }}" class="social-button" id="" title="" rel="" target="_blank"> --}}
-        {{-- <a href="{{ Share::currentPage()->whatsapp()->getRawLinks() }}" class="social-button" id=""
-            title="" rel="" target="_blank">
-            facebook
-        </a> --}}
-        {{-- <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->whatsapp()->getRawLinks() }}"
-            class="social-button" id="" title="" rel="" target="_blank">
-            facebook
-        </a> --}}
         <button
             class="px-5 py-2 rounded-full text-white shadow-sm hover:shadow-md bg-blue-500 hover:bg-blue-600 transition duration-300 "
             @click="openShare = true">
@@ -121,7 +108,7 @@
                             // $socialLinks = Share::page(route('courses.share', ['course_slug' => $course->slug]))
                             //     ->facebook()
                             //     ->getRawLinks();
-                            $socialLinks = Share::page('http://jorenvanhocht.be', 'Share title')
+                            $socialLinks = Share::page(route('courses.share', ['course_slug' => $course->slug]), 'Share title')
                                 ->facebook()
                                 ->twitter()
                                 ->linkedin('Extra linkedin summary can be passed here')
@@ -129,47 +116,24 @@
                                 ->getRawLinks();
                         @endphp
                         <div class="flex justify-around my-5">
-                            {{-- <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->linkedin()->getRawLinks() }}"
-                                class="social-button" id="" title="" rel="" target="_blank">
-                                <img src="{{ asset('images/linkedin.png') }}" alt="" class="w-8 h-8">
-                            </a> --}}
-                            {{-- <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->facebook()->getRawLinks() }}"
-                                class="social-button" id="" title="" rel="" target="_blank">
-                                <img src="{{ asset('images/facebook_media.png') }}" alt="" class="w-8 h-8">
-                            </a> --}}
-
-                            {{-- <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->instagram()->getRawLinks() }}"
-                                class="social-button" id="" title="" rel="" target="_blank">
-                                <img src="{{ asset('images/instagram.png') }}" alt="" class="w-8 h-8">
-                            </a> --}}
-                            {{-- <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->twitter()->getRawLinks() }}"
-                                class="social-button" id="" title="" rel="" target="_blank">
-                                <img src="{{ asset('images/twitter_blue.png') }}" alt="" class="w-8 h-8">
-                            </a> --}}
-
-                            {{-- <a href="{{ Share::page(route('courses.share', ['course_slug' => $course->slug]))->whatsapp()->getRawLinks() }}"
-                                    class="social-button" id="" title="" rel="" target="_blank">
-                                    <img src="{{ asset('images/whatsapp.png') }}" alt="" class="w-8 h-8">
-                                </a> --}}
-                            @foreach ($socialLinks as $link)
-                                <a href="{{ $link }}" class="social-button" id="" title=""
-                                    rel="" target="_blank">
-                                    <img src="{{ asset('images/facebook_media.png') }}" alt="" class="w-8 h-8">
-                                </a>
-                                <a href="{{ $link }}" class="social-button" id="" title=""
-                                    rel="" target="_blank">
-                                    <img src="{{ asset('images/twitter_blue.png') }}" alt="" class="w-8 h-8">
-                                </a>
-                                <a href="{{ $link }}" class="social-button" id="" title=""
-                                    rel="" target="_blank">
-                                    <img src="{{ asset('images/linkedin.png') }}" alt="" class="w-8 h-8">
-                                </a>
-                                <a href="{{ $link }}" class="social-button" id="" title=""
-                                    rel="" target="_blank">
-                                    <img src="{{ asset('images/whatsapp.png') }}" alt="" class="w-8 h-8">
-                                </a>
-
-                                {{-- {{ $link }} --}}
+                                @foreach ($socialLinks as $platform => $link)
+                                @if ($platform == 'facebook')
+                                    <a href="{{ $link }}" class="social-button" id="" title="" rel="" target="_blank">
+                                        <img src="{{ asset('images/facebook_media.png') }}" alt="" class="w-8 h-8">
+                                    </a>
+                                @elseif ($platform == 'twitter')
+                                    <a href="{{ $link }}" class="social-button" id="" title="" rel="" target="_blank">
+                                        <img src="{{ asset('images/twitter_blue.png') }}" alt="" class="w-8 h-8">
+                                    </a>
+                                @elseif ($platform == 'linkedin')
+                                    <a href="{{ $link }}" class="social-button" id="" title="" rel="" target="_blank">
+                                        <img src="{{ asset('images/linkedin.png') }}" alt="" class="w-8 h-8">
+                                    </a>
+                                @elseif ($platform == 'whatsapp')
+                                    <a href="{{ $link }}" class="social-button" id="" title="" rel="" target="_blank">
+                                        <img src="{{ asset('images/whatsapp.png') }}" alt="" class="w-8 h-8">
+                                    </a>
+                                @endif
                             @endforeach
 
 
