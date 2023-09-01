@@ -27,9 +27,11 @@ class Admin
         } elseif ($request->user()->is_admin === 'admin') {
             // Content creator access
             return to_route('course-validation.index');
+            
         } elseif ($request->user()->is_admin === 'user') {
 
             $pendingCourseSlug = $request->session()->get('pending_course_slug');
+            dd($pendingCourseSlug);
 
             if ($pendingCourseSlug) {
                 // Clear the stored course slug from session

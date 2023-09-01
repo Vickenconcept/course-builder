@@ -51,7 +51,7 @@ class AuthController extends Controller
 
         $redirectRoute = session('pending_subscription_route');
         // dd($redirectRoute);
-
+        
         if ($redirectRoute) {
             // Clear the stored subscription route from session
             session()->forget('pending_subscription_route');

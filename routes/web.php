@@ -21,6 +21,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ShareEventController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\userController;
 use App\Http\Livewire\CourseContent;
@@ -63,10 +64,10 @@ Route::resource('courses', CourseController::class);
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
 
 Route::middleware('auth')->group(function () {
-    Route::group(['middleware' => 'restrictUserRole:user'], function () {
+    // Route::group(['middleware' => 'restrictUserRole:user'], function () {
         Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
-    });
-    Route::group(['middleware' => 'restrictUserRole:admin'], function () {
+    // });
+    // Route::group(['middleware' => 'restrictUserRole:admin'], function () {
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
         Route::resource('library', LibraryController::class);
@@ -77,8 +78,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('course-validation', ScoreController::class);
         Route::get('course', Course::class)->name('course');
         Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
-        Route::resource('course-setting', CourseSettingsController::class);
         Route::put('course-setting/{courseId}', [CourseSettingsController::class, 'updateCheckout'])->name('course-setting.updateCheckout');
+        Route::resource('course-setting', CourseSettingsController::class);
         Route::resource('research', ResearchController::class);
         Route::resource('search', SearchController::class);
         Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
@@ -86,13 +87,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
         Route::resource('/setting', SettingController::class);
         Route::resource('/subscribe', SubscribeController::class);
+        Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
         Route::resource('lesson', LessonController::class);
         //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
-    });
+    // });
     
-    Route::group(['middleware' => 'restrictUserRole:user'], function () {
+    // Route::group(['middleware' => 'restrictUserRole:user'], function () {
         Route::resource('/user-dashboard', userController::class);
-    });
+    // });
     Route::controller(PayPalPaymentController::class)->group(function () {
         Route::get('payment', 'payment')->name('payment');
         Route::get('cancel', 'cancel')->name('payment.cancel');

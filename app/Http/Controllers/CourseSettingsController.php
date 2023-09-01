@@ -67,14 +67,15 @@ class CourseSettingsController extends Controller
         $course = $user->courses()->findorfail($id);
         $freeLessonCount = $course->courseSettings->free_lessons_count;
 
-        $lists = $this->mailChimpService
-            ->getAllLists($user
-                ->setting->mailchimp_api_key, $user
-                ->setting->mailchimp_prefix_key);
-                
-                // dd($lists->lists[0]->id);
-
-        return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course','lists'));
+        if ($user->setting && $user->setting->mailchimp_api_key && $user->setting->mailchimp_prefix_key) {
+            $lists = $this->mailChimpService
+                ->getAllLists($user
+                    ->setting->mailchimp_api_key, $user
+                    ->setting->mailchimp_prefix_key);
+            return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists'));
+        } else {
+            return back()->with('success', 'Mailchimp API key is not configured.');
+        }
     }
 
     public function saveSetting(Request $request, $courseId)
@@ -119,7 +120,6 @@ class CourseSettingsController extends Controller
 
     public function updateCheckout(Request $request, $courseId)
     {
-
         $user = auth()->user();
 
         $course = $user->courses()->find($courseId);

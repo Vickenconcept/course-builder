@@ -27,6 +27,7 @@ class RestrictUserRole
                 case 'admin':
                     return redirect()->route('course-validation.index'); // Redirect admins to the course validation index
                     case 'user':
+                        
                         return redirect()->route('user-dashboard.index') ;// Redirect users to the course share page
                         default:
                 return abort(403); // For any other role, return a 403 Forbidden error

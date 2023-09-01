@@ -51,6 +51,7 @@
                                                 <option disabled selected>Checkout Mode</option>
                                                 <option value="email">Email</option>
                                                 <option value="payment" >Payment</option>
+                                                <option value="share" >Social share</option>
                                             </select>
                                             <div
                                                 class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">

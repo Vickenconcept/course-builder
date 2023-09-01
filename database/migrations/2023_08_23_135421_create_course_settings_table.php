@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('course_id');
             $table->integer('free_lessons_count')->default(0);
-            $table->enum('checkout_option', ['email', 'payment'])->default('payment');
+            $table->enum('checkout_option', ['email', 'payment','share'])->default('payment');
             $table->timestamps();
         });
     }

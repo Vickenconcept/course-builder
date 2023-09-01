@@ -1,10 +1,24 @@
-<div wire:poll.visible="updateDatabase" wire:poll.10s class="bg-white">
+<div wire:poll.visible="updateDatabase" wire:poll.10s class="bg-white" x-data="{ ignore: true }">
 
 
-    <div wire:ignore>
+    {{-- <div wire:ignore>
         <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content" wire:model="content">{{ $content }}</textarea>
-    </div>
-    <p id="para"></p>
+    </div> --}}
+    @if ($shouldIgnore)
+    <p>ignore this</p>
+    @dump($shouldIgnore)
+        <div wire:ignore>
+            <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content" wire:model="content">{{ $content }}</textarea>
+        </div>
+    @else
+        <div >
+            @dump($shouldIgnore)
+            <p>this is to be left</p>
+            <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content"
+                wire:model="content">{{ $content }}</textarea>
+        </div>
+    @endif
+    <button wire:click="toggleIgnore">Toggle Ignore</button>
 
 
 
@@ -21,13 +35,13 @@
             }
         });
 
-        Livewire.on('addToTextarea', (generatedResponse, lessonId) => {
-            // console.log('Event received with generated response:', generatedResponse);
-            // console.log('Lesson ID:', lessonId);
-            const textarea = document.getElementById('content-' + lessonId)
-            console.log(textarea.value);
-            @this.set('content', generatedResponse);
-        });
+        // Livewire.on('addToTextarea', (generatedResponse, lessonId) => {
+        //     // console.log('Event received with generated response:', generatedResponse);
+        //     // console.log('Lesson ID:', lessonId);
+        //     const textarea = document.getElementById('content-' + lessonId)
+        //     console.log(textarea.value);
+        //     @this.set('content', generatedResponse);
+        // });
 
         // Livewire.on('addToTextarea', (generatedResponse, lessonId) => {
         //     console.log('Event received with generated response:', generatedResponse);

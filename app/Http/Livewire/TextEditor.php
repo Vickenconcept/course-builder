@@ -12,6 +12,7 @@ class TextEditor extends Component
     public $action1 ="write an intro summary for this module based on this title";
     public $action2 ="Generate key ideas (below) for this module";
     protected $listeners = ['addToTextarea'];
+    public $shouldIgnore  = false;
 
 
    
@@ -44,12 +45,16 @@ class TextEditor extends Component
     
     public function addToTextarea( $data, $lessonId)
     { 
-        // dd($lessonId);
-        // if ($this->lesson->id == $lessonId) {
-        //     $this->content .= $data;
-        // }
+        if ($this->lesson->id == $lessonId) {
+            $this->content .= $data;
+        }
         
     }
+    public function toggleIgnore()
+{
+    $this->shouldIgnore = !$this->shouldIgnore;
+}
+
   
 
     public function render()

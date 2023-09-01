@@ -89,14 +89,14 @@
                     class='bx bx-chevron-right text-2xl'></i></button>
         </div>
 
-        <button
+        {{-- <button
             class="px-5 py-2 rounded-full text-white shadow-sm hover:shadow-md bg-blue-500 hover:bg-blue-600 transition duration-300 "
             @click="openShare = true">
             Share
-        </button>
+        </button> --}}
 
 
-        <div x-show="openShare"
+        {{-- <div x-show="openShare"
             class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 "
             style="display: none">
             <div class="flex items-center justify-center min-h-screen px-10">
@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 
