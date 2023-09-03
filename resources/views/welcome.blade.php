@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-    <link rel="stylesheet" href="{{ asset('build/assets/app-361e2763.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-98741b03.css') }}">
-
-    
-</head>
-
-<body class="antialiased  " x-data="{ openNav: false}" >
+<x-guest-layout>
+    @seo([
+        'title' => 'Course Dynamo',
+        'description' => 'A comprehensive app for Ai course generator',
+        'image' => 'https://media.istockphoto.com/id/1452604857/photo/businessman-touching-the-brain-working-of-artificial-intelligence-automation-predictive.jpg?s=612x612&w=0&k=20&c=GkAOxzduJbUKpS2-LX_l6jSKtyhdKlnPMo2ito4xpR4=',
+        'type' => 'article', // You can set this to 'article', 'website', 'video', etc. depending on the type of content
+        'url' => '', // Replace with the actual route for viewing the course
+        'site_name' => config('app.name'),
+        'favicon' => asset('images/book-cover.jpg'),
+    ])
+<div class="antialiased  " x-data="{ openNav: false}" >
     <div class="bg-white bg-cover bg-no-repeat h-screen " style="background-image:url('https://media.istockphoto.com/id/1452604857/photo/businessman-touching-the-brain-working-of-artificial-intelligence-automation-predictive.jpg?s=612x612&w=0&k=20&c=GkAOxzduJbUKpS2-LX_l6jSKtyhdKlnPMo2ito4xpR4=')">
         <header class="absolute inset-x-0 top-0 z-50">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -92,16 +84,17 @@
                     </div>
                 </div>
             </header>
+            <p id="flipbook"></p>
             
             <div class="relative  px-6 pt-0 lg:px-8 h-screen  bg-gray-900 bg-opacity-75">
                 <div class="mx-auto max-w-2xl py-32 sm:py-0 lg:py-0">
-                    <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-                        <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-white ring-1 ring-white hover:ring-gray-900/20">
+                    <div class="hidden sm:mb-8 sm:flex sm:justify-center ">
+                        {{-- <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-white ring-1 ring-white hover:ring-gray-900/20">
                             Announcing our next round of funding. <a href="#" class="font-semibold text-white"><span class="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
-                        </div>
+                        </div> --}}
                     </div>
-                    <div class="text-center">
-                        <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">Unlock Limitless Course Content with AI-Powered Learning</h1>
+                    <div class="text-center mt-20">
+                        <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl mt-20 py-10">Unlock Limitless Course Content with AI-Powered Learning</h1>
                         <p class="mt-6 text-lg leading-8 text-gray-100">Discover a revolutionary app that harnesses the power of artificial intelligence to generate engaging course content instantly</p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
                             <a href="{{ route('register') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
@@ -113,6 +106,7 @@
         </div>
         
         <script src="{{ asset('build/assets/app-dd6eec69.js') }}"></script>
-    </body>
+    </div>
     
-    </html>
+</x-guest-layout>
+   

@@ -15,7 +15,11 @@ class RestrictUserRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->is_admin === 'admin') {
+        if ($request->user()->is_admin === 'super_admin') {
+            // Admin access
+            return $next($request);
+        } elseif ($request->user()->is_admin === 'admin') {
+       
             // Admin access
             return $next($request);
         } elseif ($request->user()->is_admin === 'user') {
