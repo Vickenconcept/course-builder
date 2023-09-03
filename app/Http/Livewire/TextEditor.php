@@ -46,7 +46,7 @@ class TextEditor extends Component
     public function addToTextarea( $data, $lessonId)
     { 
         if ($this->lesson->id == $lessonId) {
-            $this->content .= $data;
+            // $this->content .= $data;
         }
         
     }

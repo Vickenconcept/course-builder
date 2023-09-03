@@ -23,9 +23,9 @@ class ShareEventController extends Controller
             $course->user()->sync([$user->id], false);
             
             // return redirect()->route('courses.share', ['course_slug' => $courseSlug])->with('success', 'Access granted to the course.');
-            Log::info('got here oooo');
-            return redirect()->route('courses.share', ['course_slug' => $course->slug]);
-            Log::info('Share event received for platform: ' . $platform);
+            // Log::info('got here oooo');
+            // return redirect()->route('courses.share', ['course_slug' => $course->slug]);
+            // Log::info('Share event received for platform: ' . $platform);
         } else {
             return response('Course not found', 404);
         }

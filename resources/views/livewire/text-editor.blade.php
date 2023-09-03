@@ -1,39 +1,66 @@
 <div wire:poll.visible="updateDatabase" wire:poll.10s class="bg-white" x-data="{ ignore: true }">
 
+    {{-- {{ $content }} --}}
 
-    {{-- <div wire:ignore>
+    <div wire:ignore>
         <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content" wire:model="content">{{ $content }}</textarea>
+    </div>
+    {{-- <div wire:ignore>
+        <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content" wire:model="content"></textarea>
     </div> --}}
-    @if ($shouldIgnore)
-    <p>ignore this</p>
-    @dump($shouldIgnore)
-        <div wire:ignore>
-            <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content" wire:model="content">{{ $content }}</textarea>
-        </div>
-    @else
-        <div >
-            @dump($shouldIgnore)
-            <p>this is to be left</p>
-            <textarea id="content-{{ $lesson->id }}" name="content" class="w-full" rows="10" input="content"
-                wire:model="content">{{ $content }}</textarea>
-        </div>
-    @endif
-    <button wire:click="toggleIgnore">Toggle Ignore</button>
+
 
 
 
     <script>
-        $('#content-{{ $lesson->id }}').summernote({
-            height: 300, // set editor height
-            minHeight: null, // set minimum height of editor
-            maxHeight: null, // set maximum height of editor
-            focus: true, // set focus to editable area after initializing summernote
-            callbacks: {
-                onChange: function(contents, $editable) {
-                    @this.set('content', contents);
-                },
-            }
-        });
+        // jQuery(document).ready(function() {
+        //     // Your Summernote initialization code here
+        //     $('#content-{{ $lesson->id }}').summernote({
+        //         height: 300,
+        //         minHeight: null,
+        //         maxHeight: null,
+        //         focus: true,
+        //         callbacks: {
+        //             onChange: function(contents, $editable) {
+        //                 @this.set('content', contents);
+        //             },
+        //         }
+        //     });
+        // });
+
+        jQuery.noConflict();
+        (function($) {
+            // Your jQuery code here
+            jQuery(document).ready(function() {
+                // Your Summernote initialization code here
+                $('#content-{{ $lesson->id }}').summernote({
+                    height: 300,
+                    minHeight: null,
+                    maxHeight: null,
+                    focus: true,
+                    callbacks: {
+                        onChange: function(contents, $editable) {
+                            @this.set('content', contents);
+                        },
+                    }
+                });
+
+
+            });
+
+
+            document.addEventListener("livewire:load", function() {
+                window.livewire.on('addToTextarea', function(data, lessonId) {
+                    // Get the Summernote editor instance using the lessonId
+                    var summernote = $('#content-' + lessonId);
+                    // Set the received data as the Summernote editor's content
+                    summernote.summernote('code', data);
+                });
+            });
+        })(jQuery);
+
+
+
 
         // Livewire.on('addToTextarea', (generatedResponse, lessonId) => {
         //     // console.log('Event received with generated response:', generatedResponse);

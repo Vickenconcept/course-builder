@@ -39,7 +39,7 @@
                                         your password</button>
                                 </div> --}}
                                 <div class='w-full md:w-full px-3 mb-6'>
-                                    <form action="{{ route('course-setting.updateCheckout', ['courseId' => $course]) }}" method="POST">
+                                    <form action="{{ route('course.checkout', ['courseId' => $course]) }}" method="POST">
                                         @method('PUT')
                                         @csrf
                                         <label
@@ -128,6 +128,7 @@
                                                 class='  bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                                 type='number' value="{{ $freeLessonCount }}" required
                                                 name="free_lessons_count">
+                                                <x-main-button type="submit">submit</x-main-button>
                                         </div>
                                     </form>
                                     <div class='w-full md:w-1/2 px-3 mb-6'>

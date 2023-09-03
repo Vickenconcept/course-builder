@@ -18,12 +18,6 @@
         <section class="mt-20 w-full md:w-[70%] mx-auto">
             <div class="flex justify-between py-3">
                 <div>
-                    <a href="{{ route('courses.edit', ['course' => $course->id]) }}">
-                        <button
-                            class=" hover:bg-yellow-100 transition duration-300 py-2 px-5 border border-yellow-800/100 rounded-md text-xs">
-                            <i class='bx bx-eyes mr-2 '></i> Module view
-                        </button>
-                    </a>
                     <a href="{{ route('courses.show', ['course' => $course->slug]) }}" target="_blank">
                         <button
                             class=" hover:bg-yellow-100 transition duration-300 py-2 px-5 border border-yellow-800/100 rounded-md text-xs">
@@ -65,16 +59,16 @@
                     <button onclick="toCopy(document.getElementById('formContent'))">
                         <i class='bx bx-copy pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
-                    <button>
+                    {{-- <button>
                         <i class='bx bxs-file-export pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
                     <button>
                         <i class='bx bxs-file-doc pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
-                    </button>
+                    </button> --}}
                     <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank"><i
                             class='bx bx-cog text-xl hover:text-gray-500 transition duration-300'></i></a>
                     <button @click="openShare = true">
-                        <i class='bx bxs-share text-xl hover:text-gray-500 transition duration-300'></i>
+                        <i class='bx bxs-share-alt text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
                 </div>
             </div>

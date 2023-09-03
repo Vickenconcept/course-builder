@@ -13,13 +13,13 @@ class CourseSettingsController extends Controller
      * Display a listing of the resource.
      */
 
-     public $mailChimpService;
+    public $mailChimpService;
 
-     public function __construct(MailChimpService $mailChimpService)
-     {
-         $this->mailChimpService = $mailChimpService;
-     }
-     
+    public function __construct(MailChimpService $mailChimpService)
+    {
+        $this->mailChimpService = $mailChimpService;
+    }
+
     public function index()
     {
         return view('pages.courses.settings');
@@ -44,15 +44,6 @@ class CourseSettingsController extends Controller
         ]);
 
         $user = auth()->user();
-
-
-        // $course = $user->courses();
-
-        // $user->courses()->first()->courseSettings()->create($validatedData);
-        // $user->courses->courseSettings()->updateOrCreate([], $validatedData);
-        // foreach ($user->courses as $course) {
-        //     $course->courseSettings()->updateOrCreate([], $validatedData);
-        // }
 
         return back()->with('success', 'updated successfully');
     }
@@ -81,13 +72,28 @@ class CourseSettingsController extends Controller
     public function saveSetting(Request $request, $courseId)
     {
         $list_id = $request->input('list_id');
-        
+
         $user = auth()->user();
         $course = $user->courses()->where('courses.id', $courseId)->update(['list_id' => $list_id]);
         return redirect()->back()->with('success', 'List Updated');
-
-
     }
+    
+    public function checkout(Request $request, $courseId)
+    {
+        $user = auth()->user();
+
+        $course = $user->courses()->find($courseId);
+
+        if ($course) {
+            $course->courseSettings->checkout_option = $request->input('checkout_option');
+            $course->courseSettings->update();
+
+            return redirect()->back()->with('success', ' updated successfully');
+        } else {
+            return redirect()->route('courses.index')->with('error', 'Course not found');
+        }
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -110,7 +116,7 @@ class CourseSettingsController extends Controller
         ]);
 
         $user = auth()->user();
-        $course = $user->courses()->findOrFail($courseId); 
+        $course = $user->courses()->findOrFail($courseId);
 
         $course->courseSettings()->update([
             'free_lessons_count' => $num,
@@ -118,21 +124,6 @@ class CourseSettingsController extends Controller
         return back()->with('success', 'updated successfully');
     }
 
-    public function updateCheckout(Request $request, $courseId)
-    {
-        $user = auth()->user();
-
-        $course = $user->courses()->find($courseId);
-
-        if ($course) {
-            $course->courseSettings->checkout_option = $request->input('checkout_option');
-            $course->courseSettings->update();
-
-            return redirect()->back()->with('success', ' updated successfully');
-        } else {
-            return redirect()->route('courses.index')->with('error', 'Course not found');
-        }
-    }
 
     /**
      * Remove the specified resource from storage.

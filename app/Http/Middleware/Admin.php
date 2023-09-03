@@ -31,7 +31,7 @@ class Admin
         } elseif ($request->user()->is_admin === 'user') {
 
             $pendingCourseSlug = $request->session()->get('pending_course_slug');
-            dd($pendingCourseSlug);
+            // dd($pendingCourseSlug);
 
             if ($pendingCourseSlug) {
                 // Clear the stored course slug from session

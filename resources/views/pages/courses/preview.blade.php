@@ -6,10 +6,13 @@
             </button>
         </div>
         <div id="flipbook" class="">
-            <div
-                class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700 shadow-md object-cover overflow-hidden">
+            {{-- <div
+                class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700 shadow-md object-cover ">
                 <img src="{{ asset($course->course_image) }}"
-                    alt="image" class="w-full h-full">
+                    alt="image" class="w-full object-cover">
+            </div> --}}
+            <div class="hard front-cover bg-gray-300 rounded-tr-lg rounded-br-lg text-gray-700 text-center border border-gray-700 shadow-md">
+                <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset($course->course_image) }}');"></div>
             </div>
             <div class="hard  bg-gray-500 rounded-tl-lg rounded-bl-lg shadow-md"></div>
 

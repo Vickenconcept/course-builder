@@ -5,13 +5,14 @@
     <x-seo::meta />
 
     @seo([
-    'title' => 'Course Dynamo',
-    'description' => 'A comprehensive app for Ai course generator',
-    'image' => asset('images/book-cover.jpg'),
-    'type' => 'article', // You can set this to 'article', 'website', 'video', etc. depending on the type of content
-    'url' => '', // Replace with the actual route for viewing the course
-    'site_name' => config('app.name'),
-])
+        'title' => 'Course Dynamo',
+        'description' => 'A comprehensive app for Ai course generator',
+        'image' => asset('images/book-cover.jpg'),
+        'type' => 'article', // You can set this to 'article', 'website', 'video', etc. depending on the type of content
+        'url' => '', // Replace with the actual route for viewing the course
+        'site_name' => config('app.name'),
+        'favicon' => asset('images/book-cover.jpg'),
+    ])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -27,19 +28,20 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
-    <title>without bootstrap</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-
+    
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-4475b13f.css  ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-98741b03.css ') }}">
 
     @yield('styles')
 
@@ -51,7 +53,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-50">
-        <x-pre-loader />
+        {{-- <x-pre-loader /> --}}
         <x-header />
         <x-sidebar />
 
@@ -61,10 +63,13 @@
             </main>
         </div>
 
+       
 
 
 
         <script>
+            
+           
 
             const sidebar = document.querySelector("aside");
             const maxSidebar = document.querySelector(".max")
@@ -118,24 +123,19 @@
 
                 }
             }
+
+            
         </script>
 
-        {{-- @livewireScripts --}}
-        {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
-        {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script> --}}
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
-
         <script src="{{ asset('js/share.js') }}"></script>
-        {{-- <script src="{{ asset('js/turnjs4/lib/hash.js') }}"></script> --}}
-        
+        <script src="{{ asset('build/assets//app-dd6eec69.js') }}" defer></script>
 
-        <script src="{{ asset('build/assets//app-dd6eec69.js') }}"></script>
-        @stack('script')
+    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
+
 
 </body>
 

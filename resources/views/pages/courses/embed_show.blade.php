@@ -4,15 +4,18 @@
         @seo([
             'title' => $course->title,
             'description' => $course->description,
-            'image' =>  asset($course->course_image) , // Assuming $course->image_path holds the image URL or path
-            'type' => 'article', // You can set this to 'article', 'website', 'video', etc. depending on the type of content
-            'url' => route('courses.share', ['course_slug' => $course->slug]), // Replace with the actual route for viewing the course
+            'image' =>  asset($course->course_image) , 
+            'type' => 'article', 
+            'url' => route('courses.share', ['course_slug' => $course->slug]), 
         ])
 
         <div id="flipbook" class="">
-            <div
-                class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700 shadow-md object-cover overflow-hidden">
-                <img src="{{ asset($course->course_image) }}" alt="image" class="w-full h-full">
+            {{-- <div
+                class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700 shadow-md  object-cover">
+                <img src="{{ asset($course->course_image) }}" alt="image" class="w-full object-cover">
+            </div> --}}
+            <div class="hard front-cover bg-gray-300 rounded-tr-lg rounded-br-lg text-gray-700 text-center border border-gray-700 shadow-md">
+                <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset($course->course_image) }}');"></div>
             </div>
             <div class="hard  bg-gray-500 rounded-tl-lg rounded-bl-lg shadow-md"></div>
 

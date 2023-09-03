@@ -13,24 +13,14 @@ class RestrictUserRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next)
     {
-        $userRole = $request->user()->is_admin;
-        
-        if ($userRole === $role) {
+        if ($request->user()->is_admin === 'admin') {
+            // Admin access
             return $next($request);
-        }
-        
-        switch ($userRole) {
-            case 'super_admin':
-                return $next($request);
-                case 'admin':
-                    return redirect()->route('course-validation.index'); // Redirect admins to the course validation index
-                    case 'user':
-                        
-                        return redirect()->route('user-dashboard.index') ;// Redirect users to the course share page
-                        default:
-                return abort(403); // For any other role, return a 403 Forbidden error
+        } elseif ($request->user()->is_admin === 'user') {
+            return redirect()->route('user-dashboard.index'); // Or any other default page
+
         }
     }
 }

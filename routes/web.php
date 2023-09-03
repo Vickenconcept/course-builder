@@ -65,10 +65,12 @@ Route::resource('courses', CourseController::class);
 
 Route::middleware('auth')->group(function () {
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
-        Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
     // });
     // Route::group(['middleware' => 'restrictUserRole:admin'], function () {
-        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::resource('/subscribe', SubscribeController::class);
+    Route::group(['middleware' => 'restrictUserRole'], function () {
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('restrictUserRole');
         Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
         Route::resource('library', LibraryController::class);
         Route::view('index', 'user.content-planner');
@@ -77,8 +79,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('books', BookController::class);
         Route::resource('course-validation', ScoreController::class);
         Route::get('course', Course::class)->name('course');
+        Route::put('course/{courseId}', [CourseSettingsController::class, 'checkout'])->name('course.checkout');
         Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
-        Route::put('course-setting/{courseId}', [CourseSettingsController::class, 'updateCheckout'])->name('course-setting.updateCheckout');
         Route::resource('course-setting', CourseSettingsController::class);
         Route::resource('research', ResearchController::class);
         Route::resource('search', SearchController::class);
@@ -86,21 +88,20 @@ Route::middleware('auth')->group(function () {
         Route::resource('content-planner', ContentPlannerController::class);
         Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
         Route::resource('/setting', SettingController::class);
-        Route::resource('/subscribe', SubscribeController::class);
+
         Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
         Route::resource('lesson', LessonController::class);
-        //     Route::get('export/{contentType}', ContentExportController::class)->name('export');
-    // });
-    
+        // Route::get('export/{contentType}', ContentExportController::class)->name('export');
+    });
+
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
-        Route::resource('/user-dashboard', userController::class);
+    Route::resource('/user-dashboard', userController::class);
     // });
     Route::controller(PayPalPaymentController::class)->group(function () {
         Route::get('payment', 'payment')->name('payment');
         Route::get('cancel', 'cancel')->name('payment.cancel');
         Route::get('payment/success', 'success')->name('payment.success');
     });
-
 });
 
 Route::get('test', function () {

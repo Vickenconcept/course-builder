@@ -12,9 +12,47 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-4475b13f.css  ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-98741b03.css ') }}">
 </head>
 <body>
+   
+        <header class=" w-full z-30 flex bg-white  p-2 items-center justify-center h-16 pl-10 pr-5 shadow">
+            <!-- SPACER -->
+            <div class="grow h-full flex items-center justify-center"></div>
+            <div class="flex-none h-full text-center flex items-center justify-center">
+        
+                <div class="flex space-x-3 items-center px-3 ">
+                    <div class="hidden sm:flex">
+                        <x-dropdown>
+                            <x-slot name="trigger">
+                                <i class='bx bx-user px-3 py-3 text-xl cursor-pointer'></i>
+                            </x-slot>
+        
+                            <x-slot name="content">
+                                <div class="p-3 text-blue-700"></div>
+                                @if (Auth::user())
+                                <form method="POST" action="{{ route('auth.logout') }}">
+                                    @csrf
+                                    <x-dropdown-link href="javascript:void(0)" onclick="this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                                @else
+                                <x-dropdown-link :href="route('register')">
+                                    {{ __('Register') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('login')">
+                                    {{ __('Login') }}
+                                </x-dropdown-link>
+                                @endif
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
+        
+                </div>
+            </div>
+        </header>
+
     <div class=" p-2 md:px-10">
         <div class=" w-full  flex justify-center items-center text-blue-900">
             <h1 class="font-bold text-2xl">My Courses</h1>

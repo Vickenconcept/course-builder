@@ -22,7 +22,7 @@
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-4475b13f.css  ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-98741b03.css ') }}">
 
 
 </head>

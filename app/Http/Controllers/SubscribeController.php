@@ -71,7 +71,8 @@ class SubscribeController extends Controller
                 $course->user()->attach($user->id);
             }
         } else {
-            response('course not found');
+            
+           return  response('course not found');
         }
     }
 
