@@ -6,7 +6,7 @@
             'description' => $course->description,
             'image' =>  asset($course->course_image) , 
             'type' => 'article', 
-            'url' => route('courses.share', ['course_slug' => $course->slug]), 
+            'url' => route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]), 
         ])
 
         <div id="flipbook" class="">
@@ -35,7 +35,17 @@
                     @endforeach
                 </ol>
             </section>
-            @if ($isSubscribed)
+            @if ($isSubscribed )
+                @foreach ($course->lessons as $lesson)
+                    <section class=" py-2 bg-white px-5 transition duration-700">
+                        <h3 class="font-semibold capitalize py-2 text-sm">{{ $loop->iteration }}.
+                            {{ $lesson->title }}
+                        </h3>
+                        <p class="text-xs">{!! $lesson->content !!}</p>
+                    </section>
+                @endforeach
+            @elseif ($course->courseSettings->checkout_option === 'share' && $hasIpAddressAccess)
+            this is the share page
                 @foreach ($course->lessons as $lesson)
                     <section class=" py-2 bg-white px-5 transition duration-700">
                         <h3 class="font-semibold capitalize py-2 text-sm">{{ $loop->iteration }}.
@@ -108,10 +118,10 @@
                     <div class="p-5">
                         <h1 class="text-gray-700 ">Share link to have access</h1>
                         @php
-                            // $socialLinks = Share::page(route('courses.share', ['course_slug' => $course->slug]))
+                            // $socialLinks = Share::page(route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]))
                             //     ->facebook()
                             //     ->getRawLinks();
-                            $socialLinks = Share::page(route('courses.share', ['course_slug' => $course->slug]), 'Share title')
+                            $socialLinks = Share::page(route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]), 'Share title')
                                 ->facebook()
                                 ->twitter()
                                 ->linkedin('Extra linkedin summary can be passed here')

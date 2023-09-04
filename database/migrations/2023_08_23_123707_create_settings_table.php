@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->text('mailchimp_api_key');
-            $table->text('mailchimp_prefix_key');
+            $table->text('mailchimp_api_key')->nullable();
+            $table->text('mailchimp_prefix_key')->nullable();
+            $table->text('paypal_api_username')->nullable();
+            $table->text('paypal_api_password')->nullable();
+            $table->text('paypal_api_secret')->nullable();
             $table->timestamps();
         });
     }

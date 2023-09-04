@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,6 +16,8 @@ class Authenticate extends Middleware
     protected function redirectTo(Request $request): ?string
     {
         // return $request->expectsJson() ? null : route('login');
+      
+
         if ($request->expectsJson()) {
             return null;
         }
@@ -23,11 +26,6 @@ class Authenticate extends Middleware
             // store the session
             session()->put('pending_subscription_route', $request->fullUrl());
         }
-        // $currentRoute = Route::currentRouteName();
-        // dd($currentRoute);
-
-        // $redirectRoute = session('pending_subscription_route');
-        // dd($redirectRoute);
 
         return route('login');
     }

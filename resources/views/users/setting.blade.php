@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-notification />
-    <div class="grid  grid-cols-1 md:grid-cols-3 gap-5 px-5" x-data="{ openMailChimp: false }">
+    <div class="grid  grid-cols-1 md:grid-cols-3 gap-5 px-5" x-data="{ openMailChimp: false, paypal: false }">
         <div class="col-span-1 grid gap-5">
             <!-- component -->
             <div class="bg-gray-200 min-h-screen pt-2 font-mono mb-16">
@@ -45,11 +45,12 @@
                                             class='bx bxs-envelope mr-1'></i>ESP </button>
                                     <div x-show="isOpen" class="p-4 w-full">
                                         <ul class="list-none p-0 text-gray-700 w-full">
-                                            <a href="#" class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3" class=""
-                                                    @click="openMailChimp = !openMailChimp"><i
-                                                        class='bx bx-envelope mr-1'></i>MailChimp</a>
-                                            <a href="#" class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"><i
-                                                        class='bx bx-envelope mr-1'></i>About</a>
+                                            <a href="#"
+                                                class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"
+                                                class="" @click="openMailChimp = !openMailChimp"><i class='bx bxl-mailchimp text-xl'></i>MailChimp</a>
+                                            <a href="#"
+                                                class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"
+                                                @click="paypal = !paypal"><i class='bx bxl-paypal text-xl'></i>Paypal</a>
                                         </ul>
                                     </div>
                                 </div>
@@ -94,7 +95,8 @@
                         <h2 class="text-2xl text-gray-900">Account Setting</h2>
                         <div class="mt-6 border-t border-gray-400 pt-4">
                             {{--  --}}
-                            <div x-show="openMailChimp">
+                            <div x-show="openMailChimp" class="mb-6">
+                                <h1 class="text-2xl text-gray-900 my-4">Mailchimp Credentials</h1>
                                 <form action="{{ route('setting.store') }}" method="POST">
                                     @csrf
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -119,12 +121,15 @@
                                                 value="{{ auth()->user()->setting->mailchimp_prefix_key ?? '' }}">
                                         </div>
                                     </div>
-                                    <button type="submit">submit</button>
+                                    <x-main-button type="submit">submit</x-main-button>
 
                                 </form>
                             </div>
                             {{--  --}}
-                            <div class='flex flex-wrap -mx-3 mb-6'>
+
+
+
+                            <div class='flex flex-wrap -mx-3 my-6  border-t border-b border-gray-400'>
                                 {{-- <div class='w-full md:w-full px-3 mb-6'>
                                     <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
                                         for='grid-text-1'>email address</label>
@@ -184,7 +189,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="personal w-full pt-4">
+                                <div class="personal w-full pt-4 ">
                                     <h2 class="text-2xl text-gray-900">Personal info:</h2>
                                     <div class="flex items-center justify-between mt-4">
                                         <div class='w-full md:w-1/2 px-3 mb-6'>
@@ -225,6 +230,50 @@
                                     </div> --}}
                                 </div>
                             </div>
+
+                            {{--  --}}
+                            <div x-show="paypal" class="mt-5">
+                                <h1 class="text-2xl text-gray-900 my-4">Paypal credentials </h1>
+                                <form action="{{ route('setting.paypalData') }}" method="POST">
+                                    {{-- @method('PUT') --}}
+                                    @csrf
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                        <div class='w-full md:w-full inline  mb-6'>
+                                            <label
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                                                for='grid-text-1'>API_USERNAME</label>
+                                            <input
+                                                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                id='grid-text-1' type='text' placeholder='Enter API username'
+                                                name="paypal_api_username"
+                                                value="{{ auth()->user()->setting->paypal_api_username ?? '' }}">
+                                        </div>
+                                        <div class='w-full md:w-full inline px-3 mb-6'>
+                                            <label
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                                                for='grid-text-1'>API_PASSWORD</label>
+                                            <input
+                                                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                id='grid-text-1' type='text' placeholder='Enter password'
+                                                name="paypal_api_password"
+                                                value="{{ auth()->user()->setting->paypal_api_password ?? '' }}">
+                                        </div>
+                                        <div class='w-full md:w-full inline px-3 mb-6'>
+                                            <label
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                                                for='grid-text-1'>API_SECRET</label>
+                                            <input
+                                                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                id='grid-text-1' type='text' placeholder='Enter secret'
+                                                name="paypal_api_secret"
+                                                value="{{ auth()->user()->setting->paypal_api_secret ?? '' }}">
+                                        </div>
+                                    </div>
+                                    <x-main-button type="submit">submit</x-main-button>
+
+                                </form> 
+                            </div>
+                            {{--  --}}
                         </div>
                     </div>
                 </div>

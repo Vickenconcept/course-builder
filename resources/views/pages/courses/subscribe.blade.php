@@ -5,7 +5,7 @@
         'description' => $course->description,
         'image' => asset($course->course_image),
         'type' => 'article',
-        'url' => route('courses.share', ['course_slug' => $course->slug]),
+        'url' => route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]),
     ])
     @if (session('message'))
         <div class="alert alert-success" role="alert">{{ session('message') }}</div>
@@ -19,9 +19,9 @@
 
 
     <div class="grid grid-cols-1 md:grid-cols-3 w-full  md:w-[80%] mx-auto">
-        <div class="col-span-1 bg-gray-50 px-4  text-gray-700 py-10 grid grid-cols-2 gap-2">
-            <div class=" object-cover overflow-hidden border-r-4 border-b-4">
-                <img src="{{ asset($course->course_image) }}" alt="" class="w-full h-full ">
+        <div class="col-span-1 bg-gray-50 px-10  text-gray-700 py-10 grid grid-cols-2 gap-2">
+            <div class=" object-cover overflow-hidden border-r-4 border-b-4 h-40">
+                <img src="{{ asset($course->course_image) }}" alt="" class="w-full  h-full">
             </div>
             <div>
                 <h1 class="text-xl font-bold mb-3 capitalize">{{ $course->title }}</h1>
@@ -39,7 +39,7 @@
         <div class="col-span-2">
             {{-- <div class="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32"> --}}
 
-            <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+            <div class="mt-10 bg-gray-50 px-0 pt-8 lg:mt-0 px-10">
                 <p class="text-xl font-medium">Subscribe To Grab The Course</p>
                 <p class="text-gray-400">Enjoy the move!!</p>
                 <div class="">
@@ -51,17 +51,12 @@
                                 <div class="relative">
                                     <input type="text" value="{{ $course->id }}" name="courseId" hidden>
                                     <input type="text" value="{{ $list_id }}" name="list_id" hidden>
+                                    <input type="text" id="name" name="name"
+                                        class="w-full rounded-md border border-gray-200 px-0 py-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                        placeholder="smith" name="name" />
                                     <input type="text" id="email" name="email"
-                                        class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                        class="w-full rounded-md border border-gray-200 px-0 py-3 mt-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                         placeholder="your.email@gmail.com" name="email" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                                        </svg>
-                                    </div>
                                 </div>
                                 <button
                                     class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Subscribe</button>
@@ -71,19 +66,36 @@
                         <div class="flex-center position-ref full-height">
 
                             <div class="content">
-
+                                <form action="{{ route('subscribe.paymentData') }}" method="post">
+                                    @csrf
+                                    <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                                    <div class="relative">
+                                        <input type="text" id="name" name="name"
+                                            class="w-full rounded-md border border-gray-200 px-0 py-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                            placeholder="smith" name="name" value="{{ auth()->check() ? auth()->user()->name : '' }}" />
+                                        <input type="text" id="email" name="email"
+                                            class="w-full rounded-md border border-gray-200 px-0 py-3 mt-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                            placeholder="your.email@gmail.com" name="email" value="{{ auth()->check() ? auth()->user()->email : '' }}"/>
+                                    </div>
+                                    <button
+                                        class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">save</button>
+                                </form>
+                            </div>
+                               <div class="">
                                 <table border="0" cellpadding="10" cellspacing="0" align="center">
                                     <tr>
                                         <td align="center"></td>
                                     </tr>
                                     <tr>
-                                        <td align="center"><a href="https://www.paypal.com/in/webapps/mpp/paypal-popup"
+                                        <td align="center">
+                                            <a href="https://www.paypal.com/in/webapps/mpp/paypal-popup"
                                                 title="How PayPal Works"
                                                 onclick="javascript:window.open('https://www.paypal.com/in/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img
                                                     src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png"
                                                     border="0" alt="PayPal Logo"></a></td>
                                     </tr>
                                 </table>
+                               </div>
 
                                 {{-- <a href="{{ route('payment', ['course_id' => $course->id]) }}" class="btn btn-success">
                                     <button
@@ -107,10 +119,10 @@
                             </div>
                         @else
                             @php
-                                // $socialLinks = Share::page(route('courses.share', ['course_slug' => $course->slug]))
+                                // $socialLinks = Share::page(route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]))
                                 //     ->facebook()
                                 //     ->getRawLinks();
-                                $socialLinks = Share::page(route('courses.share', ['course_slug' => $course->slug]), 'Share title')
+                                $socialLinks = Share::page(route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]), 'Share title')
                                     ->facebook()
                                     ->twitter()
                                     ->linkedin('Extra linkedin summary can be passed here')
@@ -327,56 +339,6 @@
 
 
 
-            // document.querySelectorAll('.social-button').forEach(function(button) {
-            //     button.addEventListener('click', function(event) {
-            //         event.preventDefault(); // Prevent the default link behavior
-
-            //         // Get the platform from the data-platform attribute
-            //         var platform = button.getAttribute('data-platform');
-            //         var courseSlug = '{{ $course->slug }}';
-
-            //         // Make an AJAX request to track the share event (similar to your previous code)
-            //         fetch('{{ route('track-share-event') }}', {
-            //                 method: 'POST',
-            //                 headers: {
-            //                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            //                     'Content-Type': 'application/json',
-            //                 },
-            //                 body: JSON.stringify({
-            //                     platform: platform,
-            //                     course_slug: courseSlug,
-            //                     // Include other relevant data as needed
-            //                 }),
-            //             })
-            //             .then(response => {
-            //                 // Handle the server response as needed (e.g., show a success message)
-            //                 console.log('Share event data sent:', response);
-
-            //                 // Open the sharing link in a new window
-            //                 var childWindow = window.open(button.getAttribute('href'), 'ShareWindow',
-            //                     'width=300,height=400,left=window.screen.width-300,top=0,resizable=yes');
-
-            //                 // Monitor the child window for sharing completion
-            //                 var checkChildWindow = setInterval(function() {
-            //                     if (childWindow.closed) {
-            //                         clearInterval(checkChildWindow);
-
-            //                         // Perform the redirect in the parent window
-            //                         window.location.href =
-            //                         'https://example.com/redirect-url'; // Replace with your desired URL
-            //                     }
-            //                 }, 1000); // Check every second
-            //             })
-            //             .catch(error => {
-            //                 // Handle any errors that occur during the request
-            //                 console.error(error);
-            //             });
-            //     });
-            // });
-
-
-
-
 
             // Declare childWindow in a broader scope
             var childWindow;
@@ -388,6 +350,7 @@
                     // Get the platform from the data-platform attribute
                     var platform = button.getAttribute('data-platform');
                     var courseSlug = '{{ $course->slug }}';
+                    var courseId = '{{ $course->id }}';
 
                     // Make an AJAX request to track the share event (similar to your previous code)
                     fetch('{{ route('track-share-event') }}', {
@@ -399,8 +362,10 @@
                             body: JSON.stringify({
                                 platform: platform,
                                 course_slug: courseSlug,
+                                courseId: courseId,
                                 // Include other relevant data as needed
                             }),
+                          
                         })
                         .then(response => {
                             // Handle the server response as needed (e.g., show a success message)
@@ -436,7 +401,7 @@
                         }
 
                         // Redirect the user back to the course page
-                        window.location.href = '{{ route('courses.share', ['course_slug' => $course->slug]) }}';
+                        window.location.href = '{{ route('courses.share', [ 'courseId' => $course->id, 'course_slug' => $course->slug]) }}';
                     }, 10000); // 10 minutes
                 } else {
                     console.log('User is back to the page');
@@ -453,7 +418,7 @@
             //         childWindow.close();
 
             //         // Redirect the user back to the course page
-            //         window.location.href = '{{ route('courses.share', ['course_slug' => $course->slug]) }}';
+            //         window.location.href ={{ route('courses.share', [ 'courseId' => $course->id, 'course_slug' => $course->slug]) }}';
             //     }
             // };
 
@@ -467,7 +432,7 @@
             //     }
 
             //     // Redirect the user back to the course page
-            //     window.location.href = '{{ route('courses.share', ['course_slug' => $course->slug]) }}';
+            //     window.location.href ={{ route('courses.share', [ 'courseId' => $course->id, 'course_slug' => $course->slug]) }}';
             // }
 
             // // Set a timeout for 10 minutes (600,000 milliseconds)

@@ -13,6 +13,9 @@ class Setting extends Model
     protected $fillable = [
         'mailchimp_api_key',
         'mailchimp_prefix_key',
+        'paypal_api_username',
+        'paypal_api_password',
+        'paypal_api_secret',
     ];
 
 

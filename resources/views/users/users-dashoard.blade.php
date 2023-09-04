@@ -64,7 +64,7 @@
         <section class="">
             @if (isset($courses))
                 @forelse($courses as $course)
-                    <a href="{{ route('courses.share', ['course_slug' => $course->slug]) }}" target="_blank">
+                    <a href="{{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}" target="_blank">
                         <div
                             class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out">
                             <div class="flex justify-between">

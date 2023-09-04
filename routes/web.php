@@ -26,6 +26,7 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\userController;
 use App\Http\Livewire\CourseContent;
 use App\Listeners\JobCompletedListener;
+use App\Http\Middleware\LogIpAddressMiddleware;
 // use App\Models\Course;
 use App\Models\User;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -57,18 +58,30 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 
 
-Route::get('/share/courses/{course_slug}', [CourseController::class, 'share'])->name('courses.share');
+Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share') ->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
 Route::resource('courses', CourseController::class);
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
+Route::post('/paymentData', [SubscribeController::class, 'paymentData'])->name('subscribe.paymentData');
+Route::resource('/subscribe', SubscribeController::class);
+Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
+
+
+Route::controller(PayPalPaymentController::class)->group(function () {
+    Route::get('payment', 'payment')->name('payment');
+    Route::get('cancel', 'cancel')->name('payment.cancel');
+    Route::get('payment/success', 'success')->name('payment.success');
+});
+
 
 Route::middleware('auth')->group(function () {
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
-    Route::get('/dashboard', DashboardController::class)->name('dashboard')->middleware('admin');
+    Route::resource('/dashboard', DashboardController::class)->middleware('admin');
+    // Route::put('/dashboard/{id}', DashboardController::class)->name('dashboard')->middleware('admin');
     // });
+    // Route::resource('/subscribe', SubscribeController::class);
     // Route::group(['middleware' => 'restrictUserRole:admin'], function () {
-    Route::resource('/subscribe', SubscribeController::class);
     Route::group(['middleware' => 'restrictUserRole'], function () {
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('restrictUserRole');
         Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
@@ -87,9 +100,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
         Route::resource('content-planner', ContentPlannerController::class);
         Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
+        Route::post('/setting/paypal/', [SettingController::class, 'paypalData'])->name('setting.paypalData');
         Route::resource('/setting', SettingController::class);
 
-        Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
+        // Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
         Route::resource('lesson', LessonController::class);
         // Route::get('export/{contentType}', ContentExportController::class)->name('export');
     });
@@ -97,11 +111,11 @@ Route::middleware('auth')->group(function () {
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
     Route::resource('/user-dashboard', userController::class);
     // });
-    Route::controller(PayPalPaymentController::class)->group(function () {
-        Route::get('payment', 'payment')->name('payment');
-        Route::get('cancel', 'cancel')->name('payment.cancel');
-        Route::get('payment/success', 'success')->name('payment.success');
-    });
+    // Route::controller(PayPalPaymentController::class)->group(function () {
+    //     Route::get('payment', 'payment')->name('payment');
+    //     Route::get('cancel', 'cancel')->name('payment.cancel');
+    //     Route::get('payment/success', 'success')->name('payment.success');
+    // });
 });
 
 Route::get('test', function () {

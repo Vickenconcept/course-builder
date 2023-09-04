@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // \App\Http\Middleware\LogIpAddress::class
         
     ];
 
@@ -67,6 +68,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\Admin::class,
         'restrictUserRole' => \App\Http\Middleware\RestrictUserRole::class,
+        'ip_ad' => \App\Http\Middleware\LogIpAddress::class,
     ];
     protected $routeMiddleware = [
         // ...

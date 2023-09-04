@@ -131,13 +131,13 @@
                                                 <x-main-button type="submit">submit</x-main-button>
                                         </div>
                                     </form>
-                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                    {{-- <div class='w-full md:w-1/2 px-3 mb-6'>
                                         <label
                                             class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Course price</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                            type='text' value="">
-                                    </div>
+                                            type='text' value="{{ $course->price }}" disabled>
+                                    </div> --}}
                                 </div>
                                 {{-- <div class='w-full md:w-full px-3 mb-6'>
                                     <label
@@ -163,7 +163,7 @@
                         </div>
                         <div class='w-full md:w-full px-3 mb-6'>
                             <label
-                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Pick your Audience</label>
+                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Set price rate</label>
                             <div class="flex-shrink w-full inline-block relative">
                                 <form action="{{ route('courses.coursePrice', ['course' => $course]) }}" method="POST">
                                     {{-- @method('PUT') --}}

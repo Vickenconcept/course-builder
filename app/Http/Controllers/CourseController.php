@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseIpAddress;
 use App\Models\CourseSettings;
 use Illuminate\Http\Request;
 use App\Services\BookService;
@@ -39,7 +40,7 @@ class CourseController extends Controller
     public function show($slug)
     {
         // $user = auth()->user();
-        
+
         // $course = $user->courses()->where('slug', $slug)->firstOrFail();
         if (auth()->check()) {
             $user = auth()->user();
@@ -48,14 +49,12 @@ class CourseController extends Controller
         } else {
             // Handle the case where the user is not authenticated
             return redirect()->route('login');
-
         }
-        
-        // $freeLessonCount = $course->settings->free_lessons_count;
+
         return view('pages.courses.preview', compact('course'));
     }
 
-    public function share($slug)
+    public function share($id, $slug)
     {
         $courseModel = new Course;
 
@@ -71,8 +70,21 @@ class CourseController extends Controller
         }
 
         $freeCourse = $course->coursesettings->free_lessons_count;
+        $hasIpAddressAccess = $this->hasIpAddressAccess($course->id);
 
-        return view('pages.courses.embed_show', compact('course', 'freeCourse', 'isSubscribed'));
+        // dd( $course->courseSettings->checkout_option);
+
+        return view('pages.courses.embed_show', compact('course', 'freeCourse', 'isSubscribed', 'hasIpAddressAccess'));
+    }
+
+    private function hasIpAddressAccess($courseId)
+    {
+        $ipAddress = request()->ip();
+        $ipRecord = CourseIpAddress::where('course_id', $courseId)
+            ->where('ip_address', $ipAddress)
+            ->first();
+
+        return $ipRecord !== null;
     }
 
 
@@ -104,13 +116,12 @@ class CourseController extends Controller
     public function courseImage(Request $request, $image)
     {
 
-       $user = auth()->user();
+        $user = auth()->user();
         $course = $user->courses()->findOrFail($image);
         $image = $request->input('courseImage');
         $course->course_image = $image;
         $course->update();
         return redirect()->back()->with('success', 'Book Cover updated');
-
     }
 
     // public function courseImage(Request $request, $image)
@@ -126,16 +137,16 @@ class CourseController extends Controller
     //     if ($response->successful()) {
     //         // Create an Intervention Image instance from the downloaded content
     //         $image = Image::make($response->body());
-            
+
     //         // Resize the image to your desired dimensions
     //         $image->fit(1200, 630); // Adjust dimensions as needed
-            
+
     //         // Create the customized_images folder if it doesn't exist
     //         $customImagePath = 'customized_images/';
     //         if (!File::exists(public_path($customImagePath))) {
     //             File::makeDirectory(public_path($customImagePath));
     //         }
-            
+
     //         // Generate a unique filename for the resized image
     //         // dd($customImagePath);
     //         $filename = uniqid() . '.jpg';

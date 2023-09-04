@@ -106,7 +106,7 @@
                         <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 ">Name</th>
                         <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 ">Email</th>
                         <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 ">Date</th>
-                        {{-- <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 "></th> --}}
+                        <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 "></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,7 +118,10 @@
                              {{ $user->name }}</td>
                         <td class="text-blue-900 whitespace-nowrap text-xs py-2">{{ $user->email }}</td>
                         <td class="text-blue-900 whitespace-nowrap text-xs py-2">{{ $user->created_at }}</td>
-                        {{-- <td class="text-blue-900 whitespace-nowrap text-xs py-2 pr-10"><x-main-button>action</x-main-button></td> --}}
+                        <td class="text-blue-900 whitespace-nowrap text-xs py-2 pr-10">
+                            <form action=""></form>
+                            <x-main-button>action</x-main-button>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

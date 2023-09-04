@@ -71,14 +71,14 @@
                                 <h1 class="text-gray-700">Share Link</h1>
                                 <p class="mb-10">Get link to share</p>
                                 <p id="{{ $course->id }}" class="w-full rounded-lg p-3 border text-sm border-gray-700 ">
-                                    {{ route('courses.share', ['course_slug' => $course->slug]) }}</p>
+                                    {{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}</p>
                                 <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
                                     class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
                                     Clipboard</button>
                                 <xmp id="{{ $course->slug }}"
                                     class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
                                     style="visbility:hidden">
-                                    <iframe src="{{ route('courses.share', ['course_slug' => $course->slug]) }}"
+                                    <iframe src="{{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}"
                                         width="600" height="400">
                                     </iframe>
                                 </xmp>
