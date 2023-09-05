@@ -45,7 +45,7 @@
                     </section>
                 @endforeach
             @elseif ($course->courseSettings->checkout_option === 'share' && $hasIpAddressAccess)
-            this is the share page
+            {{-- this is the share page --}}
                 @foreach ($course->lessons as $lesson)
                     <section class=" py-2 bg-white px-5 transition duration-700">
                         <h3 class="font-semibold capitalize py-2 text-sm">{{ $loop->iteration }}.
@@ -87,10 +87,10 @@
             </section>
             <section
                 class="hard bg-gray-500 flex j items-center  justify-center  text-white rounded-tr-lg rounded-br-lg">
-                Powered By @Supreme Web</section>
+                </section>
             {{-- <div class="hard bg-gray-500 rounded-tr-lg rounded-br-lg"></div> --}}
             <div class=" hard back-cover bg-gray-300  text-gray-700 text-center rounded-tr-lg rounded-bl-lg">
-                Back Cover Content
+                {{-- Back Cover Content --}}
             </div>
         </div>
         <div class="  text-center" id="controls">

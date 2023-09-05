@@ -7,6 +7,11 @@
             <div class="bg-gray-200 min-h-screen pt-2 font-mono mb-10 mt-0">
                 <div class="container mx-auto">
                     <div class="inputs w-full max-w-2xl p-6 mx-auto">
+                        <div class=" w-full md:w-[80%] my-3 rounded-full border-b border-gray-400  px-2 ">
+                            <a href="{{  route('courses.edit', ['course' => $course->id])  }}" class="text-xs font-bold block text-gray-700 mb-3 ">
+                                <i class='bx bx-chevron-left mr-2'></i> Back to course Editor
+                            </a>
+                        </div> 
                         <h2 class="text-2xl text-gray-900"><i class='bx bxs-cog text-4xl'></i>Course Setting</h2>
                         <p class="text-gray-700 font-bold text-sm bg-gray-100 p-2 w-full rounded">Course price: ${{ $course->price }}</p>
                         <div class="mt-6 border-t border-gray-400 pt-4">
@@ -22,6 +27,7 @@
                                     </ul>
                                 </div>
                             </div> --}}
+                           
                             <div class='flex flex-wrap -mx-3 mb-6'>
 
                                 {{-- <div class='w-full md:w-full px-3 mb-6'>
@@ -113,8 +119,10 @@
                     <div class="inputs w-full max-w-2xl p-6 mx-auto">
                         {{-- <form class="mt-6 border-t border-gray-400 pt-4"> --}}
                         <div class='flex flex-wrap -mx-3 mb-6'>
+                            
                             <div class="personal w-full border-t border-gray-400 pt-4">
                                 <h2 class="text-2xl text-gray-900 capitalize">Title: {{ $course->title }}</h2>
+                               
                                 <div class="flex items-center justify-between mt-4">
                                     <form action="{{ route('course-setting.update', ['course_setting' => $id]) }}"
                                         method="post">

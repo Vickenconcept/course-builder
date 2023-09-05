@@ -6,14 +6,15 @@
             </button>
         </div>
         <div id="flipbook" class="">
-            {{-- <div
-                class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700 shadow-md object-cover ">
-                <img src="{{ asset($course->course_image) }}"
-                    alt="image" class="w-full object-cover">
-            </div> --}}
-            <div class="hard front-cover bg-gray-300 rounded-tr-lg rounded-br-lg text-gray-700 text-center border border-gray-700 shadow-md">
-                <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset($course->course_image) }}');"></div>
+            <div
+                class="hard front-cover bg-gray-300 rounded-tr-lg rounded-br-lg text-gray-700 text-center border border-gray-700 shadow-md">
+                {{-- <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset( 'storage/' . $course->course_image ?? $course->course_image ) }}');"></div> --}}
+                <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset( $course->course_image ) }}');"></div>
+
+
+
             </div>
+          
             <div class="hard  bg-gray-500 rounded-tl-lg rounded-bl-lg shadow-md"></div>
 
             <section class="  py-2 capitalize bg-white px-5 transition duration-700 shadow-md">
@@ -45,10 +46,10 @@
             </section>
             <section
                 class="hard bg-gray-500 flex j items-center  justify-center  text-white rounded-tr-lg rounded-br-lg">
-                Powered By @Supreme Web</section>
+            </section>
             {{-- <div class="hard bg-gray-500 rounded-tr-lg rounded-br-lg"></div> --}}
             <div class=" hard back-cover bg-gray-300  text-gray-700 text-center rounded-tr-lg rounded-bl-lg">
-                Back Cover Content
+                {{-- Back Cover Content --}}
             </div>
         </div>
 
@@ -60,35 +61,37 @@
                 class="bg-yellow-500 text-white shadow-sm hover:shadow-md rounded-full py-1 px-2 ronded"><i
                     class='bx bx-chevron-right text-2xl'></i></button>
 
-                </div>
-                <div x-show="openShare"
-                    class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 "
-                    style="display: none">
-                    <div class="flex items-center justify-center min-h-screen px-10">
-                        <div class="bg-white w-[90%] md:w-[50%] rounded-lg overflow-hidden pb-6 transition-all relative duration-700"
-                            @click.away="openShare = false">
-                            <div class="p-5">
-                                <h1 class="text-gray-700">Share Link</h1>
-                                <p class="mb-10">Get link to share</p>
-                                <p id="{{ $course->id }}" class="w-full rounded-lg p-3 border text-sm border-gray-700 ">
-                                    {{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}</p>
-                                <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
-                                    class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
-                                    Clipboard</button>
-                                <xmp id="{{ $course->slug }}"
-                                    class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
-                                    style="visbility:hidden">
-                                    <iframe src="{{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}"
-                                        width="600" height="400">
-                                    </iframe>
-                                </xmp>
-                                <button onclick="toCopy(document.getElementById('{{ $course->slug }}'))"
-                                    class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
-                                    Copy embeaded code</button>
-                            </div>
-                        </div>
+        </div>
+        <div x-show="openShare"
+            class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 "
+            style="display: none">
+            <div class="flex items-center justify-center min-h-screen px-10">
+                <div class="bg-white w-[90%] md:w-[50%] rounded-lg overflow-hidden pb-6 transition-all relative duration-700"
+                    @click.away="openShare = false">
+                    <div class="p-5">
+                        <h1 class="text-gray-700">Share Link</h1>
+                        <p class="mb-10">Get link to share</p>
+                        <p id="{{ $course->id }}" class="w-full rounded-lg p-3 border text-sm border-gray-700 ">
+                            {{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}
+                        </p>
+                        <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
+                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            Clipboard</button>
+                        <xmp id="{{ $course->slug }}"
+                            class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
+                            style="visbility:hidden">
+                            <iframe
+                                src="{{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}"
+                                width="600" height="400">
+                            </iframe>
+                        </xmp>
+                        <button onclick="toCopy(document.getElementById('{{ $course->slug }}'))"
+                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            Copy embeaded code</button>
                     </div>
                 </div>
+            </div>
+        </div>
 
     </div>
 

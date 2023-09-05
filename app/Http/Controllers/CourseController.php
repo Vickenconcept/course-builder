@@ -6,10 +6,12 @@ use App\Models\Course;
 use App\Models\CourseIpAddress;
 use App\Models\CourseSettings;
 use Illuminate\Http\Request;
+use Cloudinary\Uploader;
 use App\Services\BookService;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 // use App\Exports\BookExport;
 // use Maatwebsite\Excel\Facades\Excel;
@@ -113,16 +115,95 @@ class CourseController extends Controller
         return redirect()->back()->with('success', 'updated succesfully');
     }
 
+    // public function courseImage(Request $request, $image)
+    // {
+
+    //     $user = auth()->user();
+    //     $course = $user->courses()->findOrFail($image);
+    //     $image = $request->input('courseImage');
+    //     $course->course_image = $image;
+    //     $course->update();
+    //     return redirect()->back()->with('success', 'Book Cover updated');
+    // }
+
+    // public function courseImage(Request $request, $image)
+    // {
+    //     $user = auth()->user();
+    //     $course = $user->courses()->findOrFail($image);
+
+    //     // Check if a local image file is uploaded
+    //     if ($request->hasFile('localImage')) {
+    //         // Validate and store the uploaded image
+    //         $request->validate([
+    //             'localImage' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add suitable validation rules
+    //         ]);
+
+    //         // Store the image in a storage folder or public directory
+    //         $imagePath = $request->file('localImage')->store('images', 'public');
+
+    //         // Update the course's image with the local image path
+    //         $course->course_image = $imagePath;
+    //         // dd($course->course_image = $imagePath);
+    //     } else {
+    //         // Check if an image URL is provided
+    //         $imageUrl = $request->input('courseImage');
+
+    //         if ($imageUrl) {
+    //             // Validate the URL or perform additional checks if needed
+    //             // Update the course's image with the URL
+    //             $course->course_image = $imageUrl;
+    //         }
+    //     }
+
+    //     // Update the course
+    //     $course->update();
+
+    //     return redirect()->back()->with('success', 'Book Cover updated');
+    // }
+
+
     public function courseImage(Request $request, $image)
     {
-
         $user = auth()->user();
         $course = $user->courses()->findOrFail($image);
-        $image = $request->input('courseImage');
-        $course->course_image = $image;
+
+        
+        
+        
+        if ($request->hasFile('localImage')) {
+            // Validate and store the uploaded image
+            // $request->validate([
+                //     'localImage' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                // ]);
+                
+                // // Store the image in a storage folder or public directory
+                // $imagePath = $request->file('localImage')->store('images', 'public');
+                // // dd( $imagePath);
+                $response = cloudinary()->upload($request->file('localImage')->getRealPath())->getSecurePath();
+        
+                // dd($response);
+
+
+            $course->course_image = null;
+
+            $course->course_image = $response;
+        } else {
+            // Check if an image URL is provided
+            $imageUrl = $request->input('courseImage');
+
+            if ($imageUrl) {
+                $course->course_image = null;
+
+                $course->course_image = $imageUrl;
+            }
+        }
+
+        // Update the course
         $course->update();
-        return redirect()->back()->with('success', 'Book Cover updated');
+
+        return redirect()->back()->with('success', 'Course Image updated');
     }
+
 
     // public function courseImage(Request $request, $image)
     // {

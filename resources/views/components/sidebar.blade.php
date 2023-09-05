@@ -78,7 +78,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('search.index') }}">
+        {{-- <a href="{{ route('search.index') }}">
             <div class="hover:ml-4 text-xs w-full cursor-pointer text-blue-50 hover:text-yellow-400  bg-yellow-900 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
 
                 <i class='text-xs bx bx-search'></i>
@@ -86,7 +86,7 @@
                     Search
                 </div>
             </div>
-        </a>
+        </a> --}}
         <a href="{{ route('course') }}">
             <div class="hover:ml-4 text-xs w-full cursor-pointer text-blue-50 hover:text-yellow-400  bg-yellow-900 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
 
@@ -125,10 +125,10 @@
 
             <i class='text-xs bx  bx-book-bookmark'></i>
         </a>
-        <a href="{{ route('search.index') }}" class="hover:ml-4 justify-end pr-5 text-blue-50 hover:text-yellow-400  w-full bg-yellow-900 p-2 rounded-full transform ease-in-out duration-300 flex">
+        {{-- <a href="{{ route('search.index') }}" class="hover:ml-4 justify-end pr-5 text-blue-50 hover:text-yellow-400  w-full bg-yellow-900 p-2 rounded-full transform ease-in-out duration-300 flex">
 
             <i class='text-xs bx  bx-search'></i>
-        </a>
+        </a> --}}
         <a href="{{ route('course') }}" class="hover:ml-4 justify-end pr-5 text-blue-50 hover:text-yellow-400  w-full bg-yellow-900 p-2 rounded-full transform ease-in-out duration-300 flex">
 
             <i class='text-xs bx  bx-brain'></i>

@@ -28,14 +28,14 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
-    
+
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    
-    
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
@@ -63,14 +63,11 @@
             </main>
         </div>
 
-       
+
 
 
 
         <script>
-            
-           
-
             const sidebar = document.querySelector("aside");
             const maxSidebar = document.querySelector(".max")
             const miniSidebar = document.querySelector(".mini")
@@ -123,8 +120,6 @@
 
                 }
             }
-
-            
         </script>
 
 
@@ -134,8 +129,7 @@
         <script src="{{ asset('js/share.js') }}"></script>
         <script src="{{ asset('build/assets//app-dd6eec69.js') }}" defer></script>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
-
+        {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
 
 </body>
 

@@ -56,8 +56,11 @@ class SubscribeController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            // 'password' => 'string',
+            'is_admin' => 'string',
         ]);
+        if (!$request->has('is_admin')) {
+            $data['is_admin'] = 'user';
+        }
 
         $existingUser = User::where('email', $data['email'])->first();
 
@@ -97,7 +100,7 @@ class SubscribeController extends Controller
         ]);
       
         if (!$request->has('is_admin')) {
-            $data['is_admin'] = 'admin';
+            $data['is_admin'] = 'user';
         }
         // dd(User::all());
 

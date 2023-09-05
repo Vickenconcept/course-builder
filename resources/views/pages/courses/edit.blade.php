@@ -4,13 +4,13 @@
             <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 ">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
             </a>
+        </div>  
             {{-- <a href="{{ route('content-planner.index') }}"
                 class=" hover:bg-yellow-100 transition duration-300 py-2  px-5 border border-yellow-800/100 rounded-md text-xs">
                 Show saved content
             </a> --}}
 
             {{-- <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}" target="_blank">Settings</a> --}}
-        </div>
 
 
 
@@ -26,12 +26,21 @@
                     </a>
                 </div>
                 <div>
-                    <form action="{{ route('courses.courseImage', ['image' => $course->id]) }}" method="POST">
+                    <form action="{{ route('courses.courseImage', ['image' => $course->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        {{-- <input type="file" name="localImage" id=""> --}}
+                        <div class="mb-3">
+                            <input
+                              class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                              id="formFileSm"
+                              type="file"  name="localImage"/>
+                          </div>
                         <input type="text "
                             class="  focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-yellow-800/100 rounded-md"
-                            value="{{ $course->course_image }}" name="courseImage" placeholder="image url" autocomplete="off">
+
+                            value="{{ $course->course_image }}"
+                             name="courseImage" placeholder="image url" autocomplete="off">
                             <x-main-button type="submit" class="py-3">update</x-main-button>
                     </form>
                 </div>
