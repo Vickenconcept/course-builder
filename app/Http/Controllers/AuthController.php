@@ -17,6 +17,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
+        $data['is_admin'] = 'admin';
 
         User::create($data);
         return to_route('login');
@@ -34,7 +35,7 @@ class AuthController extends Controller
     //     if(!Auth::attempt($credentials)) 
     //         return back()->withErrors(['email' => 'Invalid credentials']);
 
-    //    return to_route('dashboard');
+    //    return to_route('dashboard.index');
     // }
 
 
@@ -60,7 +61,7 @@ class AuthController extends Controller
             return redirect($redirectRoute);
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.index');
     }
 
 

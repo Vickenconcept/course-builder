@@ -31,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -80,37 +81,5 @@ class User extends Authenticatable
         return $this->hasOne(Setting::class);
     }
 
-    // public function con(){
-    //     $user = Auth::user();
-    //     $settings = $user->setting;
-        
-    //     $paypalApiUsername = $settings->paypal_api_username;
-    //     $paypalApiPassword = $settings->paypal_api_password;
-    //     $paypalApiSecret = $settings->paypal_api_secret;
-        
-        
-    //     // dd($paypalApiSecret);
-    //     if ($settings) {
-    //         $paypalApiUsername = $settings->paypal_api_username;
-    //         $paypalApiPassword = $settings->paypal_api_password;
-    //         $paypalApiSecret = $settings->paypal_api_secret;
-        
-    //         // Set these values in the configuration
-    //         config([
-    //             'paypal.username' => 'PAYPAL_SANDBOX_API_USERNAME=sb-ysibn26738051_api1.business.example.com',
-    //             'paypal.password' => 'L7WZLSHNJLC5AYUP',
-    //             'paypal.secret' => 'AB-hEOLcMHJX2X8wbiXNGwoPoxWyAddDyXPW.JMMIfgsOIjk.LBxvYS5',
-    //         ]);
-    //         // config([
-    //         //     'paypal.username' => Crypt::decryptString($paypalApiUsername),
-    //         //     'paypal.password' => $paypalApiPassword,
-    //         //     'paypal.secret' =>  Crypt::decryptString($paypalApiSecret),
-    //         // ]);
-        
-    //         // Now you can use these values in your PayPal configuration
-    //     } else {
-    //         // Handle the case where settings were not found for the user
-    //         // You can set default values or take appropriate action
-    //     }
-    // }
+   
 }

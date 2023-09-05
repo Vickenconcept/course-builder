@@ -51,6 +51,8 @@
                                 <div class="relative">
                                     <input type="text" value="{{ $course->id }}" name="courseId" hidden>
                                     <input type="text" value="{{ $list_id }}" name="list_id" hidden>
+                                    {{-- <input type="text" value="user" name="is_admin" hidden> --}}
+                                    <input type="hidden" name="is_admin" value="user">
                                     <input type="text" id="name" name="name"
                                         class="w-full rounded-md border border-gray-200 px-0 py-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                         placeholder="smith" name="name" />

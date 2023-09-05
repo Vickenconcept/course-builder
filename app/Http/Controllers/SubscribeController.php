@@ -88,13 +88,18 @@ class SubscribeController extends Controller
             Auth::login($user);
             return redirect('/dashboard'); // Redirect to a dashboard or another page
         }
-
+        // dd($request->input('is_admin'));
         // If the user doesn't exist, register them
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            // 'password' => 'string',
+            'is_admin' => 'string',
         ]);
+      
+        if (!$request->has('is_admin')) {
+            $data['is_admin'] = 'admin';
+        }
+        // dd(User::all());
 
         $newUser = User::create($data);
 

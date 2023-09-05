@@ -1,5 +1,5 @@
 <x-app-layout>
-
+<x-notification />
     <div class="p-2 md:px-10">
 
         <div class="flex flex-wrap my-5 -mx-2">
@@ -107,6 +107,7 @@
                         <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 ">Email</th>
                         <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 ">Date</th>
                         <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 "></th>
+                        <th scope="col" class="text-blue-900  font-semibold firstletter:uppercase text-sm pt-10 "></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,9 +119,17 @@
                              {{ $user->name }}</td>
                         <td class="text-blue-900 whitespace-nowrap text-xs py-2">{{ $user->email }}</td>
                         <td class="text-blue-900 whitespace-nowrap text-xs py-2">{{ $user->created_at }}</td>
+                        <td class="text-blue-900 whitespace-nowrap text-xs py-2">{{ $user->is_admin }}</td>
                         <td class="text-blue-900 whitespace-nowrap text-xs py-2 pr-10">
-                            <form action=""></form>
-                            <x-main-button>action</x-main-button>
+                            <form action="{{ route('dashboard.update', ['dashboard' => $user->id]) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <label for="userType">Update to Admin:</label>
+                                {{-- <input type="checkbox" id="userType" name="user_type" {{ $user->type === 'admin' ? 'checked' : '' }}>
+                                <input type="hidden" name="admin" value="0"> --}}
+
+                                <x-main-button type="submit">Update</x-main-button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
