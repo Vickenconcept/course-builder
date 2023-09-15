@@ -145,21 +145,6 @@
         <section
             class="shadow-lg py-3 bg-white col-span-1 rounded px-10 text-sm  h-[100vh] overflow-y-auto my-10 md:my-0">
             <div class="flex flex-row ">
-                <!-- <input type="text" value="hello"> -->
-                {{-- @if (isset($content))
-                    <form action="{{ route('library.store') }}" method="post">
-                        @csrf
-                        <input type="text" name="content" value="{{ $content }}" hidden>
-                        <x-main-button type="submit" class="text-xs mr-3 py-0.5">Save To Libary</x-main-button>
-                    </form>
-                    <button onclick="toCopy(document.getElementById('content'))"><i
-                            class='bx bx-copy text-xl  hover:text-blue-800 cursor-pointer'></i></button>
-                    <button>
-                        <a href="{{ route('export.text') }}">
-                            <i class='bx bxs-file-export text-xl  hover:text-blue-800 cursor-pointer'></i>
-                        </a>
-                    </button>
-                @endif --}}
             </div>
 
             <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content">
@@ -176,35 +161,10 @@
                                         <div class="input-group">
                                             <input disable class=" shadow-sm rounded-lg w-full p-2" name="modified_outline[]"
                                                 type="text" class="form-control" id="subtopic{{ $index }}"
-                                                name="modified_outline" value="{{ $subtopic }}">
+                                                name="modified_outline" value="{{ $subtopic }}" disabled>
                                         </div>
                                     </div>
                                 @endforeach
-
-
-                                {{-- 
-                                @foreach ($content as $index => $lesson)
-                                    <div class="mb-3">
-                                        <label for="subtopic{{ $index }}" class="form-label">Subtopic
-                                            {{ $index + 1 }}</label>
-                                        <div class="input-group">
-                                            <form id="updateForm{{ $index }}"
-                                                data-lesson-id="{{ $lesson['id'] }}">
-                                                @csrf
-                                                @method('PUT')
-                                                <input class="shadow-sm rounded-lg w-full p-2"
-                                                    name="modified_outline[]" type="text" class="form-control"
-                                                    id="subtopic{{ $index }}" name="modified_outline[]"
-                                                    value="{{ $lesson['title'] }}">
-                                                <button type="button" class="submit-button"
-                                                    data-form-id="updateForm{{ $index }}">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                @endforeach --}}
-
-
-
 
                                 <a href="{{ route('courses.edit', ['course' => $courseId]) }}">
                                     <x-main-button type="submit" wire:disabled="emptyInputs"

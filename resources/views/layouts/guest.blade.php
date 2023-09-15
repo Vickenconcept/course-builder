@@ -24,26 +24,44 @@
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/app-98741b03.css ') }}">
 
+    <style>
+        #flipbook a {
+            color: #007bff;
+            /* Change this color to your desired default link color */
+            text-decoration: underline;
+        }
+        .sj-book .even {
+            background: -webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada));
+            background-image: -webkit-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: -moz-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: -ms-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: -o-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: linear-gradient(left, #fff 95%, #dadada 100%);
+        }
+
+        .sj-book .odd {
+            background: -webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #cacaca));
+            background-image: -webkit-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: -moz-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: -ms-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: -o-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: linear-gradient(right, #fff 95%, #cacaca 100%);
+        }
+    </style>
 
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center  sm:pt-0 bg-gray-100">
-        <!-- <div>
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-            </div> -->
-
-        <!-- <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"> -->
+        
         <div class="w-full ">
             {{ $slot }}
         </div>
     </div>
     <script>
         $("#flipbook").turn({
-            width: 1200,
-            height: 500,
+            width: 1000,
+            height: 600,
             autoCenter: true,
             display: 'double', // 'double' is a string, make sure to enclose it in quotes
             acceleration: true,

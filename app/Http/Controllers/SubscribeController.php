@@ -85,24 +85,54 @@ class SubscribeController extends Controller
     {
 
         $user = User::where('email', $request->input('email'))->first();
-
+        
         // If the user exists, log them in
         if ($user) {
             Auth::login($user);
-            return redirect('/dashboard'); // Redirect to a dashboard or another page
+
+            $courseId = $request->input('courseId');
+            $email = $request->input('email');
+            $name = $request->input('name');
+            $list_id = $request->input('list_id');
+            $user = User::where('email', $email)->first();
+            $courseModel = new Course;
+    
+            $course = $courseModel->newQueryWithoutScopes()->find($courseId);
+    
+            if ($user && $course) {
+    
+                $courseCreator = $course->user;
+    
+                if ($courseCreator->first()->setting) {
+                    $response = $this->mailchimpService
+                        ->subscribe($email, $courseCreator
+                            ->first()->setting->mailchimp_api_key, $courseCreator
+                            ->first()->setting->mailchimp_prefix_key, $list_id);
+    
+                    $course->user()->sync([$user->id], false);
+                    // dd($courseCreator->first()->setting);
+    
+                    return redirect()->route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]);
+                } else {
+                    $course->user()->attach($user->id);
+                }
+            } else {
+    
+                return  response('course not found');
+            }
+            
         }
-        // dd($request->input('is_admin'));
         // If the user doesn't exist, register them
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'is_admin' => 'string',
         ]);
+        dd($user);
       
         if (!$request->has('is_admin')) {
             $data['is_admin'] = 'user';
         }
-        // dd(User::all());
 
         $newUser = User::create($data);
 
@@ -119,7 +149,6 @@ class SubscribeController extends Controller
 
         $course = $courseModel->newQueryWithoutScopes()->find($courseId);
 
-        // dd($user);
         if ($user && $course) {
 
             $courseCreator = $course->user;

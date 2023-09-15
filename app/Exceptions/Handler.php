@@ -7,6 +7,7 @@ use Throwable;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Client\ConnectionException;
 use Symfony\Component\ErrorHandler\Error\FatalError;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -29,6 +30,19 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+    public function render($request, Throwable $exception)
+    {
+    if ($exception instanceof ModelNotFoundException) {
+        // Check if the user is authenticated
+        if (!$request->user()) {
+            return redirect('/login'); // Redirect unauthenticated users to the login page
+        } else {
+            return response()->view('errors.custom_error', [], 404); // Display a custom error view for authenticated users
+        }
+    }
+
+    return parent::render($request, $exception);
     }
     
 }

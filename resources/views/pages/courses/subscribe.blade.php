@@ -56,7 +56,7 @@
                                         placeholder="your.email@gmail.com" name="email" />
                                 </div>
                                 <button
-                                    class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Subscribe</button>
+                                    class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" type="submit">Subscribe</button>
                             </form>
                         </div>
                     @elseif($course->courseSettings->checkout_option === 'payment')

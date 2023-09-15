@@ -5,60 +5,61 @@
                 <i class='bx bxs-share-alt text-xl'></i>
             </button>
         </div>
-        <div id="flipbook" class="">
-            <div
-                class="hard front-cover bg-gray-300 rounded-tr-lg rounded-br-lg text-gray-700 text-center border border-gray-700 shadow-md">
-                {{-- <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset( 'storage/' . $course->course_image ?? $course->course_image ) }}');"></div> --}}
-                <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset( $course->course_image ) }}');"></div>
+        <div class="w-full flex justify-center items-center">
+            <div id="flipbook" class=" sj-book  pt-4 ">
+                <div
+                    class="hard front-cover bg-gray-300 rounded-tr-lg rounded-br-lg text-gray-700 text-center border border-gray-700   shadow-lg">
+                    {{-- <div class="bg-cover bg-no-repeat w-full bg-center h-full" style="background-image: url('{{ asset( 'storage/' . $course->course_image ?? $course->course_image ) }}');"></div> --}}
+                    <div class="bg-cover bg-no-repeat w-full bg-center h-full"
+                        style="background-image: url('{{ asset($course->course_image) }}')"></div>
+                </div>
 
+                <div class="hard  bg-gray-500 rounded-tl-lg rounded-bl-lg even"></div>
 
+                <section class="  pt-4 capitalize bg-white px-5   even ">
+                    <h1 class="font-bold text-xl my-5 capitalize"> Title: {{ $course->title }}</h1>
+                    <h4 class="font-semibold my-5 text-md"> Introduce:</h4>
+                    <p class="  text-xs  text-justify my-3">
+                        {{ $course->description }}
+                    </p>
 
-            </div>
-          
-            <div class="hard  bg-gray-500 rounded-tl-lg rounded-bl-lg shadow-md"></div>
-
-            <section class="  py-2 capitalize bg-white px-5 transition duration-700 shadow-md">
-                <h1 class="font-bold text-xl my-5 capitalize"> Title: {{ $course->title }}</h1>
-                <h4 class="font-semibold my-5 text-md"> Introduce:</h4>
-                <p class="  text-xs  text-justify my-3">
-                    {{ $course->description }}
-                </p>
-
-            </section>
-            <section class="  py-2 capitalize bg-white px-5 transition duration-700 shadow-md">
-                <h3 class="font-semibold my-5">Outline:</h3>
-                <ol class="text-xs">
-                    @foreach ($course->lessons as $lesson)
-                        <li class="py-2"> {{ $loop->iteration }}. {{ $lesson->title }}</li>
-                    @endforeach
-                </ol>
-            </section>
-            @foreach ($course->lessons as $lesson)
-                <section class=" py-2 bg-white px-5 transition duration-700">
-                    <h3 class="font-semibold capitalize py-2 text-sm">{{ $loop->iteration }}.
-                        {{ $lesson->title }}
-                    </h3>
-                    <p class="text-xs">{!! $lesson->content !!}</p>
                 </section>
-            @endforeach
-            <section class="hard bg-white flex  items-center  justify-center  text-white rounded-tr-lg rounded-br-lg">
+                <section class="  pt-4 capitalize bg-white px-5   even ">
+                    <h3 class="font-semibold my-5">Outline:</h3>
+                    <ol class="text-xs">
+                        @foreach ($course->lessons as $lesson)
+                            <li class="pt-4"> {{ $loop->iteration }}. {{ $lesson->title }}</li>
+                        @endforeach
+                    </ol>
+                </section>
+                @foreach ($course->lessons as $lesson)
+                    <section class=" pt-4 bg-white px-5  even ">
+                        <h3 class="font-semibold capitalize pt-4 text-sm">{{ $loop->iteration }}.
+                            {{ $lesson->title }}
+                        </h3>
+                        <p class="text-xs">{!! $lesson->content !!}</p>
+                    </section>
+                @endforeach
+                <section
+                    class="hard bg-white flex  items-center  justify-center  text-white rounded-tr-lg rounded-br-lg">
 
-            </section>
-            <section
-                class="hard bg-gray-500 flex j items-center  justify-center  text-white rounded-tr-lg rounded-br-lg">
-            </section>
-            {{-- <div class="hard bg-gray-500 rounded-tr-lg rounded-br-lg"></div> --}}
-            <div class=" hard back-cover bg-gray-300  text-gray-700 text-center rounded-tr-lg rounded-bl-lg">
-                {{-- Back Cover Content --}}
+                </section>
+                <section
+                    class="hard bg-gray-500 flex j items-center  justify-center  text-white rounded-tr-lg rounded-br-lg even ">
+                </section>
+                {{-- <div class="hard bg-gray-500 rounded-tr-lg rounded-br-lg"></div> --}}
+                <div class=" hard back-cover bg-gray-300  text-gray-700 text-center rounded-tr-lg rounded-bl-lg ">
+                    {{-- Back Cover Content --}}
+                </div>
             </div>
         </div>
 
         <div class="text-center" id="controls">
             <button id="previousButton"
-                class="bg-yellow-500 text-white shadow-sm hover:shadow-md rounded-full py-1 px-2 "><i
+                class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 "><i
                     class='bx bx-chevron-left text-2xl'></i></button>
             <button id="nextButton"
-                class="bg-yellow-500 text-white shadow-sm hover:shadow-md rounded-full py-1 px-2 ronded"><i
+                class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 ronded"><i
                     class='bx bx-chevron-right text-2xl'></i></button>
 
         </div>
@@ -75,7 +76,7 @@
                             {{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}
                         </p>
                         <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
-                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            class="rounded-lg bg-yellow-500 px-3 pt-4 mt-5 text-white text-xs shadow-sm hover: ">Copy
                             Clipboard</button>
                         <xmp id="{{ $course->slug }}"
                             class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
@@ -86,7 +87,7 @@
                             </iframe>
                         </xmp>
                         <button onclick="toCopy(document.getElementById('{{ $course->slug }}'))"
-                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            class="rounded-lg bg-yellow-500 px-3 pt-4 mt-5 text-white text-xs shadow-sm hover: ">Copy
                             Copy embeaded code</button>
                     </div>
                 </div>
@@ -109,15 +110,18 @@
         }
 
         $("#flipbook").turn({
-            width: 1200,
-            height: 500,
+            width: 1000,
+            height: 600,
             autoCenter: true,
             display: 'double', // 'double' is a string, make sure to enclose it in quotes
             acceleration: true,
             elevation: 50, // Corrected property name
             gradients: true, // Enable gradients for more realistic page colors
             duration: 1000, // Duration of the flip animation in milliseconds
-            turnCorners: 'bl,br',
+            turnCorners: 'tl,tr', // Allow turning from top left and top right corners only
+            when: {
+                hover: false // Disable page turning when hovering over the pages
+            }
         });
 
         jQuery(document).ready(function($) {
@@ -160,12 +164,6 @@
             });
         });
 
-        // flipbook.addEventListener('mouseleave', () => {
-        //     gsap.to(controls, {
-        //         y: '100%',
-        //         opacity: 0,
-        //         duration: 0.3
-        //     });
-        // });
+      
     </script>
 </x-app-layout>

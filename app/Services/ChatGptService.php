@@ -24,7 +24,7 @@ class ChatGptService
     // {
 
     //     $url = 'https://api.openai.com/v1/chat/completions';
-    //     // dd($inputData);
+        
     //     $response = $this->httpClient->post($url, [
     //         'headers' => [
     //             'Authorization' => 'Bearer ' . $this->apiKey,

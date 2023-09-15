@@ -115,70 +115,13 @@ class CourseController extends Controller
         return redirect()->back()->with('success', 'updated succesfully');
     }
 
-    // public function courseImage(Request $request, $image)
-    // {
-
-    //     $user = auth()->user();
-    //     $course = $user->courses()->findOrFail($image);
-    //     $image = $request->input('courseImage');
-    //     $course->course_image = $image;
-    //     $course->update();
-    //     return redirect()->back()->with('success', 'Book Cover updated');
-    // }
-
-    // public function courseImage(Request $request, $image)
-    // {
-    //     $user = auth()->user();
-    //     $course = $user->courses()->findOrFail($image);
-
-    //     // Check if a local image file is uploaded
-    //     if ($request->hasFile('localImage')) {
-    //         // Validate and store the uploaded image
-    //         $request->validate([
-    //             'localImage' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add suitable validation rules
-    //         ]);
-
-    //         // Store the image in a storage folder or public directory
-    //         $imagePath = $request->file('localImage')->store('images', 'public');
-
-    //         // Update the course's image with the local image path
-    //         $course->course_image = $imagePath;
-    //         // dd($course->course_image = $imagePath);
-    //     } else {
-    //         // Check if an image URL is provided
-    //         $imageUrl = $request->input('courseImage');
-
-    //         if ($imageUrl) {
-    //             // Validate the URL or perform additional checks if needed
-    //             // Update the course's image with the URL
-    //             $course->course_image = $imageUrl;
-    //         }
-    //     }
-
-    //     // Update the course
-    //     $course->update();
-
-    //     return redirect()->back()->with('success', 'Book Cover updated');
-    // }
-
 
     public function courseImage(Request $request, $image)
     {
         $user = auth()->user();
         $course = $user->courses()->findOrFail($image);
 
-        
-        
-        
         if ($request->hasFile('localImage')) {
-            // Validate and store the uploaded image
-            // $request->validate([
-                //     'localImage' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-                // ]);
-                
-                // // Store the image in a storage folder or public directory
-                // $imagePath = $request->file('localImage')->store('images', 'public');
-                // // dd( $imagePath);
                 $response = cloudinary()->upload($request->file('localImage')->getRealPath())->getSecurePath();
         
                 // dd($response);
@@ -267,25 +210,6 @@ class CourseController extends Controller
 
         return redirect()->back()->with('success', 'Price updated successfully.');
     }
-
-
-    // public function purchase(Request $request, Product $product)
-    // {
-    //     $user          = $request->user();
-    //     $paymentMethod = $request->input('payment_method');
-
-    //     try {
-    //         $user->createOrGetStripeCustomer();
-    //         $user->updateDefaultPaymentMethod($paymentMethod);
-    //         $user->charge($product->price * 100, $paymentMethod);
-    //     } catch (\Exception $exception) {
-    //         return back()->with('error', $exception->getMessage());
-    //     }
-
-    //     return back()->with('message', 'Product purchased successfully!');
-    // }
-
-
 
 
     public function destroy($id)

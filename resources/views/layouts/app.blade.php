@@ -16,9 +16,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta property="og:title" content="Your Page Title">
-    <meta property="og:description" content="Your Page Description">
-    <meta property="og:image" content="https://example.com/path-to-your-image.jpg"> <!-- URL of your image -->
     <meta property="og:url" content="https://eureka.vixblock.com.ng"> <!-- URL of your page -->
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -30,6 +27,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
+    <script src="{{ asset('js/turnjs4/samples/steve-jobs/css/steve-jobs.css') }}"></script>
 
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -48,12 +46,40 @@
 
     @livewireStyles
     @livewireScripts
+    <style>
+        #flipbook a {
+            color: #007bff;
+            /* Change this color to your desired default link color */
+            text-decoration: underline;
+        }
+
+        .sj-book .even {
+            background: -webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada));
+            background-image: -webkit-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: -moz-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: -ms-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: -o-linear-gradient(left, #fff 95%, #dadada 100%);
+            background-image: linear-gradient(left, #fff 95%, #dadada 100%);
+        }
+
+        .sj-book .odd {
+            background: -webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #cacaca));
+            background-image: -webkit-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: -moz-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: -ms-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: -o-linear-gradient(right, #fff 95%, #cacaca 100%);
+            background-image: linear-gradient(right, #fff 95%, #cacaca 100%);
+        }
+
+      
+        
+    </style>
 
 </head>
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-50">
-        {{-- <x-pre-loader /> --}}
+        <x-pre-loader />
         <x-header />
         <x-sidebar />
 
