@@ -37,11 +37,15 @@ class SettingController extends Controller
         ]);
 
 
-        $encryptedApiKey = Crypt::encryptString($validatedData['mailchimp_api_key']);
+        $encryptedApiKey = $validatedData['mailchimp_api_key'];
+        // $encryptedApiKey = Crypt::encryptString($validatedData['mailchimp_api_key']);
 
         $user = auth()->user();
 
-        $user->setting()->create([
+        // dd($encryptedApiKey);
+        $user->setting()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
             'mailchimp_api_key' => $encryptedApiKey,
             'mailchimp_prefix_key' => $validatedData['mailchimp_prefix_key'],
         ]);

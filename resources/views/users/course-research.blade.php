@@ -37,35 +37,23 @@
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
                     <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    @endif
                     
                     <input type="hidden" name="sortBy" value="title">
                     <x-main-button type="submit" class="whitespace-nowrap">Sort by Title</x-main-button>
+                    @endif
                 </form>
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
                     <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    @endif
                     <input type="hidden" name="sortBy" value="author">
                     <x-main-button type="submit" class="whitespace-nowrap">Sort by Author</x-main-button>
+                    @endif
                 </form>
 
-                {{-- <form action="{{ route('course-validation.create') }}" method="GET">
-                    @if (isset($query))
-                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    @endif
-                    <select name="filterBy" onchange="this.form.submit()"  class="bg-yellow-500 rounded shadow-sm text-white hover:shadow-md border-transparent appearance-none">
-                        <option class="bg-white py-2 text-gray-700" value="" selected disabled>Categories</option>
-                        <option class="bg-white py-2 text-gray-700" value="">All Categories</option>
-                        <option class="bg-white py-2 text-gray-700" value="Juvenile Nonfiction">Fiction</option>
-                        <option class="bg-white py-2 text-gray-700" value="non-fiction">Non-Fiction</option>
-                    </select>
-                    
-                </form> --}}
+                
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
                     <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    @endif
                     <select  name="rating" onchange="this.form.submit()" class="bg-yellow-500 rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none text-xs">
                         <option class="bg-white text-gray-700"value="" selected disabled>Rating</option>
                         <option class="bg-white text-gray-700"value="1">1</option>
@@ -74,165 +62,9 @@
                         <option class="bg-white text-gray-700"value="4">4</option>
                         <option class="bg-white text-gray-700"value="5">5</option>
                     </select>
+                    @endif
                 </form>
-               
 
-                <!-- <x-dropdown align="right">
-                    <x-slot name="trigger">
-                        <x-main-button class="">Niche</x-main-button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link >
-                            {{ __('Arts & Design') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Animation') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Art & Humanities') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Audio + Music') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Business') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Business Analytics') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Craft & Maker') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Computer Science') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Creative Writting') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Data Science') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Digital Marketing') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Development') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Design') }}
-                        </x-dropdown-link>
-
-                    </x-slot>
-                </x-dropdown> -->
-                <!-- <x-dropdown align="right">
-                    <x-slot name="trigger">
-                        <x-main-button class="">Area</x-main-button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                    </x-slot>
-                </x-dropdown> -->
-
-                <!-- <x-dropdown align="right">
-                    <x-slot name="trigger">
-                        <x-main-button class="">Platform</x-main-button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                    </x-slot>
-                </x-dropdown> -->
-
-                <!-- <x-dropdown align="right">
-                    <x-slot name="trigger">
-                        <x-main-button class="">Enrollment</x-main-button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                    </x-slot>
-                </x-dropdown> -->
-
-                <!-- <x-dropdown align="right">
-                    <x-slot name="trigger">
-                        <x-main-button class="">Rating</x-main-button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                    </x-slot>
-                </x-dropdown> -->
-
-                <!-- <x-dropdown align="right">
-                    <x-slot name="trigger">
-                        <x-main-button class="">Price</x-main-button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                    </x-slot>
-                </x-dropdown> -->
             </div>
         </div>
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

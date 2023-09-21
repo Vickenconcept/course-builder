@@ -21,8 +21,8 @@ class DashboardController extends Controller
             SUM(CASE WHEN email_verified_at IS NULL THEN 1 ELSE 0 END) as unverified_users
         ')->first();
 
-        $users = User::latest()->get();
-        // $users = User::where('is_admin', 'admin')->latest()->get();
+        // $users = User::latest()->get();
+        $users = User::where('is_admin', 'admin')->latest()->get();
 
         return view('dashboard', compact('users', 'userStats'));
     }
