@@ -6,7 +6,7 @@
 
                 <div class="w-full col-span-1">
                     <label for="platform"
-                        class="block mb-2 bg-yellow-800/50 text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select
+                        class="block mb-2 bg-[#9fdfbf] text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select
                         platform</label>
                     <select id="platform" x-model="firstOption" 
                         name="platform"
@@ -24,7 +24,7 @@
                 </div>
                 <div class="w-full col-span-1">
                     <label for="category"
-                        class="block mb-2 bg-yellow-800/50 text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select
+                        class="block mb-2 bg-[#9fdfbf] text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select
                         Category</label>
                     <select id="category" @change="isSecondSelectDisabled = (firstOption === '')"  
                         name="category"
@@ -49,7 +49,7 @@
                 </div>
                 <div class=" ">
                     <label for="category"
-                        class="block mb-2 bg-yellow-800/50 text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Search title</label>
+                        class="block mb-2 bg-[#9fdfbf] text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Search title</label>
                     <div
                         class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden mt-3">
                         <div class="grid place-items-center h-full w-12 text-gray-300">

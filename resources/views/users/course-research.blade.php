@@ -54,7 +54,7 @@
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
                     <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    <select  name="rating" onchange="this.form.submit()" class="bg-yellow-500 rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none text-xs">
+                    <select  name="rating" onchange="this.form.submit()" class="bg-[#39ac73] rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none text-xs">
                         <option class="bg-white text-gray-700"value="" selected disabled>Rating</option>
                         <option class="bg-white text-gray-700"value="1">1</option>
                         <option class="bg-white text-gray-700"value="2">2</option>
@@ -133,7 +133,7 @@
             <form action="{{ route('export.books') }}" method="get" class="inline">
                 @csrf
                 <button
-                    class="bg-yellow-500 text-white px-3  shadow hover:shadow-lg transition duration-300 py-2 text-xs">Export
+                    class="bg-[#39ac73] text-white px-3  shadow hover:shadow-lg transition duration-300 py-2 text-xs">Export
                     as CSV</button>
             </form>
         </div>

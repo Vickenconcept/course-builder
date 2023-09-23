@@ -38,7 +38,7 @@
                     <x-dropdown align="right">
                         <x-slot name="trigger">
                             <button
-                                class="  bg-yellow-700 border text-white rounded-lg px-2 py-1  shadow-sm text-xs text-right">
+                                class="  bg-[#339966] border text-white rounded-lg px-2 py-1  shadow-sm text-xs text-right">
                                 <span class=""> AI</span>
                             </button>
                         </x-slot>

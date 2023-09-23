@@ -18,16 +18,16 @@
                                         class="bg-transparent border-none text-gray-700 py-2 px-4 cursor-pointer font-bold underline"><i
                                             class='bx bxs-envelope mr-1'></i>ESP </button>
                                     <div x-show="isOpen" class="p-4 w-full">
-                                        <ul class="list-none p-0 text-gray-700 w-full">
+                                        <ul class="list-none p-0 text-gray-700 w-full text-[#339966]">
                                             <a href="#"
-                                                class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"
-                                                class="" @click="selected = 'openMailChimp'"><i class='bx bxl-mailchimp text-xl'></i>MailChimp</a>
+                                                class="  hover:bg-[#39ac73] text-[#339966] flex hover:text-white w-full block rounded-full translate duration-300 px-3 py-2"
+                                                class="" @click="selected = 'openMailChimp'"><i class='bx bxl-mailchimp text-xl mr-.5 '></i>MailChimp</a>
                                             <a href="#"
-                                                class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"
-                                                @click="selected = 'getResponse' ">>Get Response</a>
+                                                class="  hover:bg-[#39ac73] text-[#339966] flex hover:text-white w-full block rounded-full translate duration-300 px-3 py-2"
+                                                @click="selected = 'getResponse' "><i class='bx bxs-shopping-bag-alt text-xl mr-.5 '></i>Get Response</a>
                                             <a href="#"
-                                                class=" underline hover:bg-yellow-500 hover:text-white w-full block rounded translate duration-300 p-3"
-                                                @click="selected = 'paypal' "><i class='bx bxl-paypal text-xl'></i>Paypal</a>
+                                                class="  hover:bg-[#39ac73] text-[#339966] flex hover:text-white w-full block rounded-full translate duration-300 px-3 py-2"
+                                                @click="selected = 'paypal' "><i class='bx bxl-paypal text-xl mr-.5 '></i>Paypal</a>
                                         </ul>
                                     </div>
                                 </div>
@@ -72,6 +72,35 @@
                         <h2 class="text-2xl text-gray-900">Account Setting</h2>
                         <div class="mt-6 border-t border-gray-400 pt-4">
                             {{--  --}}
+                            <div class='flex flex-wrap -mx-3 my-6  border-t border-b border-gray-400'>
+                               
+                                <div class="personal w-full pt-4 ">
+                                    <h2 class="text-2xl text-gray-900">Personal info:</h2>
+                                    <div class="flex items-center justify-between mt-4">
+                                        <div class='w-full md:w-1/2 px-3 mb-6'>
+                                            <label
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
+                                                Name</label>
+                                            <input
+                                                class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                type='text' value="{{ auth()->user()->name }}" disabled>
+                                        </div>
+                                        <div class='w-full md:w-1/2 px-3 mb-6'>
+                                            <label
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
+                                                Email Address</label>
+                                            <input
+                                                class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                type='text' value="{{ auth()->user()->email }}" disabled>
+                                        </div>
+                                    </div>
+                              
+                                </div>
+                            </div>
+
+
+
+                            {{--  --}}
                             <div x-show="selected === 'openMailChimp'" class="mb-6">
                                 <h1 class="text-2xl text-gray-900 my-4">Mailchimp Credentials</h1>
                                 <form action="{{ route('setting.store') }}" method="POST">
@@ -106,31 +135,7 @@
 
 
 
-                            <div class='flex flex-wrap -mx-3 my-6  border-t border-b border-gray-400'>
-                               
-                                <div class="personal w-full pt-4 ">
-                                    <h2 class="text-2xl text-gray-900">Personal info:</h2>
-                                    <div class="flex items-center justify-between mt-4">
-                                        <div class='w-full md:w-1/2 px-3 mb-6'>
-                                            <label
-                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                                                Name</label>
-                                            <input
-                                                class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                                type='text' value="{{ auth()->user()->name }}" disabled>
-                                        </div>
-                                        <div class='w-full md:w-1/2 px-3 mb-6'>
-                                            <label
-                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                                                Email Address</label>
-                                            <input
-                                                class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                                type='text' value="{{ auth()->user()->email }}" disabled>
-                                        </div>
-                                    </div>
-                              
-                                </div>
-                            </div>
+                           
 
                             {{--  --}}
                             <div x-show="selected === 'paypal'" class="mt-5">
@@ -175,7 +180,7 @@
                                 </form> 
                             </div>
                             {{--  --}}
-                            
+
                             {{--  --}}
                             <div x-show="selected === 'getResponse' " class="mt-5">
                                 <h1 class="text-2xl text-gray-900 my-4">Get Response credentials </h1>

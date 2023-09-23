@@ -33,7 +33,7 @@
             <form action="{{ route('export.books') }}" method="get">
                 @csrf
                 <button type="submit"
-                    class="bg-transparent text-xs  px-3 shadow hover:shadow-lg transition duration-300 py-2 border border-yellow-900 rounded ">Export
+                    class="bg-transparent text-xs  px-3 shadow hover:shadow-lg transition duration-300 py-2 border border-[#39ac73] rounded ">Export
                     as CSV</button>
 
             </form>
@@ -132,7 +132,7 @@
         </form>
             <div h-full>
             
-                <button class="bg-yellow-400 py-2 my-3 px-4 rounded-lg hover:shadow-md text-white shadow text-xs" onClick="document.getElementById('myForm').submit()">Save to Library</button>
+                <button class="bg-[#39ac73] py-2 my-3 px-4 rounded-lg hover:shadow-md text-white shadow text-xs" onClick="document.getElementById('myForm').submit()">Save to Library</button>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 h-full">
                     <div class="h-full shadow">
                         <a href="${ book['previewLink'] }" target="_blank" class=" first-letter:uppercase font-extrabold text-sm underline mt-2 inline " id="myTitle">${ book['title'] }</a><button onclick="toCopy(document.getElementById('myTitle'))"><i class='bx bx-copy ml-1 text-gray-300' ></i></button>

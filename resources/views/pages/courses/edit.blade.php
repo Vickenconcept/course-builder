@@ -10,7 +10,7 @@
                 <div>
                     <a href="{{ route('courses.show', ['course' => $course->slug]) }}" target="_blank">
                         <button
-                            class=" hover:bg-yellow-100 transition duration-300 py-2 px-5 border border-yellow-800/100 rounded-md text-xs">
+                            class=" hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
                             Preview
                         </button>
                     </a>
@@ -27,7 +27,7 @@
                               type="file"  name="localImage"/>
                           </div>
                         <input type="text "
-                            class="  focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-yellow-800/100 rounded-md"
+                            class="  focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-[#339966] rounded-md"
 
                             value="{{ $course->course_image }}"
                              name="courseImage" placeholder="image url" autocomplete="off">
@@ -86,11 +86,11 @@
 
                 <div class="flex justify-end my-5">
                     <button @click="childIsOpen = true"
-                        class=" hover:bg-yellow-100 transition duration-300 py-2 px-5 border border-yellow-800/100 rounded-md text-xs">
+                        class=" hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
                         Expand all
                     </button>
                     <button @click="childIsOpen = false"
-                        class="hover:bg-yellow-100 transition duration-300 py-2 px-5 ml-2 border border-yellow-800/100 rounded-md text-xs">
+                        class="hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 ml-2 border border-[#339966] rounded-md text-xs">
                         Collaps all
                     </button>
                 </div>

@@ -22,7 +22,7 @@
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-a256115e.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-e4c7b08b.css ') }}">
 
     <style>
         #flipbook a {

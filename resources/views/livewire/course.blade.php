@@ -3,12 +3,12 @@
     <div class=" grid grid-cols-1 md:grid-cols-3 ">
         <section class=" col-span-2 mr-0 md:mr-10  px-5 pt-2 pb-5 bg-white rounded-xl">
             <div class="mb-6">
-                <label class="py-1 px-5  text-xs  border-b-2 border-yellow-900 m-0 text-white ">Create</label>
-                <label class="py-1 px-5  text-xs  border-b-2 border-yellow-900 m-0  ">Structured</label>
+                <label class="py-1 px-5  text-xs  border-b-2 border-[#39ac73] m-0 text-white ">Create</label>
+                <label class="py-1 px-5  text-xs  border-b-2 border-[#39ac73] m-0  ">Structured</label>
             </div>
-            <div class="flex flex-row mb-10 bg-blue-50 rounded-xl p-3">
+            <div class="flex flex-row mb-10 bg-gray-50 rounded-xl p-3">
                 <div class="  w-12 h-12">
-                    <i class='bx bx-brain text-white text-2xl bg-yellow-900 rounded p-2'></i>
+                    <i class='bx bx-brain text-white text-2xl bg-[#39ac73] rounded p-2'></i>
                 </div>
                 <div class="pl-1 ">
                     <h1 class="font-semibold text-sm capitalize ">Create</h1>
@@ -23,7 +23,7 @@
                             class="   bg-white   px-3 rounded  transition duration-300 py-2 text-xs">Topic/Title</label>
                         <div class="ml-5">
                             <input
-                                class="peer w-full outline-none border-gray-300 shadow mt-3  rounded-lg focus:none text-sm text-blue-800 pr-2 placeholder-gray-300"
+                                class="peer w-full outline-none border-gray-300 shadow mt-3  rounded-lg focus:none text-sm text-gray-800 pr-2 placeholder-gray-300"
                                 type="text" name="topic" wire:model="topic" id="topic"
                                 placeholder="Create a Youtube channel" autocomplete="off" />
                         </div>
@@ -38,7 +38,7 @@
                             <div class="ml-5">
                                 <select id="presentation" name="presentation" wire:model="presentation"
                                     class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
-                                    <option selected class="text-blue-50 " disabled>Course</option>
+                                    <option selected class="text-gray-50 " disabled>Course</option>
                                     <option value="Summaries and key takeaways" class="  ">Summaries and key
                                         takeaways</option>
                                     <option value="In-depth analysis and case studies" class="  ">In-depth analysis
@@ -56,7 +56,7 @@
                             <div class="ml-5">
                                 <select id="level" name="level" wire:model="level"
                                     class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
-                                    <option selected class="text-blue-50 " disabled>(Optional)</option>
+                                    <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value="beginner " class="">Beginner</option>
                                     <option value="intermidiate " class="">Intermidiate</option>
                                     <option value="advanced " class="">Advanced</option>
@@ -71,7 +71,7 @@
                             <div class="ml-5">
                                 <select id="outline" name="outline" wire:model="outline"
                                     class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
-                                    <!-- <option selected class="text-blue-50 " disabled>(Optional)</option> -->
+                                    <!-- <option selected class="text-gray-50 " disabled>(Optional)</option> -->
                                     <option selected value="outline" class="">Outline</option>
                                     <option value="description" class="">Description</option>
                                     <option value="summary" class="">Summary</option>
@@ -86,7 +86,7 @@
                             <div class="ml-5">
                                 <select id="modules" name="modules" wire:model="modules"
                                     class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
-                                    <option selected class="text-blue-50 " disabled>(Optional)</option>
+                                    <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value="3-5 modules" class="">3-5 modules</option>
                                     <option value="6-10 modules" class="">6-10 modules</option>
                                     <option value="10+ modules" class="">10+ modules</option>
@@ -101,7 +101,7 @@
                             <div class="ml-5">
                                 <select id="formatting" name="formatting" wire:model="formatting"
                                     class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
-                                    <option selected class="text-blue-50 " disabled>(Optional)</option>
+                                    <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value=" format the course  " class="">Yes</option>
                                     <option value="don't formart the course" class="">No</option>
                                     <option value="you can choose to formart of not " class="">No preference
@@ -118,7 +118,7 @@
                             <div class="ml-5">
                                 <select id="time" name="time" wire:model="time"
                                     class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
-                                    <option selected class="text-blue-50 " disabled>(Optional)</option>
+                                    <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value="Short (1-5 hours)" class="">Short (1-5 hours)</option>
                                     <option value="Medium (6-10 hours)" class="">Medium (6-10 hours)</option>
                                     <option value="Long (11+ hours)" class="">Long (11+ hours)</option>
@@ -135,7 +135,7 @@
                             {{-- Generate --}}
                         </x-main-button>
                         <button type="button" x-click="document.getElementById('myForm').reset()"
-                            class="uppercase justify-center border border-yellow-900 text-xs rounded hover:shadow-lg font-medium bg-transparent text-gray-700 px-2 py-3">Clear
+                            class="uppercase justify-center border border-[#39ac73] text-xs rounded hover:shadow-lg font-medium bg-transparent text-gray-700 px-2 py-3">Clear
                             Input</button>
                     </div>
                 </div>
