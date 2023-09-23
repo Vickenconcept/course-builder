@@ -29,6 +29,8 @@ use App\Listeners\JobCompletedListener;
 use App\Http\Middleware\LogIpAddressMiddleware;
 // use App\Models\Course;
 use App\Models\User;
+use App\Services\GetResponseService;
+use Hamcrest\Arrays\IsArray;
 use OpenAI\Laravel\Facades\OpenAI;
 use PHPUnit\Event\TestSuite\Loaded;
 
@@ -43,7 +45,14 @@ use PHPUnit\Event\TestSuite\Loaded;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+//Route::view('/', 'welcome')->name('home');
+Route::get('/', function () {
+    return redirect()->to('login');
+});
+// Route::get('register', function(){
+//    return redirect()->to('login');
+// });
+
 
 Route::middleware('guest')->group(function () {
     Route::view('register', 'auth.register')->name('register');
@@ -58,7 +67,7 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 
 
-Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share') ->middleware('ip_ad');
+Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
 Route::resource('courses', CourseController::class);
@@ -94,6 +103,7 @@ Route::middleware('auth')->group(function () {
         Route::get('course', Course::class)->name('course');
         Route::put('course/{courseId}', [CourseSettingsController::class, 'checkout'])->name('course.checkout');
         Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
+        Route::post('course-setting/{courseId}/save-responseId', [CourseSettingsController::class, 'saveGetResponseId'])->name('course-setting.saveGetResponseId');
         Route::resource('course-setting', CourseSettingsController::class);
         Route::resource('research', ResearchController::class);
         Route::resource('search', SearchController::class);
@@ -101,6 +111,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('content-planner', ContentPlannerController::class);
         Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
         Route::post('/setting/paypal/', [SettingController::class, 'paypalData'])->name('setting.paypalData');
+        Route::post('/setting/get-response/', [SettingController::class, 'saveGetResponseData'])->name('setting.saveGetResponseData');
         Route::resource('/setting', SettingController::class);
 
         // Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
@@ -120,58 +131,42 @@ Route::middleware('auth')->group(function () {
 
 Route::get('test', function () {
 
-    // $question = 'write about the evolution of man';
 
-    // $response = OpenAI::completion()->create([
-    //     'model' => 'gpt-3.5-turbo',
-    //     'max_tokens' => 3000,
-    //     'temperature' => 0.8,
-    //     'messages' => [
-    //         ["role" => "system", "content" => "You are a knowledgeable assistant that provides detailed explanations about topics."],
-    //         ["role" => "user", "content" => $question]
-    //     ]
-    // ]);
+    $apiKey = 'pxck0psjdi8tipukr0w24fh1d9ct3vi6';
+    $apiEndpoint = 'https://api.getresponse.com/v3';
+    $client = new \GuzzleHttp\Client();
+    // $campaignId = 'uBnNR';
+    // $campaignId = 'uKsSm';
+    $audiencesEndpoint = '/campaigns';
 
-    // $completionText = $response['choices'][0]['text'];
-
-    // return response()->stream(function () use ($completionText) {
-    //     echo "data: " . $completionText . "\n\n";
-    //     ob_flush();
-    //     flush();
-    // }, 200, [
-    //     'Cache-Control' => 'no-cache',
-    //     'X-Accel-Buffering' => 'no',
-    //     'Content-Type' => 'text/event-stream',
-    // ]);
-
-    // $client = new MailchimpMarketing\ApiClient();
-    // $client->setConfig([
-    //     'apiKey' => 'e1f7a2e06cf128d61784d6b0db1a24f0-us21',
-    //     'server' => 'us21',
-    // ]);
-
-    // $response = $client->lists->getAllLists();
-    // dd($response);
+    try {
+        // Make the POST request to add an email to the audience
 
 
-    // $client = new MailchimpMarketing\ApiClient();
-    // $client->setConfig([
-    //     'apiKey' => 'e1f7a2e06cf128d61784d6b0db1a24f0-us21',
-    //     'server' => 'us21',
-    // ]);
+        $response = $client->request('GET', $apiEndpoint . '/tags', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'X-Auth-Token' => 'api-key pxck0psjdi8tipukr0w24fh1d9ct3vi6',
+            ],
 
-    // $response = $client->lists->addListMember("3c54a618ea", [
-    //     "email_address" => "peace.black@hotmail.com",
-    //     "status" => "pending",
-    // ]);
-    // dd($response);
 
-    $client = new MailchimpMarketing\ApiClient();
-    $client->setConfig([
-        'apiKey' => 'e1f7a2e06cf128d61784d6b0db1a24f0-us21',
-        'server' => 'us21',
-    ]);
 
-    $response = $client->lists->getListMembersInfo("3c54a618ea");
-    dd($response);
+
+
+        ]);
+
+        $res = json_decode($response->getBody(), true);
+
+       
+        
+        $getResponseService = app(GetResponseService::class);
+        $x = $getResponseService->createContact($apiKey);
+        // $tag = $x;
+        dd($x);
+
+    
+        
+    } catch (\GuzzleHttp\Exception\RequestException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
 });

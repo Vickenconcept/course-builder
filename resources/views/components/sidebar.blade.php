@@ -24,7 +24,7 @@
         </div>
         <div class="flex items-center space-x-3 group bg-gradient-to-r  from-red-400 via-orange-400 to-yellow-500  pl-10 pr-2 py-1 rounded-full text-blue-50  ">
             <div class="transform ease-in-out duration-300 mr-12">
-                Course-X
+                ConvergeAI
             </div>
         </div>
     </div>

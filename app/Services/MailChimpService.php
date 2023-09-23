@@ -58,31 +58,12 @@ class MailChimpService
         $client = new \MailchimpMarketing\ApiClient();
         $client->setConfig([
             'apiKey' => $apiKey,
-            // 'apiKey' => Crypt::decryptString($apiKey),
             'server' => $prefixKey,
         ]);
     
         return $response = $client->lists->getAllLists();
 
 
-        // try {
-        //     $client = new \MailchimpMarketing\ApiClient();
-    
-        //     $client->setConfig([
-        //         'apiKey' => Crypt::decryptString($apiKey),
-        //         'server' => $prefixKey,
-        //     ]);
-    
-        //     $response = $client->lists->getAllLists();
-    
-        //     // Handle the response or perform other actions if needed
-    
-        //     // Assuming a successful response, you can redirect the user or do further processing
-        //     return redirect()->back()->with('success', 'Lists retrieved successfully!');
-        //     // dd('ddd');
-        // } catch (\Exception $e) {
-        //     // Handle the exception, which could be due to an invalid API key or other errors
-        //     return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
-        // }
+     
     }
 }

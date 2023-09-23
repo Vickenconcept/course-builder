@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->text('list_id')->nullable();
+            $table->text('get_response_id')->nullable();
             $table->text('course_image')->nullable();
             $table->integer('price')->nullable();
             $table->timestamps();

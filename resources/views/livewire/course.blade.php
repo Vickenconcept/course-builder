@@ -33,7 +33,7 @@
                         <div class="w-full col-span-1 ">
                             <i class='bx bx-bulb text-gray-700  text-xl'></i>
                             <label for="presentation"
-                                class="    bg-white   px-3 rounded  transition duration-300 py-2 text-xs">presentation
+                                class="    bg-white   px-3 rounded  transition duration-300 py-2 text-xs">
                                 Presentation of Books</label>
                             <div class="ml-5">
                                 <select id="presentation" name="presentation" wire:model="presentation"

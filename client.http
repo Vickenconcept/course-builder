@@ -31,58 +31,23 @@
 #   ]
 # }
 
-POST https://api.openai.com/v1/chat/completions
-Authorization: Bearer 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
+GET https://api3.getresponse360.com/v3/campaigns
+# Authorization: Bearer pxck0psjdi8tipukr0w24fh1d9ct3vi6
+X-Auth-Token: api-key pxck0psjdi8tipukr0w24fh1d9ct3vi6
 Content-Type: application/json
 
-{
-  "model": "gpt-3.5-turbo",
-  "max_tokens":3000,  
-  "temperature":0.8, 
-  "messages": [
-    {"role": "system", "content": "You are a knowledgeable assistant that provides detailed explanations about topics."},
-    {"role": "user", "content": "For the course on composition APi with subheadings 'Introduction', 'Background', 'Importance of Composition', 'Types of Composition', 'Structure of Composition', 'Steps in Writing a Composition', 'Tips for Writing an Effective Composition', 'Examples of Good Compositions', 'Challenges in Composition Writing', 'Conclusion', please provide the actual content or write-ups for each subheading in a html format, with at least 1 paragraph of content for each subheading. . What I need is the real course not the draft or outline. Note that i want to exclude (doctype,html,head,body) tags."
-            }
-  ]
-}
 
 
-$question = $request->query('question');
-        return response()->stream(function () use ($question) {
-            $stream = OpenAI::completions()->createStreamed([
-                'model' => 'text-davinci-003',
-                'prompt' => $question,
-                'max_tokens' => 1024,
-            ]);
+# contact@successwithsteve.info
+#  james.milo@gmail.com
+# jvaccess@myconvergeai.com
 
-            foreach ($stream as $response) {
-                $text = $response->choices[0]->text;
-                if (connection_aborted()) {
-                    break;
-                }
-
-                echo "event: update\n";
-                echo 'data: ' . $text;
-                echo "\n\n";
-                ob_flush();
-                flush();
-            }
-
-            echo "event: update\n";
-            echo 'data: <END_STREAMING_SSE>';
-            echo "\n\n";
-            ob_flush();
-            flush();
-        }, 200, [
-            'Cache-Control' => 'no-cache',
-            'X-Accel-Buffering' => 'no',
-            'Content-Type' => 'text/event-stream',
-        ]);
-    }
-
-
-
-
-
+# domain: myconvergeai.com
+# ------------------------------
+# ssh access:
+# host: 66.29.138.34
+# port: 21098
+# username: tubetargeterapp
+# password: TubeT@rget8
 
 

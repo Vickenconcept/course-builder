@@ -55,11 +55,9 @@
         </div>
 
         <div class="text-center" id="controls">
-            <button id="previousButton"
-                class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 "><i
+            <button id="previousButton" class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 "><i
                     class='bx bx-chevron-left text-2xl'></i></button>
-            <button id="nextButton"
-                class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 ronded"><i
+            <button id="nextButton" class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 ronded"><i
                     class='bx bx-chevron-right text-2xl'></i></button>
 
         </div>
@@ -95,6 +93,16 @@
         </div>
 
     </div>
+    
+    <style>
+        #flipbook{
+  -webkit-transition:margin-left 0.2s ease-in-out;
+  -moz-transition:margin-left 0.2s ease-in-out;
+  -o-transition:margin-left 0.2s ease-in-out;
+  -ms-transition:margin-left 0.2s ease-in-out;
+  transition:margin-left 0.2s ease-in-out;
+}
+    </style>
 
 
 
@@ -124,8 +132,19 @@
             }
         });
 
+        // function checkPage(page) {
+        //     if ($("#flipbook").turn("hasPage", page)) {
+        //         alert("Page " + page + " is already in the flipbook");
+        //     }
+        // }
+
+        // // Check if page 1 is in the flipbook
+
+        // checkPage(20);
+        
+
+
         jQuery(document).ready(function($) {
-            // console.log($("#flipbook"));
 
             $(window).bind('keydown', function(e) {
                 if (e.keyCode == 37) {
@@ -163,7 +182,5 @@
                 duration: 0.3
             });
         });
-
-      
     </script>
 </x-app-layout>

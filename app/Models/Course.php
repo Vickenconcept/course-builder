@@ -21,7 +21,8 @@ class Course extends Model
         'description',
         'slug',
         'list_id',
-        'price'
+        'price',
+        'get_response_id',
     ];
 
     public function library()

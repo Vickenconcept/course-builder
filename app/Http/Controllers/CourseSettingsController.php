@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseSettings;
+use App\Services\GetResponseService;
 use App\Services\MailChimpService;
 use Illuminate\Http\Request;
 
@@ -63,7 +64,11 @@ class CourseSettingsController extends Controller
                 ->getAllLists($user
                     ->setting->mailchimp_api_key, $user
                     ->setting->mailchimp_prefix_key);
-            return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists'));
+
+            $getResponseService = app(GetResponseService::class);
+            $getrepsonseAudience = $getResponseService->getAudience(auth()->user()->setting->get_response_api_key);
+            // dd($getrepsonseAudience);
+            return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'getrepsonseAudience'));
         } else {
             return back()->with('success', 'Mailchimp API key is not configured.');
         }
@@ -71,13 +76,22 @@ class CourseSettingsController extends Controller
 
     public function saveSetting(Request $request, $courseId)
     {
-        $list_id = $request->input('list_id');
+        $get_response_id = $request->input('get_response_id');
 
         $user = auth()->user();
-        $course = $user->courses()->where('courses.id', $courseId)->update(['list_id' => $list_id]);
+        $course = $user->courses()->where('courses.id', $courseId)->update(['get_response_id' => $get_response_id]);
         return redirect()->back()->with('success', 'List Updated');
     }
     
+    public function saveGetResponseId(Request $request, $courseId)
+    {
+        $get_response_id = $request->input('get_response_id');
+
+        $user = auth()->user();
+        $course = $user->courses()->where('courses.id', $courseId)->update(['get_response_id' => $get_response_id]);
+        return redirect()->back()->with('success', 'Audience Updated');
+    }
+
     public function checkout(Request $request, $courseId)
     {
         $user = auth()->user();

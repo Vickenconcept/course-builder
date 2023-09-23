@@ -7,14 +7,16 @@ use App\Services\MailChimpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
 {
-  
+
 
     public function index()
-    {        
-       
+    {
+
         return view('users.setting');
     }
 
@@ -46,11 +48,32 @@ class SettingController extends Controller
         $user->setting()->updateOrCreate(
             ['user_id' => $user->id],
             [
-            'mailchimp_api_key' => $encryptedApiKey,
-            'mailchimp_prefix_key' => $validatedData['mailchimp_prefix_key'],
-        ]);
+                'mailchimp_api_key' => $encryptedApiKey,
+                'mailchimp_prefix_key' => $validatedData['mailchimp_prefix_key'],
+            ]
+        );
 
         return back()->with('success', 'created successfully');
+    }
+    public function saveGetResponseData(Request $request)
+    {
+        $validatedData = $request->validate([
+            'get_response_api_key' => 'required',
+        ]);
+
+
+        $user = auth()->user();
+
+        if ($user->setting()) {
+            # code...
+            $user->setting()->updateOrCreate(
+                ['user_id' => $user->id],
+                ['get_response_api_key' => $validatedData['get_response_api_key']]
+            );
+            
+            return back()->with('success', 'created successfully');
+        }
+
     }
 
 
@@ -62,11 +85,6 @@ class SettingController extends Controller
             'paypal_api_secret' => 'required',
         ]);
 
-        // dd($id);
-
-        // $encryptedApiKey = Crypt::encryptString($validatedData['paypal_api_username']);
-        // $encryptedSecret = Crypt::encryptString($validatedData['paypal_api_secret']);
-
         $user = auth()->user();
 
         $user->setting()->updateOrCreate(
@@ -77,7 +95,7 @@ class SettingController extends Controller
                 'paypal_api_secret' => $validatedData['paypal_api_secret'],
             ]
         );
-       
+
 
         return back()->with('success', 'created successfully');
     }

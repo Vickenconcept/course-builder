@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('paypal_api_username')->nullable();
             $table->text('paypal_api_password')->nullable();
             $table->text('paypal_api_secret')->nullable();
+            $table->text('get_response_api_key')->nullable();
             $table->timestamps();
         });
     }
