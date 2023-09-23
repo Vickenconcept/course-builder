@@ -76,19 +76,27 @@ class CourseSettingsController extends Controller
 
     public function saveSetting(Request $request, $courseId)
     {
-        $get_response_id = $request->input('get_response_id');
+        $list_id = $request->input('list_id');
+        $esp = $request->input('esp');
 
         $user = auth()->user();
-        $course = $user->courses()->where('courses.id', $courseId)->update(['get_response_id' => $get_response_id]);
+        $course = $user->courses()->where('courses.id', $courseId)->update([
+            'esp' => $esp,
+            'list_id' => $list_id
+        ]);
         return redirect()->back()->with('success', 'List Updated');
     }
-    
+
     public function saveGetResponseId(Request $request, $courseId)
     {
         $get_response_id = $request->input('get_response_id');
+        $esp = $request->input('esp');
 
         $user = auth()->user();
-        $course = $user->courses()->where('courses.id', $courseId)->update(['get_response_id' => $get_response_id]);
+        $course = $user->courses()->where('courses.id', $courseId)->update([
+            'esp' => $esp,
+            'get_response_id' => $get_response_id
+        ]);
         return redirect()->back()->with('success', 'Audience Updated');
     }
 

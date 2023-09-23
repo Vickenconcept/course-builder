@@ -21,6 +21,7 @@ class Course extends Model
         'description',
         'slug',
         'list_id',
+        'esp',
         'price',
         'get_response_id',
     ];

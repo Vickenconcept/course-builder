@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Subscribe;
 use App\Models\User;
+use App\Services\GetResponseService;
 use App\Services\MailChimp;
 use App\Services\MailChimpService;
 use Illuminate\Http\Request;
@@ -81,10 +82,101 @@ class SubscribeController extends Controller
      */
 
 
+    public function getResponse(Request $request)
+    {
+        $user = User::where('email', $request->input('email'))->first();
+
+        
+        // If the user exists, log them in
+        if ($user) {
+            Auth::login($user);
+
+            $courseId = $request->input('courseId');
+            $email = $request->input('email');
+            $name = $request->input('name');
+            $list_id = $request->input('list_id');
+            $user = User::where('email', $email)->first();
+            $courseModel = new Course;
+    
+            $course = $courseModel->newQueryWithoutScopes()->find($courseId);
+    
+            if ($user && $course) {
+    
+                $courseCreator = $course->user;
+    
+                if ($courseCreator->first()->setting) {
+                   
+                    $getResponseService = app(GetResponseService::class);
+
+                    $subscribe = $getResponseService->createContact($courseCreator->first()->setting->get_response_api_key, $course->get_response_id, $name, $email);
+    
+                    $course->user()->sync([$user->id], false);
+    
+                    return redirect()->route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]);
+                } else {
+                    $course->user()->attach($user->id);
+                }
+            } else {
+    
+                return  response('course not found');
+            }
+            
+        }
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'is_admin' => 'string',
+        ]);
+      
+        if (!$request->has('is_admin')) {
+            $data['is_admin'] = 'user';
+        }
+
+        $newUser = User::create($data);
+
+        // Log the newly registered user in
+        Auth::login($newUser);
+
+        Auth::login($user);
+
+        $courseId = $request->input('courseId');
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $list_id = $request->input('list_id');
+        $user = User::where('email', $email)->first();
+        $courseModel = new Course;
+
+        $course = $courseModel->newQueryWithoutScopes()->find($courseId);
+
+        if ($user && $course) {
+
+            $courseCreator = $course->user;
+
+            if ($courseCreator->first()->setting) {
+               
+
+                $getResponseService = app(GetResponseService::class);
+                $subscribe = $getResponseService->createContact($courseCreator->first()->setting->get_response_api_key, $course->get_response_id, $name, $email);
+
+                $course->user()->sync([$user->id], false);
+
+                return redirect()->route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]);
+            } else {
+                $course->user()->attach($user->id);
+            }
+        } else {
+
+            return  response('course not found');
+        }
+
+
+    }
     public function store(Request $request)
     {
 
         $user = User::where('email', $request->input('email'))->first();
+
         
         // If the user exists, log them in
         if ($user) {
@@ -128,7 +220,6 @@ class SubscribeController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'is_admin' => 'string',
         ]);
-        dd($user);
       
         if (!$request->has('is_admin')) {
             $data['is_admin'] = 'user';

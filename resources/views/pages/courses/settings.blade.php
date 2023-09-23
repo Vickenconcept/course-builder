@@ -191,6 +191,7 @@
                             <div class="flex-shrink w-full inline-block relative">
                                 <form action="{{ route('course-setting.saveSetting', ['courseId' => $course]) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="esp" value="mailchimp">
                                     <select
                                         class="block appearance-none text-gray-600 w-full bg-white border border-gray-400 shadow-inner px-4 py-2 pr-8 rounded" onchange="this.form.submit()" name="list_id">
                                         <option disabled selected>choose ...</option>
@@ -220,6 +221,7 @@
                             <div class="flex-shrink w-full inline-block relative">
                                 <form action="{{ route('course-setting.saveGetResponseId', ['courseId' => $course]) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="esp" value="getresponse">
                                     <select
                                         class="block appearance-none text-gray-600 w-full bg-white border border-gray-400 shadow-inner px-4 py-2 pr-8 rounded" onchange="this.form.submit()" name="get_response_id">
                                         <option disabled selected>choose ...</option>

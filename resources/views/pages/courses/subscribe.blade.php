@@ -40,25 +40,56 @@
                 <p class="text-gray-400">Enjoy the move!!</p>
                 <div class="">
                     @if ($course->courseSettings->checkout_option === 'email')
-                        <div class="py-10">
-                            <form action="{{ route('subscribe.store') }}" method="post">
-                                @csrf
-                                <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
-                                <div class="relative">
-                                    <input type="text" value="{{ $course->id }}" name="courseId" hidden>
-                                    <input type="text" value="{{ $list_id }}" name="list_id" hidden>
-                                    <input type="hidden" name="is_admin" value="user">
-                                    <input type="text" id="name" name="name"
-                                        class="w-full rounded-md border border-gray-200 px-0 py-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                                        placeholder="smith" name="name" />
-                                    <input type="text" id="email" name="email"
-                                        class="w-full rounded-md border border-gray-200 px-0 py-3 mt-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                                        placeholder="your.email@gmail.com" name="email" />
-                                </div>
-                                <button
-                                    class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" type="submit">Subscribe</button>
-                            </form>
-                        </div>
+                        @if ($course->esp === 'mailchimp')
+                            {{-- mailchimp --}}
+                            <h1>mailchimp</h1>
+                            <div class="py-10">
+                                <form action="{{ route('subscribe.store') }}" method="post">
+                                    @csrf
+                                    <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                                    <div class="relative">
+                                        <input type="text" value="{{ $course->id }}" name="courseId" hidden>
+                                        <input type="text" value="{{ $course->list_id }}" name="list_id" hidden>
+                                        <input type="hidden" name="is_admin" value="user">
+                                        <input type="text" id="name" name="name"
+                                            class="w-full rounded-md border border-gray-200 px-0 py-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                            placeholder="smith" name="name" />
+                                        <input type="text" id="email" name="email"
+                                            class="w-full rounded-md border border-gray-200 px-0 py-3 mt-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                            placeholder="your.email@gmail.com" name="email" />
+                                    </div>
+                                    <button
+                                        class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
+                                        type="submit">Subscribe</button>
+                                </form>
+                            </div>
+                        @elseif ($course->esp === 'getresponse')
+                            {{--  --}}
+                            <h1>getresponse</h1>
+                            <div class="py-10">
+                                <form action="{{ route('subscribe.getResponse') }}" method="post">
+                                    @csrf
+                                    <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                                    <div class="relative">
+                                        <input type="text" value="{{ $course->id }}" name="courseId" hidden>
+                                        <input type="text" value="{{ $course->get_response_id }}" name="get_response_id" hidden>
+                                        <input type="hidden" name="is_admin" value="user">
+                                        <input type="text" id="name" name="name"
+                                            class="w-full rounded-md border border-gray-200 px-0 py-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                            placeholder="smith" name="name" />
+                                        <input type="text" id="email" name="email"
+                                            class="w-full rounded-md border border-gray-200 px-0 py-3 mt-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                            placeholder="your.email@gmail.com" name="email" />
+                                    </div>
+                                    <button
+                                        class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
+                                        type="submit">Subscribe</button>
+                                </form>
+                            </div>
+                        @else
+                        <h1>not available now</h1>
+                        @endif
+                        {{--  --}}
                     @elseif($course->courseSettings->checkout_option === 'payment')
                         <div class="flex-center position-ref full-height">
 

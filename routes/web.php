@@ -73,6 +73,7 @@ Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('
 Route::resource('courses', CourseController::class);
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
 Route::post('/paymentData', [SubscribeController::class, 'paymentData'])->name('subscribe.paymentData');
+Route::post('/get_response', [SubscribeController::class, 'getResponse'])->name('subscribe.getResponse');
 Route::resource('/subscribe', SubscribeController::class);
 Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
 
@@ -132,41 +133,16 @@ Route::middleware('auth')->group(function () {
 Route::get('test', function () {
 
 
-    $apiKey = 'pxck0psjdi8tipukr0w24fh1d9ct3vi6';
-    $apiEndpoint = 'https://api.getresponse.com/v3';
-    $client = new \GuzzleHttp\Client();
-    // $campaignId = 'uBnNR';
-    // $campaignId = 'uKsSm';
-    $audiencesEndpoint = '/campaigns';
 
-    try {
-        // Make the POST request to add an email to the audience
-
-
-        $response = $client->request('GET', $apiEndpoint . '/tags', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'X-Auth-Token' => 'api-key pxck0psjdi8tipukr0w24fh1d9ct3vi6',
-            ],
-
-
-
-
-
-        ]);
-
-        $res = json_decode($response->getBody(), true);
+   
 
        
         
-        $getResponseService = app(GetResponseService::class);
-        $x = $getResponseService->createContact($apiKey);
-        // $tag = $x;
-        dd($x);
+        // $getResponseService = app(GetResponseService::class);
+        // $x = $getResponseService->createContact($apiKey);
+        dd( auth()->user()->courses ->find(1)->esp );
+  
 
     
-        
-    } catch (\GuzzleHttp\Exception\RequestException $e) {
-        echo 'Error: ' . $e->getMessage();
-    }
+
 });

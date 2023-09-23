@@ -17,7 +17,8 @@ return new class extends Migration
             $table->text('title')->nullable();
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->text('list_id')->nullable();
+            $table->text('list_id')->nullable(); 
+            $table->enum('esp', ['mailchimp', 'getresponse','share'])->nullable();
             $table->text('get_response_id')->nullable();
             $table->text('course_image')->nullable();
             $table->integer('price')->nullable();
