@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-white px-10 pt-10" x-data="{ childIsOpen: false, openShare: false }">
+    <div class="bg-white px-10 py-10" x-data="{ childIsOpen: false, openShare: false }">
         <div class=" w-full md:w-[80%]">
             <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 ">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
@@ -120,7 +120,7 @@
                         <p id="{{ $course->id }}" class="w-full rounded-lg p-3 border text-sm border-gray-700 ">
                             {{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}</p>
                         <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
-                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            class="rounded-lg bg-[#339966] px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
                             Clipboard</button>
                         <xmp id="{{ $course->slug }}"
                             class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
@@ -130,7 +130,7 @@
                             </iframe>
                         </xmp>
                         <button onclick="toCopy(document.getElementById('{{ $course->slug }}'))"
-                            class="rounded-lg bg-yellow-500 px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
+                            class="rounded-lg bg-[#339966] px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
                             Copy embeaded code</button>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
     <div class=" grid grid-cols-1 md:grid-cols-3 ">
         <section class=" col-span-2 mr-0 md:mr-10  px-5 pt-2 pb-5 bg-white rounded-xl">
             <div class="mb-6">
-                <label class="py-1 px-5  text-xs  border-b-2 border-[#39ac73] m-0 text-white ">Create</label>
+                <label class="py-1 px-5  text-xs  border-b-2 border-[#39ac73] bg-[#9fdfbf] m-0 text-white ">Create</label>
                 <label class="py-1 px-5  text-xs  border-b-2 border-[#39ac73] m-0  ">Structured</label>
             </div>
             <div class="flex flex-row mb-10 bg-gray-50 rounded-xl p-3">

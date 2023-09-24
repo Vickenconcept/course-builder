@@ -27,7 +27,7 @@ class Modal extends Component
     
     public function regenerate( ChatGptService $chatGptService){
         
-        $query  = "Generate a very short introduction about this subtopic " .$this->title." , return the response in a html format without head tag, html tag abd body tag, please do add <br> tag after every <p> and  where needed ." ;
+        $query  = "Generate a very short note about this subtopic " .$this->title." , return the response in a html format without head tag, html tag abd body tag, please do add <br> tag after every <p> and  where needed ." ;
         $response = $chatGptService->generateContent($query);
         $this->generatedResponse = $response;
 
@@ -36,7 +36,7 @@ class Modal extends Component
     public function aiCourseGenerator( ChatGptService $chatGptService)
     {
         // $query = $this->modalData . " '" . $this->title . "' ";
-        $query  = "Generate a  short introduction about this subtopic " .$this->title." , return the response in a html format without head tag, html tag abd body tag, please do add <br> tag after every <p> and  where needed ." ;
+        $query  = "Generate a  very short note about this subtopic " .$this->title." , return the response in a html format without head tag, html tag abd body tag, please do add <br> tag after every <p> and  where needed ." ;
         $response = $chatGptService->generateContent($query);
  
         $this->generatedResponse = $response;

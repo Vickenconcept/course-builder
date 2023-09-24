@@ -14,36 +14,15 @@ class PayPalPaymentController extends Controller
     {
         try {
 
-            // $course = Course::find($request->query('courseId')); 
             $courseModel = new Course;
             $course = $courseModel->newQueryWithoutScopes()
                 ->find($request->query('courseId'));
 
-            // // $course = $user->courses()->findOrFail($id);
-            // if ($course) {
-            //     $owner = $course->user; // Assuming there's a relationship between Course and User
 
-            //     $settings =$owner->first()->setting;
-
-            //     $paypalApiUsername = $settings->paypal_api_username;
-            //     $paypalApiPassword = $settings->paypal_api_password;
-            //     $paypalApiSecret = $settings->paypal_api_secret;
-
-            //     config([
-            //         'paypal.sandbox.username' => $paypalApiUsername,
-            //         'paypal.sandbox.password' => $paypalApiPassword,
-            //         'paypal.sandbox.secret' => $paypalApiSecret ,
-            //     ]);
-
-            //     // Use $owner as needed
-            // } else {
-            //     return redirect()->back()->with('success', 'paypal keys incorrect');
-            // }
 
             if ($course) {
-                $owner = $course->user; // Assuming there's a relationship between Course and User
+                $owner = $course->user;
 
-                // Retrieve the owner's settings
                 $settings = $owner->first()->setting;
 
                 if (!$settings) {
@@ -54,16 +33,15 @@ class PayPalPaymentController extends Controller
                 $paypalApiPassword = $settings->paypal_api_password;
                 $paypalApiSecret = $settings->paypal_api_secret;
 
-                // Check if any of the PayPal API credentials is empty or null
                 if (empty($paypalApiUsername) || empty($paypalApiPassword) || empty($paypalApiSecret)) {
                     return redirect()->back()->with('error', 'PayPal API credentials are missing or incorrect.');
                 }
 
 
                 config([
-                    'paypal.sandbox.username' => $paypalApiUsername,
-                    'paypal.sandbox.password' => $paypalApiPassword,
-                    'paypal.sandbox.secret' => $paypalApiSecret,
+                    'paypal.live.username' => $paypalApiUsername,
+                    'paypal.live.password' => $paypalApiPassword,
+                    'paypal.live.secret' => $paypalApiSecret,
                 ]);
             } else {
                 return redirect()->back()->with('error', 'Course not found.');
@@ -108,15 +86,23 @@ class PayPalPaymentController extends Controller
         $data['cancel_url'] = route('payment.cancel');
         $data['total'] = $price;
 
-        $provider = new ExpressCheckout;
+        try {
+            $provider = new ExpressCheckout;
 
-        $response = $provider->setExpressCheckout($data);
+            $response = $provider->setExpressCheckout($data);
 
-        $response = $provider->setExpressCheckout($data, true);
-        // dd($response);
+            $response = $provider->setExpressCheckout($data, true);
+            // dd($response);
 
-        // return redirect()->away($response['paypal_link']);
-        return redirect($response['paypal_link']);
+            if ($response['ACK'] === 'Success') {
+                return redirect($response['paypal_link']);
+                // return redirect()->away($response['paypal_link']);
+            } else {
+                return back()->with('success', 'Failed to initiate PayPal payment. Please try again.');
+            }
+        } catch (\Exception $e) {
+            return back()->with('success', 'An error occurred. Please try again later.');
+        }
     }
 
     /**

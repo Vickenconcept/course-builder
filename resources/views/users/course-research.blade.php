@@ -84,10 +84,7 @@
                             {{ $trend['totalStudents'] }}
                         @endif
                     </div>
-                    <!-- <div class=" text-xs capitalize">Platform</div>
-                    <div class=" text-xs">5</div> -->
-                    <!-- <div class=" text-xs capitalize">niches</div>
-                    <div class=" text-xs">35</div> -->
+                  
                     <div class=" text-xs capitalize">Average price</div>
                     <div class=" text-xs">
                         @if (isset($trend) && is_array($trend))
@@ -99,6 +96,11 @@
             <div class="col-span-1 shadow-md rounded p-4 bg-white">
                 <h1 class="font-semibold capitalize ">Opportunity Score</h1>
                 <canvas id="myChart"></canvas>
+                <div class="w-full bg-neutral-200  rounded-full overflow-hidden mt-2 hidden">
+                    <div id="degree" class="bg-[#39ac73] p-0.5 text-center text-[8px] font-medium leading-none text-blue-50" style="width: 45%">
+                        45%
+                    </div> 
+                </div>
             </div>
             <div class="col-span-1 sm:col-span-2 shadow-md rounded p-5 bg-white">
                 <h1 class="font-semibold capitalize ">topic search trend</h1>
@@ -111,19 +113,6 @@
                     <img src="{{ asset('images/chart.jpg') }}"
                         style="opacity: 0.2; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"
                         alt="Image">
-                </div>
-                <!-- <div class="w-full overflow-hidden bg-cover bg-opacity-50 bg-no-repeat object-contain p-2 relative" style="background-image: url('{{ $imageSrc }}');">
-                    <canvas id="lineChart" class="w-full" style="z-index: 10;"></canvas>
-                </div> -->
-
-
-
-
-                <!-- </div> -->
-                <div class="w-full bg-neutral-200 dark:bg-neutral-600 rounded-full overflow-hidden">
-                    <!-- <div class="bg-blue-600 p-0.5 text-center text-[8px] font-medium leading-none text-blue-50" style="width: 45%">
-                        45%
-                    </div> -->
                 </div>
             </div>
 
@@ -196,7 +185,7 @@
                             </tr>
                         @empty
                         <tr class="text-left border-b-2 shadow bg-white ">
-                            <td colspan="10"
+                            <td colspan="6"
                                 class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">
                                 No Data found!</td>
 
@@ -206,7 +195,7 @@
 
                     @if (!isset($books))
                         <tr class="text-left border-b-2 shadow bg-white ">
-                            <td colspan="10"
+                            <td colspan="6"
                                 class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">
                                 No Book Search Yet!</td>
 
@@ -309,6 +298,7 @@
 
         // Calculate the degree based on opportunity score (max 360 degrees)
         var degree = Math.min(opportunityScore * 330, 360);
+
         const dataDoughnut = {
             labels: ['Opportunity', 'Remaining'],
             datasets: [{

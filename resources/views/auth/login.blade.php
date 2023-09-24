@@ -1,7 +1,7 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+<x-notification />
     <div class="relative h-screen bg-cover bg-no-repeat" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpIPKAIdz6p4WYQDW22q0YjSP17ysWhG_-BQ&usqp=CAU')">
         {{-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpIPKAIdz6p4WYQDW22q0YjSP17ysWhG_-BQ&usqp=CAU" class="absolute inset-0 object-cover w-full h-screen" alt="" /> --}}
         <div class="relative h-screen bg-gray-900 bg-opacity-75">
@@ -22,7 +22,7 @@
                     <div class="w-full max-w-xl xl:px-8 xl:w-5/12">
                         <div class="bg-white rounded shadow-2xl p-7 sm:p-10">
                             <h3 class="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
-                                Sign up for updates
+                                Welcome, Sign Up
                             </h3>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf

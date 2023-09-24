@@ -1,7 +1,7 @@
 <div>
     @props(['modalData', 'title'])
     <div {{-- x-data="{ isOpen : false }" --}}
-        class="flex items-center justify-center absolute top-0 left-0 mx-auto w-full h-full bg-gray-400 bg-opacity-20 z-10"
+        class=" fixed flex items-center justify-center absolute top-0 left-0 mx-auto w-full h-full bg-gray-400 bg-opacity-20 z-10"
         x-show="isOpen" style="display: none;">
         <div
             class="bg-white w-[90%] shadow-sm border rounded overflow-auto h-[70%] my-auto pb-6 transition-all relative duration-700">

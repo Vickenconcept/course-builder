@@ -55,9 +55,9 @@
         </div>
 
         <div class="text-center" id="controls">
-            <button id="previousButton" class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 "><i
+            <button id="previousButton" class="bg-[#339966] text-white shadow-sm hover: rounded-full py-1 px-2 "><i
                     class='bx bx-chevron-left text-2xl'></i></button>
-            <button id="nextButton" class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 ronded"><i
+            <button id="nextButton" class="bg-[#339966] text-white shadow-sm hover: rounded-full py-1 px-2 ronded"><i
                     class='bx bx-chevron-right text-2xl'></i></button>
 
         </div>
@@ -74,7 +74,7 @@
                             {{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}
                         </p>
                         <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
-                            class="rounded-lg bg-yellow-500 px-3 pt-4 mt-5 text-white text-xs shadow-sm hover: ">Copy
+                            class="rounded-lg bg-[#339966] px-3 py-2 mt-5 text-white text-xs shadow-sm hover: ">Copy
                             Clipboard</button>
                         <xmp id="{{ $course->slug }}"
                             class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
@@ -85,7 +85,7 @@
                             </iframe>
                         </xmp>
                         <button onclick="toCopy(document.getElementById('{{ $course->slug }}'))"
-                            class="rounded-lg bg-yellow-500 px-3 pt-4 mt-5 text-white text-xs shadow-sm hover: ">Copy
+                            class="rounded-lg bg-[#339966] px-3 py-2 mt-5 text-white text-xs shadow-sm hover: ">Copy
                             Copy embeaded code</button>
                     </div>
                 </div>
@@ -93,15 +93,15 @@
         </div>
 
     </div>
-    
+
     <style>
-        #flipbook{
-  -webkit-transition:margin-left 0.2s ease-in-out;
-  -moz-transition:margin-left 0.2s ease-in-out;
-  -o-transition:margin-left 0.2s ease-in-out;
-  -ms-transition:margin-left 0.2s ease-in-out;
-  transition:margin-left 0.2s ease-in-out;
-}
+        #flipbook {
+            -webkit-transition: margin-left 0.2s ease-in-out;
+            -moz-transition: margin-left 0.2s ease-in-out;
+            -o-transition: margin-left 0.2s ease-in-out;
+            -ms-transition: margin-left 0.2s ease-in-out;
+            transition: margin-left 0.2s ease-in-out;
+        }
     </style>
 
 
@@ -141,7 +141,7 @@
         // // Check if page 1 is in the flipbook
 
         // checkPage(20);
-        
+
 
 
         jQuery(document).ready(function($) {

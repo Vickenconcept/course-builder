@@ -106,6 +106,7 @@ class CourseSettingsController extends Controller
 
         $course = $user->courses()->find($courseId);
 
+        session(['checkout_option' =>  $request->input('checkout_option')]);
         if ($course) {
             $course->courseSettings->checkout_option = $request->input('checkout_option');
             $course->courseSettings->update();

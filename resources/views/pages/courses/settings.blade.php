@@ -3,8 +3,9 @@
 
     <div class="grid  grid-cols-1 md:grid-cols-3 gap-5 px-5" x-data="{ selected: ''}">
         <div class="col-span-1 grid gap-5">
+
             <!-- component -->
-            <div class="bg-gray-200 min-h-screen pt-2 font-mono mb-10 mt-0">
+            <div class="bg-gray-200 min-h-screen pt-2 font-mono mb-10 mt-0 rounded-lg">
                 <div class="container mx-auto">
                     <div class="inputs w-full max-w-2xl p-6 mx-auto">
                         <div class=" w-full md:w-[80%] my-3 rounded-full border-b border-gray-400  px-2 ">
@@ -15,35 +16,11 @@
                         <h2 class="text-2xl text-gray-900"><i class='bx bxs-cog text-4xl'></i>Course Setting</h2>
                         <p class="text-gray-700 font-bold text-sm bg-gray-100 p-2 w-full rounded">Course price: ${{ $course->price }}</p>
                         <div class="mt-6 border-t border-gray-400 pt-4">
-                            {{-- <div x-data="{ isOpen: false }"
-                                class=" w-48  text-gray-700   transition-transform duration-300 transform -translate-x-full">
-                                <button @click="isOpen = !isOpen"
-                                    class="bg-transparent border-none text-gray-700 py-2 px-4 cursor-pointer font-bold underline">ESP</button>
-                                <div x-show="isOpen" class="p-4">
-                                    <ul class="list-none p-0 text-gray-700">
-                                        <li class="mb-2"><a href="#" class=" no-underline" class=""
-                                                @click="openMailChimp = !openMailChimp">MailChimp</a></li>
-                                        <li class="mb-2"><a href="#" class=" no-underline">About</a></li>
-                                    </ul>
-                                </div>
-                            </div> --}}
+                           
                            
                             <div class='flex flex-wrap -mx-3 mb-6'>
 
-                                {{-- <div class='w-full md:w-full px-3 mb-6'>
-                                    <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
-                                        for='grid-text-1'>email address</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                        id='grid-text-1' type='text' placeholder='Enter email' required>
-                                </div> --}}
-                                {{-- <div class='w-full md:w-full px-3 mb-6 '>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>password</label>
-                                    <button
-                                        class="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md ">change
-                                        your password</button>
-                                </div> --}}
+                               
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <form action="{{ route('course.checkout', ['courseId' => $course]) }}" method="POST">
                                         @method('PUT')
@@ -55,9 +32,9 @@
                                             <select
                                                 class="block appearance-none text-gray-600 w-full bg-white border border-gray-400 shadow-inner px-4 py-2 pr-8 rounded" name="checkout_option" onchange="this.form.submit()">
                                                 <option disabled selected>Checkout Mode</option>
-                                                <option value="email">Email</option>
-                                                <option value="payment" >Payment</option>
-                                                <option value="share" >Social share</option>
+                                                <option value="email" @if (session('checkout_option') === 'email') selected @endif>Email</option>
+                                                <option value="payment" @if (session('checkout_option') === 'payment') selected @endif>Payment</option>
+                                                <option value="share" @if (session('checkout_option') === 'share') selected @endif>Social share</option>
                                             </select>
                                             <div
                                                 class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
@@ -71,13 +48,16 @@
                                         {{-- <button type="submit" class="underline">Check</button> --}}
                                     </form>
                                 </div>
-                                <div >
+                                @if (session('checkout_option') === 'email') 
+
+                                <div class="space-y-2 w-full">
                                     
-                                    <button @click="selected = 'mailchimp'">Mailchimp</button>
-                                    <button @click="selected = 'getresponse'">GetResponse</button>
+                                    <button @click="selected = 'mailchimp'" class="block bg-[#339966] w-full text-left text-white rounded-full px-3 py-1"><i class='bx bxs-envelope mr-1 text-white'></i>Mailchimp</button>
+                                    <button @click="selected = 'getresponse'" class="block bg-[#339966] w-full text-left text-white rounded-full px-3 py-1"><i class='bx bxs-envelope mr-1 text-white'></i>GetResponse</button>
                                     
                                     
                                 </div>
+                                 @endif
                                 {{-- <div class='w-full md:w-full px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Pick your Audience</label>
@@ -117,7 +97,7 @@
 
         <div class="col-span-2">
             <!-- component -->
-            <div class="bg-gray-200 min-h-screen pt-2 font-mono mb-10 mt-0">
+            <div class="bg-gray-200 min-h-screen pt-2 font-mono mb-10 mt-0 rounded-lg">
                 <div class="container mx-auto">
                     <div class="inputs w-full max-w-2xl p-6 mx-auto">
                         <div class='flex flex-wrap -mx-3 mb-6'>

@@ -45,7 +45,7 @@
                         <x-slot name="content">
                             <x-dropdown-link class="cursor-pointer" @click="isOpen = true ; ">
                                 <button>
-                                    write an intro summary for this module based on this title
+                                    Generate course for this module
                                 </button>
                             </x-dropdown-link>
                         </x-slot>

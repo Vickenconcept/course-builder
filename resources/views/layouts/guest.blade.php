@@ -22,7 +22,7 @@
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-e4c7b08b.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-541c3f26.css ') }}">
 
     <style>
         #flipbook a {
@@ -30,6 +30,15 @@
             /* Change this color to your desired default link color */
             text-decoration: underline;
         }
+
+        #flipbook {
+            -webkit-transition: margin-left 0.2s ease-in-out;
+            -moz-transition: margin-left 0.2s ease-in-out;
+            -o-transition: margin-left 0.2s ease-in-out;
+            -ms-transition: margin-left 0.2s ease-in-out;
+            transition: margin-left 0.2s ease-in-out;
+        }
+
         .sj-book .even {
             background: -webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada));
             background-image: -webkit-linear-gradient(left, #fff 95%, #dadada 100%);
@@ -53,7 +62,7 @@
 
 <body class="font-sans text-gray-900 antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center  sm:pt-0 bg-gray-100">
-        
+
         <div class="w-full ">
             {{ $slot }}
         </div>

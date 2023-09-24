@@ -23,12 +23,23 @@
                     <x-slot name="content">
                         <div class="p-3 text-blue-700"></div>
                         @if (Auth::user())
-                        {{-- <x-dropdown-link >
-                            {{ __('Profile') }}
-                        </x-dropdown-link> --}}
+                      
                         <!-- Authentication -->
+                        @if (auth()->user()->is_admin === 'super_admin')
+                                
+                        <x-dropdown-link href="{{ route('dashboard.index') }}">
+                            {{ __('Dashboard') }}
+                        </x-dropdown-link>
+                        @endif
                         <form method="POST" action="{{ route('auth.logout') }}">
                             @csrf
+                            <x-dropdown-link  class="text-[#79d2a6]">
+                                {{  auth()->user()->name }}
+                            </x-dropdown-link>
+                           
+                            <x-dropdown-link href="{{ route('password.reset') }}" onclick="this.closest('form').submit();">
+                                {{ __('Change Password') }}
+                            </x-dropdown-link>
                             <x-dropdown-link href="javascript:void(0)" onclick="this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>

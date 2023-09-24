@@ -19,6 +19,7 @@ use App\Events\JobCompleted;
 use App\Http\Controllers\CourseSettingsController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShareEventController;
@@ -67,10 +68,6 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 
 
-Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
-Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
-Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
-Route::resource('courses', CourseController::class);
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
 Route::post('/paymentData', [SubscribeController::class, 'paymentData'])->name('subscribe.paymentData');
 Route::post('/get_response', [SubscribeController::class, 'getResponse'])->name('subscribe.getResponse');
@@ -85,7 +82,11 @@ Route::controller(PayPalPaymentController::class)->group(function () {
 });
 
 
+Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
+Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
+Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
 Route::middleware('auth')->group(function () {
+    Route::resource('courses', CourseController::class);
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
     Route::resource('/dashboard', DashboardController::class)->middleware('admin');
     // Route::put('/dashboard/{id}', DashboardController::class)->name('dashboard')->middleware('admin');
@@ -114,6 +115,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/setting/paypal/', [SettingController::class, 'paypalData'])->name('setting.paypalData');
         Route::post('/setting/get-response/', [SettingController::class, 'saveGetResponseData'])->name('setting.saveGetResponseData');
         Route::resource('/setting', SettingController::class);
+        Route::get('/password/reset', [ResetPasswordController::class ,'showResetForm'])->name('password.reset');
+        Route::post('/password/reset', [ResetPasswordController::class ,'resetPassword'])->name('password.reset');
 
         // Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
         Route::resource('lesson', LessonController::class);
@@ -133,14 +136,31 @@ Route::middleware('auth')->group(function () {
 Route::get('test', function () {
 
 
+    $client = new \GuzzleHttp\Client();
+       
+        // $response = $client->request('GET', 'https://emailoctopus.com/api/1.6/lists?api_key=b06003c3-0568-47c2-89f8-6e720a2ee93e', []);
+        // dd($response);
 
+        $ch = curl_init();
+        $api_key = 'b06003c3-0568-47c2-89f8-6e720a2ee93e';
+        
+        curl_setopt($ch, CURLOPT_URL, 'https://emailoctopus.com/api/1.6/lists');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $api_key));
+        
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+        dd($result);
+                    
    
 
        
         
         // $getResponseService = app(GetResponseService::class);
         // $x = $getResponseService->createContact($apiKey);
-        dd( auth()->user()->courses ->find(1)->esp );
   
 
     

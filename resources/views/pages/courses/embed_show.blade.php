@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div x-data="{ openShare: false }">
+    <div x-data="{ openShare: false }" class="bg-cover bg-no-repeat w-full bg-center h-full bg-gray-500" style="background-image: url('{{ asset($course->course_images) }}'); ">
         {{--  --}}
         @seo([
             'title' => $course->title,
@@ -8,13 +8,11 @@
             'type' => 'article',
             'url' => route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]),
         ])
+        <x-notification />
 
         <div class="w-full flex justify-center items-center pt-10">
-            <div id="flipbook" class="sj-book">
-                {{-- <div
-                class=" hard front-cover  bg-gray-300 rounded-tr-lg rounded-br-lg  text-gray-700 text-center  border border-gray-700   object-cover">
-                <img src="{{ asset($course->course_image) }}" alt="image" class="w-full object-cover">
-            </div> --}}
+            <div id="flipbook" class="sj-book ">
+            
                 <div
                     class="hard front-cover bg-gray-300 rounded-tr-lg rounded-br-lg text-gray-700 text-center border border-gray-700 ">
                     <div class="bg-cover bg-no-repeat w-full bg-center h-full"
@@ -100,10 +98,10 @@
         </div>
         <div class="  text-center" id="controls">
             <button id="previousButton"
-                class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 "><i
+                class="bg-[#339966] text-white shadow-sm hover: rounded-full py-1 px-2 "><i
                     class='bx bx-chevron-left text-2xl'></i></button>
             <button id="nextButton"
-                class="bg-yellow-500 text-white shadow-sm hover: rounded-full py-1 px-2 ronded"><i
+                class="bg-[#339966] text-white shadow-sm hover: rounded-full py-1 px-2 ronded"><i
                     class='bx bx-chevron-right text-2xl'></i></button>
         </div>
 

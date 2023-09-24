@@ -14,7 +14,7 @@
         <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
     @endif
 
-
+    <x-notification />
     <div class="grid grid-cols-1 md:grid-cols-3 w-full  md:w-[80%] mx-auto">
         <div class="col-span-1 bg-gray-50 px-10  text-gray-700 py-10 grid grid-cols-2 gap-2">
             <div class=" object-cover overflow-hidden border-r-4 border-b-4 h-40">

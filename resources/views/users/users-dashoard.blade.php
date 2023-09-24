@@ -12,7 +12,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-e4c7b08b.css ') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-541c3f26.css ') }}">
 </head>
 <body>
    

@@ -141,7 +141,7 @@
 
                     @if (!isset($books))
                         <tr class="text-left border-b-2 shadow bg-white ">
-                            <td colspan="10"
+                            <td colspan="6"
                                 class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">
                                 No Book Search Yet!</td>
                         </tr>
