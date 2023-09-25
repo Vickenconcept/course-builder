@@ -72,11 +72,11 @@
             width: 1000,
             height: 600,
             autoCenter: true,
-            display: 'double', // 'double' is a string, make sure to enclose it in quotes
+            display: 'double', 
             acceleration: true,
-            elevation: 50, // Corrected property name
-            gradients: true, // Enable gradients for more realistic page colors
-            duration: 1000, // Duration of the flip animation in milliseconds
+            elevation: 50, 
+            gradients: true, 
+            duration: 1000, 
             turnCorners: 'bl,br',
         });
 
@@ -119,17 +119,9 @@
             });
         });
 
-        // flipbook.addEventListener('mouseleave', () => {
-        //     gsap.to(controls, {
-        //         y: '100%',
-        //         opacity: 0,
-        //         duration: 0.3
-        //     });
-        // });
+
     </script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script src="{{ asset('build/assets/app-dd6eec69.js') }}"></script>
-    {{-- <script src="{{ asset('js/turnjs4/lib/hash.js') }}"></script> --}}
 
 
 </body>

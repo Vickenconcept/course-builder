@@ -37,6 +37,7 @@
                     summernote.summernote('code', data);
                 });
             });
+            
         })(jQuery);
 
 

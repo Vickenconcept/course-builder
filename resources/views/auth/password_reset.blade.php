@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <div class="w-full h-[26rem] flex justify-center items-center">
         <div class="w-full max-w-xl xl:px-8 xl:w-5/12">
             <div class="bg-white rounded shadow-md p-7 sm:p-10">
@@ -8,6 +8,14 @@
                 <form method="POST" action="{{ route('password.reset') }}">
                     @csrf
 
+                    <div class="mt-4">
+                        <x-input-label for="email" :value="__('Email')" />
+
+                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" required
+                            autocomplete="current-email"  placeholder="Enter your email address"/>
+
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
                     <div class="mt-4">
                         <x-input-label for="password" :value="__('New Password')" />
 
@@ -26,4 +34,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-guest-layout>

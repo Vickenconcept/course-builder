@@ -82,6 +82,8 @@ Route::controller(PayPalPaymentController::class)->group(function () {
 });
 
 
+Route::get('/password/reset', [ResetPasswordController::class ,'showResetForm'])->name('password.reset');
+Route::post('/password/reset', [ResetPasswordController::class ,'resetPassword'])->name('password.reset');
 Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
@@ -115,8 +117,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/setting/paypal/', [SettingController::class, 'paypalData'])->name('setting.paypalData');
         Route::post('/setting/get-response/', [SettingController::class, 'saveGetResponseData'])->name('setting.saveGetResponseData');
         Route::resource('/setting', SettingController::class);
-        Route::get('/password/reset', [ResetPasswordController::class ,'showResetForm'])->name('password.reset');
-        Route::post('/password/reset', [ResetPasswordController::class ,'resetPassword'])->name('password.reset');
         Route::resource('lesson', LessonController::class);
         Route::view('tutorials', 'users.tutorial')->name('tutorials');
         // Route::get('export/{contentType}', ContentExportController::class)->name('export');
