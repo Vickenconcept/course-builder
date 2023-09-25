@@ -117,9 +117,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/setting', SettingController::class);
         Route::get('/password/reset', [ResetPasswordController::class ,'showResetForm'])->name('password.reset');
         Route::post('/password/reset', [ResetPasswordController::class ,'resetPassword'])->name('password.reset');
-
-        // Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
         Route::resource('lesson', LessonController::class);
+        Route::view('tutorials', 'users.tutorial')->name('tutorials');
         // Route::get('export/{contentType}', ContentExportController::class)->name('export');
     });
 

@@ -80,7 +80,9 @@ class GetResponseService
 
             return $audiences;
         } catch (\GuzzleHttp\Exception\RequestException $e) {
-            echo 'Error: ' . $e->getMessage();
+            // echo 'Error: ' . $e->getMessage();
+
+            redirect()->back()->with('success', 'Get Response Api key Not configured');
         }
     }
 
