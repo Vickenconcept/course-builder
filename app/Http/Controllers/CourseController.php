@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseIpAddress;
 use App\Models\CourseSettings;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Cloudinary\Uploader;
 use App\Services\BookService;
@@ -35,9 +36,24 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        //
-    }
+       $course_id =  $request->input('course_id');
+        $title = $request->input('title');
 
+        $validatedData = $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'title' => 'required|string|max:255',
+        ]);
+        
+        $user = auth()->user();
+        $course = $user->courses()->where('courses.id', $validatedData['course_id'])->firstOrFail();
+
+        $createdLesson =  $course->lessons()->create([
+            'title' =>  $validatedData['title'],
+        ]);
+       
+    
+        return redirect()->back()->with('success','Lesson created successfully');
+    }
 
     public function show($slug)
     {

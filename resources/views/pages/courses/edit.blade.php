@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-white px-10 py-10" x-data="{ childIsOpen: false, openShare: false }">
+    <div class="bg-white px-10 py-10" x-data="{ childIsOpen: false, openShare: false, openCreate: false }">
         <div class=" w-full md:w-[80%]">
             <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 ">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
@@ -99,8 +99,50 @@
                 @endforeach
             </div>
 
+            <div class="py-3">
+        
+              
+                    <button type="submit" @click="openCreate = true"
+                        class="py-1 px-4 rounded-md bg-transparent border text-[#339966] border-[#339966] hover:bg-[#9fdfbf] transition duration-300">
+                      + Add Module
+                    </button>
+
+            </div>
+
         </section>
 
+
+        {{-- mmodal --}}
+
+        <div x-show="openCreate"
+            class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 "
+            style="display: none">
+            <div class="flex items-center justify-center min-h-screen px-10">
+                <div class="bg-white w-[90%] md:w-[50%] rounded-lg overflow-hidden pb-6 transition-all relative duration-700"
+                    @click.away="openCreate = false">
+                    <div class="p-5">
+                        <h1 class="text-gray-700">Add Module</h1>
+                        <form id=""
+                            action="{{ route('courses.store') }}" method="POST">
+                            @csrf
+                            
+                           <div>
+                            <input type="hidden" name="course_id" value=" {{ $course->id }}">
+                            <input type="text "
+                            class="  focus:ring-0  my-1 p-2 placholder-gray-300 placeholder:italic  border border-[#339966] rounded-md w-full"
+
+                            value=""
+                             name="title" placeholder="Enter title" autocomplete="off">
+                           </div>
+                            <button type="submit" 
+                                class="rounded-lg bg-[#339966] px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">
+                                Create</button>
+                        </form>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

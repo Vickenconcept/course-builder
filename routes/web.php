@@ -119,6 +119,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/setting', SettingController::class);
         Route::resource('lesson', LessonController::class);
         Route::view('tutorials', 'users.tutorial')->name('tutorials');
+        Route::view('support', 'users.support')->name('support');
         // Route::get('export/{contentType}', ContentExportController::class)->name('export');
     });
 

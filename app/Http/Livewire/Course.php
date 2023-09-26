@@ -38,8 +38,11 @@ class Course extends Component
     {
         $this->isLoading = true;
 
+        // $query = "Generate 10 array of ten subheadings starting from Introduction and ending with conclusion on the topic " .
+        // $this->topic . " , while writing the subheadings,  add the " . $this->topic . " as a key word in the subheadings  . And make sure you write the course overview for the topic, return the response in an  array of the format ['subheadings' => ['','','', '',..],'course-overview' => ['the course over view will go in here']]. do not say anything else just all i need is the array. please generate the over view and stop saying the over view will be here";
+        
         $query = "Generate 10 array of ten subheadings starting from Introduction and ending with conclusion on the topic " .
-        $this->topic . " , while writing the subheadings,  add the " . $this->topic . " as a key word in the subheadings  . And also  write the course overview for the topic, return the response in an  array of the format ['subheadings' => ['','','', '',..],'course-overview' => ['the course over view will go in here']]. do not say anything else just all i need is the array. please generate the over view and stop saying the over view will be here";
+        $this->topic . " , while writing the subheadings,  add the " . $this->topic . " as a key word in the subheadings  . And make sure you generate the course overview for the topic, return the response in an  array of the format ['subheadings' => ['','','', '',..],'course-overview' => ['the course over view will go in here']]. do not say anything else just all i need is the array. please generate the over view and stop saying the over view will be here";
         
         $user = auth()->user();
         

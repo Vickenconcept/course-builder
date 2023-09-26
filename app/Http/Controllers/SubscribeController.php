@@ -138,7 +138,6 @@ class SubscribeController extends Controller
         // Log the newly registered user in
         Auth::login($newUser);
 
-        Auth::login($user);
 
         $courseId = $request->input('courseId');
         $email = $request->input('email');

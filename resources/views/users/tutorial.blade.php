@@ -26,9 +26,13 @@
                 thumbnail=" "
                 url="" /> --}}
                 
-                <a id="single_image" href=" https://vimeo.com/867741138"><img src="{{ asset('images/book-cover.jpg') }}"
-                        alt="" /></a>
-                <a class="iframe" href="http://www.example">This goes to iframe</a>
+                <a href="https://vimeo.com/867875498" 
+                data-fancybox data-width="640" 
+                data-height="360"
+                data-thumb="https://i.vimeocdn.com/video/1728792973-b23ad5645875aab2f35ee88d2665b65ed105dc4048ef8e0a40c806f93e5f06c2-d_236x133">
+                    HTML5 video
+                    <img src="https://i.vimeocdn.com/video/1728792973-b23ad5645875aab2f35ee88d2665b65ed105dc4048ef8e0a40c806f93e5f06c2-d_236x133" />
+                  </a>
         </div>
     </div>
 
@@ -36,25 +40,6 @@
         jQuery.noConflict();
         (function($) {
 
-            jQuery(document).ready(function() {
-
-                /* This is basic - uses default settings */
-
-                $("#single_image").fancybox();
-
-                /* Using custom settings */
-
-                /* Apply fancybox to multiple items */
-
-                $("a.group").fancybox({
-                    'transitionIn': 'elastic',
-                    'transitionOut': 'elastic',
-                    'speedIn': 600,
-                    'speedOut': 200,
-                    'overlayShow': false
-                });
-
-            });
         })(jQuery);
     </script>
 </x-app-layout>
