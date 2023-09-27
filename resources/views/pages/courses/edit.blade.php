@@ -8,7 +8,7 @@
         <section class="mt-20 w-full md:w-[70%] mx-auto">
             <div class="flex justify-between py-3">
                 <div>
-                    <a href="{{ route('courses.show', ['course' => $course->slug]) }}" target="_blank">
+                    <a href="{{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}" target="_blank">
                         <button
                             class=" hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
                             Preview

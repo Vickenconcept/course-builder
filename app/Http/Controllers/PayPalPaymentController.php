@@ -97,11 +97,24 @@ class PayPalPaymentController extends Controller
             if ($response['ACK'] === 'Success') {
                 return redirect($response['paypal_link']);
                 // return redirect()->away($response['paypal_link']);
-            } else {
-                return back()->with('success', 'Failed to initiate PayPal payment. Please try again.');
+            } 
+            elseif($response['ACK'] === 'Failure') {
+                $errMsg = $response['L_LONGMESSAGE0'];
+                return back()->with('success', $errMsg . '. Please try again.');
             }
-        } catch (\Exception $e) {
-            return back()->with('success', 'An error occurred. Please try again later.');
+           
+        // } catch (\Exception $e) {
+        //     return back()->with('success', 'An error occurred. Please try again later.');
+        }
+        catch (\Exception $e) {
+            $errorMessage = 'An error occurred. Please try again later.';
+            
+            // Check if the error is related to a restricted account
+            if (strpos($e->getMessage(), 'Account is restricted') !== false) {
+                $errorMessage = 'Your PayPal account is restricted. Please contact PayPal support for assistance.';
+            }
+            
+            return back()->with('success', $errorMessage);
         }
     }
 

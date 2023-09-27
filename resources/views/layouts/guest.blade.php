@@ -21,42 +21,48 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/turnjs4/lib/turn.min.js') }}"></script>
 
+
+
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> --}}
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
+   
+
+
+
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/app-541c3f26.css ') }}">
 
-    <style>
-        #flipbook a {
-            color: #007bff;
-            /* Change this color to your desired default link color */
-            text-decoration: underline;
-        }
+  <style>
+     .title {
+        font-size: 30px;
+        padding-bottom: 20px;
+        /* color: white; */
+    }
 
-        #flipbook {
-            -webkit-transition: margin-left 0.2s ease-in-out;
-            -moz-transition: margin-left 0.2s ease-in-out;
-            -o-transition: margin-left 0.2s ease-in-out;
-            -ms-transition: margin-left 0.2s ease-in-out;
-            transition: margin-left 0.2s ease-in-out;
-        }
+    p {
+        padding-bottom: 5px;
+        line-height: 25px;
+        font-size: 15px
+    }
 
-        .sj-book .even {
-            background: -webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada));
-            background-image: -webkit-linear-gradient(left, #fff 95%, #dadada 100%);
-            background-image: -moz-linear-gradient(left, #fff 95%, #dadada 100%);
-            background-image: -ms-linear-gradient(left, #fff 95%, #dadada 100%);
-            background-image: -o-linear-gradient(left, #fff 95%, #dadada 100%);
-            background-image: linear-gradient(left, #fff 95%, #dadada 100%);
-        }
+    .float {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
 
-        .sj-book .odd {
-            background: -webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #cacaca));
-            background-image: -webkit-linear-gradient(right, #fff 95%, #cacaca 100%);
-            background-image: -moz-linear-gradient(right, #fff 95%, #cacaca 100%);
-            background-image: -ms-linear-gradient(right, #fff 95%, #cacaca 100%);
-            background-image: -o-linear-gradient(right, #fff 95%, #cacaca 100%);
-            background-image: linear-gradient(right, #fff 95%, #cacaca 100%);
-        }
-    </style>
+    }
+
+    .body {
+        transition: background-color 0.3s ease;
+    }
+
+    .dark {
+        background-color: black;
+        color: white;
+    }
+  </style>
 
 </head>
 
@@ -72,11 +78,11 @@
             width: 1000,
             height: 600,
             autoCenter: true,
-            display: 'double', 
+            display: 'double',
             acceleration: true,
-            elevation: 50, 
-            gradients: true, 
-            duration: 1000, 
+            elevation: 50,
+            gradients: true,
+            duration: 1000,
             turnCorners: 'bl,br',
         });
 
@@ -118,8 +124,6 @@
                 duration: 0.3
             });
         });
-
-
     </script>
     <script src="{{ asset('build/assets/app-dd6eec69.js') }}"></script>
 

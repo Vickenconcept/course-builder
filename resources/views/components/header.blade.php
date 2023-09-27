@@ -9,6 +9,7 @@
         <a href="{{ route('search.index') }}" class=" {{ request()->routeIs('search.index') ? '' : 'hidden' }}">Title Rank(SEO)</a>
         <a href="{{ route('setting.index') }}" class=" {{ request()->routeIs('setting.index') ? '' : 'hidden' }}">Setting</a>
         <a href="{{ route('tutorials') }}" class=" {{ request()->routeIs('tutorials') ? '' : 'hidden' }}">Tutorials</a>
+        <a href="{{ route('support') }}" class=" {{ request()->routeIs('support') ? '' : 'hidden' }}">Support</a>
     </div>
     <!-- SPACER -->
     <div class="grow h-full flex items-center justify-center"></div>

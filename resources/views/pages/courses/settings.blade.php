@@ -113,7 +113,7 @@
                                         <div class='w-full px-3 mb-6'>
                                             <label
                                                 class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Free
-                                                Course Count</label>
+                                                Sub-Topic Count</label>
                                             <input
                                                 class='  bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                                 type='number' value="{{ $freeLessonCount }}" required

@@ -9,7 +9,7 @@
 
 
 return [
-    'mode'    => env('PAYPAL_MODE', 'sandbox'), // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
+    'mode'    => env('PAYPAL_MODE', 'live'), // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
     'sandbox' => [
         'username'    =>'ss',
         'password'    => 'ss',
@@ -18,9 +18,9 @@ return [
         'app_id'      => 'APP-80W284485P519543T', // Used for testing Adaptive Payments API in sandbox mode
     ],
     'live' => [
-        'username'    => config('paypal.username', ''),
-        'password'    => config('paypal.password', ''),
-        'secret'      => config('paypal.secret', ''),
+        'username'    => 'ss',
+        'password'    => 'ss',
+        'secret'      => 'ss',
         'certificate' => env('PAYPAL_LIVE_API_CERTIFICATE', ''),
         'app_id'      => '', // Used for Adaptive Payments API
     ],
@@ -34,4 +34,10 @@ return [
 ];
 
 
-
+// 'live' => [
+//     'username'    => config('paypal.username', ''),
+//     'password'    => config('paypal.password', ''),
+//     'secret'      => config('paypal.secret', ''),
+//     'certificate' => env('PAYPAL_LIVE_API_CERTIFICATE', ''),
+//     'app_id'      => 'APP-80W284485P519543T', // Used for Adaptive Payments API
+// ],
