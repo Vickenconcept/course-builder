@@ -125,6 +125,7 @@ class PayPalPaymentController extends Controller
      */
     public function cancel()
     {
+        return view('users.cancle');
         dd('Your payment is canceled. You can create cancel page here.');
     }
 
@@ -152,9 +153,11 @@ class PayPalPaymentController extends Controller
                 return redirect()->route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]);
             }
 
+            return view('users.success');
             dd('Your payment was successfully. You can create success page here.');
         }
 
+        return view('errors.custom_error');
         dd('Something is wrong.');
     }
 }

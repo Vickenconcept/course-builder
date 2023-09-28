@@ -17,6 +17,10 @@ class Setting extends Model
         'paypal_api_password',
         'paypal_api_secret',
         'get_response_api_key',
+        'mailer_api_key',
+        'emailoctopus_api_key',
+        'convert_api_key',
+        'in_need',
     ];
 
 

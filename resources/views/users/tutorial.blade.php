@@ -17,11 +17,15 @@
                 thumbnail=" https://i.vimeocdn.com/video/1728617218-6d53c81c9cff88e061bd6e8655c7d1e3dd00ea52166ce78bf32c8e07ee51419a-d_236x133"
                 url="https://vimeo.com/867758321" />
 
-                <x-card title="5. Course Creation"
-                thumbnail="https://i.vimeocdn.com/video/1728792973-b23ad5645875aab2f35ee88d2665b65ed105dc4048ef8e0a40c806f93e5f06c2-d_236x133"
-                url="https://vimeo.com/867875498" />
-
+                <x-card title="5. Settings"
+                thumbnail="https://i.vimeocdn.com/video/1729926755-475a71ac7faf58edfbbb7a1092d25b758fb44ddf116e7acb754930bd83d0c854-d_236x133"
+                url="https://vimeo.com/868677048" />
                 
+                
+                <x-card title="6. Course Creation"
+                thumbnail="https://i.vimeocdn.com/video/1729926755-475a71ac7faf58edfbbb7a1092d25b758fb44ddf116e7acb754930bd83d0c854-d_236x133"
+                url="https://vimeo.com/868678514" />
+
                 {{-- <x-card title="Content Planner"
                 thumbnail=" "
                 url="" /> --}}

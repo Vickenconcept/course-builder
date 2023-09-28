@@ -23,7 +23,7 @@ class BookService
         $url = $this->baseUrl . '?q=' . urlencode($query) . '&startIndex=' . $startIndex . '&maxResults=' . $maxResults;
         $response = Http::get($url);
         // $response = Http::timeout(10)->get($url);
-
+        
 
         if ($response->ok()) {
             $bookdata = $response->json()['items'] ?? [];
@@ -81,17 +81,18 @@ class BookService
             $responseData = $response->json();
             if (isset($response->json()['interest_over_time']['timeline_data']) ) {
                 $trendData = $response->json()['interest_over_time']['timeline_data'];
-
+                
 
                 $timelineData = $trendData;
 
                 // Calculate average interest
                 $totalInterest = 0;
                 $totalValues = count($timelineData);
-
+                
                 foreach ($timelineData as $data) {
                     $totalInterest += $data['values'][0]['value'];
                 }
+                // dd($totalInterest);
 
                 $averageInterest = $totalInterest / $totalValues;
 
@@ -126,6 +127,7 @@ class BookService
                     'averagePrice' => $average,
                     'totalStudents' => $totalStudents,
                     'opportunityScore' => $opportunityScore,
+                    'courseNum' => $totalInterest,
                 ];
                 return $combinedArray;
             }else{

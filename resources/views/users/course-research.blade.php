@@ -73,8 +73,8 @@
                 <div class="grid grid-cols-2 gap-3 py-1">
                     <div class=" text-xs capitalize">Total Courses</div>
                     <div class=" text-xs">
-                        @if (isset($books))
-                            {{ count($books) * rand(11, 51) }}
+                        @if (isset($trend) && is_array($trend))
+                            {{( $trend['courseNum'] * 2 )  }}
                         @endif
                     </div>
 

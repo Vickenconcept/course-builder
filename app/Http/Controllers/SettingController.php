@@ -75,6 +75,26 @@ class SettingController extends Controller
         }
 
     }
+    public function saveConvert(Request $request)
+    {
+        $validatedData = $request->validate([
+            'convert_api_key' => 'required',
+        ]);
+
+
+        $user = auth()->user();
+
+        if ($user->setting()) {
+            # code...
+            $user->setting()->updateOrCreate(
+                ['user_id' => $user->id],
+                ['convert_api_key' => $validatedData['convert_api_key']]
+            );
+            
+            return back()->with('success', 'ConvertKIt Data Created');
+        }
+
+    }
 
 
     public function paypalData(Request $request)

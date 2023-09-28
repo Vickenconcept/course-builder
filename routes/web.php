@@ -13,9 +13,7 @@ use App\Http\Controllers\SuggestionController;
 use App\Http\Livewire\LessonArchitect;
 use App\Http\Controllers\PayPalPaymentController;
 use App\Http\Livewire\Course;
-use App\Services\ChatGptService;
 use Illuminate\Support\Facades\Route;
-use App\Events\JobCompleted;
 use App\Http\Controllers\CourseSettingsController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProductController;
@@ -25,15 +23,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShareEventController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\userController;
-use App\Http\Livewire\CourseContent;
-use App\Listeners\JobCompletedListener;
 use App\Http\Middleware\LogIpAddressMiddleware;
-// use App\Models\Course;
-use App\Models\User;
-use App\Services\GetResponseService;
-use Hamcrest\Arrays\IsArray;
-use OpenAI\Laravel\Facades\OpenAI;
-use PHPUnit\Event\TestSuite\Loaded;
+use App\Services\ConvertKitService;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +62,7 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 // Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
 Route::post('/paymentData', [SubscribeController::class, 'paymentData'])->name('subscribe.paymentData');
 Route::post('/get_response', [SubscribeController::class, 'getResponse'])->name('subscribe.getResponse');
+Route::post('/convert-kit', [SubscribeController::class, 'convertkit'])->name('subscribe.convertkit');
 Route::resource('/subscribe', SubscribeController::class);
 Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
 
@@ -82,8 +74,8 @@ Route::controller(PayPalPaymentController::class)->group(function () {
 });
 
 
-Route::get('/password/reset', [ResetPasswordController::class ,'showResetForm'])->name('password.reset');
-Route::post('/password/reset', [ResetPasswordController::class ,'resetPassword'])->name('password.reset');
+Route::get('/password/reset', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.reset');
 Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
@@ -107,6 +99,7 @@ Route::middleware('auth')->group(function () {
         Route::get('course', Course::class)->name('course');
         Route::put('course/{courseId}', [CourseSettingsController::class, 'checkout'])->name('course.checkout');
         Route::post('course-setting/{courseId}/save-setting', [CourseSettingsController::class, 'saveSetting'])->name('course-setting.saveSetting');
+        Route::post('course-setting/{courseId}/save-convert', [CourseSettingsController::class, 'convertKit'])->name('course-setting.convertKit');
         Route::post('course-setting/{courseId}/save-responseId', [CourseSettingsController::class, 'saveGetResponseId'])->name('course-setting.saveGetResponseId');
         Route::resource('course-setting', CourseSettingsController::class);
         Route::resource('research', ResearchController::class);
@@ -116,6 +109,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
         Route::post('/setting/paypal/', [SettingController::class, 'paypalData'])->name('setting.paypalData');
         Route::post('/setting/get-response/', [SettingController::class, 'saveGetResponseData'])->name('setting.saveGetResponseData');
+        Route::post('/setting/convert-kit/', [SettingController::class, 'saveConvert'])->name('setting.saveConvert');
         Route::resource('/setting', SettingController::class);
         Route::resource('lesson', LessonController::class);
         Route::view('tutorials', 'users.tutorial')->name('tutorials');
@@ -134,35 +128,48 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('test', function () {
-
+    // https://www.paypal.com/businessprofile/mytools/apiaccess/firstparty/signature
+    return view('users.cancle');
 
     $client = new \GuzzleHttp\Client();
-       
-        // $response = $client->request('GET', 'https://emailoctopus.com/api/1.6/lists?api_key=b06003c3-0568-47c2-89f8-6e720a2ee93e', []);
-        // dd($response);
 
-        $ch = curl_init();
-        $api_key = 'b06003c3-0568-47c2-89f8-6e720a2ee93e';
-        
-        curl_setopt($ch, CURLOPT_URL, 'https://emailoctopus.com/api/1.6/lists');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $api_key));
-        
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close($ch);
-        dd($result);
-                    
-   
+    // $response = $client->request('GET', 'https://emailoctopus.com/api/1.6/lists?api_key=b06003c3-0568-47c2-89f8-6e720a2ee93e', []);
+    // dd($response);
 
-       
-        
-        // $getResponseService = app(GetResponseService::class);
-        // $x = $getResponseService->createContact($apiKey);
-  
+    // $ch = curl_init();
+    // $api_key = 'b06003c3-0568-47c2-89f8-6e720a2ee93e';
 
-    
+    // curl_setopt($ch, CURLOPT_URL, 'https://emailoctopus.com/api/1.6/lists');
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $api_key));
+
+    // $result = curl_exec($ch);
+    // if (curl_errno($ch)) {
+    //     echo 'Error:' . curl_error($ch);
+    // }
+    // curl_close($ch);
+    // dd($result);
+
+
+    $api_key = 'Na3qB0Yhh8KayVaUt-m7pg';
+    $api_secret = 'IaOsMP-pf318xnsm4eZAP2kAi4uYHm_R_0GfQFAG5ro';
+
+    // $response = $client->request('GET', 'https://api.convertkit.com/v3/forms?api_key=Na3qB0Yhh8KayVaUt-m7pg');
+    // $responseBody = $response->getBody()->getContents();
+    // return $responseBody;
+    // dd($responseBody);
+        $forId = '5654959';
+    $convertKitService = app(ConvertKitService::class);
+    $res = $convertKitService->getList($api_key);
+    // $res = $convertKitService->addEmail($api_key, $forId, 'vickenconcept@gmail.com');
+    dd($res);
+
+
+
+
+
+
+
+
 
 });

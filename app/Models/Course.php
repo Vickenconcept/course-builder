@@ -15,7 +15,7 @@ class Course extends Model
 {
     use HasFactory, CourseSluggable;
 
-    
+
     protected $fillable = [
         'title',
         'description',
@@ -24,6 +24,10 @@ class Course extends Model
         'esp',
         'price',
         'get_response_id',
+        'mailer_id',
+        'email_octupos_id',
+        'convert_id',
+        'in_need_id',
     ];
 
     public function library()
@@ -39,7 +43,7 @@ class Course extends Model
     {
         return $this->hasOne(CourseSettings::class);
     }
-    
+
     public function user()
     {
 

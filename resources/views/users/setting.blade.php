@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-notification />
-    <div class="grid  grid-cols-1 md:grid-cols-3 gap-5 px-5" x-data="{  selected: '' }">
+    {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+    <div class="grid  grid-cols-1 md:grid-cols-3 gap-5 px-5" x-data="{ selected: '' }">
         <div class="col-span-1 grid gap-5 rounded-lg">
             <!-- component -->
             <div class="bg-gray-200 min-h-screen pt-2 font-mono mb-16">
@@ -10,24 +11,31 @@
                         <div class="mt-6 border-t border-gray-400 pt-4">
                             <div class='flex flex-wrap -mx-3 mb-6'>
 
-                             
+
+
 
                                 {{--  --}}
                                 <div x-data="{ isOpen: true }" class=" my-5 bg-white w-full rounded">
                                     <button @click="isOpen = !isOpen"
-                                        class="bg-transparent border-none text-gray-700 py-2 px-4 cursor-pointer font-bold underline"><i
-                                            class='bx bxs-envelope mr-1'></i>ESP </button>
+                                        class="bg-transparent border-none text-gray-700 py-2 px-4 cursor-pointer font-bold underline"></button>
                                     <div x-show="isOpen" class="p-4 w-full">
                                         <ul class="list-none p-0 text-gray-700 w-full text-[#339966]">
                                             <a href="#"
                                                 class="  hover:bg-[#39ac73] text-[#339966] flex hover:text-white w-full block rounded-full translate duration-300 px-3 py-2"
-                                                class="" @click="selected = 'openMailChimp'"><i class='bx bxl-mailchimp text-xl mr-.5 '></i>MailChimp</a>
+                                                class="" @click="selected = 'openMailChimp'"><i
+                                                    class='bx bxl-mailchimp text-xl mr-.5 '></i>MailChimp</a>
                                             <a href="#"
                                                 class="  hover:bg-[#39ac73] text-[#339966] flex hover:text-white w-full block rounded-full translate duration-300 px-3 py-2"
-                                                @click="selected = 'getResponse' "><i class='bx bxs-shopping-bag-alt text-xl mr-.5 '></i>Get Response</a>
+                                                @click="selected = 'getResponse' "><i
+                                                    class='bx bxs-shopping-bag-alt text-xl mr-.5 '></i>Get Response</a>
                                             <a href="#"
                                                 class="  hover:bg-[#39ac73] text-[#339966] flex hover:text-white w-full block rounded-full translate duration-300 px-3 py-2"
-                                                @click="selected = 'paypal' "><i class='bx bxl-paypal text-xl mr-.5 '></i>Paypal</a>
+                                                @click="selected = 'convert' "><i
+                                                    class='bx bxs-shopping-bag-alt text-xl mr-.5 '></i>ConvertKit</a>
+                                            <a href="#"
+                                                class="  hover:bg-[#39ac73] text-[#339966] flex hover:text-white w-full block rounded-full translate duration-300 px-3 py-2"
+                                                @click="selected = 'paypal' "><i
+                                                    class='bx bxl-paypal text-xl mr-.5 '></i>Paypal</a>
                                         </ul>
                                     </div>
                                 </div>
@@ -73,7 +81,7 @@
                         <div class="mt-6 border-t border-gray-400 pt-4">
                             {{--  --}}
                             <div class='flex flex-wrap -mx-3 my-6  border-t border-b border-gray-400'>
-                               
+
                                 <div class="personal w-full pt-4 ">
                                     <h2 class="text-2xl text-gray-900">Personal info:</h2>
                                     <div class="flex items-center justify-between mt-4">
@@ -94,7 +102,7 @@
                                                 type='text' value="{{ auth()->user()->email }}" disabled>
                                         </div>
                                     </div>
-                              
+
                                 </div>
                             </div>
 
@@ -115,6 +123,8 @@
                                                 id='grid-text-1' type='text' placeholder='Enter API key'
                                                 name="mailchimp_api_key"
                                                 value="{{ auth()->user()->setting->mailchimp_api_key ?? '' }}">
+                                            <label class='block  tracking-wide text-gray-700 text-xs  mb-2'
+                                                for='grid-text-1'>Leave empty to disable mailchimp integration </label>
                                         </div>
                                         <div class='w-full md:w-full inline px-3 mb-6'>
                                             <label
@@ -125,6 +135,12 @@
                                                 id='grid-text-1' type='text' placeholder='Enter prefix eg. us21'
                                                 name="mailchimp_prefix_key"
                                                 value="{{ auth()->user()->setting->mailchimp_prefix_key ?? '' }}">
+                                            <label class='block  tracking-wide text-gray-700 text-xs  mb-2'
+                                                for='grid-text-1'>Ensure to add the List/Audience ID. How to get these
+                                                details <a
+                                                    href="https://mailchimp.com/developer/guides/manage-subscribers-with-the-mailchimp-api/#Before_you_start"
+                                                    class="text-[#339966] text-xs  underline font-bold" target="_blank">
+                                                    Mailchimp Documentation</a> </label>
                                         </div>
                                     </div>
                                     <x-main-button type="submit">submit</x-main-button>
@@ -133,9 +149,33 @@
                             </div>
                             {{--  --}}
 
+                            <div x-show="selected === 'convert'" class="mt-5">
+                                <h1 class="text-2xl text-gray-900 my-4">ConvertKit credentials </h1>
+                                <form action="{{ route('setting.saveConvert') }}" method="POST">
+                                    @csrf
+                                    <div class="">
 
+                                        <div class=' inline px-3 mb-6'>
+                                            <label
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                                                for='grid-text-1'>API_Key</label>
+                                            <input
+                                                class='appearance-none  bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                id='grid-text-1' type='text' placeholder='Enter API key'
+                                                name="convert_api_key"
+                                                value="{{ auth()->user()->setting->convert_api_key ?? '' }}">
+                                            <label class='block  tracking-wide text-gray-700 text-xs  mb-2'
+                                                for='grid-text-1'>Leave empty to disable Convert Kit <br>
+                                                integration. How to get these details <br><a href="#"
+                                                    class="text-[#339966] text-xs  underline font-bold"
+                                                    target="_blank">
+                                                    Convert Kit Documentation</a> </label>
+                                            <x-main-button type="submit">submit</x-main-button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
 
-                           
 
                             {{--  --}}
                             <div x-show="selected === 'paypal'" class="mt-5">
@@ -177,7 +217,12 @@
                                     </div>
                                     <x-main-button type="submit">submit</x-main-button>
 
-                                </form> 
+                                </form>
+                                <div class="text-right">
+                                    <a href="https://www.paypal.com/businessmanage/credentials/apiAccess"
+                                        class="text-[#339966] text-xs  underline font-bold" target="_blank">Get
+                                        PayPal Credential</a>
+                                </div>
                             </div>
                             {{--  --}}
 
@@ -187,7 +232,7 @@
                                 <form action="{{ route('setting.saveGetResponseData') }}" method="POST">
                                     @csrf
                                     <div class="">
-                                       
+
                                         <div class=' inline px-3 mb-6'>
                                             <label
                                                 class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
@@ -197,10 +242,48 @@
                                                 id='grid-text-1' type='text' placeholder='Enter API key'
                                                 name="get_response_api_key"
                                                 value="{{ auth()->user()->setting->get_response_api_key ?? '' }}">
-                                                <x-main-button type="submit">submit</x-main-button>
+                                            <label class='block  tracking-wide text-gray-700 text-xs  mb-2'
+                                                for='grid-text-1'>Leave empty to disable Get Response <br>
+                                                integration. How to get these details <br><a
+                                                    href="https://apireference.getresponse.com/?_ga=2.9720757.1698919484.1695829305-332518786.1695383287&_gl=1*1riizxp*_ga*MzMyNTE4Nzg2LjE2OTUzODMyODc.*_ga_EQ6LD9QEJB*MTY5NTg4NjEwNC4xNC4xLjE2OTU4ODY5NjIuNDMuMC4w*_ga_MWJQ4HH5SL*MTY5NTg4NjEwNC4xNC4xLjE2OTU4ODY5NjIuMC4wLjA.#section/Authentication"
+                                                    class="text-[#339966] text-xs  underline font-bold"
+                                                    target="_blank">
+                                                    Get Response Documentation</a> </label>
+                                            <x-main-button type="submit">submit</x-main-button>
                                         </div>
-                                </form> 
+                                    </div>
+                                </form>
+                                
                             </div>
+                            {{--  --}}
+
+                            {{--  --}}
+
+                            {{-- <div x-show="selected === 'convert' " class="mt-5">
+                                <h1 class="text-2xl text-gray-900 my-4">ConvertKit credentials </h1>
+                                <form action="{{ route('setting.saveConvert') }}" method="POST">
+                                    @csrf
+                                    <div class="">
+
+                                        <div class=' inline px-3 mb-6'>
+                                            <label
+                                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                                                for='grid-text-1'>API_Key</label>
+                                            <input
+                                                class='appearance-none  bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-2 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                                id='grid-text-1' type='text' placeholder='Enter API key'
+                                                name="get_response_api_key"
+                                                value="{{ auth()->user()->setting->convert_api_key ?? '' }}">
+                                            <label class='block  tracking-wide text-gray-700 text-xs  mb-2'
+                                                for='grid-text-1'>Leave empty to disable Convert Kit <br>
+                                                integration. How to get these details <br><a href="#"
+                                                    class="text-[#339966] text-xs  underline font-bold"
+                                                    target="_blank">
+                                                    Convert Kit Documentation</a> </label>
+                                            <x-main-button type="submit">submit</x-main-button>
+                                        </div>
+                                </form>
+                            </div> --}}
                             {{--  --}}
                         </div>
                     </div>

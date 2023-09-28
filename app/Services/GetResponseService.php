@@ -40,7 +40,21 @@ class GetResponseService
             }
             return $audienceIds;
         } catch (\GuzzleHttp\Exception\RequestException $e) {
-            echo 'Error: ' . $e->getMessage();
+            // echo 'Error: ' . $e->getMessage();
+
+            $response = $e->getResponse();
+            $statusCode = $response->getStatusCode();
+            $errorMessage = $response->getBody()->getContents();
+           
+            if ($statusCode === 400) {
+                //
+                return null;
+            } 
+            else {
+                // Handle other error codes
+                return back()->with('success', 'An error occurred: ' . $e->getMessage());
+            }
+
         }
     }
     public function createContact($apiKey, $audience = null, $name, $email)

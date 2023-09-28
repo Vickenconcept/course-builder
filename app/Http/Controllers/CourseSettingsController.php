@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseSettings;
+use App\Services\ConvertKitService;
 use App\Services\GetResponseService;
 use App\Services\MailChimpService;
 use Illuminate\Http\Request;
@@ -52,6 +53,42 @@ class CourseSettingsController extends Controller
     /**
      * Display the specified resource.
      */
+    // public function show($id)
+    // {
+    //     $user = auth()->user();
+
+    //     $course = $user->courses()->findorfail($id);
+    //     $freeLessonCount = $course->courseSettings->free_lessons_count;
+    //     try {
+    //         if ($user->setting && $user->setting->mailchimp_api_key && $user->setting->mailchimp_prefix_key && $user->setting->get_response_api_key != null) {
+    //             $lists = $this->mailChimpService
+    //                 ->getAllLists($user
+    //                     ->setting->mailchimp_api_key, $user
+    //                     ->setting->mailchimp_prefix_key);
+
+    //                     $convertKitService = app(ConvertKitService::class);
+    //                     $convert = $convertKitService->getList($user->setting->convert_api_key);
+
+    //             $getResponseService = app(GetResponseService::class);
+    //             $getrepsonseAudience = $getResponseService->getAudience($user->setting->get_response_api_key);
+    //             if (!is_null($getrepsonseAudience) && is_iterable($getrepsonseAudience)) {
+    //                 return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'getrepsonseAudience', 'convert'));
+    //             } else {
+    //                 return back()->with('success', 'GetResponse Credentials needs configurations');
+    //             }
+
+    //             return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'getrepsonseAudience'));
+    //         } else {
+    //             return back()->with('success', 'Mailchimp Credentials needs configurations');
+    //         }
+    //     } catch (\GuzzleHttp\Exception\ClientException $e) {
+    //         // Handle 401 Unauthorized error
+    //         return back()->with('success', 'Authentication failed. Please check your API key and authentication process.');
+    //     } catch (\Exception $e) {
+    //         // Handle other exceptions
+    //         return back()->with('success', 'An error occurred. Please try again later.');
+    //     }
+    // }
     public function show($id)
     {
         $user = auth()->user();
@@ -59,25 +96,31 @@ class CourseSettingsController extends Controller
         $course = $user->courses()->findorfail($id);
         $freeLessonCount = $course->courseSettings->free_lessons_count;
         try {
-            if ($user->setting && $user->setting->mailchimp_api_key && $user->setting->mailchimp_prefix_key && $user->setting->get_response_api_key != null) {
-                $lists = $this->mailChimpService
-                    ->getAllLists($user
-                        ->setting->mailchimp_api_key, $user
-                        ->setting->mailchimp_prefix_key);
+            $lists = null;
+            $convert = null;
+            $getrepsonseAudience = null;
 
+            if ($user->setting && $user->setting->mailchimp_api_key && $user->setting->mailchimp_prefix_key) {
+                $lists = $this->mailChimpService->getAllLists($user->setting->mailchimp_api_key, $user->setting->mailchimp_prefix_key);
+            } 
+          
+
+            if ($user->setting->convert_api_key) {
+                $convertKitService = app(ConvertKitService::class);
+                $convert = $convertKitService->getList($user->setting->convert_api_key);
+            } 
+         
+
+            if ($user->setting->get_response_api_key) {
                 $getResponseService = app(GetResponseService::class);
                 $getrepsonseAudience = $getResponseService->getAudience($user->setting->get_response_api_key);
                 if (!is_null($getrepsonseAudience) && is_iterable($getrepsonseAudience)) {
-                    return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'getrepsonseAudience'));
-                }else{
-                    return back()->with('success', 'GetResponse Credentials needs configurations');
+                    
                 }
-                
-                // dd($getrepsonseAudience);
-                return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'getrepsonseAudience'));
-            } else {
-                return back()->with('success', 'Mailchimp Credentials needs configurations');
-            }
+            } 
+          
+
+            return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'convert', 'getrepsonseAudience'));
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             // Handle 401 Unauthorized error
             return back()->with('success', 'Authentication failed. Please check your API key and authentication process.');
@@ -85,6 +128,8 @@ class CourseSettingsController extends Controller
             // Handle other exceptions
             return back()->with('success', 'An error occurred. Please try again later.');
         }
+        
+        
     }
 
     public function saveSetting(Request $request, $courseId)
@@ -109,6 +154,18 @@ class CourseSettingsController extends Controller
         $course = $user->courses()->where('courses.id', $courseId)->update([
             'esp' => $esp,
             'get_response_id' => $get_response_id
+        ]);
+        return redirect()->back()->with('success', 'Audience Updated');
+    }
+    public function convertKit(Request $request, $courseId)
+    {
+        $convert_id = $request->input('convert_id');
+        $esp = $request->input('esp');
+
+        $user = auth()->user();
+        $course = $user->courses()->where('courses.id', $courseId)->update([
+            'esp' => $esp,
+            'convert_id' => $convert_id
         ]);
         return redirect()->back()->with('success', 'Audience Updated');
     }
