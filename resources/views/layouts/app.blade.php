@@ -31,10 +31,8 @@
     <script src="{{ asset('js/turnjs4/samples/steve-jobs/css/steve-jobs.css') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -77,10 +75,8 @@
             background-image: -o-linear-gradient(right, #fff 95%, #cacaca 100%);
             background-image: linear-gradient(right, #fff 95%, #cacaca 100%);
         }
-
-      
-        
     </style>
+
 
 </head>
 
@@ -90,79 +86,81 @@
         <x-header />
         <x-sidebar />
 
+
+
+
         <div class="content ml-12  ease-in-out duration-500 pt-20 pb-4 ">
             <main>
                 {{ $slot }}
+
             </main>
         </div>
+    </div>
+    
+    <script>
+        const sidebar = document.querySelector("aside");
+        const maxSidebar = document.querySelector(".max")
+        const miniSidebar = document.querySelector(".mini")
+        const roundout = document.querySelector(".roundout")
+        const maxToolbar = document.querySelector(".max-toolbar")
+        const logo = document.querySelector('.logo')
+        const content = document.querySelector('.content')
+        const moon = document.querySelector(".moon")
+        const sun = document.querySelector(".sun")
 
-
-
-
-
-        <script>
-            const sidebar = document.querySelector("aside");
-            const maxSidebar = document.querySelector(".max")
-            const miniSidebar = document.querySelector(".mini")
-            const roundout = document.querySelector(".roundout")
-            const maxToolbar = document.querySelector(".max-toolbar")
-            const logo = document.querySelector('.logo')
-            const content = document.querySelector('.content')
-            const moon = document.querySelector(".moon")
-            const sun = document.querySelector(".sun")
-
-            function setDark(val) {
-                if (val === "dark") {
-                    document.documentElement.classList.add('dark')
-                    moon.classList.add("hidden")
-                    sun.classList.remove("hidden")
-                } else {
-                    document.documentElement.classList.remove('dark')
-                    sun.classList.add("hidden")
-                    moon.classList.remove("hidden")
-                }
+        function setDark(val) {
+            if (val === "dark") {
+                document.documentElement.classList.add('dark')
+                moon.classList.add("hidden")
+                sun.classList.remove("hidden")
+            } else {
+                document.documentElement.classList.remove('dark')
+                sun.classList.add("hidden")
+                moon.classList.remove("hidden")
             }
+        }
 
-            function openNav() {
-                if (sidebar.classList.contains('-translate-x-48')) {
-                    // max sidebar 
-                    sidebar.classList.remove("-translate-x-48")
-                    sidebar.classList.add("translate-x-none")
-                    maxSidebar.classList.remove("hidden")
-                    maxSidebar.classList.add("flex")
-                    miniSidebar.classList.remove("flex")
-                    miniSidebar.classList.add("hidden")
-                    maxToolbar.classList.add("translate-x-0")
-                    maxToolbar.classList.remove("translate-x-24", "scale-x-0")
-                    logo.classList.remove("ml-12")
-                    content.classList.remove("ml-12")
-                    content.classList.add("ml-12", "md:ml-60")
-                } else {
-                    // mini sidebar
-                    sidebar.classList.add("-translate-x-48")
-                    sidebar.classList.remove("translate-x-none")
-                    maxSidebar.classList.add("hidden")
-                    maxSidebar.classList.remove("flex")
-                    miniSidebar.classList.add("flex")
-                    miniSidebar.classList.remove("hidden")
-                    maxToolbar.classList.add("translate-x-24", "scale-x-0")
-                    maxToolbar.classList.remove("translate-x-0")
-                    logo.classList.add('ml-12')
-                    content.classList.remove("ml-12", "md:ml-60")
-                    content.classList.add("ml-12")
+        function openNav() {
+            if (sidebar.classList.contains('-translate-x-48')) {
+                // max sidebar 
+                sidebar.classList.remove("-translate-x-48")
+                sidebar.classList.add("translate-x-none")
+                maxSidebar.classList.remove("hidden")
+                maxSidebar.classList.add("flex")
+                miniSidebar.classList.remove("flex")
+                miniSidebar.classList.add("hidden")
+                maxToolbar.classList.add("translate-x-0")
+                maxToolbar.classList.remove("translate-x-24", "scale-x-0")
+                logo.classList.remove("ml-12")
+                content.classList.remove("ml-12")
+                content.classList.add("ml-12", "md:ml-60")
+            } else {
+                // mini sidebar
+                sidebar.classList.add("-translate-x-48")
+                sidebar.classList.remove("translate-x-none")
+                maxSidebar.classList.add("hidden")
+                maxSidebar.classList.remove("flex")
+                miniSidebar.classList.add("flex")
+                miniSidebar.classList.remove("hidden")
+                maxToolbar.classList.add("translate-x-24", "scale-x-0")
+                maxToolbar.classList.remove("translate-x-0")
+                logo.classList.add('ml-12')
+                content.classList.remove("ml-12", "md:ml-60")
+                content.classList.add("ml-12")
 
-                }
             }
-        </script>
+        }
+    </script>
 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script src="{{ asset('js/share.js') }}"></script>
-        <script src="{{ asset('build/assets//app-dd6eec69.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
+    <script src="{{ asset('js/share.js') }}"></script>
+    <script src="{{ asset('build/assets//app-dd6eec69.js') }}" defer></script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
 
 </body>
 

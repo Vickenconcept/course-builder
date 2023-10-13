@@ -45,7 +45,7 @@
                         <x-slot name="content">
                             <x-dropdown-link class="cursor-pointer" @click="isOpen = true ; ">
                                 <button>
-                                    Generate course for this module
+                                    Generate content for this module
                                 </button>
                             </x-dropdown-link>
                         </x-slot>
@@ -74,11 +74,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    // function updateDiv() {
-    //     $("#here").load(window.location.href + " #here");
-    //     console.log('i am clicked');
-    // }
-</script>

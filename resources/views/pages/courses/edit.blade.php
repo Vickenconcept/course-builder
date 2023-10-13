@@ -1,37 +1,41 @@
 <x-app-layout>
-    <div class="bg-white px-10 py-10" x-data="{ childIsOpen: false, openShare: false, openCreate: false }">
+    <div class="bg-white px-4 py-10" x-data="{ childIsOpen: false, openShare: false, openCreate: false }">
         <div class=" w-full md:w-[80%]">
             <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 ">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
             </a>
-        </div>  
+        </div>
         <section class="mt-20 w-full md:w-[70%] mx-auto">
-            <div class="flex justify-between py-3">
-                <div>
-                    <a href="{{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}" target="_blank">
+            <div class="grid grid-cols-1 md:grid-cols-3 py-3">
+                <div class="col-span-2">
+                    <a href="{{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}"
+                        target="_blank">
                         <button
                             class=" hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
                             Preview
                         </button>
                     </a>
                 </div>
-                <div>
-                    <form action="{{ route('courses.courseImage', ['image' => $course->id]) }}" method="POST" enctype="multipart/form-data">
+                <div class="col-span-1 py-3">
+                    <form action="{{ route('courses.courseImage', ['image' => $course->id]) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         {{-- <input type="file" name="localImage" id=""> --}}
                         <div class="mb-3">
                             <input
-                              class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-                              id="formFileSm"
-                              type="file"  name="localImage"/>
-                          </div>
-                        <input type="text "
-                            class="  focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-[#339966] rounded-md"
-
-                            value="{{ $course->course_image }}"
-                             name="courseImage" placeholder="image url" autocomplete="off">
-                            <x-main-button type="submit" class="py-3">update</x-main-button>
+                                class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                                id="formFileSm" type="file" name="localImage" />
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <input type="text"
+                                class="focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-[#339966] rounded-md"
+                                value="{{ $course->course_image }}" name="courseImage" placeholder="image url"
+                                autocomplete="off">
+                            <div>
+                                <x-main-button type="submit" class="py-3">update</x-main-button>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
@@ -73,7 +77,8 @@
             </div>
 
             <div id="formContent">
-                <div>
+                <div class=" mt-5">
+                    <h1 class="font-bold text-xl text-gray-700">Course Topic</h1>
                     <form action="{{ route('courses.update', ['course' => $course->id]) }}" method="POST"
                         class="w-full">
                         @csrf
@@ -81,6 +86,17 @@
                         <input type="text"
                             class="w-full shadow-md focus:ring-0 border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
                             value="{{ $course->title }}" name="updateTitle">
+                    </form>
+                </div>
+                <div class=" mt-5">
+                    <h1 class="font-semibold text-xl text-gray-700">Course Overview</h1>
+                    <form action="{{ route('courses.updateDescription', ['course' => $course->id]) }}" method="POST"
+                        class="w-full">
+                        @csrf
+                        @method('PUT')
+                        <input type="text"
+                            class="w-full shadow-md focus:ring-0 border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
+                            value="{{ $course->description }}" name="updateDescription">
                     </form>
                 </div>
 
@@ -100,12 +116,12 @@
             </div>
 
             <div class="py-3">
-        
-              
-                    <button type="submit" @click="openCreate = true"
-                        class="py-1 px-4 rounded-md bg-transparent border text-[#339966] border-[#339966] hover:bg-[#9fdfbf] transition duration-300">
-                      + Add Module
-                    </button>
+
+
+                <button type="submit" @click="openCreate = true"
+                    class="py-1 px-4 rounded-md bg-transparent border text-[#339966] border-[#339966] hover:bg-[#9fdfbf] transition duration-300">
+                    + Add Module
+                </button>
 
             </div>
 
@@ -122,23 +138,20 @@
                     @click.away="openCreate = false">
                     <div class="p-5">
                         <h1 class="text-gray-700">Add Module</h1>
-                        <form id=""
-                            action="{{ route('courses.store') }}" method="POST">
+                        <form id="" action="{{ route('courses.store') }}" method="POST">
                             @csrf
-                            
-                           <div>
-                            <input type="hidden" name="course_id" value=" {{ $course->id }}">
-                            <input type="text "
-                            class="  focus:ring-0  my-1 p-2 placholder-gray-300 placeholder:italic  border border-[#339966] rounded-md w-full"
 
-                            value=""
-                             name="title" placeholder="Enter title" autocomplete="off">
-                           </div>
-                            <button type="submit" 
+                            <div>
+                                <input type="hidden" name="course_id" value=" {{ $course->id }}">
+                                <input type="text "
+                                    class="  focus:ring-0  my-1 p-2 placholder-gray-300 placeholder:italic  border border-[#339966] rounded-md w-full"
+                                    value="" name="title" placeholder="Enter title" autocomplete="off">
+                            </div>
+                            <button type="submit"
                                 class="rounded-lg bg-[#339966] px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">
                                 Create</button>
                         </form>
-                       
+
                     </div>
                 </div>
             </div>
@@ -160,15 +173,17 @@
                         <h1 class="text-gray-700">Share Link</h1>
                         <p class="mb-10">Get link to share</p>
                         <p id="{{ $course->id }}" class="w-full rounded-lg p-3 border text-sm border-gray-700 ">
-                            {{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}</p>
+                            {{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}
+                        </p>
                         <button onclick="toCopy(document.getElementById('{{ $course->id }}'))"
                             class="rounded-lg bg-[#339966] px-3 py-2 mt-5 text-white text-xs shadow-sm hover:shadow-md ">Copy
                             Clipboard</button>
                         <xmp id="{{ $course->slug }}"
                             class="w-full rounded-lg border text-sm border-gray-700 mt-5 overflow-auto text-left"
                             style="visbility:hidden">
-                            <iframe src="{{ route('courses.share', ['courseId' => $course->id,'course_slug' => $course->slug]) }}" width="600"
-                                height="400">
+                            <iframe
+                                src="{{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}"
+                                width="600" height="400">
                             </iframe>
                         </xmp>
                         <button onclick="toCopy(document.getElementById('{{ $course->slug }}'))"

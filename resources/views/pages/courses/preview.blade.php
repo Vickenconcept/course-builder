@@ -144,43 +144,43 @@
 
 
 
-        jQuery(document).ready(function($) {
+        // jQuery(document).ready(function($) {
 
-            $(window).bind('keydown', function(e) {
-                if (e.keyCode == 37) {
-                    $("#flipbook").turn('previous');
-                } else if (e.keyCode == 39) {
-                    $("#flipbook").turn('next');
-                }
-            });
+        //     $(window).bind('keydown', function(e) {
+        //         if (e.keyCode == 37) {
+        //             $("#flipbook").turn('previous');
+        //         } else if (e.keyCode == 39) {
+        //             $("#flipbook").turn('next');
+        //         }
+        //     });
 
-            $(document).ready(function() {
-                $("#nextButton").click(function() {
-                    $("#flipbook").turn("next");
-                });
-            });
-            $(document).ready(function() {
-                $("#previousButton").click(function() {
-                    $("#flipbook").turn("previous");
-                });
-            });
-        });
+        //     $(document).ready(function() {
+        //         $("#nextButton").click(function() {
+        //             $("#flipbook").turn("next");
+        //         });
+        //     });
+        //     $(document).ready(function() {
+        //         $("#previousButton").click(function() {
+        //             $("#flipbook").turn("previous");
+        //         });
+        //     });
+        // });
 
 
-        const controls = document.getElementById('controls');
-        const flipbook = document.getElementById('flipbook');
+        // const controls = document.getElementById('controls');
+        // const flipbook = document.getElementById('flipbook');
 
-        gsap.set(controls, {
-            y: '100%',
-            opacity: 0
-        });
+        // gsap.set(controls, {
+        //     y: '100%',
+        //     opacity: 0
+        // });
 
-        flipbook.addEventListener('mouseenter', () => {
-            gsap.to(controls, {
-                y: '0%',
-                opacity: 1,
-                duration: 0.3
-            });
-        });
+        // flipbook.addEventListener('mouseenter', () => {
+        //     gsap.to(controls, {
+        //         y: '0%',
+        //         opacity: 1,
+        //         duration: 0.3
+        //     });
+        // });
     </script>
 </x-app-layout>

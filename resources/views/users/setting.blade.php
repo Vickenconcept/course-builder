@@ -213,16 +213,16 @@
                                                 id='grid-text-1' type='text' placeholder='Enter secret'
                                                 name="paypal_api_secret"
                                                 value="{{ auth()->user()->setting->paypal_api_secret ?? '' }}">
+                                                <label class='block  tracking-wide text-gray-700 text-xs  mb-2'
+                                                for='grid-text-1'> How to get these details <br><a href="https://www.paypal.com/businessprofile/mytools/apiaccess/firstparty/signature"
+                                                    class="text-[#339966] text-xs  underline font-bold"
+                                                    target="_blank">
+                                                    PayPal Documentation</a> </label>
                                         </div>
                                     </div>
                                     <x-main-button type="submit">submit</x-main-button>
 
                                 </form>
-                                <div class="text-right">
-                                    <a href="https://www.paypal.com/businessmanage/credentials/apiAccess"
-                                        class="text-[#339966] text-xs  underline font-bold" target="_blank">Get
-                                        PayPal Credential</a>
-                                </div>
                             </div>
                             {{--  --}}
 

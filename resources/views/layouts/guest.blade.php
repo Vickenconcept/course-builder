@@ -27,42 +27,42 @@
     {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> --}}
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
-   
+
 
 
 
     <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css ') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/app-541c3f26.css ') }}">
 
-  <style>
-     .title {
-        font-size: 30px;
-        padding-bottom: 20px;
-        /* color: white; */
-    }
+    <style>
+        .title {
+            font-size: 30px;
+            padding-bottom: 20px;
+            /* color: white; */
+        }
 
-    p {
-        padding-bottom: 5px;
-        line-height: 25px;
-        font-size: 15px
-    }
+        p {
+            padding-bottom: 5px;
+            line-height: 25px;
+            font-size: 15px
+        }
 
-    .float {
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
+        .float {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
 
-    }
+        }
 
-    .body {
-        transition: background-color 0.3s ease;
-    }
+        .body {
+            transition: background-color 0.3s ease;
+        }
 
-    .dark {
-        background-color: black;
-        color: white;
-    }
-  </style>
+        .dark {
+            background-color: black;
+            color: white;
+        }
+    </style>
 
 </head>
 
@@ -73,58 +73,63 @@
             {{ $slot }}
         </div>
     </div>
-    <script>
-        $("#flipbook").turn({
-            width: 1000,
-            height: 600,
-            autoCenter: true,
-            display: 'double',
-            acceleration: true,
-            elevation: 50,
-            gradients: true,
-            duration: 1000,
-            turnCorners: 'bl,br',
+
+    {{-- <div>
+        <button class="btn" id="toggleIframe"
+            style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        color: white;
+        background-color: blue;
+        padding: 10px 14px;
+        box-shadow: 5px 2px 5px #ccc;
+        border-radius: 50px;">
+            <i class='bx bxs-bot'></i></button>
+
+
+        <iframe id="myIframe" src="http://127.0.0.1:8000/guests/63431f07-7abc-4cb5-907c-98a24de066d6"
+            style=" position: fixed;
+        bottom: 70px;
+        right: 20px;
+        box-shadow: 3px 3px 6px lightgray ;
+        border: 3px solid darkblue;
+        border-radius: 10px;
+        display: none;
+        background-color: #fff;
+        box-shadow: 3px 6px 5px gray;"
+            width="300" height="500"></iframe>
+    </div> --}}
+
+
+
+    {{-- <script>
+        const body = document.querySelector('body');
+        body.classList.add('top-window');
+        const btns = document.querySelectorAll('.btn');
+        btns.forEach(btn => {
+            btn.style.display = 'block';
         });
 
+        function initializeEmbed() {
+            const iframe = document.getElementById('myIframe');
+            const toggleIcon = document.getElementById('toggleIframe');
 
-        jQuery(document).ready(function($) {
-
-            $(window).bind('keydown', function(e) {
-                if (e.keyCode == 37) {
-                    $("#flipbook").turn('previous');
-                } else if (e.keyCode == 39) {
-                    $("#flipbook").turn('next');
-                }
+            toggleIcon.addEventListener('click', () => {
+                iframe.style.display = (iframe.style.display === 'none' || iframe.style.display === '') ?
+                    'block' :
+                    'none';
             });
 
-            $(document).ready(function() {
-                $("#nextButton").click(function() {
-                    $("#flipbook").turn("next");
-                });
-            });
-            $(document).ready(function() {
-                $("#previousButton").click(function() {
-                    $("#flipbook").turn("previous");
-                });
-            });
-        });
+            if (window === window.top) {
+                document.body.classList.add('top-window');
+            }
+        }
 
-        const controls = document.getElementById('controls');
-        const flipbook = document.getElementById('flipbook');
+        initializeEmbed();
+    </script> --}}
 
-        gsap.set(controls, {
-            y: '100%',
-            opacity: 0
-        });
 
-        flipbook.addEventListener('mouseenter', () => {
-            gsap.to(controls, {
-                y: '0%',
-                opacity: 1,
-                duration: 0.3
-            });
-        });
-    </script>
     <script src="{{ asset('build/assets/app-dd6eec69.js') }}"></script>
 
 

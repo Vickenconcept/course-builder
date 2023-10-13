@@ -130,6 +130,17 @@ class CourseController extends Controller
         $course->update(['title' => $newData]);
         return redirect()->back()->with('success', 'updated succesfully');
     }
+    public function updateDescription(Request $request, $courseId)
+    {
+
+        $user = auth()->user();
+        $course = $user->courses()->findOrFail($courseId);
+        $newData = $request->input('updateDescription');
+
+
+        $course->update(['description' => $newData]);
+        return redirect()->back()->with('success', 'updated succesfully');
+    }
 
 
     public function courseImage(Request $request, $image)

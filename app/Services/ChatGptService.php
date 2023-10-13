@@ -86,7 +86,37 @@ class ChatGptService
                     Log::error("API request failed: " . $e->getMessage());
                     break;
                 }
+            }  
+            catch (\Exception $e) {
+                // Handle the cURL error
+            
+                // Check if the error message contains "Could not resolve host"
+                if (strpos($e->getMessage(), 'Could not resolve host') !== false) {
+                    // Handle the "Could not resolve host" error
+            
+                    // For example, you can log the error or provide a custom error message
+                    Log::error('cURL error: Could not resolve host');
+                    // Or return a custom error response to the user
+                    // return response()->json(['error' => 'Could not resolve host. Please try again later.'], 500);
+                    return  'You have an unstable network';
+                }elseif (strpos($e->getMessage(), 'cURL error 35') !== false) {
+                    // Handle the SSL connection error
+            
+                    // For example, you can log the error or provide a custom error message
+                    Log::error('cURL SSL connection error: ' . $e->getMessage());
+                    // Or return a custom error response to the user
+                    return 'Connection error,Please try again later.';
+                    // return response()->json(['error' => 'There was an SSL connection error. Please try again later.'], 500);
+                }
+            
+                // Handle other exceptions
+                // ...
+            
+                // Rethrow the exception if it's not the specific error you want to handle
+                throw $e;
             }
+
+            
         }
 
         return null; 

@@ -80,6 +80,7 @@ Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
 Route::middleware('auth')->group(function () {
+    Route::put('/courses-desc/{course}', [CourseController::class, 'updateDescription'])->name('courses.updateDescription');
     Route::resource('courses', CourseController::class);
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
     Route::resource('/dashboard', DashboardController::class)->middleware('admin');
@@ -128,27 +129,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('test', function () {
-    // https://www.paypal.com/businessprofile/mytools/apiaccess/firstparty/signature
-    return view('users.cancle');
+   
 
     $client = new \GuzzleHttp\Client();
 
-    // $response = $client->request('GET', 'https://emailoctopus.com/api/1.6/lists?api_key=b06003c3-0568-47c2-89f8-6e720a2ee93e', []);
-    // dd($response);
 
-    // $ch = curl_init();
-    // $api_key = 'b06003c3-0568-47c2-89f8-6e720a2ee93e';
+    $response = $client->request('GET', 'https://api.convertkit.com/v3/forms?api_key=Na3qB0Yhh8KayVaUt-m7pg');
+    // $responseBody = $response->getBody()->getContents();
+    $res = json_decode($response->getBody(), true);
 
-    // curl_setopt($ch, CURLOPT_URL, 'https://emailoctopus.com/api/1.6/lists');
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $api_key));
 
-    // $result = curl_exec($ch);
-    // if (curl_errno($ch)) {
-    //     echo 'Error:' . curl_error($ch);
-    // }
-    // curl_close($ch);
-    // dd($result);
+    dd($res);
+    $converData = [];
+
+    
 
 
     $api_key = 'Na3qB0Yhh8KayVaUt-m7pg';
@@ -163,6 +157,8 @@ Route::get('test', function () {
     $res = $convertKitService->getList($api_key);
     // $res = $convertKitService->addEmail($api_key, $forId, 'vickenconcept@gmail.com');
     dd($res);
+
+    
 
 
 

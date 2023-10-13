@@ -1,4 +1,3 @@
-
 @seo([
     'title' => $course->title,
     'description' => $course->description,
@@ -30,13 +29,13 @@
 
         <div style="background-image: url('{{ asset($course->course_image) }}');"
             class="bg-cover bg-no-repeat w-full bg-center min-h-screen pt-10">
-            <div class="  mx-auto w-[80%]  ">
+            <div class="  mx-auto w-full md:w-[80%]  ">
 
 
 
                 <div class="container py-10  ">
                     <div id="myCarousel" class="carousel slide   border-4  rounded-xl  overflow-auto  bg-white "
-                        data-ride="carousel" style=" height:550px " :class="{ 'dark': darkMode }">
+                    data-interval="false" style=" height:550px " :class="{ 'dark': darkMode }">
 
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -59,10 +58,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <section class=" item  carousel-item   pt-4 capitalize  px-5   even ">
+                            <section class=" item  carousel-item   pt-4 capitalize  px-5  even  overflow-auto">
 
                                 <h4 class="font-semibold my-5 text-md title"> Introduction:</h4>
-                                <p class="   text-justify my-3 text-3xl " style="line-height: 40px;">
+                                <p class="   text-justify my-3 text-3xl  overflow-auto" style="line-height: 40px;">
                                     {{ $course->description }}
                                 </p>
 
@@ -103,22 +102,22 @@
                                     @endif
                                 @endforeach
                                 @if (count($course->lessons) > $freeCourse)
-                                    <section class="item  h-full" >
-                                       <div class="flex justify-center items-center h-full">
-                                        <div class=" text-center">
-                                            <h1 class="title font-bold my-5"> "Unlock a World of Knowledge – Click
-                                                Here to Explore
-                                                More!"</h1>
-                                            <a href="{{ route('subscribe.show', ['subscribe' => $course->id]) }}">
-                                                <button id="showAllLessonsButton" 
-                                                    class=" inline-flex animate-pulse items-center  text-green-50 px-3 border text-center  rounded-md bg-gray-900 hover:shadow-lg transition duration-300 py-2 font-semibold   disabled:opacity-25  ease-in-out">
-                                                    Click to read more <i
-                                                        class='bx bx-chevrons-right  animate-ping'></i>
-                                                </button>
+                                    <section class="item  h-full">
+                                        <div class="flex justify-center items-center h-full">
+                                            <div class=" text-center">
+                                                <h1 class="title font-bold my-5"> "Unlock a World of Knowledge – Click
+                                                    Here to Explore
+                                                    More!"</h1>
+                                                <a href="{{ route('subscribe.show', ['subscribe' => $course->id]) }}">
+                                                    <button id="showAllLessonsButton"
+                                                        class=" inline-flex animate-pulse items-center  text-green-50 px-3 border text-center  rounded-md bg-gray-900 hover:shadow-lg transition duration-300 py-2 font-semibold   disabled:opacity-25  ease-in-out">
+                                                        Click to read more <i
+                                                            class='bx bx-chevrons-right  animate-ping'></i>
+                                                    </button>
 
-                                            </a>
+                                                </a>
+                                            </div>
                                         </div>
-                                       </div>
                                     </section>
                                 @endif
                             @endif
@@ -138,6 +137,7 @@
             </div>
         </div>
     </div>
+   
 </x-guest-layout>
 
 {{-- </html> --}}

@@ -102,34 +102,36 @@ class CourseSettingsController extends Controller
 
             if ($user->setting && $user->setting->mailchimp_api_key && $user->setting->mailchimp_prefix_key) {
                 $lists = $this->mailChimpService->getAllLists($user->setting->mailchimp_api_key, $user->setting->mailchimp_prefix_key);
-            } 
-          
+            }
+
 
             if ($user->setting->convert_api_key) {
                 $convertKitService = app(ConvertKitService::class);
                 $convert = $convertKitService->getList($user->setting->convert_api_key);
-            } 
-         
+            }
+
 
             if ($user->setting->get_response_api_key) {
                 $getResponseService = app(GetResponseService::class);
                 $getrepsonseAudience = $getResponseService->getAudience($user->setting->get_response_api_key);
                 if (!is_null($getrepsonseAudience) && is_iterable($getrepsonseAudience)) {
-                    
                 }
-            } 
-          
+            }
+
 
             return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'convert', 'getrepsonseAudience'));
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             // Handle 401 Unauthorized error
             return back()->with('success', 'Authentication failed. Please check your API key and authentication process.');
-        } catch (\Exception $e) {
-            // Handle other exceptions
-            return back()->with('success', 'An error occurred. Please try again later.');
+        // } catch (\Exception $e) {
+        //     // Handle other exceptions
+        //     $errorMessage = $e->getMessage();
+
+        //     // Handle other exceptions
+        //     dd($errorMessage);
+        //     return back()->with('success', 'An error occurred. Please try again later.');
+            // return back()->with('success', 'An error occurred. Please try again later.');
         }
-        
-        
     }
 
     public function saveSetting(Request $request, $courseId)
