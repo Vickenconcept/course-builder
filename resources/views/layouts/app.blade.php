@@ -11,7 +11,8 @@
         'type' => 'article', // You can set this to 'article', 'website', 'video', etc. depending on the type of content
         'url' => '', // Replace with the actual route for viewing the course
         'site_name' => config('app.name'),
-        'favicon' => asset('images/book-cover.jpg'),
+        'favicon' => 'https://myconvergeai.com/favicon.ico',
+        // 'favicon' => asset('favicon.ico'),
     ])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,8 +96,120 @@
 
             </main>
         </div>
+
+        {{-- <div>
+            <button class="btn" id="toggleIframe"
+                style="
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            background-color: #1d98f7;
+            padding: 15px 20px;
+            box-shadow: 5px 2px 5px #ccc;
+            border-radius: 50px;">
+                            <i class='bx bx-bot'></i></button>
+
+
+            <iframe id="myIframe" src="http://127.0.0.1:8000/guests/a70e5d39-bb32-4d35-9510-501fc7f4480e"
+                style=" position: fixed;
+            bottom: 70px;
+            right: 20px;
+            box-shadow: 3px 3px 6px lightgray ;
+            border: 3px solid darkpurple;
+            border-radius: 10px;
+            display: none;
+            background-color: #fff;
+            box-shadow: 3px 6px 5px gray;"
+                            width="300" height="500"></iframe>
+        </div> --}}
+        <div>
+            <button class="btn" id="toggleIframe"
+                style="
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            background-color: #1d98f7;
+            padding: 15px 20px;
+            box-shadow: 5px 2px 5px #ccc;
+            border-radius: 50px;">
+                <i class='bx bx-bot'></i></button>
+
+
+            <iframe id="myIframe" src="https://bot.vixblock.com.ng/guests/12f68e3f-4f45-4be8-8616-d2146f37bf66"
+                style=" position: fixed;
+            bottom: 70px;
+            right: 20px;
+            box-shadow: 3px 3px 6px lightgray ;
+            border: 3px solid darkpurple;
+            border-radius: 10px;
+            display: none;
+            background-color: #fff;
+            box-shadow: 3px 6px 5px gray;"
+                width="300" height="500"></iframe>
+        </div>
+
+
+
+
+
+
     </div>
-    
+
+    {{-- <script>
+        const body = document.querySelector('body');
+        body.classList.add('top-window');
+        const btns = document.querySelectorAll('.btn');
+        btns.forEach(btn => {
+            btn.style.display = 'block';
+        });
+
+        function initializeEmbed() {
+            const iframe = document.getElementById('myIframe');
+            const toggleIcon = document.getElementById('toggleIframe');
+
+            toggleIcon.addEventListener('click', () => {
+                iframe.style.display = (iframe.style.display === 'none' || iframe.style.display === '') ?
+                    'block' :
+                    'none';
+            });
+
+            if (window === window.top) {
+                document.body.classList.add('top-window');
+            }
+        }
+
+        initializeEmbed();
+    </script> --}}
+    <script>
+        const body = document.querySelector('body');
+        body.classList.add('top-window');
+        const btns = document.querySelectorAll('.btn');
+        btns.forEach(btn => {
+            btn.style.display = 'block';
+        });
+
+        function initializeEmbed() {
+            const iframe = document.getElementById('myIframe');
+            const toggleIcon = document.getElementById('toggleIframe');
+
+            toggleIcon.addEventListener('click', () => {
+                iframe.style.display = (iframe.style.display === 'none' || iframe.style.display === '') ?
+                    'block' :
+                    'none';
+            });
+
+            if (window === window.top) {
+                document.body.classList.add('top-window');
+            }
+        }
+
+        initializeEmbed();
+    </script>
+
+
+
     <script>
         const sidebar = document.querySelector("aside");
         const maxSidebar = document.querySelector(".max")

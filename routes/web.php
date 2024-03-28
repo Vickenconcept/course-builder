@@ -10,21 +10,20 @@ use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SuggestionController;
-use App\Http\Livewire\LessonArchitect;
 use App\Http\Controllers\PayPalPaymentController;
 use App\Http\Livewire\Course;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseSettingsController;
 use App\Http\Controllers\LessonController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ResellerController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShareEventController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\userController;
-use App\Http\Middleware\LogIpAddressMiddleware;
 use App\Services\ConvertKitService;
+use App\Services\GetResponseService;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +104,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('course-setting', CourseSettingsController::class);
         Route::resource('research', ResearchController::class);
         Route::resource('search', SearchController::class);
+        Route::resource('reseller', ResellerController::class);
         Route::get('/export-text', [ContentPlannerController::class, 'exportText'])->name('export.text');
         Route::resource('content-planner', ContentPlannerController::class);
         Route::get('/suggestions', [SuggestionController::class, 'suggestions']);
@@ -134,37 +134,12 @@ Route::get('test', function () {
     $client = new \GuzzleHttp\Client();
 
 
-    $response = $client->request('GET', 'https://api.convertkit.com/v3/forms?api_key=Na3qB0Yhh8KayVaUt-m7pg');
-    // $responseBody = $response->getBody()->getContents();
-    $res = json_decode($response->getBody(), true);
-
-
-    dd($res);
-    $converData = [];
-
-    
-
-
-    $api_key = 'Na3qB0Yhh8KayVaUt-m7pg';
-    $api_secret = 'IaOsMP-pf318xnsm4eZAP2kAi4uYHm_R_0GfQFAG5ro';
-
     // $response = $client->request('GET', 'https://api.convertkit.com/v3/forms?api_key=Na3qB0Yhh8KayVaUt-m7pg');
     // $responseBody = $response->getBody()->getContents();
-    // return $responseBody;
-    // dd($responseBody);
-        $forId = '5654959';
-    $convertKitService = app(ConvertKitService::class);
-    $res = $convertKitService->getList($api_key);
-    // $res = $convertKitService->addEmail($api_key, $forId, 'vickenconcept@gmail.com');
-    dd($res);
+    // $res = json_decode($response->getBody(), true);
 
-    
-
-
-
-
-
-
+    $getResponseService = app(GetResponseService::class);
+    dd($getResponseService->getAudience('Na3qB0Yhh8KayVaUt-m7pg'));
 
 
 

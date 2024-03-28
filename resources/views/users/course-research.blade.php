@@ -10,19 +10,21 @@
                         <div
                             class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
                             <div class="grid place-items-center h-full w-12 text-gray-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
+                                <button type="submit" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </button>
                             </div>
                             <input autocomplete="off"
                                 class="peer h-full w-full outline-none border-none focus:none focus:border-none focus:ring-white  text-sm  pr-2 placeholder-gray-300"
-                                type="text" name="query" id="query" placeholder="Search..." />
+                                type="text" name="query" id="query" placeholder="Search..."  />
                         </div>
                     </form>
                 </div>
-               
+
                 @if (isset($query))
                     <p class="text-xs  mt-1"><span class="font-bold">Latest search: </span>
                         @if (isset($trend) && is_array($trend))
@@ -36,32 +38,36 @@
             <div class="flex flex-row gap-2">
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
-                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    
-                    <input type="hidden" name="sortBy" value="title">
-                    <x-main-button type="submit" class="whitespace-nowrap">Sort by Title</x-main-button>
+                        <input hidden type="text" name="query" value="{{ $query }}"
+                            placeholder="Search Query">
+
+                        <input type="hidden" name="sortBy" value="title">
+                        <x-main-button type="submit" class="whitespace-nowrap">Sort by Title</x-main-button>
                     @endif
                 </form>
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
-                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    <input type="hidden" name="sortBy" value="author">
-                    <x-main-button type="submit" class="whitespace-nowrap">Sort by Author</x-main-button>
+                        <input hidden type="text" name="query" value="{{ $query }}"
+                            placeholder="Search Query">
+                        <input type="hidden" name="sortBy" value="author">
+                        <x-main-button type="submit" class="whitespace-nowrap">Sort by Author</x-main-button>
                     @endif
                 </form>
 
-                
+
                 <form action="{{ route('course-validation.create') }}" method="GET">
                     @if (isset($query))
-                    <input hidden type="text" name="query" value="{{ $query }}" placeholder="Search Query">
-                    <select  name="rating" onchange="this.form.submit()" class="bg-[#39ac73] rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none text-xs">
-                        <option class="bg-white text-gray-700"value="" selected disabled>Rating</option>
-                        <option class="bg-white text-gray-700"value="1">1</option>
-                        <option class="bg-white text-gray-700"value="2">2</option>
-                        <option class="bg-white text-gray-700"value="3">3</option>
-                        <option class="bg-white text-gray-700"value="4">4</option>
-                        <option class="bg-white text-gray-700"value="5">5</option>
-                    </select>
+                        <input hidden type="text" name="query" value="{{ $query }}"
+                            placeholder="Search Query">
+                        <select name="rating" onchange="this.form.submit()"
+                            class="bg-[#39ac73] rounded shadow-sm text-white hover:shadow-md border-transparent select appearance-none text-xs">
+                            <option class="bg-white text-gray-700"value="" selected disabled>Rating</option>
+                            <option class="bg-white text-gray-700"value="1">1</option>
+                            <option class="bg-white text-gray-700"value="2">2</option>
+                            <option class="bg-white text-gray-700"value="3">3</option>
+                            <option class="bg-white text-gray-700"value="4">4</option>
+                            <option class="bg-white text-gray-700"value="5">5</option>
+                        </select>
                     @endif
                 </form>
 
@@ -74,7 +80,7 @@
                     <div class=" text-xs capitalize">Total Courses</div>
                     <div class=" text-xs">
                         @if (isset($trend) && is_array($trend))
-                            {{( $trend['courseNum'] * 2 )  }}
+                            {{ $trend['courseNum'] * 2 }}
                         @endif
                     </div>
 
@@ -84,7 +90,7 @@
                             {{ $trend['totalStudents'] }}
                         @endif
                     </div>
-                  
+
                     <div class=" text-xs capitalize">Average price</div>
                     <div class=" text-xs">
                         @if (isset($trend) && is_array($trend))
@@ -97,9 +103,11 @@
                 <h1 class="font-semibold capitalize ">Opportunity Score</h1>
                 <canvas id="myChart"></canvas>
                 <div class="w-full bg-neutral-200  rounded-full overflow-hidden mt-2 hidden">
-                    <div id="degree" class="bg-[#39ac73] p-0.5 text-center text-[8px] font-medium leading-none text-blue-50" style="width: 45%">
+                    <div id="degree"
+                        class="bg-[#39ac73] p-0.5 text-center text-[8px] font-medium leading-none text-blue-50"
+                        style="width: 45%">
                         45%
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="col-span-1 sm:col-span-2 shadow-md rounded p-5 bg-white">
@@ -160,7 +168,7 @@
                                     {{-- <button class="group flex relative " x-on:click="isOpen = true"> --}}
                                     <button class="group flex relative "
                                         x-on:click="isOpen = true ; bookData = @js($book)">
-                <i class=' bx bx-edit text-blue-400 mr-1 '></i> About {{ $book['title'] }}
+                                        <i class=' bx bx-edit text-blue-400 mr-1 '></i> About {{ $book['title'] }}
                                         <!-- <span class="bg-red-400 text-white px-2 py-1">Button</span> -->
                                         <span
                                             class="group-hover:opacity-100 transition-opacity -top-6 bg-gray-800 px-1 text-xs text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto">
@@ -184,12 +192,12 @@
                                 <!-- <td class=" whitespace-nowrap text-xs py-2 px-6  truncate w-[120px]  pr-10"><i class='bx bxs-color font-bold text-red-500 text-xl'></i></td> -->
                             </tr>
                         @empty
-                        <tr class="text-left border-b-2 shadow bg-white ">
-                            <td colspan="6"
-                                class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">
-                                No Data found!</td>
+                            <tr class="text-left border-b-2 shadow bg-white ">
+                                <td colspan="6"
+                                    class=" whitespace-nowrap text-sm py-5 px-3 align-top truncate w-[120px] text-center ">
+                                    No Data found!</td>
 
-                        </tr>
+                            </tr>
                         @endforelse
                     @endif
 
@@ -237,7 +245,8 @@
                         <p class=" text-gray-700 my-2"> Subcategory: <span class="ml-5 "
                                 x-text="bookData.category"></span></p>
                         {{-- <p class=" text-gray-700 my-2"> Platform: <span class="ml-5 " x-text ="bookData.author"></span></p> --}}
-                        <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 " x-text="bookData.category"></span>
+                        <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 "
+                                x-text="bookData.category"></span>
                         </p>
                         <p class=" text-gray-700 my-2"> Topic: <span class="ml-5 " x-text="bookData.title"></span>
                         </p>

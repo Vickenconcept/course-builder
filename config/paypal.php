@@ -33,11 +33,3 @@ return [
     'validate_ssl'   => true, // Validate SSL when creating api client.
 ];
 
-
-// 'live' => [
-//     'username'    => config('paypal.username', ''),
-//     'password'    => config('paypal.password', ''),
-//     'secret'      => config('paypal.secret', ''),
-//     'certificate' => env('PAYPAL_LIVE_API_CERTIFICATE', ''),
-//     'app_id'      => 'APP-80W284485P519543T', // Used for Adaptive Payments API
-// ],

@@ -25,6 +25,7 @@ class GetResponseService
                     'X-Auth-Token' => 'api-key ' . $apiKey,
                 ],
             ]);
+            dd($response);
 
             $audiences = json_decode($response->getBody(), true);
             $audienceIds = [];

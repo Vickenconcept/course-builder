@@ -24,19 +24,6 @@ class AuthController extends Controller
     }
 
 
-    // public function login(Request $request): RedirectResponse
-    // {
-    //     $credentials = $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required',
-    //     ]);
-
-
-    //     if(!Auth::attempt($credentials)) 
-    //         return back()->withErrors(['email' => 'Invalid credentials']);
-
-    //    return to_route('dashboard.index');
-    // }
 
 
     public function login(Request $request): RedirectResponse

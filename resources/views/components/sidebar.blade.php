@@ -107,6 +107,15 @@
                 </div>
             </div>
         </a>
+        <a href="{{ route('reseller.index') }}">
+            <div
+                class="hover:ml-4 text-sm w-full cursor-pointer text-blue-50  bg-[#339966] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+                <i class='bx bx-recycle'></i>
+                <div>
+                    Reseller
+                </div>
+            </div>
+        </a>
         <a href="{{ route('support') }}">
             <div
                 class="hover:ml-4 text-sm w-full cursor-pointer text-blue-50  bg-[#339966] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
@@ -159,6 +168,10 @@
         <a href="{{ route('setting.index') }}"
             class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-[#339966] p-2 rounded-full transform ease-in-out duration-300 flex">
             <i class='bx bxs-cog'></i>
+        </a>
+        <a href="{{ route('reseller.index') }}"
+            class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-[#339966] p-2 rounded-full transform ease-in-out duration-300 flex">
+            <i class='bx bx-recycle'></i>
         </a>
         <a href="{{ route('support') }}"
             class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-[#339966] p-2 rounded-full transform ease-in-out duration-300 flex">

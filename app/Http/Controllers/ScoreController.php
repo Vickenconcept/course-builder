@@ -68,7 +68,7 @@ class ScoreController extends Controller
     {
         $defaultQuery = 'kids art book';
         // $query = $request->input('query', $defaultQuery);
-        $query = $request->input('query');
+        $query = $request->input('query') ?? 'books';
         $startIndex = $request->input('startIndex', 0); // Default startIndex is 0
         $maxResults = $request->input('maxResults', 40); // Default maxResults is 30
         $sortBy = $request->input('sortBy'); 

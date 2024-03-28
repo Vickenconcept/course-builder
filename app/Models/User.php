@@ -12,7 +12,10 @@ use App\Models\Library;
 use App\Models\Course;
 use App\Models\Book;
 use App\Models\Setting;
+use App\Models\Reseller;
 use App\Models\Courseresearch ;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Billable;
 
@@ -60,6 +63,11 @@ class User extends Authenticatable
         return $this->hasMany(Library::class);
     }
 
+    public function resellers()
+    {
+        return $this->hasMany(Reseller::class);
+    }
+
     public function ContentPlanner() {
         
         return $this->hasMany(ContentPlanner::class);
@@ -79,6 +87,10 @@ class User extends Authenticatable
     public function setting() {
         
         return $this->hasOne(Setting::class);
+    }
+    protected function createdAt(): Attribute
+    {
+        return Attribute::get(fn ($value) => Carbon::parse($value)->format('F j, Y, g:i A'));
     }
 
    

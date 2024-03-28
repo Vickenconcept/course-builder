@@ -3,16 +3,17 @@
         <form action="{{ route('research.store') }}" method="POST" >
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mt-10 " x-data="{ firstOption: '', isSecondSelectDisabled: true }">
                 @csrf
-
+                
                 <div class="w-full col-span-1">
                     <label for="platform"
-                        class="block mb-2 bg-[#9fdfbf] text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select
-                        platform</label>
-                    <select id="platform" x-model="firstOption" 
-                        name="platform"
+                    class="block mb-2 bg-[#9fdfbf] text-blue-50 px-3 rounded shadow hover:text-white transition duration-300 py-2 text-xs">Select
+                    platform</label>
+                    {{-- <p class="text-gray-700">this is it:   {{ session('last_selected_option1') }}  </p> --}}
+                    <select id="platform" model="firstOption" 
+                    name="platform"
                         class="bg-white border mt-3 border-white  text-sm rounded-lg  block w-full p-2.5 ">
                         <option disabled class="bg-gray-100 text-white"
-                            @if (session('last_selected_option1') == '') selected @endif>-</option>
+                            @if (session('last_selected_option1') == '') selected  @endif>-</option>
                         <option value="Udemy" @if (session('last_selected_option1') === 'Udemy') selected @endif>Udemy</option>
                         <option value="Amazon KDP" @if (session('last_selected_option1') === 'Amazon KDP') selected @endif>Amazon KDP</option>
                         <option value="Google Books" @if (session('last_selected_option1') === 'Google Books') selected @endif>Google Books
@@ -107,15 +108,17 @@
                             <tr
                                 class="text-left border-b-2 hover:bg-white transition duration-300 shadow rounded-lg bg-transparent">
                                 <td class=" whitespace-nowrap text-xs py-2 px-6  truncate w-[350px]  pl-10">
-                                    <button class="group flex relative ">
-                                        {{-- <i class='bx bx-edit text-blue-400 mr-1 '></i>  --}}
-                                        About {{ $book['title'] }}
-                                        <!-- <span class="bg-red-400 text-white px-2 py-1">a</span> -->
-                                        <span
-                                            class="group-hover:opacity-100 transition-opacity -top-6 bg-gray-800 px-1 text-xs text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto">
-                                            {{ $book['title'] }}
-                                        </span>
-                                    </button>
+                                    <a href="{{ $book['infoLink'] }}">
+                                        <button class="group flex relative ">
+                                            {{-- <i class='bx bx-edit text-blue-400 mr-1 '></i>  --}}
+                                            About {{ $book['title'] }}
+                                            <!-- <span class="bg-red-400 text-white px-2 py-1">a</span> -->
+                                            <span
+                                                class="group-hover:opacity-100 transition-opacity -top-6 bg-gray-800 px-1 text-xs text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto">
+                                                {{ $book['title'] }}
+                                            </span>
+                                        </button>
+                                    </a>
                                 </td>
                                 <td class=" whitespace-nowrap text-xs py-2 px-6  truncate w-[120px] ">
                                     {{ $book['category'] }}</td>

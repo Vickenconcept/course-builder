@@ -10,6 +10,7 @@
         <a href="{{ route('setting.index') }}" class=" {{ request()->routeIs('setting.index') ? '' : 'hidden' }}">Setting</a>
         <a href="{{ route('tutorials') }}" class=" {{ request()->routeIs('tutorials') ? '' : 'hidden' }}">Tutorials</a>
         <a href="{{ route('support') }}" class=" {{ request()->routeIs('support') ? '' : 'hidden' }}">Support</a>
+        <a href="{{ route('reseller.index') }}" class=" {{ request()->routeIs('reseller.index') ? '' : 'hidden' }}">Reseller</a>
     </div>
     <!-- SPACER -->
     <div class="grow h-full flex items-center justify-center"></div>
@@ -42,6 +43,10 @@
                             <x-dropdown-link href="{{ route('password.reset') }}" onclick="this.closest('form').submit();">
                                 {{ __('Change Password') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('reseller.index')">
+                                {{ __('Reseller') }}
+                            </x-dropdown-link>
+                            
                             <x-dropdown-link href="javascript:void(0)" onclick="this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>

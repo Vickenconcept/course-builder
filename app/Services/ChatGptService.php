@@ -60,7 +60,7 @@ class ChatGptService
                         'Content-Type' => 'application/json',
                     ],
                     'json' => [
-                        'model' => 'gpt-3.5-turbo',
+                        'model' => 'gpt-4',
                         'messages' => [
                             ['role' => 'system', 'content' => 'You are a knowledgeable assistant that provides detailed explanations about topics.'],
                             ['role' => 'user', 'content' => $inputData],
