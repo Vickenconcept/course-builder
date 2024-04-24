@@ -10,9 +10,7 @@ class userController extends Controller
     {
         $user = auth()->user();
 
-        // Retrieve the course associated with the user by its ID
         $courses = $user->courses()->latest()->get();
-        // dd($courses);
         return view('users.users-dashoard', compact('courses'));   
     }
 }

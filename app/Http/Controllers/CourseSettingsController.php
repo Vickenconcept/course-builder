@@ -53,42 +53,7 @@ class CourseSettingsController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show($id)
-    // {
-    //     $user = auth()->user();
-
-    //     $course = $user->courses()->findorfail($id);
-    //     $freeLessonCount = $course->courseSettings->free_lessons_count;
-    //     try {
-    //         if ($user->setting && $user->setting->mailchimp_api_key && $user->setting->mailchimp_prefix_key && $user->setting->get_response_api_key != null) {
-    //             $lists = $this->mailChimpService
-    //                 ->getAllLists($user
-    //                     ->setting->mailchimp_api_key, $user
-    //                     ->setting->mailchimp_prefix_key);
-
-    //                     $convertKitService = app(ConvertKitService::class);
-    //                     $convert = $convertKitService->getList($user->setting->convert_api_key);
-
-    //             $getResponseService = app(GetResponseService::class);
-    //             $getrepsonseAudience = $getResponseService->getAudience($user->setting->get_response_api_key);
-    //             if (!is_null($getrepsonseAudience) && is_iterable($getrepsonseAudience)) {
-    //                 return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'getrepsonseAudience', 'convert'));
-    //             } else {
-    //                 return back()->with('success', 'GetResponse Credentials needs configurations');
-    //             }
-
-    //             return view('pages.courses.settings', compact('freeLessonCount', 'id', 'course', 'lists', 'getrepsonseAudience'));
-    //         } else {
-    //             return back()->with('success', 'Mailchimp Credentials needs configurations');
-    //         }
-    //     } catch (\GuzzleHttp\Exception\ClientException $e) {
-    //         // Handle 401 Unauthorized error
-    //         return back()->with('success', 'Authentication failed. Please check your API key and authentication process.');
-    //     } catch (\Exception $e) {
-    //         // Handle other exceptions
-    //         return back()->with('success', 'An error occurred. Please try again later.');
-    //     }
-    // }
+ 
     public function show($id)
     {
         $user = auth()->user();

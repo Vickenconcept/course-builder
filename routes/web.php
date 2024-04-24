@@ -38,7 +38,7 @@ use App\Services\GetResponseService;
 
 //Route::view('/', 'welcome')->name('home');
 Route::get('/', function () {
-    return redirect()->to('login');
+    return view('welcome');
 });
 // Route::get('register', function(){
 //    return redirect()->to('login');
@@ -134,12 +134,12 @@ Route::get('test', function () {
     $client = new \GuzzleHttp\Client();
 
 
-    // $response = $client->request('GET', 'https://api.convertkit.com/v3/forms?api_key=Na3qB0Yhh8KayVaUt-m7pg');
+    // $response = $client->request('GET', 'https://api.convertkit.com/v3/forms?api_key=');
     // $responseBody = $response->getBody()->getContents();
     // $res = json_decode($response->getBody(), true);
 
     $getResponseService = app(GetResponseService::class);
-    dd($getResponseService->getAudience('Na3qB0Yhh8KayVaUt-m7pg'));
+    dd($getResponseService->getAudience(env('CONVERT_KIT_API')));
 
 
 

@@ -25,10 +25,8 @@ class ContentPlannerController extends Controller
     {
         $researches = Courseresearch::latest()->get();
         $books = Book::latest()->get();
-        // $courses = Course::latest()->get();
         $user = auth()->user();
 
-        // Retrieve the course associated with the user by its ID
         $courses = $user->courses()->latest()->get();
 
         return view('users.content-planner', compact('courses', 'researches', 'books'));

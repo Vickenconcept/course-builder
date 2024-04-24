@@ -18,7 +18,6 @@ class SuggestionController extends Controller
     
         $apiKey = env('SERP_API_KEY');
 
-        // $apiKey = '991614c250562a47bf3ea17d560f34c93882c620f37f737019a403f81dd3a065';
         $apiUrl = 'https://serpapi.com/search.json?engine=google_autocomplete&q=' . urlencode($keyword) . '&client=chrome&hl=en&gl=us&api_key=' . $apiKey;
 
         $cacheKey = 'book_sugestion_' . md5($keyword);
@@ -32,7 +31,6 @@ class SuggestionController extends Controller
             $searchData  = $response->json();
             $keywordSuggestions = $searchData['suggestions'];
             
-            // Extract the values from the suggestions and create a new array
             $values = [];
             foreach ($keywordSuggestions as $suggestion) {
                 $values[] = $suggestion['value'];
