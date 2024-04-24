@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('is_admin', ['super_admin', 'admin', 'user'])->default('admin');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->enum('subscribed',[0,1])->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

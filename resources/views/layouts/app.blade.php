@@ -44,8 +44,9 @@
     <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 
-    <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-541c3f26.css ') }}">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-541c3f26.css ') }}"> --}}
 
     @yield('styles')
 

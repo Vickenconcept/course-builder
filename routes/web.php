@@ -21,6 +21,7 @@ use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShareEventController;
 use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\userController;
 use App\Services\ConvertKitService;
 use App\Services\GetResponseService;
@@ -47,12 +48,14 @@ Route::get('/', function () {
 
 Route::middleware('guest')->group(function () {
     Route::view('register', 'auth.register')->name('register');
+    Route::view('register/admin', 'admin.admin-register')->name('admin.register');
     Route::view('login', 'auth.login')->name('login');
 });
 
 Route::controller(AuthController::class)->name('auth.')->group(function () {
     Route::post('login', 'login')->name('login');
     Route::post('register', 'register')->name('register');
+    Route::post('register/admin', 'registerAdmin')->name('register.admin');
     Route::post('logout', 'destroy')->middleware('auth')->name('logout');
 });
 
@@ -78,7 +81,10 @@ Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword']
 Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
-Route::middleware('auth')->group(function () {
+
+Route::get('/update-subscription', [SubscriptionController::class , 'index'])->name('subscription.index');
+Route::post('/update-subscription', [SubscriptionController::class , 'updateSubscription'])->name('update-subscription.update');
+Route::middleware(['auth', 'check.subscription'])->group(function () {
     Route::put('/courses-desc/{course}', [CourseController::class, 'updateDescription'])->name('courses.updateDescription');
     Route::resource('courses', CourseController::class);
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
@@ -127,6 +133,8 @@ Route::middleware('auth')->group(function () {
     //     Route::get('payment/success', 'success')->name('payment.success');
     // });
 });
+
+Route::view('check','admin.subscribe');
 
 Route::get('test', function () {
    

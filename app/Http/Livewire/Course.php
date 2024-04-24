@@ -48,20 +48,19 @@ class Course extends Component
         $generatedOutlineAndDescription = $chatGptService->generateContent($query);
 
 
+        $subheadings_start_pos = strpos($generatedOutlineAndDescription, "['subheadings' => ") + strlen("['subheadings' => ");
+        $subheadings_end_pos = strpos($generatedOutlineAndDescription, "'],", $subheadings_start_pos);
+        $subheadings_string = substr($generatedOutlineAndDescription, $subheadings_start_pos, $subheadings_end_pos - $subheadings_start_pos);
+        $subheadings = explode("', '", substr($subheadings_string, 1, -1));
 
         // $subheadings_start_pos = strpos($generatedOutlineAndDescription, "['subheadings' => ") + strlen("['subheadings' => ");
         // $subheadings_end_pos = strpos($generatedOutlineAndDescription, "'],", $subheadings_start_pos);
         // $subheadings_string = substr($generatedOutlineAndDescription, $subheadings_start_pos, $subheadings_end_pos - $subheadings_start_pos);
-        // $subheadings = explode("', '", substr($subheadings_string, 1, -1));
+        // $subheadings_string = trim($subheadings_string, "[]"); // Trim '[' and ']' characters
 
-        $subheadings_start_pos = strpos($generatedOutlineAndDescription, "['subheadings' => ") + strlen("['subheadings' => ");
-        $subheadings_end_pos = strpos($generatedOutlineAndDescription, "'],", $subheadings_start_pos);
-        $subheadings_string = substr($generatedOutlineAndDescription, $subheadings_start_pos, $subheadings_end_pos - $subheadings_start_pos);
-        $subheadings_string = trim($subheadings_string, "[]"); // Trim '[' and ']' characters
+        // $subheadings_string = preg_replace('/^\d+\.\s*/m', '', $subheadings_string);
 
-        $subheadings_string = preg_replace('/^\d+\.\s*/m', '', $subheadings_string);
-
-        $subheadings = explode("', '", $subheadings_string);
+        // $subheadings = explode("', '", $subheadings_string);
 
 
         $course_overview_start_pos = strpos($generatedOutlineAndDescription, "'course-overview' => [") + strlen("'course-overview' => [");

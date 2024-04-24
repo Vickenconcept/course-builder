@@ -23,7 +23,6 @@ class Authenticate extends Middleware
         }
 
         if (request()->routeIs('subscribe.show')) {
-            // store the session
             session()->put('pending_subscription_route', $request->fullUrl());
         }
 

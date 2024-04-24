@@ -22,6 +22,19 @@ class AuthController extends Controller
         User::create($data);
         return to_route('login');
     }
+    public function registerAdmin(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        $data['is_admin'] = 'super_admin';
+        $data['subscribed'] = '1';
+
+        User::create($data);
+        return to_route('login');
+    }
 
 
 
@@ -38,13 +51,10 @@ class AuthController extends Controller
         }
 
         $redirectRoute = session('pending_subscription_route');
-        // dd($redirectRoute);
         
         if ($redirectRoute) {
-            // Clear the stored subscription route from session
             session()->forget('pending_subscription_route');
 
-            // Redirect the user to the pending subscription route
             return redirect($redirectRoute);
         }
 
@@ -55,7 +65,6 @@ class AuthController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::logout();
-        // Auth::guard('web')->logout();
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

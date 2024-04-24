@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // ...
         'restrictUserRole' => \App\Http\Middleware\RestrictUserRole::class,
+        'check.subscription' => \App\Http\Middleware\CheckSubscription::class,
     ];
 }
