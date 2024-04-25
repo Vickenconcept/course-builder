@@ -44,7 +44,7 @@
     <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/app-541c3f26.css ') }}"> --}}
 
@@ -54,6 +54,12 @@
     @livewireStyles
     @livewireScripts
     <style>
+        #card-element {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
         #flipbook a {
             color: #007bff;
             /* Change this color to your desired default link color */

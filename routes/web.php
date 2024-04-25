@@ -81,17 +81,21 @@ Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword']
 Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
+Route::controller(SubscriptionController::class )->group( function (){
+    // Route::get('/update-subscription', 'index')->name('subscription.index')->middleware('auth');
+    Route::post('/update-subscription', 'updateSubscription')->name('update-subscription.update')->middleware('auth');
+    Route::post('/process-payment', 'processStripePayment')->name('process-payment.update')->middleware('auth');
+    Route::post('/save/paypal', 'SavePaypalDetail')->name('save.paypal')->middleware('auth');
+    Route::post('/save/stripe', 'SaveStripDetail')->name('save.stripe')->middleware('auth');
+});
 
-Route::get('/update-subscription', [SubscriptionController::class , 'index'])->name('subscription.index');
-Route::post('/update-subscription', [SubscriptionController::class , 'updateSubscription'])->name('update-subscription.update');
 Route::middleware(['auth', 'check.subscription'])->group(function () {
     Route::put('/courses-desc/{course}', [CourseController::class, 'updateDescription'])->name('courses.updateDescription');
     Route::resource('courses', CourseController::class);
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
     Route::resource('/dashboard', DashboardController::class)->middleware('admin');
-    // Route::put('/dashboard/{id}', DashboardController::class)->name('dashboard')->middleware('admin');
-    // });
-    // Route::resource('/subscribe', SubscribeController::class);
+    Route::view('setting/admin', 'admin.setting')->middleware('admin');
+
     // Route::group(['middleware' => 'restrictUserRole:admin'], function () {
     Route::group(['middleware' => 'restrictUserRole'], function () {
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('restrictUserRole');

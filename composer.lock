@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59e65b4e93c5251f498a0c40418cc883",
+    "content-hash": "1fd3cfcf356863dfd906ea2bd0b34ac9",
     "packages": [
         {
             "name": "archtechx/laravel-seo",

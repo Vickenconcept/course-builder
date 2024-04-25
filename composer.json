@@ -23,6 +23,7 @@
         "phpoffice/phpword": "^1.1",
         "spatie/laravel-sluggable": "^3.5",
         "srmklive/paypal": "~1.0",
+        "stripe/stripe-php": "^10.21",
         "vinkla/hashids": "^11.0"
     },
     "require-dev": {
