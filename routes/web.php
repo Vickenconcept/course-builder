@@ -81,8 +81,9 @@ Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword']
 Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
+
 Route::controller(SubscriptionController::class )->group( function (){
-    // Route::get('/update-subscription', 'index')->name('subscription.index')->middleware('auth');
+    Route::get('/update-subscription', 'index')->name('subscription.index')->middleware('auth');
     Route::post('/update-subscription', 'updateSubscription')->name('update-subscription.update')->middleware('auth');
     Route::post('/process-payment', 'processStripePayment')->name('process-payment.update')->middleware('auth');
     Route::post('/save/paypal', 'SavePaypalDetail')->name('save.paypal')->middleware('auth');
@@ -94,7 +95,9 @@ Route::middleware(['auth', 'check.subscription'])->group(function () {
     Route::resource('courses', CourseController::class);
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
     Route::resource('/dashboard', DashboardController::class)->middleware('admin');
-    Route::view('setting/admin', 'admin.setting')->middleware('admin');
+    Route::post('/use/paypal', [DashboardController::class, 'use_paypal'])->name('use.paypal')->middleware('admin');
+    Route::post('/use/stripe', [DashboardController::class, 'use_stripe'])->name('use.stripe')->middleware('admin');
+    // Route::view('setting/admin', 'admin.setting')->middleware('admin');
 
     // Route::group(['middleware' => 'restrictUserRole:admin'], function () {
     Route::group(['middleware' => 'restrictUserRole'], function () {

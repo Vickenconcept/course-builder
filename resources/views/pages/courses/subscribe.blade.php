@@ -18,7 +18,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 w-full  md:w-[80%] mx-auto">
         <div class="col-span-1 bg-gray-50 px-10  text-gray-700 py-10 grid grid-cols-2 gap-2">
             <div class=" object-cover overflow-hidden border-r-4 border-b-4 h-40">
-                <img src="{{ asset($course->course_image) }}" alt="" class="w-full  h-full">
+                <img src="{{ $course->course_image ?? asset('images/book-cover.jpg') }}" alt="" class="w-full  h-full">
             </div>
             <div>
                 <h1 class="text-xl font-bold mb-3 capitalize">{{ $course->title }}</h1>

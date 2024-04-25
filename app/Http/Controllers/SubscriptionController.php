@@ -86,7 +86,7 @@ class SubscriptionController extends Controller
         $user->subscribed = '1';
         $user->update();
 
-        return redirect('dashboard')->with('success','payment successful');
-        return response()->json(['message' => 'Payment successful']);
+        return redirect('dashboard');
+        // return response()->json(['message' => 'Payment successful']);
     }
 }

@@ -1,7 +1,15 @@
 <x-app-layout>
     <x-notification />
     <div class="p-2 md:px-10">
-
+        @if ($errors->any())
+        <div class="bg-red-200 text-red-500 p-4">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <div class="flex flex-wrap my-5 -mx-2">
             <div class="w-full lg:w-1/3 p-2">
                 <div class="flex items-center flex-row w-full   bg-[#39ac73] rounded-md px-3 py-8">
@@ -52,7 +60,23 @@
                     <div class="bg-white shadow-md border-b rounded p-3 my-1">
                         <div class="w-full  min-h-0 min-w-0 mb-4 space-y-8">
                             <div class="text-gray-700">
-                                <i class='bx bxl-stripe text-purple-700 text-5xl'></i>
+                                <div class="flex justify-between p-2 bg-slate-200 items-center rounded-md">
+                                    <i class='bx bxl-stripe text-purple-700 text-5xl'></i>
+                                    <form method="post" action="{{ route('use.stripe') }}">
+                                        @csrf
+                                        <label class="relative inline-flex items-center  cursor-pointer">
+                                            <input type="checkbox" value="1" class="sr-only peer"
+                                                onchange="this.form.submit()"
+                                                @if (auth()->user()->use_stripe) checked @endif>
+                                            <div
+                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-600 rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
+                                                {{ auth()->user()->use_stripe ? 'peer-checked:bg-red-600' : 'peer-checked:bg-red-600' }}
+                                                 dark:border-gray-600 
+                                                ">
+                                            </div>
+                                        </label>
+                                    </form>
+                                </div>
                                 <p class="font-bold text-xl capitalize ">for your Paypal set up</p>
                                 <h1 class="font-bold text-sm capitalize">Add Your paypal client key</h1>
                             </div>
@@ -66,7 +90,7 @@
                                 $lastThreeK = substr(auth()->user()->super_admin_strip_key, -3);
 
                             @endphp
-                            <form action="{{ route('save.stripe') }}" method="post" class="space-y-5">
+                            <form action="{{ route('save.stripe') }}" method="post" class="space-y-5  {{ auth()->user()->use_stripe ? '':'hidden' }}" >
                                 @csrf
                                 <div>
                                     <label for=" " class="font-semibold mb-1 block">Stripe Key</label>
@@ -74,14 +98,14 @@
                                         class="rounded-md bg-gray-100 w-full shadow"
                                         placeholder="{{ $firstThreeK }} *****************{{ $lastThreeK }}"
                                         value="">
-                                   
+
                                 </div>
                                 <div>
                                     <label for=" " class="font-semibold mb-1 block">Stripe Secret</label>
                                     <input type="text" name="super_admin_strip_secret"
-                                    class="rounded-md bg-gray-100 w-full shadow"
-                                    placeholder="{{ $firstThreeS }} *****************{{ $lastThreeS }}"
-                                    value="">
+                                        class="rounded-md bg-gray-100 w-full shadow"
+                                        placeholder="{{ $firstThreeS }} *****************{{ $lastThreeS }}"
+                                        value="">
                                 </div>
                                 <div>
                                     <label for=" " class="font-semibold mb-1 block">Application Amount</label>
@@ -109,7 +133,24 @@
                     <div class="bg-white shadow-md border-b rounded p-3 my-1">
                         <div class="w-full  min-h-0 min-w-0 mb-4 space-y-8">
                             <div class="text-gray-700">
-                                <i class='bx bxl-paypal text-blue-700 text-5xl'></i>
+                                <div class="flex justify-between p-2 bg-slate-200 items-center rounded-md">
+                                    <i class='bx bxl-paypal text-blue-700 text-5xl'></i>
+                                    <form method="post" action="{{ route('use.paypal') }}">
+                                        @csrf
+                                        <label class="relative inline-flex items-center  cursor-pointer">
+                                            <input type="checkbox" value="1" class="sr-only peer"
+                                                onchange="this.form.submit()"
+                                                @if (auth()->user()->use_paypal) checked @endif>
+                                            <div
+                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-600 rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
+                                                    {{ auth()->user()->use_paypal ? 'peer-checked:bg-red-600' : 'peer-checked:bg-red-600' }}
+                                                     dark:border-gray-600 
+                                                    ">
+                                            </div>
+                                        </label>
+                                    </form>
+                                </div>
+
                                 <p class="font-bold text-xl capitalize ">for your Paypal set up</p>
                                 <h1 class="font-bold text-sm capitalize">Add Your paypal client key</h1>
                             </div>
@@ -120,7 +161,7 @@
                                 $lastThree = substr(auth()->user()->super_admin_paypal_client_id, -3);
 
                             @endphp
-                            <form action="{{ route('save.paypal') }}" method="post" class="space-y-5">
+                            <form action="{{ route('save.paypal') }}" method="post" class="space-y-5 {{ auth()->user()->use_paypal ? '':'hidden' }}">
                                 @csrf
                                 <div>
                                     <label for=" " class="font-semibold mb-1 block">Client ID</label>
@@ -164,7 +205,8 @@
                             Email</th>
                         <th scope="col" class="text-gray-900  font-semibold firstletter:uppercase text-sm pt-10 ">
                             Date</th>
-                        {{-- <th scope="col" class="text-gray-900  font-semibold firstletter:uppercase text-sm pt-10 "></th> --}}
+                        <th scope="col" class="text-gray-900  font-semibold firstletter:uppercase text-sm pt-10 ">
+                            Subscribed</th>
                         {{-- <th scope="col" class="text-gray-900  font-semibold firstletter:uppercase text-sm pt-10 "></th> --}}
                     </tr>
                 </thead>
@@ -178,7 +220,13 @@
                                 {{ $user->name }}</td>
                             <td class="text-gray-900 whitespace-nowrap text-xs py-2">{{ $user->email }}</td>
                             <td class="text-gray-900 whitespace-nowrap text-xs py-2">{{ $user->created_at }}</td>
-                            {{-- <td class="text-gray-900 whitespace-nowrap text-xs py-2">{{ $user->is_admin }}</td> --}}
+                            <td class="text-gray-900 whitespace-nowrap text-xs py-2">
+                                @if ($user->subscribed)
+                                    subscribed
+                                @else
+                                    pending..
+                                @endif
+                            </td>
                             {{-- <td class="text-gray-900 whitespace-nowrap text-xs py-2 pr-10">
                             <form action="{{ route('dashboard.update', ['dashboard' => $user->id]) }}" method="post">
                                 @csrf

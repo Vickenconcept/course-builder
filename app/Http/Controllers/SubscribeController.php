@@ -40,18 +40,6 @@ class SubscribeController extends Controller
         //
     }
 
-    // public function paymentData(Request $request)
-    // {
-    //     $data = $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|string|email|max:255|unique:users',
-    //         // 'password' => 'string',
-    //     ]);
-
-    //     $newUser = User::create($data);
-    //     Auth::login($newUser);
-    //     return redirect()->back();
-    // }
 
     public function paymentData(Request $request)
     {

@@ -48,4 +48,27 @@ class DashboardController extends Controller
         // Redirect back with a success message
         return redirect()->back()->with('success', 'User type updated to admin.');
     }
+
+    public function use_paypal( ){
+        $user = auth()->user();
+       
+        if ($user->use_paypal == 0) {
+            $user->use_paypal = '1';
+        }else{
+            $user->use_paypal = '0';
+        }
+        $user->update();
+        return back()->with('success','updated successfully');
+    }
+    public function use_stripe( ){
+        $user = auth()->user();
+       
+        if ($user->use_stripe == 0) {
+            $user->use_stripe = '1';
+        }else{
+            $user->use_stripe = '0';
+        }
+        $user->update();
+        return back()->with('success','updated successfully');
+    }
 }

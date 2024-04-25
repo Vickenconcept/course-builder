@@ -64,21 +64,22 @@ class CourseSettingsController extends Controller
             $lists = null;
             $convert = null;
             $getrepsonseAudience = null;
-
-            if ($user->setting && $user->setting->mailchimp_api_key && $user->setting->mailchimp_prefix_key) {
-                $lists = $this->mailChimpService->getAllLists($user->setting->mailchimp_api_key, $user->setting->mailchimp_prefix_key);
+            
+            if (optional($user)->setting && optional($user)->setting->mailchimp_api_key && optional($user)->setting->mailchimp_prefix_key) {
+                $lists = $this->mailChimpService->getAllLists(optional($user)->setting->mailchimp_api_key, optional($user)->setting->mailchimp_prefix_key);
             }
-
-
-            if ($user->setting->convert_api_key) {
+            
+            
+            if (optional($user)->setting->convert_api_key) {
                 $convertKitService = app(ConvertKitService::class);
-                $convert = $convertKitService->getList($user->setting->convert_api_key);
+                $convert = $convertKitService->getList(optional($user)->setting->convert_api_key);
             }
+            // dd(optional($user)->setting);
 
 
-            if ($user->setting->get_response_api_key) {
+            if (optional($user)->setting->get_response_api_key) {
                 $getResponseService = app(GetResponseService::class);
-                $getrepsonseAudience = $getResponseService->getAudience($user->setting->get_response_api_key);
+                $getrepsonseAudience = $getResponseService->getAudience(optional($user)->setting->get_response_api_key);
                 if (!is_null($getrepsonseAudience) && is_iterable($getrepsonseAudience)) {
                 }
             }
@@ -183,7 +184,6 @@ class CourseSettingsController extends Controller
         ]);
         return back()->with('success', 'updated successfully');
     }
-
 
     /**
      * Remove the specified resource from storage.

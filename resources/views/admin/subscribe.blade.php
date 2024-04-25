@@ -5,36 +5,44 @@
             <h4 class="text-md font-semibold text-blue-600">Select payment gateway</h4>
         </div>
         <div>
-             <p class="text-right">Amount: <span class="font-bold bg-green-800 text-white px-3 py-1 rounded-md">{{ $admin->subscriptiion_amount }}</span></p>
+            <p class="text-right">Amount: <span
+                    class="font-bold bg-green-800 text-white px-3 py-1 rounded-md">{{ $admin->subscriptiion_amount ?? NAN }}</span>
+            </p>
         </div>
         <div class="grid grid-cols-2 gap-10">
-            <div id="paypal-button-container"></div>
-            <div>
-                <form action="{{ route('process-payment.update') }}" method="post" id="payment-form">
-                    @csrf
-                    <input type="text" name="amount" id="amount" class="hidden"
-                        value="{{ $admin->subscriptiion_amount }}">
-                    <input type="text" name="description" id="description" class="hidden"
-                        value="payment for the app">
-                    <div class="form-group">
+            @if ($admin->use_paypal)
+                <div id="paypal-button-container"></div>
+            @endif
+            @if ($admin->use_stripe)
+                <div>
+                    <form action="{{ route('process-payment.update') }}" method="post" id="payment-form">
+                        @csrf
+                        <input type="text" name="amount" id="amount" class="hidden"
+                            value="{{ $admin->subscriptiion_amount }}">
+                        <input type="text" name="description" id="description" class="hidden"
+                            value="payment for the app">
+                        <div class="form-group">
 
-                        <label for="card-element">
-                            Credit or debit card
-                        </label>
-                        <div id="card-element" class="mt-2">
-                            <!-- A Stripe Element will be inserted here. -->
+                            <label for="card-element">
+                                Credit or debit card
+                            </label>
+                            <div id="card-element" class="mt-2">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
+                            <div id="card-errors" role="alert"></div>
                         </div>
-                        <div id="card-errors" role="alert"></div>
-                    </div>
 
-                    <div class="mt-4">
-                        <button type="submit"
-                            class="w-full   text-cyan-50 bg-purple-700 rounded-lg hover:bg-purple-900 hover:shadow p-2 flex justify-center items-center">
-                            <i class='bx bxl-stripe  text-xl mr-2' ></i> Submit Payment
-                        </button>
-                    </div>
-                </form>
-            </div>
+                        <div class="mt-4">
+                            <button type="submit" @if ($admin->super_admin_strip_secret == '' && $admin->super_admin_strip_key =='')
+                                disabled
+                            @endif
+                                class="w-full   text-cyan-50 bg-purple-700 rounded-lg hover:bg-purple-900 hover:shadow p-2 flex justify-center items-center">
+                                <i class='bx bxl-stripe  text-xl mr-2'></i> Submit Payment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            @endif
         </div>
 
         <script

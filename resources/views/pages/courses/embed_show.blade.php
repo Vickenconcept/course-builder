@@ -27,7 +27,7 @@
 
         <x-notification />
 
-        <div style="background-image: url('{{ asset($course->course_image) }}');"
+        <div style="background-image: url('{{ $course->course_image ?? asset('images/book-cover.jpg') }}');"
             class="bg-cover bg-no-repeat w-full bg-center min-h-screen pt-10">
             <div class="  mx-auto w-full md:w-[80%]  ">
 
@@ -53,7 +53,7 @@
                                 <div class="font-bold my-5 capitalize title flex justify-center items-center h-full">
                                     <div class="space-y-2">
                                         <span> {{ $course->title }}</span>
-                                        <div style="background-image: url('{{ asset($course->course_image) }}'); height: 300px; width:400px"
+                                        <div style="background-image: url('{{ $course->course_image ?? asset('images/book-cover.jpg') }}'); height: 300px; width:400px"
                                             class="bg-cover bg-no-repeat w-full bg-center pt-20 rounded-xl"></div>
                                     </div>
                                 </div>

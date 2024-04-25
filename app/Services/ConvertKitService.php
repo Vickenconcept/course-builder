@@ -15,8 +15,6 @@ class ConvertKitService
         // $responseBody = $response->getBody()->getContents();
         $res = json_decode($response->getBody(), true);
 
-
-        dd($res);
         $converData = [];
 
         // Iterate over the data and extract IDs and names
