@@ -28,7 +28,6 @@ class SubscribeController extends Controller
 
     public function index()
     {
-        // return view('pages.courses.subscribe');
         return null;
     }
 
@@ -55,10 +54,8 @@ class SubscribeController extends Controller
         $existingUser = User::where('email', $data['email'])->first();
 
         if ($existingUser) {
-            // User already exists, log them in
             Auth::login($existingUser);
         } else {
-            // User does not exist, create a new user
             $newUser = User::create($data);
             Auth::login($newUser);
         }
@@ -76,7 +73,6 @@ class SubscribeController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         
-        // If the user exists, log them in
         if ($user) {
             Auth::login($user);
 
@@ -124,7 +120,6 @@ class SubscribeController extends Controller
 
         $newUser = User::create($data);
 
-        // Log the newly registered user in
         Auth::login($newUser);
 
 
@@ -164,8 +159,7 @@ class SubscribeController extends Controller
     {
         $user = User::where('email', $request->input('email'))->first();
 
-        // dd('here');
-        // If the user exists, log them in
+        
         if ($user) {
             Auth::login($user);
 
@@ -175,7 +169,6 @@ class SubscribeController extends Controller
             $convert_id = $request->input('convert_id');
             $user = User::where('email', $email)->first();
             $courseModel = new Course;
-            // dd($convert_id);
     
             $course = $courseModel->newQueryWithoutScopes()->find($courseId);
     
@@ -212,9 +205,7 @@ class SubscribeController extends Controller
 
         $newUser = User::create($data);
 
-        // Log the newly registered user in
         Auth::login($newUser);
-
 
         $courseId = $request->input('courseId');
         $email = $request->input('email');
@@ -253,7 +244,6 @@ class SubscribeController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         
-        // If the user exists, log them in
         if ($user) {
             Auth::login($user);
 
@@ -277,7 +267,6 @@ class SubscribeController extends Controller
                             ->first()->setting->mailchimp_prefix_key, $list_id);
     
                     $course->user()->sync([$user->id], false);
-                    // dd($courseCreator->first()->setting);
     
                     return redirect()->route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]);
                 } else {
@@ -302,10 +291,8 @@ class SubscribeController extends Controller
 
         $newUser = User::create($data);
 
-        // Log the newly registered user in
         Auth::login($newUser);
 
-        // subscribe the user
         $courseId = $request->input('courseId');
         $email = $request->input('email');
         $name = $request->input('name');
@@ -326,7 +313,6 @@ class SubscribeController extends Controller
                         ->first()->setting->mailchimp_prefix_key, $list_id);
 
                 $course->user()->sync([$user->id], false);
-                // dd($courseCreator->first()->setting);
 
                 return redirect()->route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]);
             } else {
@@ -339,13 +325,11 @@ class SubscribeController extends Controller
     }
 
 
-
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
-        // $intent = auth()->user()->createSetupIntent();
         $courseModel = new Course;
         $course = $courseModel->newQueryWithoutScopes()
             ->find($id);
@@ -354,33 +338,8 @@ class SubscribeController extends Controller
         }
         $list_id = $course->list_id;
 
-        // dd( $course->list_id);
-
         return view('pages.courses.subscribe', compact('course', 'list_id'));
-        // return view('pages.courses.subscribe', compact('course' ,'list_id', 'intent'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subscribe $subscribe)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Subscribe $subscribe)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Subscribe $subscribe)
-    {
-        //
-    }
+   
 }

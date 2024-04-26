@@ -23,14 +23,16 @@
     </div>
     <!-- MAX SIDEBAR-->
     <div class="max hidden text-blue-50 mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
-        <!-- <a href="{{ route('coming-soon') }}">
+        @if (auth()->user()->is_admin == 'super_admin')
+         <a href="{{ route('dashboard.index') }}">
             <div class="hover:ml-4 text-sm w-full cursor-pointer text-blue-50  bg-[#339966] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                 <i class="text-sm bx bx-bulb"></i>
                 <div>
-                    Home
+                    Dashboard
                 </div>
             </div>
-        </a> -->
+        </a>
+        @endif
         <a href="{{ route('tutorials') }}">
             <div
                 class="hover:ml-4 text-sm w-full cursor-pointer text-blue-50  bg-[#339966] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
@@ -130,9 +132,11 @@
     </div>
     <!-- MINI SIDEBAR-->
     <div class="mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
-        <!-- <a href="{{ route('coming-soon') }}" class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-[#339966] p-2 rounded-full transform ease-in-out duration-300 flex">
+         @if (auth()->user()->is_admin == 'super_admin')
+         <a href="{{ route('dashboard.index') }}" class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-[#339966] p-2 rounded-full transform ease-in-out duration-300 flex">
             <i class='text-sm bx  bx-bulb'></i>
-        </a> -->
+        </a> 
+         @endif
         <a href="{{ route('tutorials') }}"
             class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-[#339966] p-2 rounded-full transform ease-in-out duration-300 flex">
             <i class='bx bxs-videos'></i>

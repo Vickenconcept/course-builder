@@ -1,5 +1,4 @@
 <x-guest-layout>
-
     @seo([
         'title' => $course->title,
         'description' => $course->description,
@@ -7,6 +6,7 @@
         'type' => 'article',
         'url' => route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]),
     ])
+    
     @if (session('message'))
         <div class="alert alert-success" role="alert">{{ session('message') }}</div>
     @endif
