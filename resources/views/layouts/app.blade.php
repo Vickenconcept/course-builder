@@ -40,9 +40,9 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/x6auh8olnumk10tisxqju525r0wxv1090lf5sgu8p86sdw0w/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+        referrerpolicy="origin"></script> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-a461d729.css') }}">
@@ -93,24 +93,12 @@
         <x-pre-loader />
         <x-header />
         <x-sidebar />
-
-
-
-
-        <div class="content ml-12  ease-in-out duration-500 pt-20 pb-4 ">
+        <div class="content ml-12  ease-in-out duration-500 pt-10 ">
             <main>
                 {{ $slot }}
-
             </main>
         </div>
-
-
-
     </div>
-
-
-
-
 
     <script>
         const sidebar = document.querySelector("aside");
@@ -173,9 +161,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="{{ asset('js/share.js') }}"></script>
-    <script src="{{ asset('build/assets//app-dd6eec69.js') }}" defer></script>
-
-
+    {{-- <script src="{{ asset('build/assets//app-dd6eec69.js') }}" defer></script> --}}
 
 </body>
 
@@ -189,18 +175,40 @@
 
 
     function initializeEmbed() {
-        const container = document.getElementById('myIframe');
-        const toggleIcon = document.getElementById('toggleIframe');
+        // const container = document.getElementById('myIframe');
+        // const toggleIcon = document.getElementById('toggleIframe');
 
-        toggleIcon.addEventListener('click', () => {
-            container.style.display = (container.style.display === 'none' || container.style.display === '') ?
-                'flex' :
-                'none';
+        // toggleIcon.addEventListener('click', () => {
+        //     container.style.display = (container.style.display === 'none' || container.style.display === '') ?
+        //         'flex' :
+        //         'none';
+        // });
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const container = document.getElementById('myIframe');
+            const toggleIcon = document.getElementById('toggleIframe');
+
+            if (toggleIcon && container) {
+                toggleIcon.addEventListener('click', () => {
+                    container.style.display = (container.style.display === 'none' || container.style
+                            .display === '') ?
+                        'flex' :
+                        'none';
+                });
+
+                if (window === window.top) {
+                    document.body.classList.add('top-window');
+                }
+            } else {
+                console.error('toggleIcon or container element not found.');
+            }
         });
 
-        if (window === window.top) {
-            document.body.classList.add('top-window');
-        }
+
+
+
+
     }
 
 

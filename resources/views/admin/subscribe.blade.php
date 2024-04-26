@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="h w-[70%] mx-auto space-y-6 p-10 shadow-md bg-slate-100">
+    <div class="h w-[70%] mx-auto mt-20 space-y-6 p-10 shadow-md bg-slate-100">
         <div class="text-center">
             <h1 class="text-2xl font-bold tracking-widest text-gray-700">Subscribe To continue</h1>
-            <h4 class="text-md font-semibold text-blue-600">Select payment gateway</h4>
+            <h4 class="text-md font-semibold text-green-600">Select payment gateway</h4>
         </div>
         <div>
             <p class="text-right">Amount: <span

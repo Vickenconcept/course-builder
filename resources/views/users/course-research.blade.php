@@ -10,7 +10,7 @@
                         <div
                             class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
                             <div class="grid place-items-center h-full w-12 text-gray-300">
-                                <button type="submit" >
+                                <button type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -20,7 +20,7 @@
                             </div>
                             <input autocomplete="off"
                                 class="peer h-full w-full outline-none border-none focus:none focus:border-none focus:ring-white  text-sm  pr-2 placeholder-gray-300"
-                                type="text" name="query" id="query" placeholder="Search..."  />
+                                type="text" name="query" id="query" placeholder="Search..." />
                         </div>
                     </form>
                 </div>
@@ -99,9 +99,13 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="col-span-1 shadow-md rounded p-4 bg-white">
                 <h1 class="font-semibold capitalize ">Opportunity Score</h1>
-                <canvas id="myChart"></canvas>
+
+                <canvas id="myChart"  style="display: none"></canvas>
+                <img src="{{ asset('images/chart-bar-graph1.jpg') }}" alt="Image" class="" id="hideMe">
                 <div class="w-full bg-neutral-200  rounded-full overflow-hidden mt-2 hidden">
                     <div id="degree"
                         class="bg-[#39ac73] p-0.5 text-center text-[8px] font-medium leading-none text-blue-50"
@@ -113,20 +117,14 @@
             <div class="col-span-1 sm:col-span-2 shadow-md rounded p-5 bg-white">
                 <h1 class="font-semibold capitalize ">topic search trend</h1>
 
-                <!-- @php
-                    $imageSrc = asset('images/chart.jpg');
-                @endphp -->
                 <div class="w-full overflow-hidden bg-cover bg-opacity-10 bg-no-repeat object-contain p-2 relative">
-                    <canvas id="lineChart" class="w-full " style=" z-index: 10;"></canvas>
-                    <img src="{{ asset('images/chart.jpg') }}"
-                        style="opacity: 0.2; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"
-                        alt="Image">
+                    <canvas id="lineChart" class="w-full " style="display: none"></canvas>
+                        <img src="{{ asset('images/chart-bar-graph1.jpg') }}" alt="Image" class="w-full" id="hideMe2">
                 </div>
             </div>
 
         </section>
         <div class="mt-12">
-            <!-- <button class="bg-blue-800 text-blue-100 px-3 rounded shadow hover:shadow-lg hover:text-white transition duration-300 py-2 text-xs">Pre-set filter</button> -->
             <form action="{{ route('export.books') }}" method="get" class="inline">
                 @csrf
                 <button
@@ -277,10 +275,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        
+        let hideMe = document.getElementById('hideMe');
+        let myChart = document.getElementById('myChart');
+        let lineChart = document.getElementById('lineChart');
+        let hideMe2 = document.getElementById('hideMe2');
+
         @if (isset($trend) && is_array($trend))
             const trendData = @json($trend['searchVolumes']);
             const dates = @json($trend['dates']);
             const opportunityScore = @json($trend['opportunityScore']);
+
+            myChart.style.display = 'block';
+            lineChart.style.display = 'block';
+            hideMe.style.display = 'none';
+            hideMe2.style.display = 'none';
+
+            console.log(hideMe);
         @endif
 
         const data = {
@@ -302,10 +313,6 @@
         };
         var chartLine = new Chart("lineChart", configLineChart);
 
-
-        // --
-
-        // Calculate the degree based on opportunity score (max 360 degrees)
         var degree = Math.min(opportunityScore * 330, 360);
 
         const dataDoughnut = {

@@ -37,13 +37,10 @@ use App\Services\GetResponseService;
 |
 */
 
-//Route::view('/', 'welcome')->name('home');
-Route::get('/', function () {
-    return view('welcome');
-});
-// Route::get('register', function(){
-//    return redirect()->to('login');
-// });
+Route::view('/', 'welcome')->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
 
 Route::middleware('guest')->group(function () {
@@ -61,13 +58,11 @@ Route::controller(AuthController::class)->name('auth.')->group(function () {
 
 
 
-// Route::post('products/{id}/purchase', [ProductController::class ,'purchase'])->name('products.purchase');
 Route::post('/paymentData', [SubscribeController::class, 'paymentData'])->name('subscribe.paymentData');
 Route::post('/get_response', [SubscribeController::class, 'getResponse'])->name('subscribe.getResponse');
 Route::post('/convert-kit', [SubscribeController::class, 'convertkit'])->name('subscribe.convertkit');
 Route::resource('/subscribe', SubscribeController::class);
 Route::post('/track-share-event', [ShareEventController::class, 'trackShareEvent'])->name('track-share-event');
-
 
 Route::controller(PayPalPaymentController::class)->group(function () {
     Route::get('payment', 'payment')->name('payment');
@@ -77,12 +72,12 @@ Route::controller(PayPalPaymentController::class)->group(function () {
 
 
 Route::get('/password/reset', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.reset');
+Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
 Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
 
-Route::controller(SubscriptionController::class )->group( function (){
+Route::controller(SubscriptionController::class)->group(function () {
     Route::get('/update-subscription', 'index')->name('subscription.index')->middleware('auth');
     Route::post('/update-subscription', 'updateSubscription')->name('update-subscription.update')->middleware('auth');
     Route::post('/process-payment', 'processStripePayment')->name('process-payment.update')->middleware('auth');
@@ -97,14 +92,12 @@ Route::middleware(['auth', 'check.subscription'])->group(function () {
     Route::resource('/dashboard', DashboardController::class)->middleware('admin');
     Route::post('/use/paypal', [DashboardController::class, 'use_paypal'])->name('use.paypal')->middleware('admin');
     Route::post('/use/stripe', [DashboardController::class, 'use_stripe'])->name('use.stripe')->middleware('admin');
-    // Route::view('setting/admin', 'admin.setting')->middleware('admin');
 
     // Route::group(['middleware' => 'restrictUserRole:admin'], function () {
     Route::group(['middleware' => 'restrictUserRole'], function () {
-        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('restrictUserRole');
-        Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
+        // Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('restrictUserRole');
+        // Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
         Route::resource('library', LibraryController::class);
-        // Route::view('index', 'user.content-planner');
         Route::view('coming-soon', 'pages.users.coming-soon')->name('coming-soon');
         Route::get('export-books', [BookController::class, 'export'])->name('export.books');
         Route::resource('books', BookController::class);
@@ -128,34 +121,12 @@ Route::middleware(['auth', 'check.subscription'])->group(function () {
         Route::resource('lesson', LessonController::class);
         Route::view('tutorials', 'users.tutorial')->name('tutorials');
         Route::view('support', 'users.support')->name('support');
-        // Route::get('export/{contentType}', ContentExportController::class)->name('export');
     });
 
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
     Route::resource('/user-dashboard', userController::class);
     // });
-    // Route::controller(PayPalPaymentController::class)->group(function () {
-    //     Route::get('payment', 'payment')->name('payment');
-    //     Route::get('cancel', 'cancel')->name('payment.cancel');
-    //     Route::get('payment/success', 'success')->name('payment.success');
-    // });
 });
 
-Route::view('check','admin.subscribe');
-
 Route::get('test', function () {
-   
-
-    $client = new \GuzzleHttp\Client();
-
-
-    // $response = $client->request('GET', 'https://api.convertkit.com/v3/forms?api_key=');
-    // $responseBody = $response->getBody()->getContents();
-    // $res = json_decode($response->getBody(), true);
-
-    $getResponseService = app(GetResponseService::class);
-    dd($getResponseService->getAudience(env('CONVERT_KIT_API')));
-
-
-
 });

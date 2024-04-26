@@ -1,4 +1,4 @@
-<div class=" pt-10 md:px-10 text-gray-700" x-data="{ loading: '', loaded: false }">
+<div class=" py-10 md:px-10 text-gray-700 bg-gray-200" x-data="{ loading: '', loaded: false }">
     <x-notification />
     <div class=" grid grid-cols-1 md:grid-cols-3 ">
         <section class=" col-span-2 mr-0 md:mr-10  px-5 pt-2 pb-5 bg-white rounded-xl">
@@ -6,13 +6,13 @@
                 <label class="py-1 px-5  text-xs  border-b-2 border-[#39ac73] bg-white m-0 text-white ">Create</label>
                 <label class="py-1 px-5  text-xs  border-b-2 border-[#39ac73] m-0  ">Structured</label>
             </div>
-            <div class="flex flex-row mb-10 bg-gray-50 rounded-xl p-3">
+            <div class="flex flex-row mb-10 bg-gray-100 rounded-xl p-3">
                 <div class="  w-12 h-12">
                     <i class='bx bx-brain text-white text-2xl bg-[#39ac73] rounded p-2'></i>
                 </div>
                 <div class="pl-1 ">
                     <h1 class="font-semibold text-sm capitalize ">Create</h1>
-                    <p class=" text-left text-xs">"Empower your content creation with AI, delivering personalized and
+                    <p class=" text-left text-xs font-semibold">"Empower your content creation with AI, delivering personalized and
                         engaging experiences effortlessly."</p>
                 </div>
             </div>
@@ -23,8 +23,8 @@
                             class="   bg-white   px-3 rounded  transition duration-300 py-2 text-xs">Topic/Title</label>
                         <div class="ml-5">
                             <input
-                                class="peer w-full outline-none border-gray-300 shadow mt-3  rounded-lg focus:none text-sm text-gray-800 pr-2 placeholder-gray-300"
-                                type="text" name="topic" wire:model="topic" id="topic"
+                                class="peer bg-gray-100 w-full outline-none border-gray-300 shadow mt-3  rounded-lg focus:none text-sm text-gray-800 pr-2 placeholder-gray-400"
+                                type="text" name="topic" wire:model.defer="topic" id="topic"
                                 placeholder="Create a Youtube channel" autocomplete="off" />
                         </div>
                     </div>
@@ -36,8 +36,8 @@
                                 class="    bg-white   px-3 rounded  transition duration-300 py-2 text-xs">
                                 Presentation of Books</label>
                             <div class="ml-5">
-                                <select id="presentation" name="presentation" wire:model="presentation"
-                                    class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
+                                <select id="presentation" name="presentation" wire:model.defer="presentation"
+                                    class="   bg-gray-100 border mt-3 border-gray-300 shadow text-gray-600 text-sm rounded-lg  block w-full p-2.5     ">
                                     <option selected class="text-gray-50 " disabled>Course</option>
                                     <option value="Summaries and key takeaways" class="  ">Summaries and key
                                         takeaways</option>
@@ -54,8 +54,8 @@
                                 class="   bg-white   px-3 rounded  transition duration-300 py-2 text-xs">Beginner,
                                 Intermidiate,Advance</label>
                             <div class="ml-5">
-                                <select id="level" name="level" wire:model="level"
-                                    class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
+                                <select id="level" name="level" wire:model.defer="level"
+                                    class="   bg-gray-100 border mt-3 border-gray-300 shadow text-gray-600 text-sm rounded-lg  block w-full p-2.5     ">
                                     <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value="beginner " class="">Beginner</option>
                                     <option value="intermidiate " class="">Intermidiate</option>
@@ -69,9 +69,8 @@
                                 class="   bg-white   px-3 rounded  transition duration-300 py-2 text-xs">Outline,
                                 Description,Summary</label>
                             <div class="ml-5">
-                                <select id="outline" name="outline" wire:model="outline"
-                                    class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
-                                    <!-- <option selected class="text-gray-50 " disabled>(Optional)</option> -->
+                                <select id="outline" name="outline" wire:model.defer="outline"
+                                    class="   bg-gray-100 border mt-3 border-gray-300 shadow text-gray-600 text-sm rounded-lg  block w-full p-2.5     ">
                                     <option selected value="outline" class="">Outline</option>
                                     <option value="description" class="">Description</option>
                                     <option value="summary" class="">Summary</option>
@@ -84,8 +83,8 @@
                                 class="   bg-white   px-3 rounded  transition duration-300 py-2 text-xs">How Many
                                 Modules Of Chapters</label>
                             <div class="ml-5">
-                                <select id="modules" name="modules" wire:model="modules"
-                                    class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
+                                <select id="modules" name="modules" wire:model.defer="modules"
+                                    class="   bg-gray-100 border mt-3 border-gray-300 shadow text-gray-600 text-sm rounded-lg  block w-full p-2.5     ">
                                     <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value="3-5 modules" class="">3-5 modules</option>
                                     <option value="6-10 modules" class="">6-10 modules</option>
@@ -99,8 +98,8 @@
                                 class="   bg-white   px-3 rounded  transition duration-300 py-2 text-xs">Any
                                 Formatting</label>
                             <div class="ml-5">
-                                <select id="formatting" name="formatting" wire:model="formatting"
-                                    class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
+                                <select id="formatting" name="formatting" wire:model.defer="formatting"
+                                    class="   bg-gray-100 border mt-3 border-gray-300 shadow text-gray-600 text-sm rounded-lg  block w-full p-2.5     ">
                                     <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value=" format the course  " class="">Yes</option>
                                     <option value="don't formart the course" class="">No</option>
@@ -116,8 +115,8 @@
                                 Course Time (hours)?</label>
 
                             <div class="ml-5">
-                                <select id="time" name="time" wire:model="time"
-                                    class="   bg-white border mt-3 border-gray-300 shadow text-gray-300 text-sm rounded-lg  block w-full p-2.5     ">
+                                <select id="time" name="time" wire:model.defer="time"
+                                    class="   bg-gray-100 border mt-3 border-gray-300 shadow text-gray-600 text-sm rounded-lg  block w-full p-2.5     ">
                                     <option selected class="text-gray-50 " disabled>(Optional)</option>
                                     <option value="Short (1-5 hours)" class="">Short (1-5 hours)</option>
                                     <option value="Medium (6-10 hours)" class="">Medium (6-10 hours)</option>
@@ -134,7 +133,7 @@
                             <span wire:loading>Loading...</span>
                             {{-- Generate --}}
                         </x-main-button>
-                        <button type="button" x-click="document.getElementById('myForm').reset()"
+                        <button type="button" onclick="document.getElementById('myForm').reset()"
                             class="uppercase justify-center border border-[#39ac73] text-xs rounded hover:shadow-lg font-medium bg-transparent text-gray-700 px-2 py-3">Clear
                             Input</button>
                     </div>
@@ -143,13 +142,13 @@
         </section>
 
         <section
-            class="shadow-lg py-3 bg-white col-span-1 rounded px-10 text-sm  h-[100vh] overflow-y-auto my-10 md:my-0">
+            class="shadow-lg py-3 bg-white rounded-md col-span-1  px-10 text-sm  h-[100vh] overflow-y-auto my-10 md:my-0">
             <div class="flex flex-row ">
             </div>
 
             <div class="pt-10 text-sm leading-[1.5rem] w-full" id="content">
                 <div wire:target="store">
-                    <span wire:loading.remove class="w-full">
+                    <div wire:loading.remove class="w-full">
                         @if (isset($content))
                             <div class="container">
                                 <h3 class="font-semibold">Course outline</h3>
@@ -159,9 +158,10 @@
                                         <label for="subtopic{{ $index }}" class="form-label">Subtopic
                                             {{ $index + 1 }}</label>
                                         <div class="input-group">
-                                            <input disable class=" shadow-sm rounded-lg w-full p-2" name="modified_outline[]"
-                                                type="text" class="form-control" id="subtopic{{ $index }}"
-                                                name="modified_outline" value="{{ $subtopic }}" disabled>
+                                            <input disable class=" shadow-sm rounded-lg w-full p-2"
+                                                name="modified_outline[]" type="text" class="form-control"
+                                                id="subtopic{{ $index }}" name="modified_outline"
+                                                value="{{ $subtopic }}" disabled>
                                         </div>
                                     </div>
                                 @endforeach
@@ -174,18 +174,23 @@
                                 </a>
                             </div>
                         @else
-                            No content
-
-
-
+                            <div class=" h-64 flex justify-center items-center space-x-2 text-gray-400">
+                                <p class="font-extrabold text-2xl ">No content</p>
+                                <p class="">
+                                    <i class='bx bxs-folder-open font-extrabold text-6xl '></i></p>
+                            </div>
 
                         @endif
-                    </span>
-                    <span wire:loading class="w-full text-center">Generating Content...</span>
+                    </div>
+                    <div wire:loading class="h-64 flex justify-center items-center">
+                        <div class=" flex justify-center items-center space-x-2 text-gray-400">
+                            <p class="font-extrabold text-xl ">Generating Content.</p>
+                            <img src="{{ asset('images/moving_ball.gif') }}" alt="" class="h-20 w-2h-20">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
     </div>
 
     <script>

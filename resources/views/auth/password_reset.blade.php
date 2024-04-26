@@ -5,7 +5,7 @@
                 <h3 class="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                     Change Your password
                 </h3>
-                <form method="POST" action="{{ route('password.reset') }}">
+                <form method="POST" action="{{ route('password.update') }}">
                     @csrf
 
                     <div class="mt-4">

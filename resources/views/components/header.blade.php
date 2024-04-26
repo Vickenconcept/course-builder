@@ -20,14 +20,15 @@
             <div class="hidden sm:flex">
                 <x-dropdown>
                     <x-slot name="trigger">
-                        <i class='bx bx-user px-3 py-3 text-xl cursor-pointer'></i>
+                        <button class="flex items-center space-x-2">
+                            <span class="text-xs">{{ auth()->user()->name }}</span>
+                            <i class='bx bxs-user  text-xl cursor-pointer border-2 text-gray-600 border-gray-600 rounded-full px-2 py-1 bg-gray-400 hover:bg-gray-300 hover:border-gray-700'></i>
+                        </button>
                     </x-slot>
 
                     <x-slot name="content">
                         <div class="p-3 text-blue-700"></div>
                         @if (Auth::user())
-                      
-                        <!-- Authentication -->
                         @if (auth()->user()->is_admin === 'super_admin')
                                 
                         <x-dropdown-link href="{{ route('dashboard.index') }}">
@@ -37,18 +38,18 @@
                         <form method="POST" action="{{ route('auth.logout') }}">
                             @csrf
                             <x-dropdown-link  class="text-[#79d2a6]">
-                                {{  auth()->user()->name }}
+                                <i class='bx bxs-user text-md mr-1'></i> {{  auth()->user()->name }}
                             </x-dropdown-link>
                            
                             <x-dropdown-link href="{{ route('password.reset') }}" onclick="this.closest('form').submit();">
-                                {{ __('Change Password') }}
+                                <i class='bx bxs-key text-md mr-1'></i>  {{ __('Change Password') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('reseller.index')">
-                                {{ __('Reseller') }}
+                                <i class='bx bx-recycle text-md mr-1' ></i> {{ __('Reseller') }}
                             </x-dropdown-link>
                             
                             <x-dropdown-link href="javascript:void(0)" onclick="this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                <i class='bx bxs-log-out text-md mr-1'></i>{{ __('Log Out') }} 
                             </x-dropdown-link>
                         </form>
                         @else
@@ -56,7 +57,7 @@
                             {{ __('Register') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('login')">
-                            {{ __('Login') }}
+                             {{ __('Login') }} 
                         </x-dropdown-link>
                         @endif
                     </x-slot>

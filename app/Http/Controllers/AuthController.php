@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -20,6 +22,8 @@ class AuthController extends Controller
         $data['is_admin'] = 'admin';
 
         User::create($data);
+        Mail::to($data['email'])->send(new WelcomeMail($data['password']));
+
         return to_route('login');
     }
     public function registerAdmin(Request $request): RedirectResponse
@@ -33,6 +37,8 @@ class AuthController extends Controller
         $data['subscribed'] = '1';
 
         User::create($data);
+        Mail::to($data['email'])->send(new WelcomeMail($data['password']));
+
         return to_route('login');
     }
 
