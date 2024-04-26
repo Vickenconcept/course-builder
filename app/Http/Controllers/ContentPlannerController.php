@@ -18,9 +18,6 @@ use Hashids\Hashids;
 
 class ContentPlannerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $researches = Courseresearch::latest()->get();
@@ -44,9 +41,6 @@ class ContentPlannerController extends Controller
         $mytextarea = $request->input('mytextarea') ?? '';
         $content = auth()->user()->contentPlanner()->create(['content' => $mytextarea]);
         $request->session()->put('content', $content);
-        // return view('users.content-planner');
-
-        // return redirect('content-planner')->with('success', 'Course save successfully');
         // return back()->with('success', 'Course save successfully');
     }
 
@@ -80,30 +74,11 @@ class ContentPlannerController extends Controller
     public function show($hashedId)
     {
         $hashids = new Hashids();
-        $contentId = $hashids->decode($hashedId)[0]; // Get the first decoded ID
+        $contentId = $hashids->decode($hashedId)[0]; 
         $content = ContentPlanner::findOrFail($contentId);
         return view('users.shared.show', compact('content'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ContentPlanner $contentPlanner)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ContentPlanner $contentPlanner)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy($id)
     {
         $content = ContentPlanner::find($id);

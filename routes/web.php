@@ -104,7 +104,7 @@ Route::middleware(['auth', 'check.subscription'])->group(function () {
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('restrictUserRole');
         Route::resource('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
         Route::resource('library', LibraryController::class);
-        Route::view('index', 'user.content-planner');
+        // Route::view('index', 'user.content-planner');
         Route::view('coming-soon', 'pages.users.coming-soon')->name('coming-soon');
         Route::get('export-books', [BookController::class, 'export'])->name('export.books');
         Route::resource('books', BookController::class);

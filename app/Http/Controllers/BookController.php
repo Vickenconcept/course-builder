@@ -48,18 +48,18 @@ class BookController extends Controller
 
     public function export(Request $request)
     {
-        // $query = $request->input('query');
         $query = $request->session()->get('query');
         $startIndex = $request->input('startIndex', 0);
         $maxResults = $request->input('maxResults', 30);
 
-        $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
-
-        return Excel::download(new BookExport($books), 'books.xlsx');
+        if ($query) {
+            $books = $this->bookService->searchBooks($query, $startIndex, $maxResults);
+            return Excel::download(new BookExport($books), 'books.xlsx');
+        }
+        return back()->with('success', 'No data to be exported');
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+  
+
     public function store(Request $request)
     {
 
@@ -76,15 +76,12 @@ class BookController extends Controller
             
         ]);
         
-        // dd('hello');
          auth()->user()->book()->create($validatedData);
 
         return back()->with('success', 'Book save successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Book $book)
     {
         $$user = Auth::user();
@@ -92,25 +89,7 @@ class BookController extends Controller
         return view('users.book-library', compact('books'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Book $book)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy($id)
     {
         $book = Book::find($id);

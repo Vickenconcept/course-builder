@@ -5,19 +5,21 @@
             <section class="">
                 @if (isset($researches))
                     @forelse($researches as $research)
-                        <div class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out cursor-pointer"
-                            @click=" isOpen2= true; research = @js($research)">
+                        <div
+                            class="bg-white hover:bg-gray-200 shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out ">
                             <div class="flex justify-between">
                                 <span
-                                    class="text-gray-300 text-xs">{{ $research->created_at->toFormattedDayDateString() }}</span>
+                                    class="text-gray-300  text-xs">{{ $research->created_at->toFormattedDayDateString() }}</span>
                                 <div class="text-xs ">
-                                    <form :id="research.id"
-                                        action="{{ route('course-validation.destroy', ['course_validation' => $research->id]) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="font-bold text-xs">Delete</button>
-                                    </form>
+                                    <div class="flex items-center space-x-2">
+                                        <button @click=" isOpen2= true; research = @js($research)"
+                                            class=" bg-white text-gray-200 hover:bg-blue-500 hover:text-white flex items-center py-1 px-3 rounded-md  hover:shadow">
+                                            <i class="bx bx-show mr-1"></i>View</button>
+                                        <button data-item-id="{{ $research->id }}"
+                                            class=" delete-btn delete-button3  text-xs bg-white text-gray-200 hover:bg-red-500 hover:text-white flex items-center py-1 px-3 rounded-md  hover:shadow">
+                                            <i class="bx bx-trash mr-1"></i>Delete</button>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -39,8 +41,8 @@
                             class="fixed z-[60] inset-0 overflow-y-auto bg-gray-500/50 transform  transition-all  duration-700 -full"
                             style="display: none;">
                             <div class="flex items-center justify-center min-h-screen px-10">
-                                <div class="bg-white w-[90%] rounded overflow-hidden pb-6 transition-all relative duration-700"
-                                   >
+                                <div
+                                    class="bg-white w-[90%] rounded overflow-hidden pb-6 transition-all relative duration-700">
                                     <div>
                                         <button type="button" class=" px-4 pt-3" @click="isOpen2 = false">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -68,7 +70,6 @@
                                                             x-text="research.author"></span></p>
                                                     <p class=" text-gray-700 my-2"> Subcategory: <span class="ml-5 "
                                                             x-text="research.category"></span></p>
-                                                    {{-- <p class=" text-gray-700 my-2"> Platform: <span class="ml-5 " x-text ="research.author"></span></p> --}}
                                                     <p class=" text-gray-700 my-2"> Niche: <span class="ml-5 "
                                                             x-text="research.category"></span>
                                                     </p>
@@ -121,20 +122,22 @@
             <section class="">
                 @if (isset($books))
                     @forelse($books as $book)
-                        <div class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out cursor-pointer"
-                            @click=" isOpen= true;  bookData = @js($book)">
+                        <div
+                            class="bg-white hover:bg-gray-200 shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out ">
                             <div class="flex justify-between">
                                 <span
                                     class="text-gray-300 text-xs mb-3">{{ $book->created_at->toFormattedDayDateString() }}</span>
-                                    <div class="text-xs ">
-                                        <form id=""
-                                            action="{{ route('books.destroy', ['book' => $book->id]) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="font-bold text-xs">Delete</button>
-                                        </form>
+                                <div class="text-xs ">
+                                    <div class="flex items-center space-x-2">
+                                        <button @click=" isOpen= true;  bookData = @js($book)"
+                                            class=" bg-white text-gray-200 hover:bg-blue-500 hover:text-white flex items-center py-1 px-3 rounded-md  hover:shadow">
+                                            <i class="bx bx-show mr-1"></i>View</button>
+                                        <button data-item-id="{{ $book->id }}"
+                                            class=" delete-btn delete-button2 text-xs bg-white text-gray-200 hover:bg-red-500 hover:text-white flex items-center py-1 px-3 rounded-md  hover:shadow">
+                                            <i class="bx bx-trash mr-1"></i>Delete</button>
                                     </div>
+
+                                </div>
                             </div>
 
                             <div class="">
@@ -156,10 +159,6 @@
                         <x-main-modal>
 
                             <div h-full>
-
-                                {{-- <button
-                                    class="bg-yellow-400 py-2 my-3 px-4 rounded-lg hover:shadow-md text-white shadow text-xs"
-                                    onClick="document.getElementById('myForm').submit()">Save to Library</button> --}}
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 h-full">
                                     <div class="h-full shadow">
                                         <a :href="bookData.infolink" target="_blank"
@@ -222,14 +221,22 @@
             <section class="">
                 @if (isset($courses))
                     @forelse($courses as $course)
-                        <a href="{{ route('courses.edit', ['course' => $course->id]) }}" >
+                        <div>
                             <div
-                                class="bg-white shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out">
+                                class="bg-white hover:bg-gray-200 shadow-md border-b relative rounded p-3 my-4  transition duration-300 ease-in-out">
                                 <div class="flex justify-between">
                                     <span
                                         class="text-gray-300 text-xs">{{ $course->created_at->toFormattedDayDateString() }}</span>
-                                    <div class="text-xs">
-                                        Edit
+
+                                    <div class="flex space-x-2 items-center ">
+                                        <a href="{{ route('courses.edit', ['course' => $course->id]) }}"
+                                            class="text-xs bg-white text-gray-200 hover:bg-green-500 hover:text-white flex items-center py-1 px-3 rounded-md  hover:shadow ">
+                                            <i class="bx bx-edit mr-1"></i> Edit
+                                        </a>
+                                        <button data-item-id="{{ $course->id }}"
+                                            class="delete-btn delete-button1 text-xs bg-white text-gray-200 hover:bg-red-500 hover:text-white flex items-center py-1 px-3 rounded-md  hover:shadow">
+                                            <i class="bx bx-trash mr-1"></i> Delete
+                                        </button>
                                     </div>
 
                                 </div>
@@ -248,7 +255,7 @@
                                 </div>
 
                             </div>
-                        </a>
+                        </div>
                     @empty
                         <div class="bg-white shadow-md border-b rounded p-3 my-2">
                             <p class="text-gray-300">welcome</p>
@@ -271,7 +278,91 @@
             window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
             document.execCommand("copy");
-            alert("copied!" );
+            alert("copied!");
         }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let deleteButtons = document.querySelectorAll('.delete-btn');
+
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    let itemId = button.getAttribute('data-item-id');
+                    let deleteRoute;
+
+                    // if(button.classList.contains('delete-button3')) {
+                    //     deleteRoute = "{{ route('course-validation.destroy', ['course_validation' => ':itemId']) }}";
+                    //     console.log(deleteRoute);
+                    // }
+                    // if (button.classList.contains('delete-button2')) {
+                    //     deleteRoute = "{{ route('books.destroy', ['book' => ':itemId']) }}";
+                    //     console.log(deleteRoute);
+                    // }
+                    // else {
+                    //     console.log(deleteRoute);
+                    //     deleteRoute = "{{ route('courses.destroy', ['course' => ':itemId']) }}";
+                    // }
+
+                    switch (true) {
+                        case button.classList.contains('delete-button3'):
+                            deleteRoute =
+                                "{{ route('course-validation.destroy', ['course_validation' => ':itemId']) }}";
+                            console.log(deleteRoute);
+                            break;
+                        case button.classList.contains('delete-button2'):
+                            deleteRoute = "{{ route('books.destroy', ['book' => ':itemId']) }}";
+                            console.log(deleteRoute);
+                            break;
+                        case button.classList.contains('delete-button1'):
+                            deleteRoute =
+                                "{{ route('courses.destroy', ['course' => ':itemId']) }}";
+                            console.log(deleteRoute);
+                            break;
+                        default:
+                            deleteRoute =
+                                "{{ route('courses.destroy', ['course' => ':itemId']) }}";
+                    }
+
+
+                    deleteRoute = deleteRoute.replace(':itemId', itemId);
+
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(deleteRoute, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    }
+                                })
+                                .then(response => {
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Your item has been deleted.",
+                                        icon: "success"
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                })
+                                .catch(error => {
+                                    Swal.fire("Error", "Failed to delete the item",
+                                        "error");
+                                });
+                        }
+                    });
+                });
+            });
+        });
     </script>
 </x-app-layout>
