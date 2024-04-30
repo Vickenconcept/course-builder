@@ -146,10 +146,10 @@
 
             <i class='text-sm bx  bx-file-find'></i>
         </a>
-        {{-- <a href="{{ route('research.index') }}"
+        <a href="{{ route('research.index') }}"
             class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-slate-900 p-2 rounded-full transform ease-in-out duration-300 flex">
             <i class='text-sm bx  bxs-rectangle'></i>
-        </a> --}}
+        </a>
         <a href="{{ route('books.index') }}"
             class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-slate-900 p-2 rounded-full transform ease-in-out duration-300 flex">
 
@@ -160,10 +160,10 @@
 
             <i class='text-sm bx  bx-book-bookmark'></i>
         </a>
-        <a href="{{ route('search.index') }}" class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-slate-900 p-2 rounded-full transform ease-in-out duration-300 flex">
+        {{-- <a href="{{ route('search.index') }}" class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-slate-900 p-2 rounded-full transform ease-in-out duration-300 flex">
 
             <i class='text-sm bx  bx-search'></i>
-        </a>
+        </a> --}}
         <a href="{{ route('course') }}"
             class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-slate-900 p-2 rounded-full transform ease-in-out duration-300 flex">
 

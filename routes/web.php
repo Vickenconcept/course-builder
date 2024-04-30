@@ -102,7 +102,6 @@ Route::get('/password/reset', [ResetPasswordController::class, 'showResetForm'])
 Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 Route::get('/share/courses/{courseId}/{course_slug}', [CourseController::class, 'share'])->name('courses.share')->middleware('ip_ad');
 Route::post('price/courses/{course}', [CourseController::class, 'coursePrice'])->name('courses.coursePrice');
-Route::put('/courses/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
 
 Route::controller(SubscriptionController::class)->group(function () {
     Route::get('/update-subscription', 'index')->name('subscription.index')->middleware('auth');
@@ -114,6 +113,7 @@ Route::controller(SubscriptionController::class)->group(function () {
 
 Route::middleware(['auth', 'check.subscription'])->group(function () {
     Route::put('/courses-desc/{course}', [CourseController::class, 'updateDescription'])->name('courses.updateDescription');
+    Route::put('/courses-image/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
     Route::resource('courses', CourseController::class);
     // Route::group(['middleware' => 'restrictUserRole:user'], function () {
     Route::resource('/dashboard', DashboardController::class)->middleware('admin');
@@ -156,4 +156,6 @@ Route::middleware(['auth', 'check.subscription'])->group(function () {
 });
 
 Route::get('test', function () {
+
+    // bh9uA)v4RB@mO@a9GMq(!BO2D9LO$44
 });

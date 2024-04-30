@@ -192,8 +192,8 @@
             </div>
         </section>
 
-        <section class="mt-16 overflow-auto">
-            <table class=" w-full mt-5  ">
+        <section class="mt-16 mb-10 overflow-auto">
+            <table class=" w-full my-5  ">
                 <thead>
 
                     <tr class="text-left border-b-2 shadow bg-white ">
@@ -237,6 +237,7 @@
                         </td> --}}
                         </tr>
                     @endforeach
+                    {{ $users->links() }}
                 </tbody>
         </section>
 

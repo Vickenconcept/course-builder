@@ -1,7 +1,8 @@
 <x-app-layout>
     <div class="bg-gray-50 px-4 py-10" x-data="{ childIsOpen: false, openShare: false, openCreate: false }">
         <div class=" w-full md:w-[80%]">
-            <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 hover:underline">
+            <a href="{{ route('content-planner.index') }}"
+                class="text-xs font-bold block text-gray-700 mb-3 hover:underline">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
             </a>
         </div>
@@ -23,17 +24,16 @@
                         @method('PUT')
                         <div class="mb-3">
                             <input
-                                class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                                class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none  "
                                 id="formFileSm" type="file" name="localImage" />
                         </div>
-                        <div class="flex justify-end items-center">
-                            <input type="text"
-                                class="focus:ring-0 border-gray-200 my-1 p-2 placholder-gray-300 placeholder:italic  border border-[#339966] rounded-md"
+                        <div class="relative ">
+                            <input type="search" id="default-search"
+                                class="block w-full p-4 ps-5 text-sm bg-white text-gray-900 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500  "
                                 value="{{ $course->course_image }}" name="courseImage" placeholder="image url"
-                                autocomplete="off">
-                            <div>
-                                <x-main-button type="submit" class="py-3">update</x-main-button>
-                            </div>
+                                autocomplete="off" />
+                            <button type="submit"
+                                class="text-white absolute end-2.5 bottom-2.5 bg-slate-700 hover:bg-slate-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Save</button>
                         </div>
                     </form>
                 </div>
@@ -42,8 +42,7 @@
             </div>
             <div class="flex  mb-3">
                 <x-main-button class=" py-1 px-4" class="">
-                    {{-- <i class='bx bx-save px-2 text-md' wire:loading.remove></i> --}}
-                    <i class='bx bx-loader-alt px-2 text-md animate-spin' ></i>
+                    <i class='bx bx-loader-alt px-2 text-md animate-spin'></i>
                 </x-main-button>
                 <form id="delete-form-{{ $course->id }}"
                     action="{{ route('courses.destroy', ['course' => $course->id]) }}" method="POST">
@@ -62,7 +61,7 @@
                     <button onclick="toCopy(document.getElementById('formContent'))">
                         <i class='bx bx-copy pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
-                   
+
                     <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}"><i
                             class='bx bx-cog text-xl hover:text-gray-500 transition duration-300'></i></a>
                     <button @click="openShare = true">
@@ -78,9 +77,13 @@
                         class="w-full">
                         @csrf
                         @method('PUT')
-                        <input type="text"
-                            class="w-full shadow-md focus:ring-0 border-gray-200 rounded-md my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
-                            value="{{ $course->title }}" name="updateTitle">
+                        <div class="relative ">
+                            <input type="search" id="default-search"
+                                class="block w-full p-4 ps-5 text-sm bg-white text-gray-900 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500  "
+                                placeholder="Course title" value="{{ $course->title }}" name="updateTitle" />
+                            <button type="submit"
+                                class="text-white absolute end-2.5 bottom-2.5 bg-slate-700 hover:bg-slate-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Save</button>
+                        </div>
                     </form>
                 </div>
                 <div class=" mt-5">
@@ -89,11 +92,19 @@
                         class="w-full">
                         @csrf
                         @method('PUT')
-                        <textarea type="text" rows="5"
+                        {{-- <textarea type="text" rows="5"
                             class="w-full shadow-md focus:ring-0 resize-none border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase rounded-md"
                             name="updateDescription">
                             {{ $course->description }}
-                        </textarea>
+                        </textarea> --}}
+
+                        <div class="relative ">
+                            <input type="search" id="default-search"
+                                class="block w-full p-4 ps-5 text-sm bg-white text-gray-900 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500  "
+                                placeholder="Course description" value="{{ $course->description }}" name="updateDescription" />
+                            <button type="submit"
+                                class="text-white absolute end-2.5 bottom-2.5 bg-slate-700 hover:bg-slate-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Save</button>
+                        </div>
                     </form>
                 </div>
 

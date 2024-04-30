@@ -23,9 +23,7 @@ class DashboardController extends Controller
         SUM(CASE WHEN subscribed = "0" THEN 1 ELSE 0 END) AS unsubscribed_users
     ')->first();
 
-
-        // SUM(CASE WHEN subscribed = 0 THEN 1 ELSE 0 END) as unsubscribed_users,
-        $users = User::where('is_admin', 'admin')->latest()->get();
+        $users = User::where('is_admin', 'admin')->latest()->paginate(20);
 
         return view('dashboard', compact('users', 'userStats'));
     }
