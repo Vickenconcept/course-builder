@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <x-notification />
     <div class="w-full h-[26rem] flex justify-center items-center">
         <div class="w-full max-w-xl xl:px-8 xl:w-5/12">
             <div class="bg-white rounded shadow-md p-7 sm:p-10">

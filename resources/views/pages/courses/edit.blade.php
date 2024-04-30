@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="bg-white px-4 py-10" x-data="{ childIsOpen: false, openShare: false, openCreate: false }">
+    <div class="bg-gray-50 px-4 py-10" x-data="{ childIsOpen: false, openShare: false, openCreate: false }">
         <div class=" w-full md:w-[80%]">
-            <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 ">
+            <a href="{{ route('content-planner.index') }}" class="text-xs font-bold block text-gray-700 mb-3 hover:underline">
                 <i class='bx bx-chevron-left mr-2'></i> Back to Content planner
             </a>
         </div>
@@ -11,7 +11,7 @@
                     <a href="{{ route('courses.share', ['courseId' => $course->id, 'course_slug' => $course->slug]) }}"
                         target="_blank">
                         <button
-                            class=" hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
+                            class=" hover:bg-[#9fdfbf] bg-white shadow-inner hover:shadow-md transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
                             Preview
                         </button>
                     </a>
@@ -21,7 +21,6 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        {{-- <input type="file" name="localImage" id=""> --}}
                         <div class="mb-3">
                             <input
                                 class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
@@ -43,14 +42,15 @@
             </div>
             <div class="flex  mb-3">
                 <x-main-button class=" py-1 px-4" class="">
-                    <i class='bx bx-save px-2 text-md'></i>
+                    {{-- <i class='bx bx-save px-2 text-md' wire:loading.remove></i> --}}
+                    <i class='bx bx-loader-alt px-2 text-md animate-spin' ></i>
                 </x-main-button>
                 <form id="delete-form-{{ $course->id }}"
                     action="{{ route('courses.destroy', ['course' => $course->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
-                        class="py-1 px-4 rounded-md bg-transparent border mx-3 text-red-500 border-red-500 hover:bg-red-300 transition duration-300">
+                        class="py-1 px-4 rounded-md bg-white shadow-inner hover:shadow-md border mx-3 text-red-500 border-red-500 hover:bg-red-300 transition duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -62,12 +62,7 @@
                     <button onclick="toCopy(document.getElementById('formContent'))">
                         <i class='bx bx-copy pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
                     </button>
-                    {{-- <button>
-                        <i class='bx bxs-file-export pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
-                    </button>
-                    <button>
-                        <i class='bx bxs-file-doc pl-1 text-xl hover:text-gray-500 transition duration-300'></i>
-                    </button> --}}
+                   
                     <a href="{{ route('course-setting.show', ['course_setting' => $course->id]) }}"><i
                             class='bx bx-cog text-xl hover:text-gray-500 transition duration-300'></i></a>
                     <button @click="openShare = true">
@@ -84,7 +79,7 @@
                         @csrf
                         @method('PUT')
                         <input type="text"
-                            class="w-full shadow-md focus:ring-0 border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
+                            class="w-full shadow-md focus:ring-0 border-gray-200 rounded-md my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
                             value="{{ $course->title }}" name="updateTitle">
                     </form>
                 </div>
@@ -94,19 +89,21 @@
                         class="w-full">
                         @csrf
                         @method('PUT')
-                        <input type="text"
-                            class="w-full shadow-md focus:ring-0 border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
-                            value="{{ $course->description }}" name="updateDescription">
+                        <textarea type="text" rows="5"
+                            class="w-full shadow-md focus:ring-0 resize-none border-gray-200 my-1 p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase rounded-md"
+                            name="updateDescription">
+                            {{ $course->description }}
+                        </textarea>
                     </form>
                 </div>
 
                 <div class="flex justify-end my-5">
                     <button @click="childIsOpen = true"
-                        class=" hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
+                        class=" hover:bg-[#9fdfbf] bg-white shadow-inner hover:shadow-md transition duration-300 py-2 px-5 border border-[#339966] rounded-md text-xs">
                         Expand all
                     </button>
                     <button @click="childIsOpen = false"
-                        class="hover:bg-[#9fdfbf] transition duration-300 py-2 px-5 ml-2 border border-[#339966] rounded-md text-xs">
+                        class="hover:bg-[#9fdfbf] bg-white shadow-inner hover:shadow-md transition duration-300 py-2 px-5 ml-2 border border-[#339966] rounded-md text-xs">
                         Collaps all
                     </button>
                 </div>
@@ -119,7 +116,7 @@
 
 
                 <button type="submit" @click="openCreate = true"
-                    class="py-1 px-4 rounded-md bg-transparent border text-[#339966] border-[#339966] hover:bg-[#9fdfbf] transition duration-300">
+                    class="py-1 px-4 rounded-md bg-white shadow-inner hover:shadow-md border text-[#339966] border-[#339966] hover:bg-[#9fdfbf] transition duration-300">
                     + Add Module
                 </button>
 

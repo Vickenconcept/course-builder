@@ -12,7 +12,7 @@
     @endif
         <div class="flex flex-wrap my-5 -mx-2">
             <div class="w-full lg:w-1/3 p-2">
-                <div class="flex items-center flex-row w-full   bg-[#39ac73] rounded-md px-3 py-8">
+                <div class="flex items-center flex-row w-full   bg-slate-900 rounded-md px-3 py-8">
 
                     <div class="flex flex-col justify-around flex-grow ml-5 text-white">
                         <div class="text-xs whitespace-nowrap">
@@ -29,24 +29,24 @@
                 <div class="flex items-center flex-row w-full   bg-[#79d2a6] rounded-md px-3 py-8">
                     <div class="flex flex-col justify-around flex-grow ml-5 text-white">
                         <div class="text-xs whitespace-nowrap">
-                            Verified Users
+                            Subscribed Users
                         </div>
                         <div class="">
-                            {{ $userStats->verified_users }}
+                            {{ $userStats->subscribed_users }}
                         </div>
                     </div>
 
                 </div>
             </div>
             <div class="w-full md:w-1/2 lg:w-1/3 p-2">
-                <div class="flex items-center flex-row w-full   bg-[#39ac73] rounded-md px-3 py-8">
+                <div class="flex items-center flex-row w-full   bg-slate-900 rounded-md px-3 py-8">
 
                     <div class="flex flex-col justify-around flex-grow ml-5 text-white">
                         <div class="text-xs whitespace-nowrap">
-                            Total Visitor
+                            Pending users
                         </div>
                         <div class="">
-                            0
+                            {{ $userStats->unsubscribed_users }}
                         </div>
                     </div>
 
@@ -69,16 +69,16 @@
                                                 onchange="this.form.submit()"
                                                 @if (auth()->user()->use_stripe) checked @endif>
                                             <div
-                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-600 rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
-                                                {{ auth()->user()->use_stripe ? 'peer-checked:bg-red-600' : 'peer-checked:bg-red-600' }}
+                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#79d2a6]  rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
+                                                {{ auth()->user()->use_stripe ? 'peer-checked:bg-[#79d2a6]' : 'peer-checked:bg-[#79d2a6]' }}
                                                  dark:border-gray-600 
                                                 ">
                                             </div>
                                         </label>
                                     </form>
                                 </div>
-                                <p class="font-bold text-xl capitalize ">for your Paypal set up</p>
-                                <h1 class="font-bold text-sm capitalize">Add Your paypal client key</h1>
+                                <p class="font-bold text-xl capitalize ">for your Stripe set up</p>
+                                <h1 class="font-bold text-sm capitalize">Add Your stripe credential</h1>
                             </div>
 
 
@@ -116,7 +116,7 @@
 
                                 <div class="mt-3">
                                     <button
-                                        class="w-full  text-cyan-50 bg-[#39ac73] rounded-lg hover:bg-cyan-900 hover:shadow p-2 flex justify-center items-center">
+                                        class="w-full  text-cyan-50 bg-slate-900 rounded-lg hover:bg-cyan-900 hover:shadow p-2 flex justify-center items-center">
                                         <span wire:loading><i class='bx bx-loader-alt animate-spin mr-1'></i></span>
                                         Save &
                                         Update
@@ -142,8 +142,8 @@
                                                 onchange="this.form.submit()"
                                                 @if (auth()->user()->use_paypal) checked @endif>
                                             <div
-                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-600 rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
-                                                    {{ auth()->user()->use_paypal ? 'peer-checked:bg-red-600' : 'peer-checked:bg-red-600' }}
+                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#79d2a6]  rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
+                                                    {{ auth()->user()->use_paypal ? 'peer-checked:bg-[#79d2a6]' : 'peer-checked:bg-[#79d2a6]' }}
                                                      dark:border-gray-600 
                                                     ">
                                             </div>
@@ -179,7 +179,7 @@
 
                                 <div class="mt-3">
                                     <button
-                                        class="w-full  text-cyan-50 bg-[#39ac73] rounded-lg hover:bg-cyan-900 hover:shadow p-2 flex justify-center items-center">
+                                        class="w-full  text-cyan-50 bg-slate-900 rounded-lg hover:bg-cyan-900 hover:shadow p-2 flex justify-center items-center">
                                         <span wire:loading><i class='bx bx-loader-alt animate-spin mr-1'></i></span>
                                         Save &
                                         Update

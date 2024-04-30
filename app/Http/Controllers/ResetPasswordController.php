@@ -22,14 +22,18 @@ class ResetPasswordController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        // Get the user by email
         $user = User::where('email', $email)->first();
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Email does not exist.');
+            return redirect()->back()->with('success', 'Email does not exist.');
+        }
+        
+        if (auth()->check()) {
+            if ($email != auth()->user()->email) {
+                return redirect()->back()->with('success', 'Not allowed, Not your email');
+            }
         }
 
-        // Update the user's password
         $user->password = bcrypt($password);
         $user->save();
 

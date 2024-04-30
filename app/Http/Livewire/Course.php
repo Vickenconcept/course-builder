@@ -47,6 +47,9 @@ class Course extends Component
 
         $generatedOutlineAndDescription = $chatGptService->generateContent($query);
 
+        if ($generatedOutlineAndDescription == null) {
+            return;
+        }
 
         $subheadings_start_pos = strpos($generatedOutlineAndDescription, "['subheadings' => ") + strlen("['subheadings' => ");
         $subheadings_end_pos = strpos($generatedOutlineAndDescription, "'],", $subheadings_start_pos);

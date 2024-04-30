@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
@@ -21,8 +22,10 @@ class AuthController extends Controller
         ]);
         $data['is_admin'] = 'admin';
 
-        User::create($data);
+       $user = User::create($data);
+       
         Mail::to($data['email'])->send(new WelcomeMail($data['password']));
+        event(new Registered($user));
 
         return to_route('login');
     }

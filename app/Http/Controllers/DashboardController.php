@@ -16,59 +16,52 @@ class DashboardController extends Controller
     {
 
         $userStats = User::selectRaw('
-            COUNT(*) AS total_users,
-            SUM(CASE WHEN email_verified_at IS NOT NULL THEN 1 ELSE 0 END) as verified_users,
-            SUM(CASE WHEN email_verified_at IS NULL THEN 1 ELSE 0 END) as unverified_users
-        ')->first();
+        COUNT(*) AS total_users,
+        SUM(CASE WHEN email_verified_at IS NOT NULL THEN 1 ELSE 0 END) as verified_users,
+        SUM(CASE WHEN email_verified_at IS NULL THEN 1 ELSE 0 END) as unverified_users,
+        SUM(CASE WHEN subscribed = "1" THEN 1 ELSE 0 END) AS subscribed_users,
+        SUM(CASE WHEN subscribed = "0" THEN 1 ELSE 0 END) AS unsubscribed_users
+    ')->first();
 
-        // $users = User::latest()->get();
+
+        // SUM(CASE WHEN subscribed = 0 THEN 1 ELSE 0 END) as unsubscribed_users,
         $users = User::where('is_admin', 'admin')->latest()->get();
 
         return view('dashboard', compact('users', 'userStats'));
     }
 
 
-
-
-    // ...
-
     public function update($user, Request $request)
     {
+        $foundUser = User::find($user);
 
-        // $user = auth()->user(); // Retrieve the currently authenticated user
-        $foundUser = User::find($user); // Find a user by their ID
-
-        // dd($user);
-        // dd($foundUser->is_admin);
-        // $user->update(['is_admin' => $request->has('user_type') ? 'admin' : 'user']);
-
-     
         $foundUser->update(['is_admin' => 1]);
 
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'User type updated to admin.');
     }
 
-    public function use_paypal( ){
+    public function use_paypal()
+    {
         $user = auth()->user();
-       
+
         if ($user->use_paypal == 0) {
             $user->use_paypal = '1';
-        }else{
+        } else {
             $user->use_paypal = '0';
         }
         $user->update();
-        return back()->with('success','updated successfully');
+        return back()->with('success', 'updated successfully');
     }
-    public function use_stripe( ){
+    public function use_stripe()
+    {
         $user = auth()->user();
-       
+
         if ($user->use_stripe == 0) {
             $user->use_stripe = '1';
-        }else{
+        } else {
             $user->use_stripe = '0';
         }
         $user->update();
-        return back()->with('success','updated successfully');
+        return back()->with('success', 'updated successfully');
     }
 }

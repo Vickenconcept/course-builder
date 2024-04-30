@@ -1,21 +1,11 @@
 @props(['lesson'])
 
-<div class="  mt-0.5 ">
+<div class="  mt-0.5  bg-white">
 
     <div x-data="{ open: false, isOpen: false }" class="">
-        {{-- <div id="refreshDiv">
-            Initial content.
-        </div> --}}
         <div class="relative ">
             <div class="border px-2  shadow text-gray-500 font-semibold flex items-center justify-between">
                 <div class="pl-2 flex flex-grow">
-                    {{-- <button @click="open = !open">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                        </svg>
-                    </button> --}}
                     <form action="{{ route('lesson.update', ['lesson' => $lesson->id ]) }}" method="POST" class="w-full">
                         @csrf
                         @method('PUT')

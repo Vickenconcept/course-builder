@@ -25,6 +25,9 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\userController;
 use App\Services\ConvertKitService;
 use App\Services\GetResponseService;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,12 +45,36 @@ Route::view('/', 'welcome')->name('home');
 //     return view('welcome');
 // })->name('home');
 
+// Auth::routes(['verify' => true]);
 
 Route::middleware('guest')->group(function () {
     Route::view('register', 'auth.register')->name('register');
     Route::view('register/admin', 'admin.admin-register')->name('admin.register');
     Route::view('login', 'auth.login')->name('login');
 });
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+
+ 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+
 
 Route::controller(AuthController::class)->name('auth.')->group(function () {
     Route::post('login', 'login')->name('login');

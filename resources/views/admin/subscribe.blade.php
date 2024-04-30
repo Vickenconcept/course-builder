@@ -6,7 +6,7 @@
         </div>
         <div>
             <p class="text-right">Amount: <span
-                    class="font-bold bg-green-800 text-white px-3 py-1 rounded-md">{{ $admin->subscriptiion_amount ?? NAN }}</span>
+                    class="font-bold bg-green-800 text-white px-3 py-1 rounded-md">${{ $admin->subscriptiion_amount ?? NAN }}</span>
             </p>
         </div>
         <div class="grid grid-cols-2 gap-10">
