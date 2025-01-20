@@ -35,9 +35,9 @@
                         @else
                         <a href="{{ route('login') }}" class="font-semibold text-gray-100 hover:text-gray-100 ">Log in <span aria-hidden="true">&rarr;</span></a>
                         
-                        @if (Route::has('register'))
+                        {{-- @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-100 hover:text-gray-100 ">Register</a>
-                        @endif
+                        @endif --}}
                         @endauth
                         @endif
                     </div>
@@ -73,9 +73,9 @@
                                         @else
                                         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in <span aria-hidden="true">&rarr;</span></a>
                                         
-                                        @if (Route::has('register'))
+                                        {{-- @if (Route::has('register'))
                                         <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                                        @endif
+                                        @endif --}}
                                     @endauth
                                     @endif
                                 </div>
@@ -97,8 +97,8 @@
                         <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl mt-20 py-10">Unlock Limitless Course Content with AI-Powered Learning</h1>
                         <p class="mt-6 text-lg leading-8 text-gray-100">Discover a revolutionary app that harnesses the power of artificial intelligence to generate engaging course content instantly</p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
-                            <a href="{{ route('register') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
-                            <a href="{{ route('register') }}" class="text-sm font-semibold leading-6 text-white hover:text-gray-400">Learn more <span aria-hidden="true">→</span></a>
+                            <a href="{{ route('login') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
+                            <a href="{{ route('login') }}" class="text-sm font-semibold leading-6 text-white hover:text-gray-400">Learn more <span aria-hidden="true">→</span></a>
                         </div>
                     </div>
                 </div>
