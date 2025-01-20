@@ -350,14 +350,19 @@
                                     Swal.fire({
                                         title: "Deleted!",
                                         text: "Your item has been deleted.",
-                                        icon: "success"
+                                        icon: "success",
+                                        confirmButtonColor: "#56ab2f" 
                                     }).then(() => {
                                         location.reload();
                                     });
                                 })
                                 .catch(error => {
-                                    Swal.fire("Error", "Failed to delete the item",
-                                        "error");
+                                    Swal.fire({
+                                        title: "Error",
+                                        text: "Failed to delete the item",
+                                        icon: "error",
+                                        confirmButtonColor: "#d33" 
+                                    });
                                 });
                         }
                     });
