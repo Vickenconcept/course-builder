@@ -22,18 +22,64 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="mb-3">
-                            <input
-                                class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none  "
-                                id="formFileSm" type="file" name="localImage" />
-                        </div>
-                        <div class="relative ">
-                            <input type="search" id="default-search"
-                                class="block w-full p-4 ps-5 text-sm bg-white text-gray-900 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500  "
+                        <div x-data="{ upload_type: 'upload' }">
+                            <div class="flex justify-center mb-5">
+                                <button type="button" class="whitespace-nowrap flex flex-wrap"
+                                    x-show="upload_type == 'upload'" style="display: none">
+                                    <span
+                                        class="uppercase text-white border border-[#39ac73]  bg-[#39ac73] px-5 py-2 rounded-full text-sm block md:-mr-10 z-10"
+                                        @click="upload_type = 'upload'">Upload</span>
+                                    <span
+                                        class="uppercase border border-gray-800 pl-5 md:pl-16 pr-5 py-2  rounded-full text-sm   bg-white flex items-center space-x-2"
+                                        @click="upload_type = 'url'">
+                                        <span>Image Url</span>
+                                    </span>
+                                </button>
+                                <button type="button" class="whitespace-nowrap flex flex-wrap"
+                                    x-show="upload_type == 'url'" style="display: none">
+                                    <span
+                                        class="uppercase  border  border-gray-800  bg-white  pr-5 md:pr-16 pl-5 py-2 rounded-full text-sm block "
+                                        @click="upload_type = 'upload'">Upload</span>
+                                    <span
+                                        class="uppercase text-white border  border-[#39ac73] bg-[#39ac73] pl-16 px-5 py-2  rounded-full text-sm   md:-ml-10 z-10  flex items-center space-x-2"
+                                        @click="upload_type = 'url'">
+                                        <span>Image Url</span>
+                                    </span>
+                                </button>
+                            </div>
+
+
+                            <div class="mb-3" x-show="upload_type == 'upload'" style="display: none">
+                                {{-- <input
+                                    class="relative m-0 block w-full min-w-0 p-4 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none  "
+                                    id="formFileSm" type="file" name="localImage" /> --}}
+
+
+                                <label class="block text-sm font-medium text-gray-900 " for="file_input">Upload Book
+                                    Cover</label>
+                                <div class="flex ">
+                                    <input
+                                        class="block w-full text-lg text-gray-900 border border-gray-300 rounded-s-lg cursor-pointer bg-gray-50 focus:outline-none "
+                                        id="formFileSm" type="file" name="localImage">
+                                    <button type="submit"
+                                        class="text-white rounded-e-lg bg-slate-700 hover:bg-slate-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm px-4 py-2 ">Save</button>
+                                </div>
+                                <small class="truncate w-52 block">image: {{ $course->course_image }}</small>
+
+                            </div>
+                            <div class="relative " x-show="upload_type == 'url'" style="display: none">
+                                <label class="block text-sm font-medium text-gray-900 " for="file_input">Upload Book
+                                    Cover</label>
+                               <div class="flex ">
+                                <input type="search" id="default-search"
+                                class="block w-full p-2 ps-5 text-sm bg-white text-gray-900 border border-gray-300 rounded-s-lg  focus:ring-blue-500 focus:border-blue-500  "
                                 value="{{ $course->course_image }}" name="courseImage" placeholder="image url"
                                 autocomplete="off" />
                             <button type="submit"
-                                class="text-white absolute end-2.5 bottom-2.5 bg-slate-700 hover:bg-slate-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Save</button>
+                                class="text-white rounded-e-lg bg-slate-700 hover:bg-slate-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm px-4 py-2 ">Save</button>
+                               </div>
+                               <small class="truncate w-52 block">image: {{ $course->course_image }}</small>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -101,7 +147,8 @@
                         <div class="relative ">
                             <input type="search" id="default-search"
                                 class="block w-full p-4 ps-5 text-sm bg-white text-gray-900 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500  "
-                                placeholder="Course description" value="{{ $course->description }}" name="updateDescription" />
+                                placeholder="Course description" value="{{ $course->description }}"
+                                name="updateDescription" />
                             <button type="submit"
                                 class="text-white absolute end-2.5 bottom-2.5 bg-slate-700 hover:bg-slate-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Save</button>
                         </div>

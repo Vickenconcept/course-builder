@@ -2,23 +2,25 @@
     <x-notification />
     <div class="p-2 md:px-10">
         @if ($errors->any())
-        <div class="bg-red-200 text-red-500 p-4">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            <div class="bg-red-200 text-red-500 p-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="flex flex-wrap my-5 -mx-2">
             <div class="w-full lg:w-1/3 p-2">
                 <div class="flex items-center flex-row w-full   bg-slate-900 rounded-md px-3 py-8">
 
                     <div class="flex flex-col justify-around flex-grow ml-5 text-white">
-                        <div class="text-xs whitespace-nowrap">
-                            Total User
+                        <div class="text-sm whitespace-nowrap flex items-center  space-x-1">
+                            <i class='bx bxs-group text-xl'></i>
+                            <span>Total User</span>
                         </div>
                         <div class="">
+                            
                             {{ $userStats->total_users }}
                         </div>
                     </div>
@@ -28,8 +30,9 @@
             <div class="w-full md:w-1/2 lg:w-1/3 p-2">
                 <div class="flex items-center flex-row w-full   bg-[#79d2a6] rounded-md px-3 py-8">
                     <div class="flex flex-col justify-around flex-grow ml-5 text-white">
-                        <div class="text-xs whitespace-nowrap">
-                            Subscribed Users
+                        <div class="text-sm whitespace-nowrap flex items-center  space-x-1">
+                            <i class='bx bxs-user text-xl' ></i>
+                            <span>Subscribed Users</span>
                         </div>
                         <div class="">
                             {{ $userStats->subscribed_users }}
@@ -42,8 +45,9 @@
                 <div class="flex items-center flex-row w-full   bg-slate-900 rounded-md px-3 py-8">
 
                     <div class="flex flex-col justify-around flex-grow ml-5 text-white">
-                        <div class="text-xs whitespace-nowrap">
-                            Pending users
+                        <div class="text-sm whitespace-nowrap flex items-center  space-x-1">
+                            <i class='bx bx-user-x text-xl'></i>
+                            <span>Pending users</span>
                         </div>
                         <div class="">
                             {{ $userStats->unsubscribed_users }}
@@ -69,15 +73,31 @@
                                                 onchange="this.form.submit()"
                                                 @if (auth()->user()->use_stripe) checked @endif>
                                             <div
-                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#79d2a6]  rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
+                                                class="w-11 z-0 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#79d2a6]  rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
                                                 {{ auth()->user()->use_stripe ? 'peer-checked:bg-[#79d2a6]' : 'peer-checked:bg-[#79d2a6]' }}
-                                                 dark:border-gray-600 
+                                                  
                                                 ">
                                             </div>
                                         </label>
                                     </form>
                                 </div>
-                                <p class="font-bold text-xl capitalize ">for your Stripe set up</p>
+                                <div class="font-bold text-xl capitalize  flex items-center space-x-1">
+                                    <span>for your Stripe set up</span>
+
+                                <div class="relative">
+                                    <button type="button" class="peer cursor-pointer"
+                                        aria-describedby="tooltipExample"><i class='bx bxs-info-circle text-gray-600 hover:text-gray-800'></i></button>
+                                    <div id="tooltipExample"
+                                        class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-64 flex-col gap-1 rounded bg-neutral-950 p-2.5 text-xs text-neutral-300 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 "
+                                        role="tooltip">
+                                        <span
+                                            class="text-sm font-medium text-white  uppercase">Secured</span>
+                                        <p class="text-balance">Your Stripe Keys will be handled with the utmost care
+                                            and stored securely. We do not store or access your Stripe login credentials
+                                            or sensitive financial information.</p>
+                                    </div>
+                                </div>
+                            </div>
                                 <h1 class="font-bold text-sm capitalize">Add Your stripe credential</h1>
                             </div>
 
@@ -90,14 +110,40 @@
                                 $lastThreeK = substr(auth()->user()->super_admin_strip_key, -3);
 
                             @endphp
-                            <form action="{{ route('save.stripe') }}" method="post" class="space-y-5  {{ auth()->user()->use_stripe ? '':'hidden' }}" >
+                            <form action="{{ route('save.stripe') }}" method="post"
+                                class="space-y-5  {{ auth()->user()->use_stripe ? '' : 'hidden' }}">
                                 @csrf
                                 <div>
-                                    <label for=" " class="font-semibold mb-1 block">Stripe Key</label>
+                                    <label for=" " class="font-semibold mb-1 block">Stripe Publishable
+                                        Key</label>
                                     <input type="text" name="super_admin_strip_key"
                                         class="rounded-md bg-gray-100 w-full shadow"
                                         placeholder="{{ $firstThreeK }} *****************{{ $lastThreeK }}"
                                         value="">
+
+                                    <div class="font-semibold flex items-center space-x-1 mt-1 text-blue-600">
+
+                                        <div class="relative">
+                                            <button type="button" class="peer cursor-pointer"
+                                                aria-describedby="tooltipExample"><i
+                                                    class='bx bx-info-circle'></i></button>
+                                            <div id="tooltipExample"
+                                                class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-64 flex-col gap-1 rounded bg-neutral-950 p-2.5 text-xs text-neutral-300 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 "
+                                                role="tooltip">
+                                                <span class="text-sm font-medium text-white ">Get
+                                                    Stripe Keys</span>
+                                                <p class="text-balance">Follow the link. Login to your Stripe account.
+                                                    In the Stripe Dashboard, ensure you are in Live Mode (not Test
+                                                    Mode).</p>
+                                            </div>
+                                        </div>
+                                        <span>
+                                            click <a href="https://dashboard.stripe.com/apikeys" target="_blank"
+                                                class="underline font-bold hover:text-blue-900">
+                                                HERE</a>
+                                            to get stripe Publishable key and secret
+                                        </span>
+                                    </div>
 
                                 </div>
                                 <div>
@@ -142,16 +188,32 @@
                                                 onchange="this.form.submit()"
                                                 @if (auth()->user()->use_paypal) checked @endif>
                                             <div
-                                                class="w-11 z-0 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#79d2a6]  rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
+                                                class="w-11 z-0 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#79d2a6]  rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all 
                                                     {{ auth()->user()->use_paypal ? 'peer-checked:bg-[#79d2a6]' : 'peer-checked:bg-[#79d2a6]' }}
-                                                     dark:border-gray-600 
+                                                     
                                                     ">
                                             </div>
                                         </label>
                                     </form>
                                 </div>
 
-                                <p class="font-bold text-xl capitalize ">for your Paypal set up</p>
+                                <div class="font-bold text-xl capitalize  flex items-center space-x-1">
+                                    <span>for your Paypal set up</span>
+
+                                <div class="relative">
+                                    <button type="button" class="peer cursor-pointer"
+                                        aria-describedby="tooltipExample"><i class='bx bxs-info-circle text-gray-600 hover:text-gray-800'></i></button>
+                                    <div id="tooltipExample"
+                                        class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-64 flex-col gap-1 rounded bg-neutral-950 p-2.5 text-xs text-neutral-300 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 "
+                                        role="tooltip">
+                                        <span
+                                            class="text-sm font-medium text-white  uppercase">Secured</span>
+                                        <p class="text-balance">Your Paypal Key will be handled with the utmost care
+                                            and stored securely. We do not store or access your Paypal login credentials
+                                            or sensitive financial information.</p>
+                                    </div>
+                                </div>
+                            </div>
                                 <h1 class="font-bold text-sm capitalize">Add Your paypal client key</h1>
                             </div>
 
@@ -161,7 +223,8 @@
                                 $lastThree = substr(auth()->user()->super_admin_paypal_client_id, -3);
 
                             @endphp
-                            <form action="{{ route('save.paypal') }}" method="post" class="space-y-5 {{ auth()->user()->use_paypal ? '':'hidden' }}">
+                            <form action="{{ route('save.paypal') }}" method="post"
+                                class="space-y-5 {{ auth()->user()->use_paypal ? '' : 'hidden' }}">
                                 @csrf
                                 <div>
                                     <label for=" " class="font-semibold mb-1 block">Client ID</label>
@@ -169,6 +232,29 @@
                                         class="rounded-md bg-gray-100 w-full shadow"
                                         placeholder="{{ $firstThree }} *****************{{ $lastThree }}"
                                         value="">
+                                    <div class="font-semibold flex items-center space-x-1 mt-1 text-blue-600">
+
+                                        <div class="relative">
+                                            <button type="button" class="peer cursor-pointer"
+                                                aria-describedby="tooltipExample"><i
+                                                    class='bx bx-info-circle'></i></button>
+                                            <div id="tooltipExample"
+                                                class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-64 flex-col gap-1 rounded bg-neutral-950 p-2.5 text-xs text-neutral-300 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 "
+                                                role="tooltip">
+                                                <span class="text-sm font-medium text-white ">Get
+                                                    Paypal Key</span>
+                                                <p class="text-balance">Follow the link. Login to your Paypal account,
+                                                    click Create App (if you don’t have one already) or select an
+                                                    existing app.</p>
+                                            </div>
+                                        </div>
+                                        <span>
+                                            click <a href="https://developer.paypal.com/dashboard/applications/live"
+                                                target="_blank" class="underline font-bold hover:text-blue-900">
+                                                HERE</a>
+                                            to get Client ID
+                                        </span>
+                                    </div>
                                 </div>
                                 <div>
                                     <label for=" " class="font-semibold mb-1 block">Application Amount</label>
@@ -237,7 +323,9 @@
                         </td> --}}
                         </tr>
                     @endforeach
-                    {{ $users->links() }}
+                    <div class="my-5">
+                        {{ $users->links() }}
+                    </div>
                 </tbody>
         </section>
 

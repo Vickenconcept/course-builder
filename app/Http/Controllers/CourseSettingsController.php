@@ -70,14 +70,14 @@ class CourseSettingsController extends Controller
             }
             
             
-            if (optional($user)->setting->convert_api_key) {
+            if (optional($user->setting)->convert_api_key) {
                 $convertKitService = app(ConvertKitService::class);
                 $convert = $convertKitService->getList(optional($user)->setting->convert_api_key);
             }
             // dd(optional($user)->setting);
 
 
-            if (optional($user)->setting->get_response_api_key) {
+            if (optional($user->setting)->get_response_api_key) {
                 $getResponseService = app(GetResponseService::class);
                 $getrepsonseAudience = $getResponseService->getAudience(optional($user)->setting->get_response_api_key);
                 if (!is_null($getrepsonseAudience) && is_iterable($getrepsonseAudience)) {

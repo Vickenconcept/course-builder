@@ -177,7 +177,7 @@
                                     <form id="delete-form" class="inline mt-3"
                                         action="{{ route('courses.destroy', ['course' => $courseId]) }}"
                                         method="POST">
-                                        @csrf
+                                        @csrf 
                                         @method('DELETE')
                                         <button type="submit"
                                             class="py-1 px-4 rounded-md bg-white shadow-inner hover:shadow-md border  text-red-500 border-red-500 hover:bg-red-300 transition duration-300">

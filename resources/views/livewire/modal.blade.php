@@ -36,9 +36,10 @@
 
                 @if (isset($generatedResponse))
                     <div class="flex justify-end">
-                        <button class="  bg-[#339966] text-white rounded-lg px-2 py-1  shadow-sm text-xs"
-                            @click="isOpen = false" wire:click="sendModalResponse">Add Content to
-                            Textarea
+                        <button class="  bg-[#339966] text-white rounded-xl px-5 py-1.5  shadow-sm text-xs space-x-2 flex items-center"
+                            @click="isOpen = false" wire:click="sendModalResponse">
+                           <span> Add Content to
+                            Textarea</span>
                         </button>
                         <button onclick="toCopy(document.getElementById('title_{{ $uniqueId }}'))">
                             <i class="bx bx-copy ml-2 text-gray-700"></i>

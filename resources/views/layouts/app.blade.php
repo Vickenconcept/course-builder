@@ -89,11 +89,13 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-gray-100">
         <x-pre-loader />
-        <x-header />
+        <div class="nav-content flex bg-red-500 z-50 md:ml-60 pr-60">
+            <x-header />
+        </div>
         <x-sidebar />
-        <div class="content ml-12  ease-in-out duration-500 pt-10 ">
+        <div class="content md:ml-60  ease-in-out duration-500 pt-10 ">
             <main>
                 {{ $slot }}
             </main>
@@ -108,20 +110,22 @@
         const maxToolbar = document.querySelector(".max-toolbar")
         const logo = document.querySelector('.logo')
         const content = document.querySelector('.content')
+        const nav_content = document.querySelector('.nav-content')
         const moon = document.querySelector(".moon")
         const sun = document.querySelector(".sun")
+        const profile = document.querySelector(".profile")
 
-        function setDark(val) {
-            if (val === "dark") {
-                document.documentElement.classList.add('dark')
-                moon.classList.add("hidden")
-                sun.classList.remove("hidden")
-            } else {
-                document.documentElement.classList.remove('dark')
-                sun.classList.add("hidden")
-                moon.classList.remove("hidden")
-            }
-        }
+        // function setDark(val) {
+        //     if (val === "dark") {
+        //         document.documentElement.classList.add('dark')
+        //         moon.classList.add("hidden")
+        //         sun.classList.remove("hidden")
+        //     } else {
+        //         document.documentElement.classList.remove('dark')
+        //         sun.classList.add("hidden")
+        //         moon.classList.remove("hidden")
+        //     }
+        // }
 
         function openNav() {
             if (sidebar.classList.contains('-translate-x-48')) {
@@ -137,6 +141,8 @@
                 logo.classList.remove("ml-12")
                 content.classList.remove("ml-12")
                 content.classList.add("ml-12", "md:ml-60")
+                nav_content.classList.add( "md:ml-60")
+                profile.classList.add( "pr-60")
             } else {
                 // mini sidebar
                 sidebar.classList.add("-translate-x-48")
@@ -150,6 +156,8 @@
                 logo.classList.add('ml-12')
                 content.classList.remove("ml-12", "md:ml-60")
                 content.classList.add("ml-12")
+                nav_content.classList.remove( "md:ml-60")
+                profile.classList.remove( "pr-60")
 
             }
         }

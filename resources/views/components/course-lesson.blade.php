@@ -6,12 +6,13 @@
         <div class="relative ">
             <div class="border px-2  shadow text-gray-500 font-semibold flex items-center justify-between">
                 <div class="pl-2 flex flex-grow">
-                    <form action="{{ route('lesson.update', ['lesson' => $lesson->id ]) }}" method="POST" class="w-full">
+                    <form action="{{ route('lesson.update', ['lesson' => $lesson->id]) }}" method="POST" class="w-full">
                         @csrf
                         @method('PUT')
-                        <input type="text text-2xl font-bold text-gray-700 uppercase"
+                        <input id="lesson_input_{{ $lesson->id }}" type="text text-2xl font-bold text-gray-700 uppercase"
                             class="w-[70%]  border-transparent  p-3 placholder-gray-700 placeholder:font-bold placeholder:uppercase"
                             value="{{ $lesson->title }}" name="lesson">
+                        <x-main-button type="submit" class="whitespace-nowrap hidden" id="submit_btn_{{ $lesson->id }}">Save</x-main-button>
                     </form>
                 </div>
 
@@ -64,3 +65,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const input = document.getElementById('lesson_input_{{ $lesson->id }}');
+        const button = document.getElementById('submit_btn_{{ $lesson->id }}');
+        const originalValue = input.value; // Save the original value of the input
+
+        input.addEventListener('input', () => {
+            // Check if the current value differs from the original value
+            if (input.value.trim() !== originalValue.trim()) {
+                button.classList.remove('hidden'); // Show the button
+            } else {
+                button.classList.add('hidden'); // Hide the button
+            }
+        });
+    });
+</script>

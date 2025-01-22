@@ -21,6 +21,8 @@
                             <input autocomplete="off"
                                 class="peer h-full w-full outline-none border-none focus:none focus:border-none focus:ring-white  text-sm  pr-2 placeholder-gray-300"
                                 type="text" name="query" id="query" placeholder="Search..." />
+
+                                <x-main-button type="submit" class="whitespace-nowrap">Search</x-main-button>
                         </div>
                     </form>
                 </div>

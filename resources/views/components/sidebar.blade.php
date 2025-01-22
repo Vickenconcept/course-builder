@@ -1,8 +1,8 @@
 <aside
-    class="w-60 -translate-x-48 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-slate-900 ">
+    class="w-60  fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-slate-900 ">
     <!-- open sidebar button -->
     <div
-        class="max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white  bg-slate-900  absolute top-2 rounded-full h-12">
+        class="max-toolbar  w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white  bg-slate-900  absolute top-2 rounded-full h-12">
 
         <div class="flex pl-4 items-center space-x-2 ">
         </div>
@@ -22,7 +22,7 @@
         </svg>
     </div>
     <!-- MAX SIDEBAR-->
-    <div class="max hidden text-blue-50 mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
+    <div class="max flex text-blue-50 mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
         @if (auth()->user()->is_admin == 'super_admin')
          <a href="{{ route('dashboard.index') }}">
             <div class="hover:ml-4 text-sm w-full cursor-pointer text-blue-50  bg-slate-900 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
@@ -131,7 +131,7 @@
 
     </div>
     <!-- MINI SIDEBAR-->
-    <div class="mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
+    <div class="mini mt-20 hidden flex-col space-y-2 w-full h-[calc(100vh)]">
          @if (auth()->user()->is_admin == 'super_admin')
          <a href="{{ route('dashboard.index') }}" class="hover:ml-4 justify-end pr-5 text-blue-50  w-full bg-slate-900 p-2 rounded-full transform ease-in-out duration-300 flex">
             <i class='text-sm bx  bx-bulb'></i>

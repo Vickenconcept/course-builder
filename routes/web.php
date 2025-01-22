@@ -111,8 +111,8 @@ Route::controller(SubscriptionController::class)->group(function () {
     Route::post('/save/stripe', 'SaveStripDetail')->name('save.stripe')->middleware('auth');
 });
 
-Route::middleware(['auth'])->group(function () {
-// Route::middleware(['auth', 'check.subscription'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'check.subscription'])->group(function () {
     Route::put('/courses-desc/{course}', [CourseController::class, 'updateDescription'])->name('courses.updateDescription');
     Route::put('/courses-image/{image}', [CourseController::class, 'courseImage'])->name('courses.courseImage');
     Route::resource('courses', CourseController::class);
